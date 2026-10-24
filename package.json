@@ -1,0 +1,28 @@
+{
+  "name": "mtg-graph",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Deterministic MTG deck synergy analyzer with an interactive graph",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "fixtures": "node --experimental-strip-types scripts/fetch-fixtures.ts",
+    "tags": "node --experimental-strip-types --no-warnings scripts/inspect-tags.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.5",
+    "cytoscape": "^3.34.4",
+    "hono": "^4.13.13"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "concurrently": "^10.0.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

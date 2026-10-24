@@ -1,0 +1,35 @@
+/** A Mardu aristocrats/tokens list that exercises most synergy themes. */
+export const SAMPLE_DECK = `// Mardu Aristocrats (sample)
+4 Viscera Seer
+2 Carrion Feeder
+4 Blood Artist
+3 Zulaport Cutthroat
+2 Cruel Celebrant
+2 Bitterblossom
+2 Young Pyromancer
+2 Mogg War Marshal
+1 Krenko, Mob Boss
+2 Goblin Chieftain
+1 Goblin Bombardment
+2 Village Rites
+3 Lightning Bolt
+1 Skullclamp
+1 Ashnod's Altar
+1 Phyrexian Altar
+2 Gravecrawler
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+2 Restoration Angel
+2 Thraben Inspector
+2 Soul Warden
+2 Ajani's Pridemate
+2 Mayhem Devil
+1 Pitiless Plunderer
+4 Bloodstained Mire
+4 Mountain
+3 Plains
+3 Swamp
+
+Sideboard
+2 Rest in Peace
+`;

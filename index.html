@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTG Synergy Graph</title>
+    <link rel="stylesheet" href="/src/web/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>MTG Synergy Graph</h1>
+      <span class="subtitle">Deterministic, rule-based deck synergy analysis</span>
+    </header>
+    <main class="layout">
+      <aside class="panel left">
+        <section>
+          <label for="decklist" class="section-title">Decklist</label>
+          <div id="dropzone" class="dropzone">
+            <textarea id="decklist" spellcheck="false" placeholder="4 Lightning Bolt&#10;1 Sol Ring&#10;...&#10;&#10;or drop a .txt / .dek / .csv file here"></textarea>
+          </div>
+          <div class="file-row">
+            <label class="file-button">
+              <input id="file" type="file" accept=".txt,.dek,.dec,.dck,.csv,text/plain,text/csv,application/xml" />
+              Upload deck file
+            </label>
+            <span id="file-name" class="file-name"></span>
+            <button id="clear-file" type="button" class="link" hidden>remove</button>
+          </div>
+          <div class="row">
+            <button id="analyze" type="button">Analyze deck</button>
+          </div>
+          <div class="row samples">
+            <span class="meta">Samples:</span>
+            <button id="sample-60" type="button" class="link">60-card aristocrats</button>
+            <button id="sample-edh" type="button" class="link">Commander (Korvold)</button>
+          </div>
+          <p id="status" class="status" role="status"></p>
+        </section>
+        <section>
+          <h2 class="section-title">Loop search</h2>
+          <div class="options">
+            <label>Min length <input id="opt-min" type="number" min="2" max="30" value="2" /></label>
+            <label>Max length <input id="opt-max" type="number" min="2" max="30" value="20" /></label>
+            <label>Loops to return <input id="opt-count" type="number" min="1" max="1000" value="100" /></label>
+            <label>Min link weight <input id="opt-weight" type="number" min="0" max="20" value="0" /></label>
+          </div>
+        </section>
+        <section>
+          <h2 class="section-title">Synergy types</h2>
+          <div id="filters" class="filters"></div>
+        </section>
+      </aside>
+      <section class="graph-wrap">
+        <div id="graph" aria-label="Synergy graph"></div>
+        <div id="tooltip" class="tooltip" hidden></div>
+        <div id="empty" class="empty">Paste or upload a decklist and press <strong>Analyze deck</strong>.</div>
+        <div id="highlight-bar" class="highlight-bar" hidden>
+          <span id="highlight-label"></span>
+          <button id="highlight-clear" type="button" class="link">Clear highlight</button>
+        </div>
+      </section>
+      <aside class="panel right">
+        <nav id="tabs" class="tabs" role="tablist"></nav>
+        <div id="details" class="details"></div>
+      </aside>
+    </main>
+    <script type="module" src="/src/web/main.ts"></script>
+  </body>
+</html>
