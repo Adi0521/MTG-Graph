@@ -1,56 +1,84 @@
 import cytoscape from 'cytoscape';
-import { toCard } from './card.ts';
-import { parseDecklist } from './decklist.ts';
-import { EDGE_KIND_META, buildGraph, insights, type EdgeKind, type SynergyEdge, type SynergyGraph, type SynergyReason } from './graph.ts';
-import { THEME_BY_ID } from './rules.ts';
-import { SAMPLE_DECK } from './sample-deck.ts';
-import { fetchCards } from './scryfall.ts';
-import type { Card } from './types.ts';
+import type { AnalysisResult, AnalyzedCard } from '../core/analyze.ts';
+import { EDGE_KIND_META, type EdgeKind, type SynergyEdge, type SynergyReason } from '../core/graph.ts';
+import { THEME_BY_ID, type ThemeId } from '../core/rules.ts';
+import { SAMPLE_COMMANDER_DECK } from '../core/sample-commander.ts';
+import { SAMPLE_DECK } from '../core/sample-deck.ts';
+import type { Loop } from '../core/structures.ts';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const deckInput = $<HTMLTextAreaElement>('decklist');
+const dropzone = $('dropzone');
+const fileInput = $<HTMLInputElement>('file');
+const fileNameEl = $('file-name');
+const clearFileBtn = $<HTMLButtonElement>('clear-file');
 const analyzeBtn = $<HTMLButtonElement>('analyze');
-const sampleBtn = $<HTMLButtonElement>('load-sample');
 const statusEl = $('status');
 const filtersEl = $('filters');
 const graphEl = $('graph');
 const tooltipEl = $('tooltip');
 const emptyEl = $('empty');
+const tabsEl = $('tabs');
 const detailsEl = $('details');
-detailsEl.classList.add('details');
+const highlightBar = $('highlight-bar');
+const highlightLabel = $('highlight-label');
+const optMin = $<HTMLInputElement>('opt-min');
+const optMax = $<HTMLInputElement>('opt-max');
+const optCount = $<HTMLInputElement>('opt-count');
+const optWeight = $<HTMLInputElement>('opt-weight');
 
-const COLOR_IDENTITY: Record<string, string> = {
-  W: '#e9e2b8',
-  U: '#3b82c4',
-  B: '#6b5b73',
-  R: '#d9442b',
-  G: '#3c9a5f',
-};
+const COLOR_IDENTITY: Record<string, string> = { W: '#e9e2b8', U: '#3b82c4', B: '#6b5b73', R: '#d9442b', G: '#3c9a5f' };
 const MULTICOLOR = '#d4af37';
 const COLORLESS = '#9ca3af';
 
 const ALL_KINDS = Object.keys(EDGE_KIND_META) as EdgeKind[];
 const enabledKinds = new Set<EdgeKind>(ALL_KINDS);
 
-let cy: cytoscape.Core | null = null;
-let graph: SynergyGraph | null = null;
-let selected: string | null = null;
+type Tab = 'overview' | 'loops' | 'systems' | 'chains' | 'trees' | 'critical' | 'card';
 
-/** Tiny element builder: h('div', { class: 'x' }, 'text', child). Text is never parsed as HTML. */
-function h<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  attrs: Record<string, string> = {},
-  ...children: (Node | string | null | undefined | false)[]
-): HTMLElementTagNameMap[K] {
+interface Highlight {
+  label: string;
+  nodes: Set<string>;
+  edges: Set<string>;
+  /** Optional step numbers shown on nodes (for loops). */
+  order?: Map<string, number>;
+  /** Identifies the list item that produced it, so it can be marked active. */
+  key: string;
+}
+
+let result: AnalysisResult | null = null;
+let uploadedFile: File | null = null;
+let cy: cytoscape.Core | null = null;
+let activeTab: Tab = 'overview';
+let highlight: Highlight | null = null;
+let selectedCard: string | null = null;
+let treeRoot: string | null = null;
+let treeDirection: 'downstream' | 'upstream' = 'downstream';
+
+const edgeById = new Map<string, SynergyEdge>();
+const cardByName = new Map<string, AnalyzedCard>();
+
+// ---------------------------------------------------------------------------
+// Small DOM helpers
+
+type Child = Node | string | null | undefined | false;
+
+/** Element builder. Text is never parsed as HTML. */
+function h<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, string> = {}, ...children: Child[]): HTMLElementTagNameMap[K] {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
   for (const c of children) if (c) el.append(c);
   return el;
 }
 
-/** replaceChildren that skips conditional (falsy) children, like h(). */
-function fill(el: HTMLElement, ...children: (Node | string | null | undefined | false)[]) {
+function fill(el: HTMLElement, ...children: Child[]) {
   el.replaceChildren(...children.filter((c): c is Node | string => Boolean(c)));
+}
+
+function frag(...children: Child[]) {
+  const f = document.createDocumentFragment();
+  for (const c of children) if (c) f.append(c);
+  return f;
 }
 
 function swatch(color: string) {
@@ -59,11 +87,14 @@ function swatch(color: string) {
   return s;
 }
 
-function identityColor(card: Card): string {
-  const ci = card.colorIdentity;
-  if (ci.length === 0) return COLORLESS;
-  if (ci.length > 1) return MULTICOLOR;
-  return COLOR_IDENTITY[ci[0]!] ?? COLORLESS;
+function button(label: Child, onClick: () => void, cls = 'link') {
+  const b = h('button', { type: 'button', class: cls }, label);
+  b.addEventListener('click', onClick);
+  return b;
+}
+
+function cardLink(name: string) {
+  return button(name, () => selectCard(name));
 }
 
 function setStatus(message: string, isError = false) {
@@ -71,37 +102,83 @@ function setStatus(message: string, isError = false) {
   statusEl.classList.toggle('error', isError);
 }
 
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const kindLabel = (k: EdgeKind) => EDGE_KIND_META[k].label;
+const kindColor = (k: EdgeKind) => EDGE_KIND_META[k].color;
 const visibleReasons = (edge: SynergyEdge) => edge.reasons.filter((r) => enabledKinds.has(r.kind));
+const edgeKey = (from: string, to: string) => `${from} -> ${to}`;
+
+function identityColor(card: AnalyzedCard): string {
+  const ci = card.colorIdentity;
+  if (ci.length === 0) return COLORLESS;
+  if (ci.length > 1) return MULTICOLOR;
+  return COLOR_IDENTITY[ci[0]!] ?? COLORLESS;
+}
 
 // ---------------------------------------------------------------------------
-// Analysis
+// Input: typed text or uploaded file
+
+function setFile(file: File | null) {
+  uploadedFile = file;
+  fileNameEl.textContent = file ? file.name : '';
+  clearFileBtn.hidden = !file;
+  deckInput.disabled = Boolean(file);
+  if (file) deckInput.value = '';
+  if (!file) fileInput.value = '';
+}
+
+fileInput.addEventListener('change', () => setFile(fileInput.files?.[0] ?? null));
+clearFileBtn.addEventListener('click', () => setFile(null));
+dropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropzone.classList.add('dragging');
+});
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragging'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragging');
+  const file = e.dataTransfer?.files[0];
+  if (file) setFile(file);
+});
+
+function structureOptions() {
+  return {
+    minLoopLength: Number(optMin.value),
+    maxLoopLength: Number(optMax.value),
+    maxLoops: Number(optCount.value),
+    minEdgeWeight: Number(optWeight.value),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// API call
 
 async function analyze() {
-  const entries = parseDecklist(deckInput.value).filter((e) => e.section !== 'sideboard');
-  if (entries.length === 0) {
-    setStatus('No cards found in the decklist.', true);
+  if (!uploadedFile && !deckInput.value.trim()) {
+    setStatus('Paste a decklist or upload a deck file.', true);
     return;
   }
+  let init: RequestInit;
+  if (uploadedFile) {
+    const form = new FormData();
+    form.set('deck', uploadedFile);
+    form.set('options', JSON.stringify(structureOptions()));
+    init = { method: 'POST', body: form };
+  } else {
+    init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ decklist: deckInput.value, options: structureOptions() }),
+    };
+  }
+
   analyzeBtn.disabled = true;
-  setStatus(`Looking up ${entries.length} cards on Scryfall…`);
+  setStatus('Analyzing…');
   try {
-    const { cards: found, notFound } = await fetchCards(entries.map((e) => e.name));
-    const byName = new Map<string, Card>();
-    for (const entry of entries) {
-      const raw = found.get(entry.name.toLowerCase());
-      if (!raw) continue;
-      const existing = byName.get(raw.name);
-      if (existing) existing.quantity += entry.quantity;
-      else byName.set(raw.name, toCard(raw, entry.quantity));
-    }
-    graph = buildGraph([...byName.values()]);
-    selected = null;
-    renderFilters();
-    renderGraph();
-    renderInsights();
-    const total = [...byName.values()].reduce((n, c) => n + c.quantity, 0);
-    const missing = notFound.length ? ` Not found: ${notFound.join(', ')}.` : '';
-    setStatus(`${total} cards, ${graph.nodes.length} unique in graph, ${graph.edges.length} synergy links.${missing}`, notFound.length > 0);
+    const res = await fetch('/api/analyze', init);
+    const body = (await res.json().catch(() => ({ error: `Server returned ${res.status}` }))) as AnalysisResult | { error: string };
+    if (!res.ok || 'error' in body) throw new Error('error' in body ? body.error : `Server returned ${res.status}`);
+    loadResult(body);
   } catch (err) {
     setStatus(err instanceof Error ? err.message : String(err), true);
   } finally {
@@ -109,8 +186,30 @@ async function analyze() {
   }
 }
 
+function loadResult(r: AnalysisResult) {
+  result = r;
+  edgeById.clear();
+  cardByName.clear();
+  for (const e of r.edges) edgeById.set(e.id, e);
+  for (const c of r.cards) cardByName.set(c.name, c);
+  highlight = null;
+  selectedCard = null;
+  treeRoot = null;
+  activeTab = 'overview';
+
+  const { deck, structures } = r;
+  const missing = deck.notFound.length ? ` Not found: ${deck.notFound.join(', ')}.` : '';
+  setStatus(
+    `${deck.totalCards} cards · ${r.edges.length} links · ${structures.loopSystems.length} loop systems · ${structures.loopSearch.found}${structures.loopSearch.exhaustive ? '' : '+'} loops.${missing}`,
+    deck.notFound.length > 0,
+  );
+  renderFilters();
+  renderGraph();
+  renderPanel();
+}
+
 // ---------------------------------------------------------------------------
-// Graph rendering
+// Graph
 
 function cssVar(name: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -120,42 +219,45 @@ function primaryKind(edge: SynergyEdge): EdgeKind {
   return (visibleReasons(edge)[0] ?? edge.reasons[0]!).kind;
 }
 
+function nodeLabel(card: AnalyzedCard) {
+  return card.quantity > 1 ? `${card.name} ×${card.quantity}` : card.name;
+}
+
 function renderGraph() {
-  if (!graph) return;
+  if (!result) return;
   cy?.destroy();
-  emptyEl.hidden = graph.nodes.length > 0;
+  emptyEl.hidden = result.cards.length > 0;
 
-  const maxWeighted = Math.max(1, ...graph.nodes.map((n) => n.weightedDegree));
-  const count = graph.nodes.length;
-  // Deterministic starting positions: a circle in name order, grouped by component.
-  const ordered = [...graph.nodes].sort((a, b) => a.component - b.component || a.card.name.localeCompare(b.card.name));
+  const maxWeighted = Math.max(1, ...result.cards.map((c) => c.weightedDegree));
+  // Deterministic starting positions: a circle, grouped by synergy cluster.
+  const clusterOf = new Map<string, number>();
+  result.structures.clusters.forEach((members, i) => members.forEach((m) => clusterOf.set(m, i)));
+  const ordered = [...result.cards].sort(
+    (a, b) => (clusterOf.get(a.name) ?? 1e9) - (clusterOf.get(b.name) ?? 1e9) || a.name.localeCompare(b.name),
+  );
+  const count = ordered.length;
   const radius = Math.max(200, count * 14);
-
-  const elements: cytoscape.ElementDefinition[] = [
-    ...ordered.map((n, i) => ({
-      group: 'nodes' as const,
-      data: {
-        id: n.card.name,
-        label: n.card.quantity > 1 ? `${n.card.name} ×${n.card.quantity}` : n.card.name,
-        art: n.card.artUrl ?? '',
-        color: identityColor(n.card),
-        size: 34 + 46 * Math.sqrt(n.weightedDegree / maxWeighted),
-      },
-      position: {
-        x: radius * Math.cos((2 * Math.PI * i) / count),
-        y: radius * Math.sin((2 * Math.PI * i) / count),
-      },
-    })),
-    ...graph.edges.map((e) => ({
-      group: 'edges' as const,
-      data: { id: e.id, source: e.source, target: e.target, weight: e.weight, color: EDGE_KIND_META[primaryKind(e)].color },
-    })),
-  ];
 
   cy = cytoscape({
     container: graphEl,
-    elements,
-    minZoom: 0.15,
+    elements: [
+      ...ordered.map((c, i) => ({
+        group: 'nodes' as const,
+        data: {
+          id: c.name,
+          label: nodeLabel(c),
+          art: c.artUrl ?? '',
+          color: identityColor(c),
+          size: 34 + 46 * Math.sqrt(c.weightedDegree / maxWeighted),
+        },
+        position: { x: radius * Math.cos((2 * Math.PI * i) / count), y: radius * Math.sin((2 * Math.PI * i) / count) },
+      })),
+      ...result.edges.map((e) => ({
+        group: 'edges' as const,
+        data: { id: e.id, source: e.source, target: e.target, weight: e.weight, color: kindColor(primaryKind(e)) },
+      })),
+    ],
+    minZoom: 0.1,
     maxZoom: 3,
     wheelSensitivity: 0.3,
     style: [
@@ -175,9 +277,9 @@ function renderGraph() {
           'text-valign': 'bottom',
           'text-margin-y': 4,
           'text-wrap': 'ellipsis',
-          'text-max-width': '110px',
+          'text-max-width': '120px',
           'text-background-color': cssVar('--graph-label-bg'),
-          'text-background-opacity': 0.8,
+          'text-background-opacity': 0.85,
           'text-background-padding': '1px',
         },
       },
@@ -185,16 +287,19 @@ function renderGraph() {
       {
         selector: 'edge',
         style: {
-          width: 'mapData(weight, 1, 12, 1, 7)',
+          width: 'mapData(weight, 1, 12, 1, 6)',
           'line-color': 'data(color)',
-          opacity: 0.65,
-          'curve-style': 'haystack',
+          'target-arrow-color': 'data(color)',
+          'target-arrow-shape': 'triangle',
+          'arrow-scale': 0.9,
+          'curve-style': 'bezier',
+          opacity: 0.55,
         },
       },
       { selector: '.hidden', style: { display: 'none' } },
-      { selector: '.faded', style: { opacity: 0.12 } },
-      { selector: 'node.focus', style: { 'border-width': 5, 'border-color': cssVar('--accent') } },
-      { selector: 'edge.focus', style: { opacity: 1 } },
+      { selector: '.faded', style: { opacity: 0.08 } },
+      { selector: 'node.focus', style: { 'border-width': 5, 'border-color': cssVar('--accent'), 'font-weight': 'bold' } },
+      { selector: 'edge.focus', style: { opacity: 1, 'z-index': 10 } },
     ],
     layout: {
       name: 'cose',
@@ -202,17 +307,17 @@ function renderGraph() {
       animate: false,
       fit: true,
       padding: 40,
-      nodeRepulsion: () => 9000,
-      idealEdgeLength: (edge: cytoscape.EdgeSingular) => 160 - 8 * Math.min(10, edge.data('weight')),
+      nodeRepulsion: () => 12000,
+      idealEdgeLength: (edge: cytoscape.EdgeSingular) => 170 - 8 * Math.min(10, edge.data('weight')),
       edgeElasticity: () => 100,
-      gravity: 0.6,
+      gravity: 0.5,
       numIter: 1500,
     } as cytoscape.CoseLayoutOptions,
   });
 
   cy.on('tap', 'node', (evt) => selectCard(evt.target.id()));
   cy.on('tap', (evt) => {
-    if (evt.target === cy) selectCard(null);
+    if (evt.target === cy) clearHighlight();
   });
   cy.on('mouseover', 'edge', (evt) => showEdgeTooltip(evt.target.id(), evt.renderedPosition));
   cy.on('mousemove', 'edge', (evt) => positionTooltip(evt.renderedPosition));
@@ -224,138 +329,205 @@ function renderGraph() {
 }
 
 function applyFilters() {
-  if (!cy || !graph) return;
-  const edgeById = new Map(graph.edges.map((e) => [e.id, e]));
+  if (!cy) return;
   cy.batch(() => {
     cy!.edges().forEach((el) => {
       const edge = edgeById.get(el.id())!;
       const visible = visibleReasons(edge).length > 0;
       el.toggleClass('hidden', !visible);
-      if (visible) el.data('color', EDGE_KIND_META[primaryKind(edge)].color);
+      if (visible) el.data('color', kindColor(primaryKind(edge)));
     });
   });
-  highlight();
+  applyHighlight();
 }
 
-/** Fade everything outside the selected card's neighborhood. */
-function highlight() {
-  if (!cy) return;
+function setHighlight(next: Highlight | null) {
+  highlight = next;
+  applyHighlight();
+  renderPanel();
+}
+
+function clearHighlight() {
+  selectedCard = null;
+  if (activeTab === 'card') activeTab = 'overview';
+  setHighlight(null);
+}
+
+function applyHighlight() {
+  highlightBar.hidden = !highlight;
+  highlightLabel.textContent = highlight?.label ?? '';
+  if (!cy || !result) return;
   cy.batch(() => {
     cy!.elements().removeClass('faded focus');
-    if (!selected) return;
-    const node = cy!.getElementById(selected);
-    if (node.empty()) return;
-    const edges = node.connectedEdges(':visible');
-    const hood = edges.connectedNodes().union(node).union(edges);
-    cy!.elements().not(hood).addClass('faded');
-    node.addClass('focus');
-    edges.addClass('focus');
+    cy!.nodes().forEach((n) => {
+      n.data('label', nodeLabel(cardByName.get(n.id())!));
+    });
+    if (!highlight) return;
+    cy!.elements().forEach((el) => {
+      const inSet = (el.group() === 'nodes' ? highlight!.nodes : highlight!.edges).has(el.id());
+      el.addClass(inSet ? 'focus' : 'faded');
+    });
+    for (const [name, step] of highlight.order ?? []) {
+      const n = cy!.getElementById(name);
+      n.data('label', `${step}. ${n.data('label')}`);
+    }
   });
 }
 
 function reasonItem(r: SynergyReason) {
-  return h('li', { class: 'reason' }, swatch(EDGE_KIND_META[r.kind].color), h('span', {}, r.description));
+  return h('li', { class: 'reason' }, swatch(kindColor(r.kind)), h('span', {}, r.description));
 }
 
-function showEdgeTooltip(edgeId: string, pos: cytoscape.Position) {
-  const edge = graph?.edges.find((e) => e.id === edgeId);
+function showEdgeTooltip(id: string, pos: cytoscape.Position) {
+  const edge = edgeById.get(id);
   if (!edge) return;
-  tooltipEl.replaceChildren(
-    h('strong', {}, `${edge.source} ↔ ${edge.target}`),
-    h('ul', {}, ...visibleReasons(edge).map(reasonItem)),
-  );
+  fill(tooltipEl, h('strong', {}, `${edge.source} → ${edge.target}`), h('ul', {}, ...visibleReasons(edge).map(reasonItem)));
   tooltipEl.hidden = false;
   positionTooltip(pos);
 }
 
 function positionTooltip(pos: cytoscape.Position) {
   const pad = 14;
-  const { clientWidth: w, clientHeight: hgt } = graphEl;
-  const tw = tooltipEl.offsetWidth;
-  const th = tooltipEl.offsetHeight;
-  tooltipEl.style.left = `${Math.min(pos.x + pad, w - tw - 4)}px`;
-  tooltipEl.style.top = `${Math.min(pos.y + pad, hgt - th - 4)}px`;
+  tooltipEl.style.left = `${Math.min(pos.x + pad, graphEl.clientWidth - tooltipEl.offsetWidth - 4)}px`;
+  tooltipEl.style.top = `${Math.min(pos.y + pad, graphEl.clientHeight - tooltipEl.offsetHeight - 4)}px`;
+}
+
+// ---------------------------------------------------------------------------
+// Highlights for each structure type
+
+function loopHighlight(loop: Loop, key: string): Highlight {
+  return {
+    key,
+    label: `Loop of ${loop.length}: ${loop.cards.join(' → ')} → ${loop.cards[0]}`,
+    nodes: new Set(loop.cards),
+    edges: new Set(loop.steps.map((s) => edgeKey(s.from, s.to))),
+    order: new Map(loop.cards.map((c, i) => [c, i + 1])),
+  };
+}
+
+function setHighlightFromCards(key: string, label: string, cards: string[], edgeFilter: (e: SynergyEdge) => boolean) {
+  const nodes = new Set(cards);
+  const edges = new Set(result!.edges.filter((e) => edgeFilter(e)).map((e) => e.id));
+  setHighlight({ key, label, nodes, edges });
+}
+
+function treeHighlight(root: string, direction: 'downstream' | 'upstream'): Highlight {
+  const tree = result!.structures.trees[root]!;
+  const pairs = direction === 'downstream' ? tree.downstream : tree.upstream;
+  const nodes = new Set([root, ...pairs.map(([, child]) => child)]);
+  // Upstream pairs are [card, its feeder], so the real edge points feeder → card.
+  const edges = new Set(pairs.map(([a, b]) => (direction === 'downstream' ? edgeKey(a, b) : edgeKey(b, a))));
+  const verb = direction === 'downstream' ? 'powers' : 'is powered by';
+  return { key: `tree:${direction}:${root}`, label: `${root} ${verb} ${plural(nodes.size - 1, 'card')}`, nodes, edges };
 }
 
 // ---------------------------------------------------------------------------
 // Side panels
 
 function renderFilters() {
-  if (!graph) return;
+  if (!result) return;
   const counts = new Map<EdgeKind, number>();
-  for (const e of graph.edges) for (const k of e.kinds) counts.set(k, (counts.get(k) ?? 0) + 1);
+  for (const e of result.edges) for (const k of e.kinds) counts.set(k, (counts.get(k) ?? 0) + 1);
   const kinds = ALL_KINDS.filter((k) => counts.has(k));
-  filtersEl.replaceChildren(
-    ...(kinds.length ? kinds : []).map((kind) => {
+  fill(
+    filtersEl,
+    ...kinds.map((kind) => {
       const box = h('input', { type: 'checkbox' });
       box.checked = enabledKinds.has(kind);
       box.addEventListener('change', () => {
         if (box.checked) enabledKinds.add(kind);
         else enabledKinds.delete(kind);
         applyFilters();
-        if (selected) renderCardDetails(selected);
+        renderPanel();
       });
-      return h('label', {}, box, swatch(EDGE_KIND_META[kind].color), EDGE_KIND_META[kind].label, h('span', { class: 'count' }, String(counts.get(kind))));
+      return h('label', {}, box, swatch(kindColor(kind)), kindLabel(kind), h('span', { class: 'count' }, String(counts.get(kind))));
     }),
+    kinds.length === 0 && h('p', { class: 'status' }, 'No synergies detected.'),
   );
-  if (!kinds.length) filtersEl.append(h('p', { class: 'status' }, 'No synergies detected.'));
 }
 
-function cardLink(name: string) {
-  const b = h('button', { class: 'link', type: 'button' }, name);
-  b.addEventListener('click', () => selectCard(name));
-  return b;
-}
-
-function selectCard(name: string | null) {
-  selected = name;
-  highlight();
-  if (name) renderCardDetails(name);
-  else renderInsights();
-}
-
-function renderInsights() {
-  if (!graph) {
-    detailsEl.replaceChildren(h('p', { class: 'meta' }, 'Deck insights will appear here.'));
+function renderTabs() {
+  if (!result) {
+    fill(tabsEl);
     return;
   }
-  const ins = insights(graph);
-  const stat = (value: string, label: string) => h('div', { class: 'stat' }, h('div', { class: 'value' }, value), h('div', { class: 'label' }, label));
+  const s = result.structures;
+  const tabs: [Tab, string, number | null][] = [
+    ['overview', 'Overview', null],
+    ['loops', 'Loops', s.loops.length],
+    ['systems', 'Systems', s.loopSystems.length],
+    ['chains', 'Chains', s.chains.length],
+    ['trees', 'Trees', null],
+    ['critical', 'Critical', s.loadBearing.length + s.criticalLinks.length],
+  ];
+  if (selectedCard) tabs.push(['card', 'Card', null]);
+  fill(
+    tabsEl,
+    ...tabs.map(([id, label, badge]) => {
+      const b = button([label, badge !== null ? ` ${badge}` : ''].join(''), () => {
+        activeTab = id;
+        renderPanel();
+      }, '');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', String(activeTab === id));
+      return b;
+    }),
+  );
+}
 
-  const themeRows = graph.themes
+function renderPanel() {
+  renderTabs();
+  if (!result) {
+    fill(detailsEl, h('p', { class: 'meta' }, 'Deck analysis will appear here.'));
+    return;
+  }
+  const renderers: Record<Tab, () => Child[]> = {
+    overview: renderOverview,
+    loops: renderLoops,
+    systems: renderSystems,
+    chains: renderChains,
+    trees: renderTrees,
+    critical: renderCritical,
+    card: renderCard,
+  };
+  fill(detailsEl, ...renderers[activeTab]());
+}
+
+function stat(value: string, label: string) {
+  return h('div', { class: 'stat' }, h('div', { class: 'value' }, value), h('div', { class: 'label' }, label));
+}
+
+function renderOverview(): Child[] {
+  const r = result!;
+  const { insights: ins, structures: s } = r;
+  const themeRows = r.themes
     .filter((t) => t.providers.length || t.wanters.length)
     .map((t) =>
       h(
         'tr',
         {},
-        h('td', {}, h('span', { class: 'reason' }, swatch(EDGE_KIND_META[t.kind].color), EDGE_KIND_META[t.kind].label)),
+        h('td', {}, h('span', { class: 'reason' }, swatch(kindColor(t.kind)), kindLabel(t.kind))),
         h('td', { class: 'num' }, String(t.providers.length)),
         h('td', { class: 'num' }, String(t.wanters.length)),
         h('td', { class: 'num' }, String(t.edgeCount)),
       ),
     );
-
-  fill(
-    detailsEl,
-    h('h2', {}, 'Deck insights'),
-    h('p', { class: 'meta' }, 'Click a card to see its connections. Hover a line to see why two cards connect.'),
+  return [
+    h('h2', {}, 'Deck overview'),
+    h('p', { class: 'meta' }, 'Click a card for its connections. Hover an arrow to see why one card feeds another.'),
     h(
       'div',
       { class: 'stat-row' },
       stat(`${Math.round(ins.connectivity * 100)}%`, 'spells connected'),
-      stat(String(graph.edges.length), 'links'),
-      stat(String(graph.components.filter((c) => c.length > 1).length), 'clusters'),
+      stat(String(r.edges.length), 'links'),
+      stat(String(s.loopSystems.length), 'loop systems'),
     ),
+    r.deck.notFound.length > 0 && h('div', { class: 'notice' }, `Not found on Scryfall: ${r.deck.notFound.join(', ')}`),
     h('h3', {}, 'Key cards'),
-    h('ol', {}, ...ins.keyCards.map((n) => h('li', {}, cardLink(n.card.name), h('span', { class: 'meta' }, ` · ${n.degree} links, weight ${n.weightedDegree}`)))),
+    h('ol', {}, ...ins.keyCards.map((k) => h('li', {}, cardLink(k.name), h('span', { class: 'meta' }, ` · ${k.degree} links, weight ${k.weightedDegree}`)))),
     ins.isolated.length > 0 && h('h3', {}, 'No detected synergy'),
-    ins.isolated.length > 0 &&
-      h(
-        'div',
-        {},
-        h('p', { class: 'meta' }, 'Cut candidates, or interactions the rules do not cover yet.'),
-        h('ul', {}, ...ins.isolated.map((n) => h('li', {}, cardLink(n.card.name)))),
-      ),
+    ins.isolated.length > 0 && h('p', { class: 'meta' }, 'Cut candidates, or interactions the rules do not cover yet.'),
+    ins.isolated.length > 0 && h('ul', {}, ...ins.isolated.map((n) => h('li', {}, cardLink(n)))),
     ins.unsupported.length > 0 && h('h3', {}, 'Unsupported payoffs'),
     ins.unsupported.length > 0 &&
       h('ul', {}, ...ins.unsupported.map((u) => h('li', { class: 'warn' }, `${u.label}: ${u.wanters.join(', ')} with nothing feeding them`))),
@@ -366,12 +538,218 @@ function renderInsights() {
       h('thead', {}, h('tr', {}, h('th', {}, 'Theme'), h('th', { class: 'num' }, 'Enablers'), h('th', { class: 'num' }, 'Payoffs'), h('th', { class: 'num' }, 'Links'))),
       h('tbody', {}, ...themeRows),
     ),
-    graph.excluded.length > 0 && h('p', { class: 'meta' }, `Basic lands hidden: ${graph.excluded.map((c) => c.name).join(', ')}.`),
+    r.deck.basicLands.length > 0 && h('p', { class: 'meta' }, `Basic lands hidden: ${r.deck.basicLands.join(', ')}.`),
+    h('p', { class: 'meta' }, `Engine ${r.engineVersion}. Same deck and options always give the same result.`),
+  ];
+}
+
+function histogram(byLength: Record<string, number>, min: number, max: number) {
+  const lengths = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+  const peak = Math.max(1, ...lengths.map((l) => byLength[l] ?? 0));
+  return h(
+    'div',
+    {},
+    h(
+      'div',
+      { class: 'histogram' },
+      ...lengths.map((l) => {
+        const bar = h('div', { title: `${byLength[l] ?? 0} loops of ${l} cards` });
+        bar.style.height = `${((byLength[l] ?? 0) / peak) * 100}%`;
+        return bar;
+      }),
+    ),
+    h('div', { class: 'histogram-axis' }, h('span', {}, `${min} cards`), h('span', {}, `${max} cards`)),
   );
 }
 
-function tagList(title: string, tags: Map<string, string[]>) {
-  if (tags.size === 0) return null;
+function renderLoops(): Child[] {
+  const { loops, loopSearch, options } = result!.structures;
+  const items = loops.map((loop, i) => {
+    const key = `loop:${i}`;
+    const active = highlight?.key === key;
+    const item = button(
+      frag(
+        h('div', { class: 'item-title' }, `${loop.knownCombo ? '★ Known combo · ' : ''}${loop.length} cards · avg weight ${loop.meanWeight}`),
+        h('div', {}, `${loop.cards.join(' → ')} → ${loop.cards[0]}`),
+        active && h('ol', { class: 'steps' }, ...loop.steps.map((s) => h('li', { class: 'reason' }, swatch(kindColor(s.kind)), s.description))),
+      ),
+      () => setHighlight(active ? null : loopHighlight(loop, key)),
+      `item${active ? ' active' : ''}`,
+    );
+    return item;
+  });
+  return [
+    h('h2', {}, 'Synergy loops'),
+    h(
+      'p',
+      { class: 'meta' },
+      `Closed cycles where each card feeds the next and the last feeds the first. Lengths ${options.minLoopLength}–${options.maxLoopLength}, ranked by average link weight.`,
+    ),
+    loopSearch.exhaustive
+      ? h('p', {}, `Found all ${loopSearch.found} loops in this range.`)
+      : h(
+          'div',
+          { class: 'notice' },
+          `At least ${loopSearch.found.toLocaleString()} loops exist in this range; the search stopped at its step budget. Narrow the length range or raise the minimum link weight to search more of the space. Loop systems list every card that takes part in any loop.`,
+        ),
+    loopSearch.found > 0 && histogram(loopSearch.byLength, options.minLoopLength, options.maxLoopLength),
+    loops.length > 0 && h('h3', {}, `Top ${loops.length} loops`),
+    loops.length === 0 && h('p', { class: 'meta' }, 'No loops in this length range. Loop systems show how large a loop can be.'),
+    ...items,
+  ];
+}
+
+function renderSystems(): Child[] {
+  const { loopSystems } = result!.structures;
+  return [
+    h('h2', {}, 'Loop systems'),
+    h(
+      'p',
+      { class: 'meta' },
+      'Groups where every card can reach every other card through synergy links (strongly connected components). Every loop lives inside one, so this is the complete map of looping structure.',
+    ),
+    loopSystems.length === 0 && h('p', {}, 'No loops in this deck: synergy only flows one way.'),
+    ...loopSystems.map((sys) => {
+      const key = `system:${sys.id}`;
+      const set = new Set(sys.cards);
+      return button(
+        frag(
+          h('div', { class: 'item-title' }, `System ${sys.id + 1} · ${sys.cards.length} cards · ${Math.round(sys.density * 100)}% dense`),
+          h('div', {}, sys.cards.join(', ')),
+          h('div', { class: 'meta' }, `Driven by: ${sys.kinds.slice(0, 4).map((k) => `${kindLabel(k.kind)} (${k.count})`).join(', ')}`),
+          sys.feeders.length > 0 && h('div', { class: 'meta' }, `Fed by: ${sys.feeders.join(', ')}`),
+          sys.outputs.length > 0 && h('div', { class: 'meta' }, `Feeds: ${sys.outputs.join(', ')}`),
+        ),
+        () =>
+          highlight?.key === key
+            ? setHighlight(null)
+            : setHighlightFromCards(key, `Loop system ${sys.id + 1}: ${sys.cards.length} cards`, sys.cards, (e) => set.has(e.source) && set.has(e.target)),
+        `item${highlight?.key === key ? ' active' : ''}`,
+      );
+    }),
+  ];
+}
+
+function renderChains(): Child[] {
+  const { chains } = result!.structures;
+  return [
+    h('h2', {}, 'Chains'),
+    h('p', { class: 'meta' }, 'The longest one-way paths from pure enablers through loop systems to final payoffs.'),
+    chains.length === 0 && h('p', {}, 'No multi-step chains found.'),
+    ...chains.map((chain, i) => {
+      const key = `chain:${i}`;
+      const stageSets = chain.stages.map((s) => new Set(s.cards));
+      const all = chain.stages.flatMap((s) => s.cards);
+      const parts: Child[] = [h('div', { class: 'item-title' }, `${chain.stages.length} stages · ${chain.cardCount} cards`)];
+      chain.stages.forEach((stage, si) => {
+        if (si > 0) parts.push(h('div', { class: 'chain-arrow' }, '↓'));
+        parts.push(h('div', { class: 'chain-stage' }, stage.loopSystem !== null ? `Loop system ${stage.loopSystem + 1} (${stage.cards.length} cards)` : stage.cards[0]!));
+      });
+      return button(
+        frag(...parts),
+        () =>
+          highlight?.key === key
+            ? setHighlight(null)
+            : setHighlightFromCards(key, `Chain: ${chain.stages.map((s) => (s.loopSystem !== null ? `[system ${s.loopSystem + 1}]` : s.cards[0])).join(' → ')}`, all, (e) =>
+                stageSets.some((set, si) => set.has(e.source) && (set.has(e.target) || stageSets[si + 1]?.has(e.target))),
+              ),
+        `item${highlight?.key === key ? ' active' : ''}`,
+      );
+    }),
+  ];
+}
+
+function treeList(root: string, pairs: [string, string][]): HTMLElement {
+  const children = new Map<string, string[]>();
+  for (const [parent, child] of pairs) {
+    const list = children.get(parent) ?? [];
+    list.push(child);
+    children.set(parent, list);
+  }
+  const render = (name: string): HTMLElement => {
+    const kids = children.get(name) ?? [];
+    return h('li', {}, cardLink(name), kids.length > 0 && h('ul', { class: 'tree' }, ...kids.map(render)));
+  };
+  return h('ul', { class: 'tree root' }, render(root));
+}
+
+function renderTrees(): Child[] {
+  const r = result!;
+  const ranked = [...r.cards].sort(
+    (a, b) => r.structures.trees[b.name]!.downstream.length - r.structures.trees[a.name]!.downstream.length || a.name.localeCompare(b.name),
+  );
+  const root = treeRoot ?? ranked[0]?.name;
+  if (!root) return [h('p', {}, 'No cards.')];
+  const tree = r.structures.trees[root]!;
+  const pairs = treeDirection === 'downstream' ? tree.downstream : tree.upstream;
+
+  const select = h('select', { 'aria-label': 'Tree root' });
+  for (const c of ranked) {
+    const opt = h('option', { value: c.name }, `${c.name} (${r.structures.trees[c.name]!.downstream.length} downstream)`);
+    if (c.name === root) opt.selected = true;
+    select.append(opt);
+  }
+  select.addEventListener('change', () => showTree(select.value, treeDirection));
+
+  const dirButton = (dir: 'downstream' | 'upstream', label: string) => button(label, () => showTree(root, dir), dir === treeDirection ? '' : 'secondary');
+
+  return [
+    h('h2', {}, 'Synergy trees'),
+    h(
+      'p',
+      { class: 'meta' },
+      'Downstream: everything a card powers, directly or through other cards. Upstream: everything that powers it. Each card appears once, under its shortest (then strongest) path.',
+    ),
+    select,
+    h('div', { class: 'tree-toggle' }, dirButton('downstream', 'Powers ↓'), dirButton('upstream', 'Powered by ↑')),
+    h('p', { class: 'meta' }, `${plural(pairs.length, 'card')}, depth ${treeDirection === 'downstream' ? tree.downstreamDepth : tree.upstreamDepth}.`),
+    button('Highlight in graph', () => showTree(root, treeDirection), 'secondary'),
+    treeList(root, pairs),
+  ];
+}
+
+function showTree(root: string, direction: 'downstream' | 'upstream') {
+  treeRoot = root;
+  treeDirection = direction;
+  activeTab = 'trees';
+  setHighlight(treeHighlight(root, direction));
+}
+
+function renderCritical(): Child[] {
+  const { loadBearing, criticalLinks } = result!.structures;
+  return [
+    h('h2', {}, 'Load-bearing cards'),
+    h('p', { class: 'meta' }, 'Removing one of these cards splits its synergy cluster into disconnected pieces.'),
+    loadBearing.length === 0 && h('p', {}, 'None: the synergy web has no single point of failure.'),
+    ...loadBearing.map((lb) => {
+      const key = `card:${lb.card}`;
+      return button(
+        frag(h('div', { class: 'item-title' }, lb.card), h('div', { class: 'meta' }, `Without it the cluster splits into pieces of ${lb.splitsInto.join(', ')} cards`)),
+        () => selectCard(lb.card),
+        `item${highlight?.key === key ? ' active' : ''}`,
+      );
+    }),
+    h('h3', {}, 'Critical links'),
+    h('p', { class: 'meta' }, 'Single links that hold two groups of cards together.'),
+    criticalLinks.length === 0 && h('p', {}, 'None.'),
+    ...criticalLinks.map((cl) => {
+      const [a, b] = cl.between;
+      const key = `bridge:${a}|${b}`;
+      return button(
+        frag(h('div', { class: 'item-title' }, `${a} ↔ ${b}`), h('div', { class: 'meta' }, `Splits into ${cl.splitsInto.join(' + ')} cards`)),
+        () =>
+          highlight?.key === key
+            ? setHighlight(null)
+            : setHighlight({ key, label: `Critical link: ${a} ↔ ${b}`, nodes: new Set([a, b]), edges: new Set([edgeKey(a, b), edgeKey(b, a)]) }),
+        `item${highlight?.key === key ? ' active' : ''}`,
+      );
+    }),
+  ];
+}
+
+function tagList(title: string, tags: Record<string, string[]>) {
+  const entries = Object.entries(tags);
+  if (entries.length === 0) return null;
   return h(
     'div',
     {},
@@ -379,58 +757,83 @@ function tagList(title: string, tags: Map<string, string[]>) {
     h(
       'ul',
       { class: 'tag-list' },
-      ...[...tags].map(([id, why]) =>
-        h('li', { class: 'reason' }, swatch(EDGE_KIND_META[id as EdgeKind].color), `${THEME_BY_ID.get(id as never)?.label}: ${why.join(', ')}`),
-      ),
+      ...entries.map(([id, why]) => h('li', { class: 'reason' }, swatch(kindColor(id as EdgeKind)), `${THEME_BY_ID.get(id as ThemeId)?.label}: ${why.join(', ')}`)),
     ),
   );
 }
 
-function renderCardDetails(name: string) {
-  const node = graph?.nodes.find((n) => n.card.name === name);
-  if (!graph || !node) return;
-  const { card } = node;
+function selectCard(name: string) {
+  selectedCard = name;
+  activeTab = 'card';
+  const edges = result!.edges.filter((e) => (e.source === name || e.target === name) && visibleReasons(e).length > 0);
+  const nodes = new Set([name, ...edges.flatMap((e) => [e.source, e.target])]);
+  setHighlight({ key: `card:${name}`, label: `${name}: ${plural(nodes.size - 1, 'direct connection')}`, nodes, edges: new Set(edges.map((e) => e.id)) });
+}
 
-  const connections = graph.edges
-    .filter((e) => (e.source === name || e.target === name) && visibleReasons(e).length > 0)
-    .map((e) => ({ other: e.source === name ? e.target : e.source, edge: e, weight: visibleReasons(e).reduce((s, r) => s + r.weight, 0) }))
-    .sort((a, b) => b.weight - a.weight || a.other.localeCompare(b.other));
+function renderCard(): Child[] {
+  const card = selectedCard ? cardByName.get(selectedCard) : undefined;
+  if (!card) return [h('p', {}, 'Click a card in the graph.')];
+  const r = result!;
+  const name = card.name;
+  const connections = (dir: 'out' | 'in') =>
+    r.edges
+      .filter((e) => (dir === 'out' ? e.source === name : e.target === name) && visibleReasons(e).length > 0)
+      .sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
+  const outgoing = connections('out');
+  const incoming = connections('in');
+  const loops = r.structures.loops.map((l, i) => [l, i] as const).filter(([l]) => l.cards.includes(name));
+  const system = r.structures.loopSystems.find((s) => s.cards.includes(name));
+  const lb = r.structures.loadBearing.find((l) => l.card === name);
 
-  const back = h('button', { class: 'link', type: 'button' }, '← Deck insights');
-  back.addEventListener('click', () => selectCard(null));
+  const connectionList = (edges: SynergyEdge[], other: (e: SynergyEdge) => string) =>
+    edges.map((e) => h('div', { class: 'connection' }, cardLink(other(e)), h('ul', { class: 'reasons' }, ...visibleReasons(e).map(reasonItem))));
 
-  fill(
-    detailsEl,
-    back,
-    h('h2', {}, card.name),
-    h('div', { class: 'meta' }, `${card.manaCost} · ${card.typeLine}`),
-    card.imageUrl ? h('img', { class: 'card-image', src: card.imageUrl, alt: card.name, loading: 'lazy' }) : h('div', { class: 'oracle' }, card.oracleText),
-    tagList('Enables', node.tags.provides),
-    tagList('Wants', node.tags.wants),
-    h('h3', {}, `Connections (${connections.length})`),
-    connections.length === 0 && h('p', { class: 'meta' }, 'No synergies detected for this card.'),
-    ...connections.map(({ other, edge }) =>
-      h(
-        'div',
-        { class: 'connection' },
-        cardLink(other),
-        h('ul', { class: 'reasons' }, ...visibleReasons(edge).map(reasonItem)),
-      ),
+  return [
+    h('h2', {}, name),
+    h('div', { class: 'meta' }, `${card.manaCost} · ${card.typeLine}${card.section === 'commander' ? ' · Commander' : ''}`),
+    card.imageUrl ? h('img', { class: 'card-image', src: card.imageUrl, alt: name, loading: 'lazy' }) : h('div', { class: 'oracle' }, card.oracleText),
+    h(
+      'div',
+      { class: 'tree-toggle' },
+      button('Show what it powers', () => showTree(name, 'downstream'), 'secondary'),
+      button('Show what powers it', () => showTree(name, 'upstream'), 'secondary'),
     ),
+    system && h('p', { class: 'meta' }, `Part of loop system ${system.id + 1} (${system.cards.length} cards).`),
+    lb && h('p', { class: 'warn' }, `Load-bearing: removing it splits its cluster into ${lb.splitsInto.join(', ')} cards.`),
+    tagList('Enables', card.provides),
+    tagList('Wants', card.wants),
+    loops.length > 0 && h('h3', {}, `In ${loops.length} of the listed loops`),
+    ...loops.slice(0, 5).map(([l, i]) =>
+      button(`${l.length} cards: ${l.cards.join(' → ')}`, () => {
+        activeTab = 'loops';
+        setHighlight(loopHighlight(l, `loop:${i}`));
+      }, 'item'),
+    ),
+    h('h3', {}, `Feeds (${outgoing.length})`),
+    outgoing.length === 0 && h('p', { class: 'meta' }, 'Nothing.'),
+    ...connectionList(outgoing, (e) => e.target),
+    h('h3', {}, `Fed by (${incoming.length})`),
+    incoming.length === 0 && h('p', { class: 'meta' }, 'Nothing.'),
+    ...connectionList(incoming, (e) => e.source),
     card.scryfallUri && h('p', {}, h('a', { href: card.scryfallUri, target: '_blank', rel: 'noopener' }, 'View on Scryfall')),
-  );
+  ];
 }
 
 // ---------------------------------------------------------------------------
 
-deckInput.value = SAMPLE_DECK;
+$('highlight-clear').addEventListener('click', clearHighlight);
 analyzeBtn.addEventListener('click', analyze);
-sampleBtn.addEventListener('click', () => {
-  deckInput.value = SAMPLE_DECK;
+const loadSample = (deck: string) => {
+  setFile(null);
+  deckInput.value = deck;
   analyze();
-});
+};
+$('sample-60').addEventListener('click', () => loadSample(SAMPLE_DECK));
+$('sample-edh').addEventListener('click', () => loadSample(SAMPLE_COMMANDER_DECK));
 deckInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) analyze();
 });
-renderInsights();
+
+deckInput.value = SAMPLE_COMMANDER_DECK;
+renderPanel();
 analyze();

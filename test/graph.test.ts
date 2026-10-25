@@ -44,6 +44,11 @@ describe('buildGraph', () => {
     expect(graph.edges.filter((e) => e.target === 'Young Pyromancer' && e.kinds.includes('tribal'))).toEqual([]);
   });
 
+  it('does not treat protection from a type as caring about it', () => {
+    const g = buildGraph([card('Yawgmoth, Thran Physician'), card('Grim Haruspex')], { enabledKinds: new Set(['tribal']) });
+    expect(g.edges).toEqual([]);
+  });
+
   it('is deterministic regardless of input order', () => {
     const a = buildGraph(sampleCards());
     const b = buildGraph([...sampleCards()].reverse());

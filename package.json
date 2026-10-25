@@ -5,13 +5,15 @@
   "type": "module",
   "description": "Deterministic MTG deck synergy analyzer with an interactive graph",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "node --watch --no-warnings server/index.ts",
+    "dev:web": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "start": "node --no-warnings server/index.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "fixtures": "node --experimental-strip-types scripts/fetch-fixtures.ts",
-    "tags": "node --experimental-strip-types --no-warnings scripts/inspect-tags.ts"
+    "fixtures": "node --no-warnings scripts/fetch-fixtures.ts",
+    "tags": "node --no-warnings scripts/inspect-tags.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.5",

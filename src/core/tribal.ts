@@ -23,16 +23,21 @@ export function pluralize(type: string): string {
 }
 
 /**
- * Text with token-creation clauses removed, so "create a 1/1 Goblin token"
- * does not count as caring about Goblins, while "Goblins you control get +1/+1" does.
+ * Text with clauses that mention a type without caring about it removed:
+ * token creation ("create a 1/1 Goblin token") and hostile references
+ * ("protection from Humans", "can't be blocked by Walls", "destroy target Elf").
  */
-function textWithoutTokenCreation(card: Card): string {
-  return card.text.replace(/create[^.]*?tokens?/g, ' ');
+function textForTribal(card: Card): string {
+  return card.text
+    .replace(/create[^.]*?tokens?/g, ' ')
+    .replace(/protection from [^.,\n]*/g, ' ')
+    .replace(/can't be blocked (?:except )?by [^.,\n]*/g, ' ')
+    .replace(/(?:destroy|exile) (?:target|all|each) [^.,\n]*/g, ' ');
 }
 
 /** Creature types a card's rules text refers to, out of the candidate set. */
 export function referencedTypes(card: Card, candidates: Iterable<string>): string[] {
-  const body = textWithoutTokenCreation(card);
+  const body = textForTribal(card);
   const found: string[] = [];
   for (const type of candidates) {
     const re = new RegExp(`\\b(?:${type}|${pluralize(type)})\\b`, 'i');
