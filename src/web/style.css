@@ -569,6 +569,53 @@ table.themes th.num {
   padding: 3px 8px;
 }
 
+.badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin: 2px 0 4px;
+}
+
+.badge-source {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.badge-source.spellbook {
+  border-color: #6a5acd;
+  color: #6a5acd;
+}
+
+.badge-source.engine {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.chip {
+  font-size: 11px;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 1px 7px;
+}
+
+.combo-section {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;

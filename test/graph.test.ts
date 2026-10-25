@@ -33,7 +33,7 @@ describe('buildGraph', () => {
   });
 
   it('finds Kiki-Jiki loops through copy + untap', () => {
-    expect(edge(graph, 'Kiki-Jiki, Mirror Breaker', 'Zealous Conscripts')?.kinds).toEqual(expect.arrayContaining(['etb', 'combo']));
+    expect(edge(graph, 'Kiki-Jiki, Mirror Breaker', 'Zealous Conscripts')?.kinds).toContain('etb');
     expect(edge(graph, 'Zealous Conscripts', 'Kiki-Jiki, Mirror Breaker')?.kinds).toContain('untap');
     expect(edge(graph, 'Restoration Angel', 'Kiki-Jiki, Mirror Breaker')?.kinds).toContain('untap');
   });

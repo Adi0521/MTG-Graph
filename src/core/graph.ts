@@ -1,4 +1,3 @@
-import { COMBOS } from './combos.ts';
 import { THEMES, THEME_BY_ID, tagCard, type CardTags, type ThemeId } from './rules.ts';
 import { hasType, pluralize, referencedTypes } from './tribal.ts';
 import type { Card } from './types.ts';
@@ -66,7 +65,10 @@ function isExcluded(card: Card): boolean {
 export const edgeId = (from: string, to: string) => `${from} -> ${to}`;
 
 /** Build the directed synergy graph. Output depends only on the input cards, never on input order. */
-export function buildGraph(inputCards: Card[], options: { enabledKinds?: Set<EdgeKind> } = {}): SynergyGraph {
+export function buildGraph(
+  inputCards: Card[],
+  options: { enabledKinds?: Set<EdgeKind>; extraReasons?: SynergyReason[] } = {},
+): SynergyGraph {
   const enabled = (k: EdgeKind) => !options.enabledKinds || options.enabledKinds.has(k);
   const sorted = [...inputCards].sort((a, b) => a.name.localeCompare(b.name));
   const excluded = sorted.filter(isExcluded);
@@ -115,17 +117,10 @@ export function buildGraph(inputCards: Card[], options: { enabledKinds?: Set<Edg
     }
   }
 
-  // Curated combos work both ways, so they form a two-card loop.
+  // Detected combos (from Spellbook and the combo engine) are passed in as extra reasons.
   if (enabled('combo')) {
     const names = new Set(cards.map((c) => c.name));
-    for (const combo of COMBOS) {
-      const [a, b] = combo.cards;
-      if (!names.has(a) || !names.has(b)) continue;
-      for (const [from, to] of [[a, b], [b, a]] as const) {
-        if (reasons.some((r) => r.kind === 'combo' && r.from === from && r.to === to)) continue;
-        reasons.push({ kind: 'combo', from, to, description: `Combo with ${to}: ${combo.result}`, weight: COMBO_WEIGHT });
-      }
-    }
+    reasons.push(...(options.extraReasons ?? []).filter((r) => r.kind === 'combo' && names.has(r.from) && names.has(r.to)));
   }
 
   // Merge reasons into one directed edge per ordered pair.

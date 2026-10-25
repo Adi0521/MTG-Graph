@@ -1,5 +1,7 @@
 import cytoscape from 'cytoscape';
 import type { AnalysisResult, AnalyzedCard } from '../core/analyze.ts';
+import type { DetectedCombo } from '../core/combos.ts';
+import type { SpellbookNearMiss } from '../core/spellbook.ts';
 import { EDGE_KIND_META, type EdgeKind, type SynergyEdge, type SynergyReason } from '../core/graph.ts';
 import { THEME_BY_ID, type ThemeId } from '../core/rules.ts';
 import { SAMPLE_COMMANDER_DECK } from '../core/sample-commander.ts';
@@ -34,7 +36,7 @@ const COLORLESS = '#9ca3af';
 const ALL_KINDS = Object.keys(EDGE_KIND_META) as EdgeKind[];
 const enabledKinds = new Set<EdgeKind>(ALL_KINDS);
 
-type Tab = 'overview' | 'loops' | 'systems' | 'chains' | 'trees' | 'critical' | 'card';
+type Tab = 'overview' | 'combos' | 'loops' | 'systems' | 'chains' | 'trees' | 'critical' | 'card';
 
 interface Highlight {
   label: string;
@@ -198,9 +200,10 @@ function loadResult(r: AnalysisResult) {
   activeTab = 'overview';
 
   const { deck, structures } = r;
+  const comboCount = r.combos.combos.length;
   const missing = deck.notFound.length ? ` Not found: ${deck.notFound.join(', ')}.` : '';
   setStatus(
-    `${deck.totalCards} cards · ${r.edges.length} links · ${structures.loopSystems.length} loop systems · ${structures.loopSearch.found}${structures.loopSearch.exhaustive ? '' : '+'} loops.${missing}`,
+    `${deck.totalCards} cards · ${plural(comboCount, 'combo')} · ${r.edges.length} links · ${structures.loopSystems.length} loop systems · ${structures.loopSearch.found}${structures.loopSearch.exhaustive ? '' : '+'} loops.${missing}`,
     deck.notFound.length > 0,
   );
   renderFilters();
@@ -454,6 +457,7 @@ function renderTabs() {
   const s = result.structures;
   const tabs: [Tab, string, number | null][] = [
     ['overview', 'Overview', null],
+    ['combos', 'Combos', result.combos.combos.length],
     ['loops', 'Loops', s.loops.length],
     ['systems', 'Systems', s.loopSystems.length],
     ['chains', 'Chains', s.chains.length],
@@ -483,6 +487,7 @@ function renderPanel() {
   }
   const renderers: Record<Tab, () => Child[]> = {
     overview: renderOverview,
+    combos: renderCombos,
     loops: renderLoops,
     systems: renderSystems,
     chains: renderChains,
@@ -519,6 +524,7 @@ function renderOverview(): Child[] {
       'div',
       { class: 'stat-row' },
       stat(`${Math.round(ins.connectivity * 100)}%`, 'spells connected'),
+      stat(String(r.combos.combos.length), 'combos'),
       stat(String(r.edges.length), 'links'),
       stat(String(s.loopSystems.length), 'loop systems'),
     ),
@@ -560,6 +566,106 @@ function histogram(byLength: Record<string, number>, min: number, max: number) {
     ),
     h('div', { class: 'histogram-axis' }, h('span', {}, `${min} cards`), h('span', {}, `${max} cards`)),
   );
+}
+
+const SOURCE_LABEL: Record<string, string> = { spellbook: 'Commander Spellbook', engine: 'Rules engine' };
+
+function sourceBadges(sources: string[]) {
+  return h('span', { class: 'badges' }, ...sources.map((src) => h('span', { class: `badge-source ${src}` }, SOURCE_LABEL[src] ?? src)));
+}
+
+function comboHighlight(c: DetectedCombo): Highlight {
+  const set = new Set(c.cards);
+  const engineOrder = c.engine?.loop;
+  return {
+    key: `combo:${c.id}`,
+    label: `Combo: ${c.cards.join(' + ')} → ${c.produces.slice(0, 2).join(', ')}`,
+    nodes: set,
+    edges: new Set(result!.edges.filter((e) => set.has(e.source) && set.has(e.target)).map((e) => e.id)),
+    order: engineOrder ? new Map(engineOrder.map((card, i) => [card, i + 1])) : undefined,
+  };
+}
+
+function comboItem(c: DetectedCombo): HTMLElement {
+  const highlightKey = `combo:${c.id}`;
+  const active = highlight?.key === highlightKey;
+  const e = c.engine;
+  const details: Child[] = active
+    ? [
+        c.prerequisites.length > 0 && h('div', { class: 'combo-section' }, h('strong', {}, 'Needs: '), c.prerequisites.join(' · ')),
+        h('ol', { class: 'steps' }, ...c.steps.map((st) => h('li', {}, st))),
+        e && e.helpers.length > 0 &&
+          h(
+            'div',
+            { class: 'combo-section' },
+            h('strong', {}, 'Extra pieces: '),
+            e.helpers.map((hp) => (e.helperAlternatives[hp]?.length ? `${hp} (or ${e.helperAlternatives[hp]!.join(', ')})` : hp)).join('; '),
+          ),
+        e && h('div', { class: 'combo-section' }, h('strong', {}, 'Mana left over per loop: '), e.netMana),
+        e && e.payoffs.length > 0 &&
+          h('div', { class: 'combo-section' }, h('strong', {}, 'Payoffs in deck: '), e.payoffs.map((p) => p.card).join(', ')),
+        e && e.warnings.length > 0 && h('div', { class: 'combo-section warn' }, ...e.warnings.map((w) => h('div', {}, `⚠ ${w}`))),
+        c.spellbookUrl && h('a', { href: c.spellbookUrl, target: '_blank', rel: 'noopener' }, 'Open on Commander Spellbook'),
+      ]
+    : [];
+  return button(
+    frag(
+      h('div', { class: 'item-title' }, c.cards.join(' + ')),
+      sourceBadges(c.sources),
+      h('div', { class: 'chips' }, ...c.produces.slice(0, active ? 20 : 3).map((p) => h('span', { class: 'chip' }, p))),
+      ...details,
+    ),
+    () => setHighlight(active ? null : comboHighlight(c)),
+    `item${active ? ' active' : ''}`,
+  );
+}
+
+function nearMissItem(n: SpellbookNearMiss): HTMLElement {
+  const inDeck = n.cards.filter((c) => !n.missing.includes(c));
+  const key = `near:${n.id}`;
+  return button(
+    frag(
+      h('div', { class: 'item-title' }, `Add ${n.missing.join(' + ')}`),
+      h('div', { class: 'meta' }, `With ${inDeck.join(' + ')}`),
+      h('div', { class: 'chips' }, ...n.produces.slice(0, 3).map((p) => h('span', { class: 'chip' }, p))),
+      highlight?.key === key && h('a', { href: n.url, target: '_blank', rel: 'noopener' }, 'Open on Commander Spellbook'),
+    ),
+    () =>
+      highlight?.key === key
+        ? setHighlight(null)
+        : setHighlight({ key, label: `${inDeck.join(' + ')} need ${n.missing.join(' + ')}`, nodes: new Set(inDeck), edges: new Set() }),
+    `item${highlight?.key === key ? ' active' : ''}`,
+  );
+}
+
+function renderCombos(): Child[] {
+  const { combos, nearMisses, spellbook, engine } = result!.combos;
+  const both = combos.filter((c) => c.sources.length === 2).length;
+  const sbOnly = combos.filter((c) => c.sources.length === 1 && c.sources[0] === 'spellbook').length;
+  const engineOnly = combos.filter((c) => c.sources.length === 1 && c.sources[0] === 'engine').length;
+  const sbStatus =
+    spellbook.status === 'ok'
+      ? `Commander Spellbook data from ${new Date(spellbook.fetchedAt!).toLocaleString()}.`
+      : spellbook.status === 'unavailable'
+        ? `Commander Spellbook unavailable (${spellbook.error}); showing rules-engine combos only.`
+        : 'Commander Spellbook lookup disabled; showing rules-engine combos only.';
+  return [
+    h('h2', {}, 'Combos'),
+    h(
+      'p',
+      { class: 'meta' },
+      'Infinite combos found by Commander Spellbook (a community database) and by our rules engine, which simulates each loop and checks that mana, untaps and life break even.',
+    ),
+    h('div', { class: spellbook.status === 'ok' ? 'meta' : 'notice' }, sbStatus),
+    combos.length > 0 &&
+      h('p', {}, `${plural(combos.length, 'combo')}: ${both} confirmed by both, ${sbOnly} from Spellbook only, ${engineOnly} found only by the engine.`),
+    combos.length === 0 && h('p', {}, 'No complete combos in this deck.'),
+    !engine.exhaustive && h('div', { class: 'notice' }, 'The engine hit its search budget; some combos may be missing.'),
+    ...combos.map(comboItem),
+    nearMisses.length > 0 && h('h3', {}, `One card away (${nearMisses.length})`),
+    nearMisses.length > 0 && h('p', { class: 'meta' }, 'Combos from Commander Spellbook that need cards not in the deck, most popular first.'),
+    ...nearMisses.map(nearMissItem),
+  ];
 }
 
 function renderLoops(): Child[] {
@@ -782,6 +888,7 @@ function renderCard(): Child[] {
   const outgoing = connections('out');
   const incoming = connections('in');
   const loops = r.structures.loops.map((l, i) => [l, i] as const).filter(([l]) => l.cards.includes(name));
+  const cardCombos = r.combos.combos.filter((c) => c.cards.includes(name));
   const system = r.structures.loopSystems.find((s) => s.cards.includes(name));
   const lb = r.structures.loadBearing.find((l) => l.card === name);
 
@@ -800,6 +907,13 @@ function renderCard(): Child[] {
     ),
     system && h('p', { class: 'meta' }, `Part of loop system ${system.id + 1} (${system.cards.length} cards).`),
     lb && h('p', { class: 'warn' }, `Load-bearing: removing it splits its cluster into ${lb.splitsInto.join(', ')} cards.`),
+    cardCombos.length > 0 && h('h3', {}, `In ${plural(cardCombos.length, 'combo')}`),
+    ...cardCombos.map((c) =>
+      button(`${c.cards.join(' + ')} · ${c.produces[0] ?? ''}`, () => {
+        activeTab = 'combos';
+        setHighlight(comboHighlight(c));
+      }, 'item'),
+    ),
     tagList('Enables', card.provides),
     tagList('Wants', card.wants),
     loops.length > 0 && h('h3', {}, `In ${loops.length} of the listed loops`),

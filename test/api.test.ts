@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createApp, UpstreamError } from '../server/app.ts';
-import type { AnalysisResult, CardSource } from '../src/core/analyze.ts';
+import type { AnalysisResult, CardSource, KnownComboSource } from '../src/core/analyze.ts';
+import { mapSpellbookResults } from '../src/core/spellbook.ts';
 import type { ScryfallCard } from '../src/core/types.ts';
 import { FIXTURES } from './helpers.ts';
 
@@ -16,7 +17,20 @@ const fixtureSource: CardSource = async (names) => {
   return { cards, notFound };
 };
 
-const app = createApp({ cardSource: fixtureSource });
+/** A Spellbook stand-in that knows one combo. */
+const spellbookSource: KnownComboSource = async (entries) => ({
+  fetchedAt: '2026-10-25T00:00:00.000Z',
+  result: mapSpellbookResults(
+    {
+      included: entries.some((e) => e.name === 'Gravecrawler')
+        ? [{ id: 'sb-1', uses: [{ card: { name: 'Gravecrawler' } }, { card: { name: 'Phyrexian Altar' } }], produces: [{ feature: { name: 'Infinite death triggers' } }], description: 'Sac.\nRecast.' }]
+        : [],
+    },
+    entries.map((e) => e.name),
+  ),
+});
+
+const app = createApp({ cardSource: fixtureSource, knownComboSource: spellbookSource });
 
 const postJson = (body: unknown) =>
   app.request('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -75,6 +89,40 @@ describe('POST /api/analyze', () => {
     });
     expect(res.status).toBe(502);
     expect(await res.json()).toEqual({ error: 'Scryfall is down' });
+  });
+});
+
+describe('combos in the analysis', () => {
+  it('reports combos from both sources and links them in the graph', async () => {
+    const res = await postJson({ decklist: '1 Gravecrawler\n1 Phyrexian Altar\n1 Sanguine Bond\n1 Exquisite Blood' });
+    const body = (await res.json()) as AnalysisResult;
+    expect(body.combos.spellbook).toEqual({ status: 'ok', fetchedAt: '2026-10-25T00:00:00.000Z' });
+    expect(body.combos.combos.map((c) => c.sources)).toEqual([['spellbook', 'engine'], ['engine']]);
+    expect(body.edges.find((e) => e.source === 'Gravecrawler' && e.target === 'Phyrexian Altar')!.kinds).toContain('combo');
+  });
+
+  it('still analyzes when Spellbook is down', async () => {
+    const failing = createApp({
+      cardSource: fixtureSource,
+      knownComboSource: async () => {
+        throw new Error('timeout');
+      },
+    });
+    const res = await failing.request('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ decklist: '1 Gravecrawler\n1 Phyrexian Altar' }),
+    });
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as AnalysisResult;
+    expect(body.combos.spellbook).toEqual({ status: 'unavailable', error: 'timeout' });
+    expect(body.combos.combos.map((c) => c.sources)).toEqual([['engine']]);
+  });
+
+  it('can skip Spellbook per request', async () => {
+    const body = (await (await postJson({ decklist: '1 Gravecrawler\n1 Phyrexian Altar', spellbook: false })).json()) as AnalysisResult;
+    expect(body.combos.spellbook.status).toBe('disabled');
+    expect((await postJson({ decklist: '1 Gravecrawler', spellbook: 'yes' })).status).toBe(400);
   });
 });
 

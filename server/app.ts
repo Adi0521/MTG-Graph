@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
-import { analyzeDeck, DeckError, ENGINE_VERSION, type AnalyzeOptions, type CardSource } from '../src/core/analyze.ts';
+import { analyzeDeck, DeckError, ENGINE_VERSION, type AnalyzeOptions, type CardSource, type KnownComboSource } from '../src/core/analyze.ts';
 import { parseDeckFile } from '../src/core/deckfile.ts';
 import { parseDecklist } from '../src/core/decklist.ts';
 import { EDGE_KIND_META, type EdgeKind } from '../src/core/graph.ts';
@@ -14,11 +14,11 @@ export class UpstreamError extends Error {}
 
 /**
  * POST /api/analyze accepts either
- *   - JSON: { "decklist": "4 Lightning Bolt\n...", "options": {...}, "enabledKinds": [...] }
+ *   - JSON: { "decklist": "4 Lightning Bolt\n...", "options": {...}, "enabledKinds": [...], "spellbook": true }
  *   - multipart/form-data: a "deck" file (.txt/.dek/.csv/...) or a "decklist" text field,
- *     plus optional "options" and "enabledKinds" fields as JSON strings.
+ *     plus optional "options" and "enabledKinds" fields as JSON strings and "spellbook" ("true"/"false").
  */
-export function createApp({ cardSource }: { cardSource: CardSource }) {
+export function createApp({ cardSource, knownComboSource }: { cardSource: CardSource; knownComboSource?: KnownComboSource }) {
   const app = new Hono();
 
   app.get('/api/health', (c) => c.json({ ok: true, engineVersion: ENGINE_VERSION }));
@@ -51,7 +51,7 @@ export function createApp({ cardSource }: { cardSource: CardSource }) {
         return c.json({ error: err instanceof Error ? err.message : 'Invalid request.' }, 400);
       }
       try {
-        return c.json(await analyzeDeck(entries, cardSource, options));
+        return c.json(await analyzeDeck(entries, { cards: cardSource, knownCombos: knownComboSource }, options));
       } catch (err) {
         if (err instanceof DeckError) return c.json({ error: err.message }, 400);
         if (err instanceof UpstreamError) return c.json({ error: err.message }, 502);
@@ -69,6 +69,7 @@ async function readRequest(req: Request): Promise<{ entries: DeckEntry[]; option
   let entries: DeckEntry[];
   let rawOptions: unknown;
   let rawKinds: unknown;
+  let rawSpellbook: unknown;
 
   if (type.includes('multipart/form-data')) {
     const form = await req.formData();
@@ -79,19 +80,25 @@ async function readRequest(req: Request): Promise<{ entries: DeckEntry[]; option
     else throw new Error('Send a "deck" file or a "decklist" text field.');
     rawOptions = parseJsonField(form.get('options'), 'options');
     rawKinds = parseJsonField(form.get('enabledKinds'), 'enabledKinds');
+    rawSpellbook = parseJsonField(form.get('spellbook'), 'spellbook');
   } else if (type.includes('application/json')) {
     const body = (await req.json().catch(() => {
       throw new Error('Request body is not valid JSON.');
-    })) as { decklist?: unknown; filename?: unknown; options?: unknown; enabledKinds?: unknown };
+    })) as { decklist?: unknown; filename?: unknown; options?: unknown; enabledKinds?: unknown; spellbook?: unknown };
     if (typeof body.decklist !== 'string' || !body.decklist.trim()) throw new Error('"decklist" must be a non-empty string.');
     entries = typeof body.filename === 'string' ? parseDeckFile(body.filename, body.decklist) : parseDecklist(body.decklist);
     rawOptions = body.options;
     rawKinds = body.enabledKinds;
+    rawSpellbook = body.spellbook;
   } else {
     throw new Error('Use Content-Type application/json or multipart/form-data.');
   }
 
-  return { entries, options: { structure: validateOptions(rawOptions), enabledKinds: validateKinds(rawKinds) } };
+  if (rawSpellbook !== undefined && typeof rawSpellbook !== 'boolean') throw new Error('"spellbook" must be true or false.');
+  return {
+    entries,
+    options: { structure: validateOptions(rawOptions), enabledKinds: validateKinds(rawKinds), spellbook: rawSpellbook as boolean | undefined },
+  };
 }
 
 function parseJsonField(value: FormDataEntryValue | null, name: string): unknown {

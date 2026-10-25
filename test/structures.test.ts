@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { SynergyEdge } from '../src/core/graph.ts';
 import { parseDecklist } from '../src/core/decklist.ts';
+import { findEngineCombos } from '../src/core/combo-engine.ts';
+import { comboReasons, mergeCombos } from '../src/core/combos.ts';
 import { buildGraph } from '../src/core/graph.ts';
 import { SAMPLE_COMMANDER_DECK } from '../src/core/sample-commander.ts';
 import { SAMPLE_DECK } from '../src/core/sample-deck.ts';
@@ -127,7 +129,9 @@ describe('sample deck structures', () => {
   const cards = parseDecklist(SAMPLE_DECK)
     .filter((e) => e.section !== 'sideboard')
     .map((e) => card(e.name, e.quantity));
-  const graph = buildGraph(cards);
+  // Combo links come from the combo engine (no network in tests).
+  const combos = mergeCombos(findEngineCombos(cards), null, { status: 'disabled' });
+  const graph = buildGraph(cards, { extraReasons: comboReasons(combos.combos) });
   const names = graph.nodes.map((n) => n.card.name);
 
   it('finds known combos as two-card loops', () => {
