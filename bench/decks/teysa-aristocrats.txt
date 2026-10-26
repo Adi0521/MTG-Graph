@@ -1,0 +1,36 @@
+// Archetype: Orzhov aristocrats (Teysa Karlov)
+Commander
+1 Teysa Karlov
+Deck
+1 Cartel Aristocrat
+1 Bastion of Remembrance
+1 Ashnod's Altar
+1 Nim Deathmantle
+1 Kitchen Finks
+1 Murderous Redcap
+1 Solemnity
+1 Viscera Seer
+1 Carrion Feeder
+1 Falkenrath Noble
+1 Zulaport Cutthroat
+1 Blood Artist
+1 Skullclamp
+1 Reassembling Skeleton
+1 Bloodghast
+1 Teysa, Orzhov Scion
+1 Sun Titan
+1 Karmic Guide
+1 Reveillark
+1 Elas il-Kor, Sadistic Pilgrim
+1 Pitiless Plunderer
+1 Grave Pact
+1 Midnight Reaper
+1 Butcher of Malakir
+1 Woe Strider
+1 Village Rites
+1 Deadly Dispute
+1 Priest of Forgotten Gods
+1 Puppeteer Clique
+1 Wurmcoil Engine
+15 Swamp
+15 Plains

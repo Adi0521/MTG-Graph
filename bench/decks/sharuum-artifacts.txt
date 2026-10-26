@@ -1,0 +1,37 @@
+// Archetype: Esper artifacts (Sharuum the Hegemon)
+Commander
+1 Sharuum the Hegemon
+Deck
+1 Sculpting Steel
+1 Phyrexian Metamorph
+1 Disciple of the Vault
+1 Nim Deathmantle
+1 Ashnod's Altar
+1 Time Sieve
+1 Thopter Assembly
+1 Krark-Clan Ironworks
+1 Myr Battlesphere
+1 Cranial Plating
+1 Etherium Sculptor
+1 Master Transmuter
+1 Sol Ring
+1 Mana Vault
+1 Mind Stone
+1 Arcane Signet
+1 Clock of Omens
+1 Voltaic Key
+1 Unwinding Clock
+1 Sword of the Meek
+1 Thopter Foundry
+1 Jhoira's Familiar
+1 Retrofitter Foundry
+1 Trinket Mage
+1 Tezzeret the Seeker
+1 Codex Shredder
+1 Salvaging Station
+1 Myr Retriever
+1 Scrap Trawler
+1 Ichor Wellspring
+10 Island
+10 Plains
+10 Swamp

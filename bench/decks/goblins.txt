@@ -1,0 +1,35 @@
+// Archetype: Goblin tribal (Krenko, Mob Boss)
+Commander
+1 Krenko, Mob Boss
+Deck
+1 Skirk Prospector
+1 Goblin Bombardment
+1 Purphoros, God of the Forge
+1 Impact Tremors
+1 Goblin Chieftain
+1 Goblin Warchief
+1 Siege-Gang Commander
+1 Beetleback Chief
+1 Mogg War Marshal
+1 Legion Warboss
+1 Goblin Matron
+1 Goblin Recruiter
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Pashalik Mons
+1 Goblin Sharpshooter
+1 Goblin Instigator
+1 Conspicuous Snoop
+1 Goblin Rabblemaster
+1 Muxus, Goblin Grandee
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Sol Ring
+1 Lightning Greaves
+1 Shared Animosity
+1 Coat of Arms
+1 Krenko's Command
+1 Battle Cry Goblin
+1 Foundry Street Denizen
+1 Breya's Apprentice
+32 Mountain

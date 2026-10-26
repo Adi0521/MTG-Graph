@@ -1,0 +1,37 @@
+// Archetype: Jund sacrifice (Prossh, Skyraider of Kher)
+Commander
+1 Prossh, Skyraider of Kher
+Deck
+1 Food Chain
+1 Eternal Scourge
+1 Squee, the Immortal
+1 Ashnod's Altar
+1 Purphoros, God of the Forge
+1 Goblin Bombardment
+1 Pawn of Ulamog
+1 Kozilek's Predator
+1 Nest Invader
+1 Eldrazi Monument
+1 Craterhoof Behemoth
+1 Fecundity
+1 Grave Pact
+1 Skullclamp
+1 Gravecrawler
+1 Phyrexian Altar
+1 Viscera Seer
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Sakura-Tribe Elder
+1 Eternal Witness
+1 Mayhem Devil
+1 Pitiless Plunderer
+1 Tymaret, Chosen from Death
+1 Diregraf Colossus
+1 Carrion Feeder
+1 Bitterblossom
+1 Korvold, Fae-Cursed King
+1 Dockside Extortionist
+1 Ogre Slumlord
+10 Swamp
+10 Mountain
+10 Forest

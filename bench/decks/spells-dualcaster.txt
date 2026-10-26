@@ -1,0 +1,36 @@
+// Archetype: Izzet spells (Kess, Dissident Mage)
+Commander
+1 Kess, Dissident Mage
+Deck
+1 Dualcaster Mage
+1 Twinflame
+1 Heat Shimmer
+1 Ghostly Flicker
+1 Mnemonic Wall
+1 Archaeomancer
+1 Snapcaster Mage
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Sol Ring
+1 Talisman of Creativity
+1 Mind Stone
+1 Arcane Signet
+1 Thousand-Year Storm
+1 Young Pyromancer
+1 Talrand, Sky Summoner
+1 Brainstorm
+1 Counterspell
+1 Lightning Bolt
+1 Electrostatic Field
+1 Guttersnipe
+1 Firebrand Archer
+1 Ral, Crackling Wit
+1 Riftwing Cloudskate
+1 Pestermite
+1 Deceiver Exarch
+1 Splinter Twin
+1 Kiki-Jiki, Mirror Breaker
+1 Third Path Iconoclast
+1 Storm-Kiln Artist
+15 Island
+15 Mountain

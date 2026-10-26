@@ -133,6 +133,13 @@ Card and Spellbook data are frozen in `bench/data/`, so runs are offline and rep
 `bench/report.md`. `test/benchmark.test.ts` fails if coverage drops below `bench/baseline.json`;
 after an improvement, update it with `npm run bench -- --baseline`.
 
+### Held-out benchmark
+
+`bench/holdout/` holds 12 more decks that the rules were **not** developed against (`npm run bench -- --holdout`,
+report in `bench/report-holdout.md`). Its numbers show how the rules generalize. Do not tune rules against it:
+once a held-out deck has informed a rule change, it is no longer held out, so move it to `bench/decks/` and add
+fresh decks to `bench/holdout/`.
+
 ## Extending the rules
 
 Add a matcher to a theme in `src/core/rules.ts`, or add a new theme. To check rules against real cards:

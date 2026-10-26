@@ -1,0 +1,1860 @@
+{
+  "decks": [
+    {
+      "slug": "bant-landfall",
+      "archetype": "Bant landfall (60 cards)",
+      "uniqueCards": 18,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "blink-roon",
+      "archetype": "Bant blink (Roon of the Hidden Realm)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 8,
+      "engineCombos": 2,
+      "matched": 2,
+      "recall": 0.25,
+      "matchedCombos": [
+        "Deadeye Navigator + Great Whale",
+        "Deadeye Navigator + Palinchron"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Ghostly Flicker",
+            "Great Whale",
+            "Eternal Witness"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite blinking"
+          ],
+          "diagnosis": [
+            "Ghostly Flicker: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Ghostly Flicker",
+            "Palinchron",
+            "Eternal Witness"
+          ],
+          "produces": [
+            "Infinite blinking",
+            "Infinite creature ETB",
+            "Infinite landfall triggers"
+          ],
+          "diagnosis": [
+            "Ghostly Flicker: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Ghostly Flicker",
+            "Great Whale",
+            "Mnemonic Wall"
+          ],
+          "produces": [
+            "Infinite blinking",
+            "Infinite creature ETB",
+            "Infinite landfall triggers"
+          ],
+          "diagnosis": [
+            "Ghostly Flicker: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Ghostly Flicker",
+            "Palinchron",
+            "Mnemonic Wall"
+          ],
+          "produces": [
+            "Infinite blinking",
+            "Infinite creature ETB",
+            "Infinite landfall triggers"
+          ],
+          "diagnosis": [
+            "Ghostly Flicker: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Palinchron",
+            "High Tide"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite mana lands you control can produce"
+          ],
+          "diagnosis": [
+            "High Tide: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Palinchron",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite mana lands you control can produce"
+          ],
+          "diagnosis": [
+            "Panharmonicon: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "cedh-combo",
+      "archetype": "cEDH combo (Thrasios and Tymna)",
+      "uniqueCards": 39,
+      "notFound": [],
+      "connectivity": 0.914,
+      "isolated": [
+        "Ad Nauseam",
+        "Fierce Guardianship",
+        "Force of Will"
+      ],
+      "spellbookCombos": 14,
+      "engineCombos": 3,
+      "matched": 3,
+      "recall": 0.214,
+      "matchedCombos": [
+        "Basalt Monolith + Power Artifact",
+        "Dramatic Reversal + Isochron Scepter",
+        "Grim Monolith + Power Artifact"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Kinnan, Bonder Prodigy",
+            "Basalt Monolith"
+          ],
+          "produces": [
+            "Infinite colorless mana"
+          ],
+          "diagnosis": [
+            "Kinnan, Bonder Prodigy: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Bloom Tender",
+            "Freed from the Real"
+          ],
+          "produces": [
+            "Infinite non-blue mana of colors among permanents you control",
+            "Infinite mana of colors among permanents you control"
+          ],
+          "diagnosis": [
+            "Bloom Tender: no loop abilities parsed",
+            "Freed from the Real: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Bloom Tender",
+            "Pemmin's Aura"
+          ],
+          "produces": [
+            "Infinite non-blue mana of colors among permanents you control",
+            "Infinite mana of colors among permanents you control"
+          ],
+          "diagnosis": [
+            "Bloom Tender: no loop abilities parsed",
+            "Pemmin's Aura: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Underworld Breach",
+            "Lion's Eye Diamond",
+            "Brain Freeze"
+          ],
+          "produces": [
+            "Infinite self-mill",
+            "Near-infinite colored mana",
+            "Near-infinite magecraft triggers"
+          ],
+          "diagnosis": [
+            "Underworld Breach: no loop abilities parsed",
+            "Lion's Eye Diamond: cost not modeled",
+            "Brain Freeze: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Demonic Consultation",
+            "Laboratory Maniac"
+          ],
+          "produces": [
+            "Exile your library",
+            "Win the game"
+          ],
+          "diagnosis": [
+            "Demonic Consultation: no loop abilities parsed",
+            "Laboratory Maniac: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Demonic Consultation",
+            "Thassa's Oracle"
+          ],
+          "produces": [
+            "Exile your library",
+            "Win the game"
+          ],
+          "diagnosis": [
+            "Demonic Consultation: no loop abilities parsed",
+            "Thassa's Oracle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Dockside Extortionist",
+            "Temur Sabertooth"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Dockside Extortionist: no loop abilities parsed",
+            "Temur Sabertooth: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Kinnan, Bonder Prodigy",
+            "Freed from the Real"
+          ],
+          "produces": [
+            "Infinite blue mana",
+            "Infinite mana a specific creature can produce",
+            "Put most creature cards from your library onto the battlefield"
+          ],
+          "diagnosis": [
+            "Kinnan, Bonder Prodigy: no loop abilities parsed",
+            "Freed from the Real: no loop abilities parsed",
+            "needs generic pieces: Requires Mana Dork or Mana Dork Creator"
+          ]
+        },
+        {
+          "cards": [
+            "Kinnan, Bonder Prodigy",
+            "Pemmin's Aura"
+          ],
+          "produces": [
+            "Infinite blue mana",
+            "Infinite mana a specific creature can produce",
+            "Put most creature cards from your library onto the battlefield"
+          ],
+          "diagnosis": [
+            "Kinnan, Bonder Prodigy: no loop abilities parsed",
+            "Pemmin's Aura: no loop abilities parsed",
+            "needs generic pieces: Requires Mana Dork or Mana Dork Creator"
+          ]
+        },
+        {
+          "cards": [
+            "Tainted Pact",
+            "Laboratory Maniac"
+          ],
+          "produces": [
+            "Win the game"
+          ],
+          "diagnosis": [
+            "Tainted Pact: no loop abilities parsed",
+            "Laboratory Maniac: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Tainted Pact",
+            "Thassa's Oracle"
+          ],
+          "produces": [
+            "Win the game"
+          ],
+          "diagnosis": [
+            "Tainted Pact: no loop abilities parsed",
+            "Thassa's Oracle: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "elves-selvala",
+      "archetype": "Elf ramp (Selvala, Heart of the Wilds)",
+      "uniqueCards": 32,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 15,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": 0,
+      "matchedCombos": [],
+      "missed": [
+        {
+          "cards": [
+            "Staff of Domination",
+            "Circle of Dreams Druid"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite draw triggers",
+            "Infinite lifegain"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of the Paruns",
+            "Circle of Dreams Druid"
+          ],
+          "produces": [
+            "Infinite mana creatures you control can produce",
+            "Infinite untap of creatures you control",
+            "Infinite green mana"
+          ],
+          "diagnosis": [
+            "Sword of the Paruns: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Umbral Mantle",
+            "Circle of Dreams Druid"
+          ],
+          "produces": [
+            "Infinite green mana",
+            "Infinitely large creature until end of turn",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Umbral Mantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Staff of Domination",
+            "Elvish Archdruid"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite draw triggers",
+            "Infinite lifegain"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of the Paruns",
+            "Elvish Archdruid"
+          ],
+          "produces": [
+            "Infinite mana creatures you control can produce",
+            "Infinite untap of creatures you control",
+            "Infinite green mana"
+          ],
+          "diagnosis": [
+            "Sword of the Paruns: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Umbral Mantle",
+            "Elvish Archdruid"
+          ],
+          "produces": [
+            "Infinite green mana",
+            "Infinitely large creature until end of turn",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Umbral Mantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Staff of Domination",
+            "Marwyn, the Nurturer"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite draw triggers",
+            "Infinite lifegain"
+          ],
+          "diagnosis": [
+            "Marwyn, the Nurturer: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of the Paruns",
+            "Marwyn, the Nurturer"
+          ],
+          "produces": [
+            "Infinite mana creatures you control can produce",
+            "Infinite untap of creatures you control",
+            "Infinite green mana"
+          ],
+          "diagnosis": [
+            "Sword of the Paruns: no loop abilities parsed",
+            "Marwyn, the Nurturer: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Umbral Mantle",
+            "Marwyn, the Nurturer"
+          ],
+          "produces": [
+            "Infinite green mana",
+            "Infinitely large creature until end of turn",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Umbral Mantle: no loop abilities parsed",
+            "Marwyn, the Nurturer: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Staff of Domination",
+            "Priest of Titania"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite draw triggers",
+            "Infinite lifegain"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of the Paruns",
+            "Priest of Titania"
+          ],
+          "produces": [
+            "Infinite mana creatures you control can produce",
+            "Infinite untap of creatures you control",
+            "Infinite green mana"
+          ],
+          "diagnosis": [
+            "Sword of the Paruns: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Umbral Mantle",
+            "Priest of Titania"
+          ],
+          "produces": [
+            "Infinite green mana",
+            "Infinitely large creature until end of turn",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Umbral Mantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Staff of Domination",
+            "Selvala, Heart of the Wilds"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite colored mana",
+            "Infinite draw triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of the Paruns",
+            "Selvala, Heart of the Wilds"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinite mana creatures you control can produce",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Sword of the Paruns: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Umbral Mantle",
+            "Selvala, Heart of the Wilds"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinitely large creature until end of turn",
+            "Infinite untap of creatures you control"
+          ],
+          "diagnosis": [
+            "Umbral Mantle: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "goblins",
+      "archetype": "Goblin tribal (Krenko, Mob Boss)",
+      "uniqueCards": 32,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 5,
+      "engineCombos": 1,
+      "matched": 1,
+      "recall": 0.2,
+      "matchedCombos": [
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Krenko, Mob Boss",
+            "Phyrexian Altar",
+            "Goblin Chieftain"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinite commander casts",
+            "Infinite creature tokens with haste"
+          ],
+          "diagnosis": [
+            "Goblin Chieftain: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Krenko, Mob Boss",
+            "Skirk Prospector",
+            "Goblin Chieftain"
+          ],
+          "produces": [
+            "Infinite commander casts",
+            "Infinite creature tokens with haste",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Skirk Prospector: cost not modeled",
+            "Goblin Chieftain: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Krenko, Mob Boss",
+            "Phyrexian Altar",
+            "Goblin Warchief"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinite commander casts",
+            "Infinite creature tokens with haste"
+          ],
+          "diagnosis": [
+            "Goblin Warchief: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Krenko, Mob Boss",
+            "Skirk Prospector",
+            "Goblin Warchief"
+          ],
+          "produces": [
+            "Infinite commander casts",
+            "Infinite creature tokens with haste",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Skirk Prospector: cost not modeled",
+            "Goblin Warchief: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "gw-tokens",
+      "archetype": "Selesnya tokens (Jetmir-free, 60 cards)",
+      "uniqueCards": 19,
+      "notFound": [],
+      "connectivity": 0.882,
+      "isolated": [
+        "Anointed Procession",
+        "Parallel Lives"
+      ],
+      "spellbookCombos": 2,
+      "engineCombos": 1,
+      "matched": 1,
+      "recall": 0.5,
+      "matchedCombos": [
+        "Midnight Guard + Presence of Gond"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Earthcraft",
+            "Squirrel Nest"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite tapped creature tokens"
+          ],
+          "diagnosis": [
+            "Earthcraft: cost not modeled",
+            "Squirrel Nest: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "lifegain-vito",
+      "archetype": "Mono-black lifedrain (Vito, Thorn of the Dusk Rose)",
+      "uniqueCards": 32,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 5,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 1,
+      "matchedCombos": [
+        "Cliffhaven Vampire + Exquisite Blood",
+        "Defiant Bloodlord + Exquisite Blood",
+        "Exquisite Blood + Marauding Blight-Priest",
+        "Exquisite Blood + Sanguine Bond",
+        "Exquisite Blood + Vito, Thorn of the Dusk Rose"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "prossh-food-chain",
+      "archetype": "Jund sacrifice (Prossh, Skyraider of Kher)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 0.968,
+      "isolated": [
+        "Eternal Witness"
+      ],
+      "spellbookCombos": 10,
+      "engineCombos": 15,
+      "matched": 5,
+      "recall": 0.5,
+      "matchedCombos": [
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Prossh, Skyraider of Kher",
+            "Phyrexian Altar",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinite colorless mana",
+            "Infinite commander casts"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Food Chain",
+            "Eternal Scourge"
+          ],
+          "produces": [
+            "Infinite colored mana that can only be spent to cast creature spells",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Food Chain: no loop abilities parsed",
+            "Eternal Scourge: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Prossh, Skyraider of Kher",
+            "Food Chain"
+          ],
+          "produces": [
+            "Infinite colored mana that can only be spent to cast creature spells",
+            "Infinite creature tokens",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Food Chain: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Food Chain",
+            "Squee, the Immortal"
+          ],
+          "produces": [
+            "Infinite colored mana that can only be spent to cast creature spells",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Food Chain: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Prossh, Skyraider of Kher",
+            "Phyrexian Altar",
+            "Purphoros, God of the Forge"
+          ],
+          "produces": [
+            "Near-infinite damage",
+            "Near-infinite death triggers",
+            "Near-infinite creature ETB"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Gravecrawler",
+            "Prossh, Skyraider of Kher",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Ogre Slumlord",
+            "Squee, the Immortal",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Pawn of Ulamog",
+            "Squee, the Immortal",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Carrion Feeder",
+            "Pawn of Ulamog",
+            "Squee, the Immortal",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Goblin Bombardment",
+            "Pawn of Ulamog",
+            "Squee, the Immortal",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Phyrexian Altar",
+            "Squee, the Immortal",
+            "Ogre Slumlord",
+            "Pawn of Ulamog"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Phyrexian Altar",
+            "Pitiless Plunderer",
+            "Squee, the Immortal",
+            "Ogre Slumlord"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Phyrexian Altar",
+            "Pitiless Plunderer",
+            "Squee, the Immortal"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Squee, the Immortal",
+            "Prossh, Skyraider of Kher",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Squee, the Immortal",
+            "Viscera Seer",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sharuum-artifacts",
+      "archetype": "Esper artifacts (Sharuum the Hegemon)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 0.935,
+      "isolated": [
+        "Disciple of the Vault",
+        "Trinket Mage"
+      ],
+      "spellbookCombos": 14,
+      "engineCombos": 3,
+      "matched": 4,
+      "recall": 0.286,
+      "matchedCombos": [
+        "Ashnod's Altar + Etherium Sculptor + Myr Retriever + Scrap Trawler",
+        "Ashnod's Altar + Sword of the Meek + Thopter Foundry",
+        "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Scrap Trawler",
+            "Myr Retriever",
+            "Ashnod's Altar",
+            "Jhoira's Familiar"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Jhoira's Familiar: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Nim Deathmantle",
+            "Ashnod's Altar",
+            "Myr Battlesphere"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact tokens",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Nim Deathmantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Master Transmuter",
+            "Clock of Omens",
+            "Myr Battlesphere"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite tapped creature tokens"
+          ],
+          "diagnosis": [
+            "Master Transmuter: no loop abilities parsed",
+            "Clock of Omens: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Scrap Trawler",
+            "Myr Retriever",
+            "Krark-Clan Ironworks",
+            "Jhoira's Familiar"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Jhoira's Familiar: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Nim Deathmantle",
+            "Krark-Clan Ironworks",
+            "Myr Battlesphere"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact tokens",
+            "Infinite colorless mana"
+          ],
+          "diagnosis": [
+            "Nim Deathmantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Salvaging Station",
+            "Krark-Clan Ironworks",
+            "Retrofitter Foundry"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Retrofitter Foundry: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Sharuum the Hegemon",
+            "Phyrexian Metamorph"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Sharuum the Hegemon: no loop abilities parsed",
+            "Phyrexian Metamorph: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Sharuum the Hegemon",
+            "Sculpting Steel"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Sharuum the Hegemon: no loop abilities parsed",
+            "Sculpting Steel: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Thopter Foundry",
+            "Time Sieve",
+            "Sword of the Meek"
+          ],
+          "produces": [
+            "Infinite turns",
+            "Lock"
+          ],
+          "diagnosis": [
+            "Time Sieve: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Thopter Assembly",
+            "Time Sieve"
+          ],
+          "produces": [
+            "Infinite turns",
+            "Lock"
+          ],
+          "diagnosis": [
+            "Thopter Assembly: no loop abilities parsed",
+            "Time Sieve: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "spells-dualcaster",
+      "archetype": "Izzet spells (Kess, Dissident Mage)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 8,
+      "engineCombos": 7,
+      "matched": 3,
+      "recall": 0.375,
+      "matchedCombos": [
+        "Dramatic Reversal + Isochron Scepter",
+        "Kiki-Jiki, Mirror Breaker + Pestermite",
+        "Pestermite + Splinter Twin"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Kiki-Jiki, Mirror Breaker",
+            "Deceiver Exarch"
+          ],
+          "produces": [
+            "Infinite creature tokens with haste",
+            "Infinite death triggers",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Deceiver Exarch: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Splinter Twin",
+            "Deceiver Exarch"
+          ],
+          "produces": [
+            "Infinite creature tokens with haste",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Deceiver Exarch: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Dualcaster Mage",
+            "Ghostly Flicker"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Dualcaster Mage: no loop abilities parsed",
+            "Ghostly Flicker: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Dualcaster Mage",
+            "Heat Shimmer"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature tokens with haste"
+          ],
+          "diagnosis": [
+            "Dualcaster Mage: no loop abilities parsed",
+            "Heat Shimmer: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Dualcaster Mage",
+            "Twinflame"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature tokens with haste"
+          ],
+          "diagnosis": [
+            "Dualcaster Mage: no loop abilities parsed",
+            "Twinflame: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Archaeomancer",
+            "Dramatic Reversal",
+            "Kiki-Jiki, Mirror Breaker",
+            "Arcane Signet",
+            "Mind Stone"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Archaeomancer",
+            "Dramatic Reversal",
+            "Splinter Twin",
+            "Arcane Signet",
+            "Mind Stone"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Kiki-Jiki, Mirror Breaker",
+            "Mnemonic Wall",
+            "Dramatic Reversal",
+            "Arcane Signet",
+            "Mind Stone"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Mnemonic Wall",
+            "Dramatic Reversal",
+            "Splinter Twin",
+            "Arcane Signet",
+            "Mind Stone"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "teysa-aristocrats",
+      "archetype": "Orzhov aristocrats (Teysa Karlov)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 16,
+      "engineCombos": 1,
+      "matched": 1,
+      "recall": 0.063,
+      "matchedCombos": [
+        "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Karmic Guide",
+            "Reveillark",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite death triggers",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Reveillark: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Nim Deathmantle",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Nim Deathmantle: no loop abilities parsed",
+            "needs generic pieces: Requires Creature with Persist or Undying"
+          ]
+        },
+        {
+          "cards": [
+            "Nim Deathmantle",
+            "Ashnod's Altar",
+            "Woe Strider"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Nim Deathmantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Wurmcoil Engine",
+            "Nim Deathmantle",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite creature tokens",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Nim Deathmantle: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Solemnity",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Solemnity: no loop abilities parsed",
+            "needs generic pieces: Requires Creature with Persist or Undying"
+          ]
+        },
+        {
+          "cards": [
+            "Karmic Guide",
+            "Reveillark",
+            "Carrion Feeder"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Reveillark: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Pitiless Plunderer",
+            "Reassembling Skeleton",
+            "Carrion Feeder",
+            "Teysa Karlov"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Teysa Karlov: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Solemnity",
+            "Carrion Feeder"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Solemnity: no loop abilities parsed",
+            "needs generic pieces: Requires Creature with Persist or Undying"
+          ]
+        },
+        {
+          "cards": [
+            "Karmic Guide",
+            "Reveillark",
+            "Viscera Seer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Reveillark: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Karmic Guide",
+            "Reveillark",
+            "Woe Strider"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Reveillark: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Murderous Redcap",
+            "Solemnity"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Murderous Redcap: no loop abilities parsed",
+            "Solemnity: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Pitiless Plunderer",
+            "Reassembling Skeleton",
+            "Viscera Seer",
+            "Teysa Karlov"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Teysa Karlov: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Pitiless Plunderer",
+            "Reassembling Skeleton",
+            "Woe Strider",
+            "Teysa Karlov"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Teysa Karlov: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Solemnity",
+            "Viscera Seer"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Solemnity: no loop abilities parsed",
+            "needs generic pieces: Requires Creature with Persist or Undying"
+          ]
+        },
+        {
+          "cards": [
+            "Solemnity",
+            "Woe Strider"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Solemnity: no loop abilities parsed",
+            "needs generic pieces: Requires Creature with Persist or Undying"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "voltron-combat",
+      "archetype": "Boros voltron with extra combats (Aurelia, the Warleader)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 11,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": 0,
+      "matchedCombos": [],
+      "missed": [
+        {
+          "cards": [
+            "Aggravated Assault",
+            "Bear Umbra"
+          ],
+          "produces": [
+            "Infinite combat phases"
+          ],
+          "diagnosis": [
+            "Aggravated Assault: no loop abilities parsed",
+            "Bear Umbra: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Neheb, the Eternal",
+            "Aggravated Assault"
+          ],
+          "produces": [
+            "Infinite combat phases",
+            "Infinite red mana",
+            "Infinite mana creatures you control can produce"
+          ],
+          "diagnosis": [
+            "Neheb, the Eternal: no loop abilities parsed",
+            "Aggravated Assault: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Savage Ventmaw",
+            "Aggravated Assault"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite green mana"
+          ],
+          "diagnosis": [
+            "Savage Ventmaw: no loop abilities parsed",
+            "Aggravated Assault: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Sword of Feast and Famine",
+            "Aggravated Assault"
+          ],
+          "produces": [
+            "Infinite combat phases"
+          ],
+          "diagnosis": [
+            "Sword of Feast and Famine: no loop abilities parsed",
+            "Aggravated Assault: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Aurelia, the Warleader",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat phases",
+            "Infinite creature tokens with haste",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Aurelia, the Warleader: no loop abilities parsed",
+            "Helm of the Host: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Najeela, the Blade-Blossom",
+            "Bear Umbra"
+          ],
+          "produces": [
+            "Infinite creature tokens with haste",
+            "Infinite combat phases",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Najeela, the Blade-Blossom: no loop abilities parsed",
+            "Bear Umbra: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Combat Celebrant",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat phases",
+            "Infinite creature ETB",
+            "Infinite mana creatures you control can produce"
+          ],
+          "diagnosis": [
+            "Combat Celebrant: no loop abilities parsed",
+            "Helm of the Host: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Godo, Bandit Warlord",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat phases",
+            "Infinite death triggers",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Godo, Bandit Warlord: no loop abilities parsed",
+            "Helm of the Host: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Port Razer",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite creature tokens with haste"
+          ],
+          "diagnosis": [
+            "Port Razer: no loop abilities parsed",
+            "Helm of the Host: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Scourge of the Throne",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat phases",
+            "Infinite creature tokens with haste",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Scourge of the Throne: no loop abilities parsed",
+            "Helm of the Host: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Najeela, the Blade-Blossom",
+            "Sword of Feast and Famine"
+          ],
+          "produces": [
+            "Infinite creature tokens with haste",
+            "Infinite combat damage",
+            "Infinite combat phases"
+          ],
+          "diagnosis": [
+            "Najeela, the Blade-Blossom: no loop abilities parsed",
+            "Sword of Feast and Famine: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    }
+  ],
+  "totals": {
+    "decks": 12,
+    "connectivity": 0.975,
+    "spellbookCombos": 108,
+    "matched": 25,
+    "recall": 0.231,
+    "engineOnly": 14
+  },
+  "topUnparsed": [
+    {
+      "card": "Ghostly Flicker",
+      "misses": 5
+    },
+    {
+      "card": "Helm of the Host",
+      "misses": 5
+    },
+    {
+      "card": "Nim Deathmantle",
+      "misses": 5
+    },
+    {
+      "card": "Solemnity",
+      "misses": 5
+    },
+    {
+      "card": "Sword of the Paruns",
+      "misses": 5
+    },
+    {
+      "card": "Umbral Mantle",
+      "misses": 5
+    },
+    {
+      "card": "Aggravated Assault",
+      "misses": 4
+    },
+    {
+      "card": "Reveillark",
+      "misses": 4
+    },
+    {
+      "card": "Dualcaster Mage",
+      "misses": 3
+    },
+    {
+      "card": "Food Chain",
+      "misses": 3
+    },
+    {
+      "card": "Kinnan, Bonder Prodigy",
+      "misses": 3
+    },
+    {
+      "card": "Marwyn, the Nurturer",
+      "misses": 3
+    },
+    {
+      "card": "Teysa Karlov",
+      "misses": 3
+    },
+    {
+      "card": "Bear Umbra",
+      "misses": 2
+    },
+    {
+      "card": "Bloom Tender",
+      "misses": 2
+    },
+    {
+      "card": "Deceiver Exarch",
+      "misses": 2
+    },
+    {
+      "card": "Demonic Consultation",
+      "misses": 2
+    },
+    {
+      "card": "Freed from the Real",
+      "misses": 2
+    },
+    {
+      "card": "Goblin Chieftain",
+      "misses": 2
+    },
+    {
+      "card": "Goblin Warchief",
+      "misses": 2
+    },
+    {
+      "card": "Jhoira's Familiar",
+      "misses": 2
+    },
+    {
+      "card": "Laboratory Maniac",
+      "misses": 2
+    },
+    {
+      "card": "Najeela, the Blade-Blossom",
+      "misses": 2
+    },
+    {
+      "card": "Pemmin's Aura",
+      "misses": 2
+    },
+    {
+      "card": "Sharuum the Hegemon",
+      "misses": 2
+    },
+    {
+      "card": "Sword of Feast and Famine",
+      "misses": 2
+    },
+    {
+      "card": "Tainted Pact",
+      "misses": 2
+    },
+    {
+      "card": "Thassa's Oracle",
+      "misses": 2
+    },
+    {
+      "card": "Time Sieve",
+      "misses": 2
+    },
+    {
+      "card": "Aurelia, the Warleader",
+      "misses": 1
+    },
+    {
+      "card": "Brain Freeze",
+      "misses": 1
+    },
+    {
+      "card": "Combat Celebrant",
+      "misses": 1
+    },
+    {
+      "card": "Dockside Extortionist",
+      "misses": 1
+    },
+    {
+      "card": "Eternal Scourge",
+      "misses": 1
+    },
+    {
+      "card": "Godo, Bandit Warlord",
+      "misses": 1
+    },
+    {
+      "card": "Heat Shimmer",
+      "misses": 1
+    },
+    {
+      "card": "High Tide",
+      "misses": 1
+    },
+    {
+      "card": "Master Transmuter",
+      "misses": 1
+    },
+    {
+      "card": "Murderous Redcap",
+      "misses": 1
+    },
+    {
+      "card": "Neheb, the Eternal",
+      "misses": 1
+    },
+    {
+      "card": "Panharmonicon",
+      "misses": 1
+    },
+    {
+      "card": "Phyrexian Metamorph",
+      "misses": 1
+    },
+    {
+      "card": "Port Razer",
+      "misses": 1
+    },
+    {
+      "card": "Savage Ventmaw",
+      "misses": 1
+    },
+    {
+      "card": "Scourge of the Throne",
+      "misses": 1
+    },
+    {
+      "card": "Sculpting Steel",
+      "misses": 1
+    },
+    {
+      "card": "Squirrel Nest",
+      "misses": 1
+    },
+    {
+      "card": "Temur Sabertooth",
+      "misses": 1
+    },
+    {
+      "card": "Thopter Assembly",
+      "misses": 1
+    },
+    {
+      "card": "Twinflame",
+      "misses": 1
+    },
+    {
+      "card": "Underworld Breach",
+      "misses": 1
+    }
+  ]
+}

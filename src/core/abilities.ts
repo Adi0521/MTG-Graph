@@ -45,11 +45,17 @@ export interface TargetSpec {
   another: boolean;
   /** "nonland permanents": excludes lands. */
   nonland?: boolean;
+  /** "with power 2 or less" (Reveillark). */
+  maxPower?: number;
 }
 
 export type Output =
   /** fromLands: "untap up to five lands" (Peregrine Drake); assumes the lands make the colors needed. */
-  | { type: 'mana'; mana: ManaProduction; fromLands?: boolean }
+  /**
+   * `variable`: the mana is per unit of something on the board ("for each Elf on the battlefield", Priest of
+   * Titania); the engine finds how many units the loop needs and states it as a prerequisite.
+   */
+  | { type: 'mana'; mana: ManaProduction; fromLands?: boolean; variable?: string }
   /** Mana from a created token sacrificing itself (Eldrazi Spawn). Only usable if the token is not also sacrificed elsewhere. */
   | { type: 'tokenMana'; mana: ManaProduction }
   | { type: 'creature'; token: boolean; count: number; haste: boolean; artifact: boolean; pt: string | null }
@@ -64,7 +70,9 @@ export type Output =
   /** "return target creature card from your graveyard to the battlefield" (Karmic Guide). */
   | { type: 'reanimate'; target: TargetSpec }
   /** 'self' = "untap ~"; `all` = "untap all nonland permanents you control". */
-  | { type: 'untap'; target: TargetSpec | 'self'; all: boolean }
+  | { type: 'untap'; target: TargetSpec | 'self' | 'host'; all: boolean }
+  /** Nim Deathmantle: "return that card to the battlefield" (the creature that just died). */
+  | { type: 'recurDied' }
   /** "return target artifact card from your graveyard to your hand" (lesserMv: Scrap Trawler). */
   | { type: 'toHand'; target: TargetSpec; lesserMv: boolean }
   /** amount 0 = "that much" (the amount of the triggering event). */
@@ -73,7 +81,7 @@ export type Output =
   /** "put ~ on top of its owner's library" (Sensei's Divining Top). */
   | { type: 'toTop' }
   /** "return target spell or permanent to its owner's hand" (Venser). */
-  | { type: 'bounce'; target: TargetSpec }
+  | { type: 'bounce'; target: TargetSpec | 'self' }
   /** Living Death: every creature dies, then all creature cards from the graveyard return. */
   | { type: 'massReanimate' }
   /** 'host' = the creature an aura or soulbond grants this to. */
@@ -138,7 +146,22 @@ export interface Ability {
   unmodeledCost: boolean;
 }
 
-const NUMBER_WORDS: Record<string, number> = { a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, x: 0, that: 1 };
+const NUMBER_WORDS: Record<string, number> = {
+  a: 1,
+  an: 1,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10,
+  x: 0,
+  that: 1,
+};
 const toNumber = (w: string | undefined, fallback = 1) => (w === undefined ? fallback : /^\d+$/.test(w) ? Number(w) : NUMBER_WORDS[w] ?? fallback);
 
 /** Parse "{2}{B}{B}"-style symbols (lowercase or uppercase). Hybrid and Phyrexian symbols count as their first color. */
@@ -173,6 +196,27 @@ function parseManaProduction(effect: string): ManaProduction | null {
   return null;
 }
 
+/** Mana that scales with the board: Priest of Titania, Marwyn, Selvala, Bloom Tender, Dockside Extortionist. */
+function parseVariableMana(effect: string): Extract<Output, { type: 'mana' }> | null {
+  const one = (sym: string) => {
+    const m = emptyProduction();
+    m[sym.toUpperCase() as Color]++;
+    return m;
+  };
+  const perEach = /\badd \{([wubrgc])\} for each ([^.]+)/.exec(effect);
+  if (perEach) return { type: 'mana', mana: one(perEach[1]!), variable: `for each ${perEach[2]}` };
+  const amount = /\badd an amount of \{([wubrgc])\} equal to ([^.]+)/.exec(effect);
+  if (amount) return { type: 'mana', mana: one(amount[1]!), variable: `equal to ${amount[2]}` };
+  const x = /\badd x mana in any combination of colors, where x is ([^.]+)/.exec(effect);
+  if (x) return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: x[1]! };
+  if (/for each color among permanents you control, add one mana of that color/.test(effect)) {
+    return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: 'one per color among your permanents' };
+  }
+  const treasures = /\bcreate (?:a|x) treasure tokens? for each ([^.]+)/.exec(effect);
+  if (treasures) return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: `a Treasure for each ${treasures[1]}` };
+  return null;
+}
+
 function parseTargetSpec(phrase: string, another = false): TargetSpec {
   const types = [...phrase.matchAll(/\b(permanent|creature|artifact|enchantment|land|planeswalker|instant|sorcery|card)s?\b/g)]
     .map((m) => m[1]!)
@@ -180,6 +224,7 @@ function parseTargetSpec(phrase: string, another = false): TargetSpec {
   return {
     types: types.length ? [...new Set(types)] : ['permanent'],
     nonland: /\bnonland\b/.test(phrase),
+    maxPower: /with power (\d+) or less/.exec(phrase) ? Number(/with power (\d+) or less/.exec(phrase)![1]) : undefined,
     nonlegendary: /\bnonlegendary\b/.test(phrase),
     excluded: [...phrase.matchAll(/\bnon-(\w+)/g)].map((m) => m[1]!),
     another: another || /\banother\b/.test(phrase),
@@ -192,6 +237,7 @@ export function matchesTarget(spec: TargetSpec, target: Card, source: string): b
   if (spec.another && target.name === source) return false;
   if (spec.nonlegendary && /\bLegendary\b/.test(target.typeLine)) return false;
   if (spec.nonland && /\bLand\b/.test(target.typeLine)) return false;
+  if (spec.maxPower !== undefined && (target.power ?? 0) > spec.maxPower) return false;
   for (const ex of spec.excluded) if (new RegExp(`\\b${CAPITALIZE(ex)}\\b`).test(target.typeLine)) return false;
   return spec.types.some((t) =>
     t === 'card'
@@ -210,7 +256,9 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   const tokenMana = /creature tokens?[^"]*"sacrifice (?:~|this (?:token|creature)): (add [^"]*)"/.exec(rawEffect);
   const tokenProduction = tokenMana ? parseManaProduction(tokenMana[1]!) : null;
   if (tokenProduction) outputs.push({ type: 'tokenMana', mana: tokenProduction });
-  const mana = parseManaProduction(effect);
+  const variable = parseVariableMana(effect);
+  const mana = variable ? null : parseManaProduction(effect);
+  if (variable) outputs.push(variable);
   if (mana) outputs.push({ type: 'mana', mana });
 
   const copy = /create a token that's a copy of (target [^,.]*?creature[^,.]*?|~)(?:,|\.|$)/.exec(effect);
@@ -244,14 +292,19 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
     if (exile && !delayed) outputs.push({ type: 'exile', target: parseTargetSpec(exile[2]!, exile[1] === 'another target') });
   }
   if (/return the exiled card to the battlefield/.test(effect)) outputs.push({ type: 'returnExiled' });
-  const reanimate = /return target ([^.]*?creature card) from your graveyard to the battlefield/.exec(effect);
+  const reanimate = /return (?:up to \w+ )?target ([^.]*?creature cards?[^.]*?) from your graveyard to the battlefield/.exec(effect);
   if (reanimate) outputs.push({ type: 'reanimate', target: parseTargetSpec(reanimate[1]!) });
+  if (/return that card to the battlefield/.test(effect)) outputs.push({ type: 'recurDied' });
   const landUntap = /untap up to (\w+) lands/.exec(effect);
   if (landUntap) outputs.push({ type: 'mana', mana: { ...emptyProduction(), any: toNumber(landUntap[1]) }, fromLands: true });
 
+  // Sword of the Paruns / Pemmin's Aura: "untap equipped creature", "untap enchanted creature".
+  const untapHost = /\b(?:tap or )?untap (?:equipped|enchanted) creature/.test(effect);
   const untapAll = /\buntap all (nonland )?permanents you control/.exec(effect);
   const untap = /\b(?:tap or )?untap (target [^.,]*?|another target [^.,]*?|that \w+|it|~)(?:[.,]|$| and)/.exec(effect.replace(/untap up to \w+ lands/, ''));
-  if (untapAll) {
+  if (untapHost) {
+    outputs.push({ type: 'untap', target: 'host', all: false });
+  } else if (untapAll) {
     outputs.push({ type: 'untap', target: { ...parseTargetSpec('permanent'), nonland: Boolean(untapAll[1]) }, all: true });
   } else if (untap && !/doesn't untap/.test(effect)) {
     let phrase = untap[1]!;
@@ -287,6 +340,7 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   if (/put ~ on top of its owner's library/.test(effect)) outputs.push({ type: 'toTop' });
   const bounce = /return target ((?:spell or )?(?:nonland )?(?:permanent|creature|artifact)) to its owner's hand/.exec(effect);
   if (bounce) outputs.push({ type: 'bounce', target: parseTargetSpec(bounce[1]!.replace('spell or ', '')) });
+  else if (/return ~ to its owner's hand/.test(effect)) outputs.push({ type: 'bounce', target: 'self' });
   if (/sacrifices? all creatures they control, then puts? all cards they exiled this way onto the battlefield/.test(effect)) outputs.push({ type: 'massReanimate' });
 
   const draw = /\bdraws? (a|two|three|x|\d+) cards?/.exec(effect);
@@ -312,6 +366,8 @@ function parseTrigger(condition: string, granted: boolean): Trigger | null {
     const another = !death[1] && Boolean(death[2]?.startsWith('another') || death[3]);
     return { type: 'death', self: false, another, nontoken: Boolean(death[4]), what: 'creature' };
   }
+  const creatureToGraveyard = /^whenever (a|another) (nontoken )?creature is put into your graveyard from the battlefield/.exec(condition);
+  if (creatureToGraveyard) return { type: 'death', self: false, another: creatureToGraveyard[1] === 'another', nontoken: Boolean(creatureToGraveyard[2]), what: 'creature' };
   if (/^whenever you sacrifice (?:a|another) (?:creature|permanent)/.test(condition)) {
     return { type: 'death', self: false, another: false, nontoken: false, what: 'creature' };
   }
@@ -389,6 +445,15 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     },
   });
   ability.unmodeledCost = leftover.length > 0;
+  // {Q} (the untap symbol, Umbral Mantle): activating untaps the creature that has the ability.
+  if (/\{q\}/.test(costText) && !ability.outputs.some((o) => o.type === 'untap')) {
+    ability.outputs.push({ type: 'untap', target: host ? 'host' : 'self', all: false });
+  }
+  // "untap equipped/enchanted creature" acts through the creature it is attached to.
+  if (ability.outputs.some((o) => o.type === 'untap' && o.target === 'host')) {
+    ability.host = true;
+    ability.hostVia = 'attached';
+  }
   if (ability.kind === 'recast') {
     ability.outputs = ability.outputs.filter((o) => o.type !== 'recur');
     return ability;
@@ -401,13 +466,17 @@ function parseTriggered(card: Card, lineNo: number, display: string, line: strin
   const condition = comma === -1 ? line : line.slice(0, comma);
   const trigger = parseTrigger(condition, granted);
   if (!trigger) return null;
-  const effect = comma === -1 ? '' : line.slice(comma + 1);
-  // "you may pay {1}. If you do, ..." costs mana per trigger; treat it as unmodeled.
-  if (/you may pay \{/.test(effect)) return null;
+  let effect = comma === -1 ? '' : line.slice(comma + 1);
+  // "you may pay {4}. If you do, return that card..." (Nim Deathmantle): the payment is the trigger's cost.
+  const payment = /you may pay ((?:\{[^}]+\})+)\. if you do, (.*)/.exec(effect);
+  if (/you may pay/.test(effect) && !payment) return null;
+  if (payment) effect = payment[2]!;
   const host = granted || (trigger.type === 'damage' && trigger.source === 'host');
   const outputs = parseOutputs(effect, host);
   if (!outputs.length) return null;
-  return makeAbility(card, lineNo, display, { kind: 'triggered', trigger, outputs, host, hostVia: host && !granted ? 'attached' : undefined });
+  const ability = makeAbility(card, lineNo, display, { kind: 'triggered', trigger, outputs, host, hostVia: host && !granted ? 'attached' : undefined });
+  if (payment) ability.cost.mana = parseManaCost(payment[1]!);
+  return ability;
 }
 
 /** Parse the loop-relevant abilities of a card. Ability ids are "<card>#<oracle line>". */
@@ -495,6 +564,26 @@ export function artifactTapper(card: Card): { card: string; mana: ManaProduction
   const mana = emptyProduction();
   mana[m[1]!.toUpperCase() as Color]++;
   return { card: card.name, mana };
+}
+
+/** Solemnity: "Counters can't be put on artifacts, creatures, enchantments, or lands." */
+export function blocksCounters(card: Card): boolean {
+  return /counters can't be put on artifacts, creatures/.test(card.text);
+}
+
+/** Teysa Karlov: a creature dying makes your triggered abilities trigger an additional time. */
+export function deathDoubler(card: Card): boolean {
+  return /if a creature dying causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time/.test(card.text);
+}
+
+/** High Tide: "whenever a player taps an Island for mana, that player adds an additional {U}". */
+export function landAmplifier(card: Card): boolean {
+  return /whenever a player taps an island for mana, that player adds an additional \{u\}/.test(card.text);
+}
+
+/** Kinnan, Bonder Prodigy: "whenever you tap a nonland permanent for mana, add one additional mana". */
+export function manaAmplifier(card: Card): boolean {
+  return /whenever you tap a nonland permanent for mana, add one additional mana/.test(card.text);
 }
 
 /** Power Artifact: "Enchanted artifact's activated abilities cost {2} less ... can't reduce ... to less than one mana." */

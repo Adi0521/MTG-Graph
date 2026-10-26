@@ -1,0 +1,36 @@
+// Archetype: Boros voltron with extra combats (Aurelia, the Warleader)
+Commander
+1 Aurelia, the Warleader
+Deck
+1 Aggravated Assault
+1 Sword of Feast and Famine
+1 Relentless Assault
+1 Moraug, Fury of Akoum
+1 Combat Celebrant
+1 Helm of the Host
+1 Godo, Bandit Warlord
+1 Bear Umbra
+1 Savage Ventmaw
+1 Sword of Fire and Ice
+1 Sword of Body and Mind
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Puresteel Paladin
+1 Stoneforge Mystic
+1 Sigarda's Aid
+1 Hammer of Nazahn
+1 Kor Outfitter
+1 Argentum Armor
+1 Blackblade Reforged
+1 Colossus Hammer
+1 Embercleave
+1 Sol Ring
+1 Arcane Signet
+1 Boros Signet
+1 Neheb, the Eternal
+1 World at War
+1 Port Razer
+1 Scourge of the Throne
+1 Najeela, the Blade-Blossom
+15 Mountain
+15 Plains

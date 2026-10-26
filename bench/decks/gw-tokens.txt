@@ -1,0 +1,20 @@
+// Archetype: Selesnya tokens (Jetmir-free, 60 cards)
+4 Earthcraft
+3 Squirrel Nest
+2 Presence of Gond
+2 Midnight Guard
+2 Village Bell-Ringer
+2 Cryptolith Rite
+2 Intangible Virtue
+2 Anointed Procession
+2 Parallel Lives
+2 Chatterfang, Squirrel General
+2 Scute Swarm
+2 Avenger of Zendikar
+2 Raise the Alarm
+2 Secure the Wastes
+2 Elspeth, Sun's Champion
+2 Divine Visitation
+1 Craterhoof Behemoth
+12 Forest
+12 Plains

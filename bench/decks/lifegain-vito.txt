@@ -1,0 +1,35 @@
+// Archetype: Mono-black lifedrain (Vito, Thorn of the Dusk Rose)
+Commander
+1 Vito, Thorn of the Dusk Rose
+Deck
+1 Exquisite Blood
+1 Sanguine Bond
+1 Bloodthirsty Aerialist
+1 Twilight Prophet
+1 Sorin, Vengeful Bloodlord
+1 Cliffhaven Vampire
+1 Defiant Bloodlord
+1 Marauding Blight-Priest
+1 Vampire Nighthawk
+1 Gray Merchant of Asphodel
+1 Kalitas, Traitor of Ghet
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Bloodline Pretender
+1 Night Market Lookout
+1 Vona's Hunger
+1 Waste Not
+1 Bontu's Monument
+1 Vampire of the Dire Moon
+1 Necropotence
+1 Sol Ring
+1 Arcane Signet
+1 Charcoal Diamond
+1 Dark Ritual
+1 Exsanguinate
+1 Torment of Hailfire
+1 Sanguine Brushstroke
+1 Sovereign's Bite
+1 Archfiend of Despair
+1 Crypt Ghast
+30 Swamp

@@ -1,0 +1,35 @@
+// Archetype: Elf ramp (Selvala, Heart of the Wilds)
+Commander
+1 Selvala, Heart of the Wilds
+Deck
+1 Umbral Mantle
+1 Staff of Domination
+1 Priest of Titania
+1 Elvish Archdruid
+1 Wirewood Symbiote
+1 Elvish Visionary
+1 Eternal Witness
+1 Craterhoof Behemoth
+1 Beast Whisperer
+1 Llanowar Elves
+1 Fyndhorn Elves
+1 Elvish Mystic
+1 Joraga Treespeaker
+1 Devoted Druid
+1 Seeker of Skybreak
+1 Quirion Ranger
+1 Scryb Ranger
+1 Sword of the Paruns
+1 Ezuri, Renegade Leader
+1 Circle of Dreams Druid
+1 Marwyn, the Nurturer
+1 Heritage Druid
+1 Nettle Sentinel
+1 Glimpse of Nature
+1 Regal Force
+1 Woodcaller Automaton
+1 Freyalise, Llanowar's Fury
+1 Tyvar Kell
+1 Sylvan Messenger
+1 Lys Alana Huntmaster
+30 Forest

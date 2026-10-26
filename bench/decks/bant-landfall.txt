@@ -1,0 +1,19 @@
+// Archetype: Bant landfall (60 cards)
+4 Knight of the Reliquary
+3 Retreat to Coralhelm
+4 Lotus Cobra
+2 Tireless Tracker
+2 Scute Swarm
+1 Felidar Retreat
+2 Omnath, Locus of the Roil
+2 Tatyova, Benthic Druid
+4 Evolving Wilds
+4 Fabled Passage
+2 Ramunap Excavator
+2 Crucible of Worlds
+2 Field of the Dead
+2 Valakut Exploration
+2 Avenger of Zendikar
+4 Forest
+4 Island
+4 Plains
