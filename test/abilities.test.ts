@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { matchesTarget, parseAbilities, parseManaCost } from '../src/core/abilities.ts';
-import { card } from './helpers.ts';
+import { toCard } from '../src/core/card.ts';
+import { card, FIXTURES } from './helpers.ts';
 
 const abilities = (name: string) => parseAbilities(card(name));
 
@@ -65,5 +66,15 @@ describe('matchesTarget', () => {
     expect(matchesTarget(spec, card('Zealous Conscripts'), 'x')).toBe(true);
     expect(matchesTarget(spec, card('Krenko, Mob Boss'), 'x')).toBe(false);
     expect(matchesTarget(spec, card('Restoration Angel'), 'x')).toBe(false);
+  });
+});
+
+describe('intervening "if" conditions', () => {
+  it('refuses untracked conditions but tracks Blowfly Infestation\'s -1/-1 check', () => {
+    const fake = toCard({ ...FIXTURES['Blood Artist']!, name: 'Test Evangel', oracle_text: 'Whenever a creature dies, if an Aura you controlled was attached to it, you gain 1 life.' });
+    expect(parseAbilities(fake).every((a) => a.unmodeledCost)).toBe(true);
+    const [blowfly] = abilities('Blowfly Infestation');
+    expect(blowfly!.trigger).toMatchObject({ type: 'death', hadMinus: true });
+    expect(blowfly!.unmodeledCost).toBeFalsy();
   });
 });

@@ -191,6 +191,40 @@ describe('findEngineCombos', () => {
     }
   });
 
+  it('loops -1/-1 counters: Blowfly Infestation kills the Insects Nest of Scarabs makes', () => {
+    for (const enabler of ['Nest of Scarabs', 'Hapatra, Vizier of Poisons']) {
+      const [c] = combosOf('Blowfly Infestation', enabler);
+      expect(c!.produces).toEqual(expect.arrayContaining(['Infinite death triggers']));
+    }
+    expect(combosOf('Blowfly Infestation')).toEqual([]);
+  });
+
+  it('returns persist creatures every time with Melira, Vizier of Remedies, Cathars\' Crusade or bolster', () => {
+    expect(combosOf('Kitchen Finks', 'Viscera Seer')).toEqual([]);
+    for (const fixer of ['Melira, Sylvok Outcast', 'Vizier of Remedies', "Cathars' Crusade"]) {
+      const [c] = combosOf('Kitchen Finks', 'Viscera Seer', fixer);
+      expect(c!.helpers).toContain(fixer);
+    }
+    expect(sets('Murderous Redcap', 'Viscera Seer', 'Anafenza, Kin-Tree Spirit')).toContainEqual(['Anafenza, Kin-Tree Spirit', 'Murderous Redcap']);
+  });
+
+  it('applies cost reducers without "you cast", chosen types, Animar and Aluren', () => {
+    expect(combosOf("Sensei's Divining Top", 'Mystic Forge', 'Helm of Awakening')).toHaveLength(1);
+    const [key] = combosOf("Sensei's Divining Top", 'Mystic Forge', 'Cloud Key');
+    expect(key!.prerequisites).toContain('Cloud Key names artifact');
+    const [animar] = combosOf('Ancestral Statue', 'Animar, Soul of Elements');
+    expect(animar!.prerequisites).toContain('Animar, Soul of Elements has at least 4 +1/+1 counters');
+    expect(combosOf('Kor Skyfisher', 'Aluren')).toHaveLength(1);
+    expect(combosOf('Peregrine Drake', 'Shrieking Drake')).toEqual([]);
+    expect(combosOf('Peregrine Drake', 'Shrieking Drake', 'Panharmonicon')).toHaveLength(1);
+  });
+
+  it('copies spells (Dualcaster Mage) and reads modal ETBs (Deceiver Exarch)', () => {
+    expect(combosOf('Dualcaster Mage', 'Twinflame')[0]!.produces).toContain('Infinite hasty creature tokens');
+    expect(combosOf('Dualcaster Mage', 'Ghostly Flicker')).toHaveLength(1);
+    expect(sets('Kiki-Jiki, Mirror Breaker', 'Deceiver Exarch')).toEqual([['Deceiver Exarch', 'Kiki-Jiki, Mirror Breaker']]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

@@ -199,7 +199,12 @@
   "spells-dualcaster": {
     "connectivity": 1,
     "matchedCombos": [
+      "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+      "Deceiver Exarch + Splinter Twin",
       "Dramatic Reversal + Isochron Scepter",
+      "Dualcaster Mage + Ghostly Flicker",
+      "Dualcaster Mage + Heat Shimmer",
+      "Dualcaster Mage + Twinflame",
       "Kiki-Jiki, Mirror Breaker + Pestermite",
       "Pestermite + Splinter Twin"
     ]

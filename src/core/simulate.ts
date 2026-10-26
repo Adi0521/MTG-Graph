@@ -74,7 +74,7 @@ interface Perm {
 }
 
 interface Event {
-  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw';
+  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus';
   card?: string | null;
   token?: boolean;
   types?: string[];
@@ -105,6 +105,8 @@ class Simulation {
   setup = true;
   startup = new Set<string>();
   events: Event[] = [];
+  /** The previous pass's events: a loop's first step can be triggered by its last step's event. */
+  previousEvents: Event[] = [];
   /** Tokens made by the most recent step, for the next step to sacrifice. */
   lastTokens: number[] = [];
   /** Tokens made this pass that were never used: fodder for a helper sacrifice outlet. */
@@ -207,8 +209,9 @@ class Simulation {
   }
 
   private addCounters(p: Perm, plus: number, minus: number) {
-    // Solemnity: counters can't be put on permanents.
+    // Solemnity: counters can't be put on permanents. Melira: no -1/-1 counters on your creatures.
     if (this.plan.helpers.some((h) => h.kind === 'counterBlocker')) return;
+    if (this.plan.helpers.some((h) => h.kind === 'minusBlocker')) minus = 0;
     p.plus += plus;
     p.minus += minus;
     // +1/+1 and -1/-1 counters annihilate.
@@ -280,7 +283,12 @@ class Simulation {
     const c = { ...a.cost.mana };
     if (a.kind === 'cast') {
       for (const h of this.plan.helpers) {
-        if (h.kind === 'reducer' && reducerApplies(h.what, a.casts ?? [])) c.generic = Math.max(0, c.generic - h.amount);
+        if (h.kind !== 'reducer' || !reducerApplies(h.what, a.casts ?? [])) continue;
+        if (h.maxMv !== undefined) {
+          if (this.cardOf(a.card).cmc <= h.maxMv) for (const key of [...COLORS, 'generic'] as const) c[key] = 0;
+          continue;
+        }
+        c.generic = Math.max(0, c.generic - (h.variable ? (this.plan.variableX ?? 0) : h.amount));
       }
     }
     const act = this.plan.helpers.find((h): h is Extract<Helper, { kind: 'activationReducer' }> => h.kind === 'activationReducer');
@@ -293,6 +301,7 @@ class Simulation {
   // --- running the loop -----------------------------------------------------
 
   runPass() {
+    this.previousEvents = this.events;
     this.events = [];
     this.spareTokens.clear();
     const k = this.plan.cycle.length;
@@ -348,6 +357,10 @@ class Simulation {
     const host = this.plan.hosts[i];
 
     // Trigger conditions that depend on state.
+    if (a.trigger?.type === 'death' && a.trigger.hadMinus) {
+      const death = [...this.previousEvents, ...this.events].reverse().find((e) => e.type === 'death');
+      if (!death || !(death.minus ?? 0)) this.problem(`${a.card} needs a creature to die with a -1/-1 counter on it`);
+    }
     if (a.id.endsWith('#undying') || a.id.endsWith('#persist')) {
       const death = [...this.events].reverse().find((e) => e.type === 'death' && e.card === a.card);
       if (!death) throw new LoopFails(`${a.card} did not die`);
@@ -374,7 +387,11 @@ class Simulation {
     }
     if (a.cost.life > 0 && this.life <= a.cost.life && this.problem(`needs more than ${a.cost.life} life to start`)) this.life = a.cost.life + 1;
     this.life -= a.cost.life;
-    if (a.cost.removeCounter) {
+    if (a.cost.removeCounter && a.cost.removeCounterFromAny) {
+      const p = this.perms.find((x) => x.plus > 0);
+      if (p) p.plus--;
+      else this.problem(`a creature you control needs a +1/+1 counter for ${a.card}`);
+    } else if (a.cost.removeCounter) {
       const p = this.require(a.card, 'to remove a counter');
       if (p.plus < 1 && this.problem(`${a.card} needs a +1/+1 counter to start`)) p.plus = 1;
       p.plus--;
@@ -423,7 +440,9 @@ class Simulation {
     }
     if (a.id.endsWith('#persist')) {
       const back = this.find(a.card);
-      if (back) this.addCounters(back, 0, 1);
+      // Vizier of Remedies puts one fewer -1/-1 counter (Melira and Solemnity are handled in addCounters).
+      const prevented = this.plan.helpers.some((h) => h.kind === 'counterPreventer');
+      if (back && !prevented) this.addCounters(back, 0, 1);
     }
     if (a.kind === 'cast' && !permanentCast) this.graveyard.push(a.card);
 
@@ -623,8 +642,27 @@ class Simulation {
       case 'selfLifeLoss':
         this.life -= o.amount;
         return;
+      case 'minusCounter': {
+        // On a 1-toughness token the loop made (it dies: Blowfly), or else on an opponent's creature.
+        if (output.res === 'death' && output.hadMinus) {
+          const victim = [...this.perms].reverse().find((p) => p.token && p.types.includes('creature') && this.toughness(p) <= 1);
+          if (victim) this.addCounters(victim, 0, 1);
+          else this.problem(`${a.card} needs a 1/1 token to put the -1/-1 counter on`);
+        }
+        this.events.push({ type: 'minus' });
+        return;
+      }
+      case 'spellCopy':
+        return;
       case 'counter': {
         const amount = o.amount === 0 ? (this.lastLifegain() ?? 1) : (o.amount ?? 1);
+        if (o.bolster) {
+          // Bolster: the creature you control with the least toughness.
+          const creatures = this.perms.filter((p) => p.types.includes('creature'));
+          const least = creatures.sort((x, y) => this.toughness(x) - this.toughness(y))[0];
+          if (least) this.addCounters(least, amount, 0);
+          return;
+        }
         if (o.each) {
           for (const p of this.perms) if (p.types.includes('creature')) this.addCounters(p, amount, 0);
           return;
@@ -671,6 +709,12 @@ class Simulation {
           if (o.type === 'lifegain') this.life += o.amount;
           if (o.type === 'selfLifeLoss') this.life -= o.amount;
           if (o.type === 'drain') this.opponentLife -= o.amount;
+          // Cathars' Crusade (+1/+1 on each creature) and Anafenza (bolster) cancel a persist creature's -1/-1.
+          if (o.type === 'counter' && o.each) for (const p of this.perms) if (p.types.includes('creature')) this.addCounters(p, o.amount ?? 1, 0);
+          if (o.type === 'counter' && o.bolster) {
+            const least = this.perms.filter((p) => p.types.includes('creature')).sort((x, y) => this.toughness(x) - this.toughness(y))[0];
+            if (least) this.addCounters(least, o.amount ?? 1, 0);
+          }
           if (o.type === 'creature') {
             for (let n = 0; n < o.count; n++) {
               this.spareTokens.add(this.enter(ability.card, true, { types: o.artifact ? ['artifact', 'creature'] : ['creature'], pt: o.pt }).id);
@@ -756,7 +800,7 @@ function fillerCard(name: string): Card {
 }
 
 function reducerApplies(what: string, casts: string[]): boolean {
-  if (what === 'any') return true;
+  if (what === 'any' || what === 'chosen') return true;
   if (what === 'noncreature') return !casts.includes('creature');
   if (what === 'instant and sorcery') return casts.includes('instant') || casts.includes('sorcery');
   return casts.includes(what);
@@ -783,6 +827,8 @@ function riderMatches(r: Ability, e: Event): boolean {
       return e.type === 'draw';
     case 'selfEtb':
       return e.type === 'etb' && e.card === r.card;
+    case 'minus':
+      return e.type === 'minus';
     default:
       return false;
   }
@@ -855,7 +901,10 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
 
   const empty: PerLoop = { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0 };
   try {
-    sim.runPass(); // setup pass: problems become startup requirements
+    // Two setup passes: some loops need priming before they repeat (Blowfly Infestation needs an Insect from the
+    // first pass to kill in the second). Problems found here become startup requirements.
+    sim.runPass();
+    sim.runPass();
     sim.setup = false;
     const snaps = [];
     for (let n = 0; n < PASSES; n++) {

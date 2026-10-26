@@ -4,6 +4,8 @@ import {
   activationReducer,
   artifactTapper,
   blocksCounters,
+  blocksMinusCounters,
+  copiedSpellAbility,
   castFromTopEnabler,
   deathDoubler,
   etbDoubler,
@@ -106,6 +108,7 @@ export interface HelperIndex {
   etbDoublers: string[];
   artifactTappers: { card: string; mana: ManaProduction }[];
   counterBlockers: string[];
+  minusBlockers: string[];
   deathDoublers: string[];
   landAmplifiers: string[];
   manaAmplifiers: string[];
@@ -122,6 +125,7 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
     etbDoublers: cards.filter(etbDoubler).map((c) => c.name),
     artifactTappers: cards.flatMap((c) => artifactTapper(c) ?? []),
     counterBlockers: cards.filter(blocksCounters).map((c) => c.name),
+    minusBlockers: cards.filter(blocksMinusCounters).map((c) => c.name),
     deathDoublers: cards.filter(deathDoubler).map((c) => c.name),
     landAmplifiers: cards.filter(landAmplifier).map((c) => c.name),
     manaAmplifiers: cards.filter(manaAmplifier).map((c) => c.name),
@@ -130,7 +134,7 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
 
-export type Resource = 'free' | 'library' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
+export type Resource = 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
 
 export interface Binding {
   res: Resource;
@@ -144,6 +148,8 @@ export interface Binding {
   lifelinkFrom?: string;
   /** Life gained or lost, so "that much" effects downstream know the amount. */
   amount?: number;
+  /** A death caused by a -1/-1 counter (Blowfly Infestation's condition). */
+  hadMinus?: boolean;
 }
 
 export interface Context {
@@ -160,6 +166,8 @@ export interface Context {
   artifactTappers: { card: string; mana: ManaProduction }[];
   /** Solemnity: undying/persist creatures return without counters. */
   counterBlockers: string[];
+  /** Melira: persist creatures return without their -1/-1 counter. */
+  minusBlockers: string[];
   /** Teysa Karlov: death triggers happen twice. */
   deathDoublers: string[];
   /** High Tide: lands untapped for mana make an extra {U} each (assuming Islands). */
@@ -300,6 +308,12 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
     const t = next.trigger!;
     switch (t.type) {
       case 'death': {
+        // A -1/-1 counter on a 1/1 token kills it (Blowfly Infestation looping on Nest of Scarabs' Insects).
+        if (has(a, 'minusCounter') && !a.cost.sacrifice) {
+          if (t.self || t.nontoken) return null;
+          return { res: 'death', object: null, token: true, types: ['creature'], hadMinus: true };
+        }
+        if (t.hadMinus && !input?.hadMinus) return null;
         // A creature can also kill itself: pinging itself, or piling -1/-1 counters on itself (undying loops).
         if (!a.cost.sacrifice) {
           const selfKill =
@@ -359,6 +373,10 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         if (t.source === 'self' && a.card !== next.card) return null;
         return { res: 'damage', object: a.card };
       }
+      case 'minus':
+        return has(a, 'minusCounter') ? { res: 'minus' } : null;
+      case 'spellCopy':
+        return has(a, 'spellCopy') ? { res: 'spellCopy' } : null;
       case 'cast': {
         const casts = a.casts ?? [];
         const ok = t.what === 'any' ? casts.length > 0 : t.what === 'artifact' ? casts.includes('artifact') : casts.includes('instant') || casts.includes('sorcery');
@@ -411,7 +429,9 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
     const counter = has(a, 'counter');
     const reaches =
       counter &&
-      (counter.target === 'self'
+      (next.cost.removeCounterFromAny
+        ? true
+        : counter.target === 'self'
         ? a.card === next.card
         : counter.target === 'host'
           ? isCreature(ctx, next.card)
@@ -434,6 +454,8 @@ function addMana(into: ManaProduction, m: ManaProduction, times = 1) {
 }
 
 interface Events {
+  /** -1/-1 counters put on creatures. */
+  minus: number;
   deaths: { object: string | null; token: boolean; types: string[] }[];
   etbs: { object: string | null; token: boolean; types: string[] }[];
   casts: string[][];
@@ -454,6 +476,8 @@ function riderFires(r: Ability, ev: Events): number {
       return ev.etbs.filter((e) => e.types.includes('creature') && !(t.nontoken && e.token) && !(t.another && e.object === r.card)).length;
     case 'cast':
       return ev.casts.filter((c) => (t.what === 'any' ? true : t.what === 'artifact' ? c.includes('artifact') : c.includes('instant') || c.includes('sorcery'))).length;
+    case 'minus':
+      return ev.minus;
     case 'selfEtb':
       // A card re-entering during the loop (returned by Nim Deathmantle) triggers its own enter ability.
       return ev.etbs.filter((e) => e.object === r.card).length;
@@ -471,7 +495,7 @@ function riderFires(r: Ability, ev: Events): number {
 /** A card added to make a loop break even. */
 export type Helper =
   | { kind: 'rider'; card: string; ability: Ability; fires: number }
-  | { kind: 'reducer'; card: string; what: string; amount: number }
+  | ({ kind: 'reducer' } & CostReducer)
   | { kind: 'outlet'; card: string; ability: Ability }
   | { kind: 'rock'; card: string; ability: Ability }
   | { kind: 'activationReducer'; card: string; amount: number }
@@ -482,6 +506,7 @@ export type Helper =
   | { kind: 'etbDoubler'; card: string }
   | { kind: 'artifactTapper'; card: string; mana: ManaProduction }
   | { kind: 'counterBlocker'; card: string }
+  | { kind: 'minusBlocker'; card: string }
   | { kind: 'deathDoubler'; card: string }
   | { kind: 'landAmplifier'; card: string }
   | { kind: 'manaAmplifier'; card: string };
@@ -501,10 +526,11 @@ const HELPER_ORDER: Helper['kind'][] = [
   'landAmplifier',
   'manaAmplifier',
   'counterBlocker',
+  'minusBlocker',
 ];
 
 function reducerApplies(what: string, casts: string[]): boolean {
-  if (what === 'any') return true;
+  if (what === 'any' || what === 'chosen') return true;
   if (what === 'noncreature') return !casts.includes('creature');
   if (what === 'instant and sorcery') return casts.includes('instant') || casts.includes('sorcery');
   return casts.includes(what);
@@ -533,6 +559,8 @@ const THEN: Record<Resource, (b: Binding, next: string) => string> = {
   draw: (_, next) => `the draw triggers ${next}`,
   damage: (b, next) => `${b.object} dealing damage to an opponent triggers ${next}`,
   hand: (b) => `this returns ${b.object} to your hand`,
+  minus: (_, next) => `the -1/-1 counter triggers ${next}`,
+  spellCopy: (_, next) => `the copy of ${next.replace(/ \(copy\)$/, '')} resolves`,
   library: (b) => `this puts ${b.object} on top of your library`,
   leave: (b, next) => `${b.object} leaving the battlefield triggers ${next}`,
   cast: (_, next) => `casting the spell triggers ${next}`,
@@ -619,7 +647,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   const amountOf = (i: number, o: { amount: number }) => (o.amount === 0 ? (bound[i]!.amount ?? inputOf(i).amount ?? 1) : o.amount);
 
-  const events: Events = { deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
+  const events: Events = { minus: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
   for (const name of extraSacrifices) events.deaths.push({ object: name, token: false, types: typesOf(ctx, name) });
   const baseMana = emptyProduction();
   let baseLife = 0;
@@ -669,6 +697,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       }
       if (o.type === 'counter') counters++;
       if (o.type === 'draw') events.draws += o.amount;
+      if (o.type === 'minusCounter') events.minus++;
     }
     // Tokens not passed on as fodder and not sacrificed for their own mana are left over.
     const made = has(a, 'creature');
@@ -772,7 +801,17 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     const reducedCard = actReducer ? manaActivated[0]?.card : undefined;
     for (const a of cycle) {
       const c = { ...a.cost.mana };
-      if (a.kind === 'cast') for (const r of reducers) if (reducerApplies(r.what, a.casts ?? [])) c.generic = Math.max(0, c.generic - r.amount);
+      if (a.kind === 'cast') {
+        for (const r of reducers) {
+          if (!reducerApplies(r.what, a.casts ?? [])) continue;
+          if (r.maxMv !== undefined) {
+            // Aluren: free if the mana value is low enough.
+            if ((ctx.cardByName.get(a.card)?.cmc ?? 99) <= r.maxMv) for (const key of [...COLORS, 'generic'] as const) c[key] = 0;
+            continue;
+          }
+          c.generic = Math.max(0, c.generic - (r.variable ? x : r.amount));
+        }
+      }
       if (actReducer && a.card === reducedCard && a.kind === 'activated' && totalMana(c) > 0) {
         // "can't reduce the mana in that cost to less than one mana"
         c.generic = Math.max(0, c.generic - Math.min(actReducer.amount, totalMana(c) - 1));
@@ -810,6 +849,9 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     // Living Death returns every creature card, which the outlet sacrifices again: the loop card plus `extra` others.
     if (massReanimate) for (let n = 0; n < 1 + extra; n++) spareBodies.push(['creature']);
     for (const name of extraSacrifices) spareBodies.push(typesOf(ctx, name));
+    // Tokens killed by -1/-1 counters are not spare; if the loop makes too few, it does not work.
+    if (spareBodies.length < counterKills) life = -Infinity;
+    spareBodies.splice(0, counterKills);
     // Spare tokens go to the best free sacrifice outlet available.
     const outlets = [...cycleOutlets, ...helpers.flatMap((h) => (h.kind === 'outlet' ? [h.ability] : []))];
     for (const body of spareBodies) {
@@ -823,6 +865,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const hasEvents =
     events.deaths.length > 0 || events.etbs.length > 0 || events.casts.length > 0 || events.draws > 0 || events.drains > 0 || events.lifegains > 0 || counters > 0 || tokens > 0;
   // -1/-1 counter costs need Vizier of Remedies, unless the creature is meant to die and come back (undying).
+  // Each death by -1/-1 counter uses up a 1/1 token the loop has to make (Nest of Scarabs' Insects).
+  const counterKills = bound.filter((b) => b.res === 'death' && b.hadMinus).length;
   const needsPreventer = cycle.some((a) => a.cost.minusCounter && !cycle.some((b) => b.card === a.card && /#(undying|persist)$/.test(b.id)));
   const worksWith = (helpers: Helper[], extra: number, x: number) => {
     const l = ledgerFor(helpers, extra, x);
@@ -834,7 +878,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const params = (helpers: Helper[]): { extra: number; x: number } | null => {
     if (needsPreventer && !helpers.some((h) => h.kind === 'counterPreventer')) return null;
     if (needsDoubler && !helpers.some((h) => h.kind === 'etbDoubler')) return null;
-    const xs = variableMana.length ? Array.from({ length: MAX_VARIABLE }, (_, n) => n + 1) : [0];
+    const variableReducer = helpers.some((h) => h.kind === 'reducer' && h.variable);
+    const xs = variableMana.length || variableReducer ? Array.from({ length: MAX_VARIABLE }, (_, n) => n + 1) : [0];
     const extras = massReanimate ? Array.from({ length: MAX_EXTRA_CREATURES + 1 }, (_, n) => n) : [0];
     for (const x of xs) for (const extra of extras) if (worksWith(helpers, extra, x)) return { extra, x };
     return null;
@@ -855,7 +900,9 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       candidates.push(h);
     };
     for (const { ability, fires } of riders) {
-      const useful = ability.outputs.some((o) => (o.type === 'mana') || (o.type === 'lifegain') || (o.type === 'creature' && (cycleOutlets.length > 0 || ctx.deckAbilities.some(isFreeOutlet))));
+      const useful = ability.outputs.some(
+        (o) => o.type === 'mana' || o.type === 'lifegain' || (o.type === 'creature' && (counterKills > 0 || cycleOutlets.length > 0 || ctx.deckAbilities.some(isFreeOutlet))),
+      );
       if (useful) add({ kind: 'rider', card: ability.card, ability, fires });
     }
     for (const r of ctx.reducers) if (castAbilities.some((a) => reducerApplies(r.what, a.casts ?? []))) add({ kind: 'reducer', ...r });
@@ -938,6 +985,12 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   for (const v of variableMana) prerequisites.add(`${v.card} makes at least ${variableX} mana (${v.variable})`);
   for (const h of helpers) {
     if (h.kind === 'landAmplifier') prerequisites.add(`${h.card} was cast this turn and the lands untapped are Islands`);
+    if (h.kind === 'reducer' && h.variable) prerequisites.add(h.variable.replace('X', String(variableX)));
+    if (h.kind === 'reducer' && h.what === 'chosen') {
+      const types = [...new Set(castAbilities.flatMap((a) => (a.casts ?? []).filter((t) => t !== 'creature' || !(a.casts ?? []).includes('artifact'))))];
+      prerequisites.add(`${h.card} names ${types.join(' or ') || 'the type of spell the loop casts'}`);
+    }
+    if (h.kind === 'reducer' && h.maxMv !== undefined) prerequisites.add(`${h.card} lets you cast creatures with mana value ${h.maxMv} or less for free`);
   }
   const final = ledgerFor(helpers, extraCreatures, variableX);
   if (!payMana(final.mana, final.cost)) return null;
@@ -963,16 +1016,30 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     extraSacrifices,
   };
   let verification = verifyLoop(plan, ctx);
-  // Undying/persist creatures can come back every time if counters can't be put on them (Solemnity).
-  if (!verification.ok && /(undying|persist) does not return/.test(verification.reason ?? '') && ctx.counterBlockers.length) {
-    const blocker: Helper = { kind: 'counterBlocker', card: ctx.counterBlockers[0]! };
-    const retry = verifyLoop({ ...plan, helpers: [...helpers, blocker] }, ctx);
-    if (retry.ok) {
-      helpers.push(blocker);
+  // Undying/persist creatures can come back every time if their counter never sticks: Solemnity (no counters),
+  // Melira (no -1/-1), Vizier of Remedies (one fewer -1/-1), or a +1/+1 counter on entering that cancels the
+  // -1/-1 one (Cathars' Crusade, Anafenza's bolster). Try each, in a fixed order, and keep the first that works.
+  const failure = verification.ok ? '' : (verification.reason ?? '');
+  if (/(undying|persist) does not return/.test(failure)) {
+    const persist = /persist/.test(failure);
+    const etbCounters = ctx.deckAbilities.filter(
+      (r) => r.kind === 'triggered' && r.trigger?.type === 'etb' && r.outputs.some((o) => o.type === 'counter' && (o.each || o.bolster)) && !loopCardSet.has(r.card),
+    );
+    const fixers: Helper[] = [
+      ...ctx.counterBlockers.map((card): Helper => ({ kind: 'counterBlocker', card })),
+      ...(persist ? ctx.minusBlockers.map((card): Helper => ({ kind: 'minusBlocker', card })) : []),
+      ...(persist ? ctx.counterPreventers.map((card): Helper => ({ kind: 'counterPreventer', card })) : []),
+      ...(persist ? etbCounters.map((ability): Helper => ({ kind: 'rider', card: ability.card, ability, fires: 1 })) : []),
+    ].filter((h) => !loopCardSet.has(h.card));
+    const working = fixers.filter((fixer) => verifyLoop({ ...plan, helpers: [...helpers, fixer] }, ctx).ok);
+    const first = working[0];
+    if (first) {
+      helpers.push(first);
       plan.helpers = helpers;
-      verification = retry;
-      if (!loopCards.includes(blocker.card) && !helperCards.includes(blocker.card)) helperCards.push(blocker.card);
-      if (ctx.counterBlockers.length > 1) helperAlternatives[blocker.card] = ctx.counterBlockers.slice(1);
+      verification = verifyLoop(plan, ctx);
+      if (!loopCards.includes(first.card) && !helperCards.includes(first.card)) helperCards.push(first.card);
+      const others = [...new Set(working.slice(1).map((h) => h.card))];
+      if (others.length) helperAlternatives[first.card] = others;
     }
   }
   if (!verification.ok) {
@@ -1027,6 +1094,37 @@ function selfDeathPossible(prev: Ability | null, v: Ability, w: Ability): boolea
   return Boolean(has(prev, 'blink') || has(prev, 'reanimate') || has(prev, 'returnExiled'));
 }
 
+/**
+ * A cheap check, when building the search graph, that `a` could really feed `b` through `r`. Only resources
+ * whose target matters are checked; `feed` still does the full check. Without this, casting any card would
+ * link to every "when this enters" ability in the deck, though only the card's own can fire.
+ */
+function plausibleLink(a: Ability, b: Ability, r: Resource, ctx: Pick<Context, 'cardByName'>): boolean {
+  const target = ctx.cardByName.get(b.card);
+  if (!target) return true;
+  const reentersSelf = castsPermanent(a) || a.kind === 'recast' || Boolean(has(a, 'recur'));
+  switch (r) {
+    case 'selfEtb': {
+      if (a.card === b.card) return true;
+      const copy = has(a, 'copy');
+      if (copy && (copy.target === 'host' || matchesTarget(copy.target, target, a.card))) return true;
+      const blink = has(a, 'blink');
+      if (blink && (typeof blink.target === 'string' || matchesTarget(blink.target, target, a.card))) return true;
+      return Boolean(has(a, 'reanimate') || has(a, 'returnExiled') || has(a, 'massReanimate') || has(a, 'recurDied'));
+    }
+    case 'untap': {
+      if (b.host) return true;
+      const untap = has(a, 'untap');
+      if (untap && (untap.target === 'host' || (untap.target === 'self' ? a.card === b.card : matchesTarget(untap.target, target, a.card)))) return true;
+      const blink = has(a, 'blink');
+      if (blink && (typeof blink.target === 'string' || matchesTarget(blink.target, target, a.card))) return true;
+      return reentersSelf && a.card === b.card;
+    }
+    default:
+      return true;
+  }
+}
+
 /** Which resources an ability can take as its loop input. */
 export function inputs(a: Ability): Resource[] {
   if (a.kind === 'triggered') {
@@ -1040,6 +1138,8 @@ export function inputs(a: Ability): Resource[] {
       damage: 'damage',
       cast: 'cast',
       leave: 'leave',
+      minus: 'minus',
+      spellCopy: 'spellCopy',
     };
     return [byTrigger[a.trigger!.type]];
   }
@@ -1082,6 +1182,8 @@ export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByNam
   if (has(a, 'untap')) r.add('untap');
   if (has(a, 'toHand') || has(a, 'bounce')) r.add('hand');
   if (has(a, 'toTop')) r.add('library');
+  if (has(a, 'minusCounter')) r.add('minus').add('death');
+  if (has(a, 'spellCopy')) r.add('spellCopy');
   if (a.casts?.length) r.add('cast');
   if (has(a, 'lifegain')) r.add('lifegain');
   if (has(a, 'drain')) {
@@ -1162,7 +1264,11 @@ export function findEngineCombos(
     if (enabler) casts.push(castFromHand(card, 'library', enabler.card));
   }
   const deathReturns = sorted.flatMap((c) => deathReturnAbilities(c, sorted));
-  const deckAbilities = [...parsed, ...imprints, ...casts, ...deathReturns];
+  // Dualcaster Mage: copies of each instant or sorcery in the deck resolving.
+  const copied = parsed.some((a) => has(a, 'spellCopy'))
+    ? sorted.filter((c) => /\b(Instant|Sorcery)\b/.test(c.typeLine)).flatMap((c) => copiedSpellAbility(c) ?? [])
+    : [];
+  const deckAbilities = [...parsed, ...imprints, ...casts, ...deathReturns, ...copied];
   // Loop steps come only from the deck; the helper pool only adds triggered helpers and static effects.
   const loopAbilities = deckAbilities;
   const helperAbilities = (poolIndex?.abilities ?? []).filter((a) => !deckNames.has(a.card));
@@ -1177,6 +1283,7 @@ export function findEngineCombos(
     etbDoublers: merged('etbDoublers'),
     artifactTappers: merged('artifactTappers'),
     counterBlockers: merged('counterBlockers'),
+    minusBlockers: merged('minusBlockers'),
     deathDoublers: merged('deathDoublers'),
     landAmplifiers: merged('landAmplifiers'),
     manaAmplifiers: merged('manaAmplifiers'),
@@ -1202,7 +1309,7 @@ export function findEngineCombos(
         const selfBouncer = b.from !== 'library' && usable.some((x) => x.card === b.card && has(x, 'bounce'));
         return produced.has(b.from === 'library' ? 'library' : 'hand') || (selfBouncer && produced.has('mana')) ? [j] : [];
       }
-      return inputs(b).some((r) => produced.has(r)) ? [j] : [];
+      return inputs(b).some((r) => produced.has(r) && plausibleLink(a, b, r, ctx)) ? [j] : [];
     });
   });
 

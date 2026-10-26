@@ -1024,89 +1024,43 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 8,
-      "engineCombos": 7,
-      "matched": 3,
-      "recall": 0.375,
+      "engineCombos": 14,
+      "matched": 8,
+      "recall": 1,
       "matchedCombos": [
+        "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+        "Deceiver Exarch + Splinter Twin",
         "Dramatic Reversal + Isochron Scepter",
+        "Dualcaster Mage + Ghostly Flicker",
+        "Dualcaster Mage + Heat Shimmer",
+        "Dualcaster Mage + Twinflame",
         "Kiki-Jiki, Mirror Breaker + Pestermite",
         "Pestermite + Splinter Twin"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Kiki-Jiki, Mirror Breaker",
-            "Deceiver Exarch"
-          ],
-          "produces": [
-            "Infinite creature tokens with haste",
-            "Infinite death triggers",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Deceiver Exarch: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Splinter Twin",
-            "Deceiver Exarch"
-          ],
-          "produces": [
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Deceiver Exarch: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Dualcaster Mage",
-            "Ghostly Flicker"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Dualcaster Mage: no loop abilities parsed",
-            "Ghostly Flicker: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Dualcaster Mage",
-            "Heat Shimmer"
-          ],
-          "produces": [
-            "Infinite creature LTB",
-            "Infinite creature ETB",
-            "Infinite creature tokens with haste"
-          ],
-          "diagnosis": [
-            "Dualcaster Mage: no loop abilities parsed",
-            "Heat Shimmer: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Dualcaster Mage",
-            "Twinflame"
-          ],
-          "produces": [
-            "Infinite creature LTB",
-            "Infinite creature ETB",
-            "Infinite creature tokens with haste"
-          ],
-          "diagnosis": [
-            "Dualcaster Mage: no loop abilities parsed",
-            "Twinflame: no loop abilities parsed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": [
+        {
+          "cards": [
+            "Dualcaster Mage",
+            "Dramatic Reversal",
+            "Kiki-Jiki, Mirror Breaker"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Dualcaster Mage",
+            "Dramatic Reversal",
+            "Splinter Twin"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
+          ]
+        },
         {
           "cards": [
             "Archaeomancer",
@@ -1606,9 +1560,9 @@
     "decks": 26,
     "connectivity": 0.983,
     "spellbookCombos": 176,
-    "matched": 137,
-    "recall": 0.778,
-    "engineOnly": 34
+    "matched": 142,
+    "recall": 0.807,
+    "engineOnly": 36
   },
   "topUnparsed": [
     {
@@ -1620,19 +1574,11 @@
       "misses": 4
     },
     {
-      "card": "Dualcaster Mage",
-      "misses": 3
-    },
-    {
       "card": "Food Chain",
       "misses": 3
     },
     {
       "card": "Bear Umbra",
-      "misses": 2
-    },
-    {
-      "card": "Deceiver Exarch",
       "misses": 2
     },
     {
@@ -1696,15 +1642,7 @@
       "misses": 1
     },
     {
-      "card": "Ghostly Flicker",
-      "misses": 1
-    },
-    {
       "card": "Godo, Bandit Warlord",
-      "misses": 1
-    },
-    {
-      "card": "Heat Shimmer",
       "misses": 1
     },
     {
@@ -1741,10 +1679,6 @@
     },
     {
       "card": "Thopter Assembly",
-      "misses": 1
-    },
-    {
-      "card": "Twinflame",
       "misses": 1
     },
     {
