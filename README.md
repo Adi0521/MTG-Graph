@@ -111,11 +111,12 @@ Combos are added to the graph as loops (`combo` links).
   Combos tab shows loops that are actually infinite.
 - **The combo engine models a subset of the rules.** It covers sacrifice (creatures and artifacts), mana with
   colors, untap (including "untap all" and self-untap), copy, blink (including planeswalker loyalty resets),
-  graveyard recursion and reanimation, return-to-hand and recast, leave-the-battlefield triggers, cast triggers,
-  draw/damage triggers, lifegain/drain, +1/+1 counters, cost reducers, Isochron Scepter, Power Artifact, Rings of
-  Brighthearth and -1/-1 counter prevention. It also handles undying/persist through the simulator. It does not model casting from the
-  library (Mystic Forge), trigger doubling (Panharmonicon), mass reanimation (Living Death), or exact life totals
-  (Aetherflux Reservoir). Spellbook covers those. Current coverage is in `bench/report.md`.
+  graveyard recursion, reanimation and mass reanimation (Living Death), return-to-hand, bounce and recast, casting
+  from the top of the library (Mystic Forge), leave-the-battlefield triggers, cast triggers, draw/damage triggers,
+  lifegain/drain with exact "that much" amounts, +1/+1 and -1/-1 counters, undying/persist, cost reducers,
+  doubled enter triggers (Panharmonicon), Isochron Scepter, Power Artifact, Rings of Brighthearth and Urza's
+  artifact tapping. It finds all 68 Spellbook combos in the benchmark decks, but the benchmark is also what the
+  rules were tuned on, so expect lower coverage on decks it has never seen. Current coverage is in `bench/report.md`.
 - **Coverage is only as good as the rules.** Unusual wording needs a new rule. See below.
 
 ## Coverage benchmark

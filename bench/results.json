@@ -10,34 +10,18 @@
         "Ugin's Conjurant"
       ],
       "spellbookCombos": 6,
-      "engineCombos": 5,
-      "matched": 5,
-      "recall": 0.833,
+      "engineCombos": 6,
+      "matched": 6,
+      "recall": 1,
       "matchedCombos": [
         "Archaeomancer + Ghostly Flicker + Peregrine Drake",
         "Deadeye Navigator + Peregrine Drake",
         "Eternal Witness + Ghostly Flicker + Peregrine Drake",
         "Felidar Guardian + Restoration Angel",
-        "Felidar Guardian + Saheeli Rai"
+        "Felidar Guardian + Saheeli Rai",
+        "Panharmonicon + Peregrine Drake + Venser, Shaper Savant"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Peregrine Drake",
-            "Panharmonicon",
-            "Venser, Shaper Savant"
-          ],
-          "produces": [
-            "Infinite creature ETB",
-            "Infinite creature LTB",
-            "Infinite mana lands you control can produce"
-          ],
-          "diagnosis": [
-            "Panharmonicon: no loop abilities parsed",
-            "Venser, Shaper Savant: no loop abilities parsed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -260,10 +244,11 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 11,
-      "engineCombos": 10,
-      "matched": 10,
-      "recall": 0.909,
+      "engineCombos": 11,
+      "matched": 11,
+      "recall": 1,
       "matchedCombos": [
+        "Aetherflux Reservoir + Exquisite Blood",
         "Archangel of Thune + Spike Feeder",
         "Archangel of Thune + Walking Ballista",
         "Cleric Class + Spike Feeder",
@@ -275,21 +260,7 @@
         "Spike Feeder + Sunbond",
         "Sunbond + Walking Ballista"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Aetherflux Reservoir",
-            "Exquisite Blood"
-          ],
-          "produces": [
-            "Infinite damage",
-            "Infinite lifegain triggers"
-          ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -323,33 +294,18 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 6,
-      "engineCombos": 5,
-      "matched": 5,
-      "recall": 0.833,
+      "engineCombos": 6,
+      "matched": 6,
+      "recall": 1,
       "matchedCombos": [
         "Ashnod's Altar + Fiend Hunter + Karmic Guide",
         "Carrion Feeder + Fiend Hunter + Karmic Guide",
+        "Eternal Witness + Living Death + Phyrexian Altar",
         "Fiend Hunter + Karmic Guide + Phyrexian Altar",
         "Fiend Hunter + Karmic Guide + Viscera Seer",
         "Gravecrawler + Phyrexian Altar"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Living Death",
-            "Eternal Witness",
-            "Phyrexian Altar"
-          ],
-          "produces": [
-            "Infinite blinking",
-            "Infinite colored mana",
-            "Infinite death triggers"
-          ],
-          "diagnosis": [
-            "Living Death: no loop abilities parsed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -378,9 +334,9 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 16,
-      "engineCombos": 7,
-      "matched": 13,
-      "recall": 0.813,
+      "engineCombos": 8,
+      "matched": 16,
+      "recall": 1,
       "matchedCombos": [
         "Ashnod's Altar + Etherium Sculptor + Myr Retriever + Scrap Trawler",
         "Ashnod's Altar + Foundry Inspector + Myr Retriever + Scrap Trawler",
@@ -390,61 +346,16 @@
         "Basalt Monolith + Rings of Brighthearth",
         "Dramatic Reversal + Isochron Scepter",
         "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Etherium Sculptor + Mystic Forge + Sensei's Divining Top",
         "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Foundry Inspector + Mystic Forge + Sensei's Divining Top",
         "Grim Monolith + Power Artifact",
         "Isochron Scepter + Paradox Engine",
         "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
-        "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry"
+        "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry",
+        "Sword of the Meek + Thopter Foundry + Urza, Lord High Artificer"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Sensei's Divining Top",
-            "Mystic Forge",
-            "Etherium Sculptor"
-          ],
-          "produces": [
-            "Infinite card draw",
-            "Near-infinite storm count",
-            "Infinite draw triggers"
-          ],
-          "diagnosis": [
-            "Mystic Forge: no loop abilities parsed",
-            "Etherium Sculptor: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Sensei's Divining Top",
-            "Foundry Inspector",
-            "Mystic Forge"
-          ],
-          "produces": [
-            "Infinite card draw",
-            "Near-infinite storm count",
-            "Infinite draw triggers"
-          ],
-          "diagnosis": [
-            "Foundry Inspector: no loop abilities parsed",
-            "Mystic Forge: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Urza, Lord High Artificer",
-            "Thopter Foundry",
-            "Sword of the Meek"
-          ],
-          "produces": [
-            "Cast all spells in your library",
-            "Infinite blue mana",
-            "Infinite creature tokens"
-          ],
-          "diagnosis": [
-            "Urza, Lord High Artificer: cost not modeled"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -467,34 +378,9 @@
     "decks": 14,
     "connectivity": 0.991,
     "spellbookCombos": 68,
-    "matched": 62,
-    "recall": 0.912,
+    "matched": 68,
+    "recall": 1,
     "engineOnly": 6
   },
-  "topUnparsed": [
-    {
-      "card": "Mystic Forge",
-      "misses": 2
-    },
-    {
-      "card": "Etherium Sculptor",
-      "misses": 1
-    },
-    {
-      "card": "Foundry Inspector",
-      "misses": 1
-    },
-    {
-      "card": "Living Death",
-      "misses": 1
-    },
-    {
-      "card": "Panharmonicon",
-      "misses": 1
-    },
-    {
-      "card": "Venser, Shaper Savant",
-      "misses": 1
-    }
-  ]
+  "topUnparsed": []
 }

@@ -67,8 +67,15 @@ export type Output =
   | { type: 'untap'; target: TargetSpec | 'self'; all: boolean }
   /** "return target artifact card from your graveyard to your hand" (lesserMv: Scrap Trawler). */
   | { type: 'toHand'; target: TargetSpec; lesserMv: boolean }
+  /** amount 0 = "that much" (the amount of the triggering event). */
   | { type: 'lifegain'; amount: number }
   | { type: 'drain'; amount: number; damage: boolean }
+  /** "put ~ on top of its owner's library" (Sensei's Divining Top). */
+  | { type: 'toTop' }
+  /** "return target spell or permanent to its owner's hand" (Venser). */
+  | { type: 'bounce'; target: TargetSpec }
+  /** Living Death: every creature dies, then all creature cards from the graveyard return. */
+  | { type: 'massReanimate' }
   /** 'host' = the creature an aura or soulbond grants this to. */
   /** each: "on each creature you control" (Archangel of Thune); amount 0 = "that many" (the life gained). */
   | { type: 'counter'; target: TargetSpec | 'self' | 'host'; each?: boolean; amount?: number }
@@ -121,6 +128,8 @@ export interface Ability {
   casts?: string[];
   /** Another card this ability needs, e.g. the instant imprinted on Isochron Scepter. */
   with?: string;
+  /** For cast abilities: where the card is cast from. */
+  from?: 'hand' | 'library';
   outputs: Output[];
   oncePerTurn: boolean;
   /** "as long as ..." / "if you control ..." clauses, shown as prerequisites. */
@@ -259,10 +268,10 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   }
 
   const gain = /\byou gain (\d+|x|that much) life/.exec(effect);
-  if (gain) outputs.push({ type: 'lifegain', amount: gain[1] === 'that much' ? 1 : toNumber(gain[1]) });
+  if (gain) outputs.push({ type: 'lifegain', amount: gain[1] === 'that much' ? 0 : toNumber(gain[1]) });
 
   const lose = /(?:target player|target opponent|each opponent|that player) loses? (\d+|x|that much) life/.exec(effect);
-  if (lose) outputs.push({ type: 'drain', amount: lose[1] === 'that much' ? 1 : toNumber(lose[1]), damage: false });
+  if (lose) outputs.push({ type: 'drain', amount: lose[1] === 'that much' ? 0 : toNumber(lose[1]), damage: false });
   const damage = /deals? (\d+|x) damage to (?:any target|each opponent|target player|target opponent|any other target)/.exec(effect);
   if (damage) outputs.push({ type: 'drain', amount: toNumber(damage[1]), damage: true });
   const selfDamage = /deals? (\d+) damage to you|you lose (\d+) life/.exec(effect);
@@ -274,6 +283,11 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
     const target = counter[2] === '~' ? (host ? 'host' : 'self') : parseTargetSpec(counter[2]!.replace(/^each /, ''));
     outputs.push({ type: 'counter', target, each: counter[2]!.startsWith('each'), amount: counter[1] === 'that many' ? 0 : toNumber(counter[1]) });
   }
+
+  if (/put ~ on top of its owner's library/.test(effect)) outputs.push({ type: 'toTop' });
+  const bounce = /return target ((?:spell or )?(?:nonland )?(?:permanent|creature|artifact)) to its owner's hand/.exec(effect);
+  if (bounce) outputs.push({ type: 'bounce', target: parseTargetSpec(bounce[1]!.replace('spell or ', '')) });
+  if (/sacrifices? all creatures they control, then puts? all cards they exiled this way onto the battlefield/.test(effect)) outputs.push({ type: 'massReanimate' });
 
   const draw = /\bdraws? (a|two|three|x|\d+) cards?/.exec(effect);
   if (draw && !/opponent draws|each player draws/.test(effect)) outputs.push({ type: 'draw', amount: toNumber(draw[1]) });
@@ -462,6 +476,27 @@ export function preventsMinusCounter(card: Card): boolean {
   return /if one or more -1\/-1 counters would be put on a creature you control, that many -1\/-1 counters minus one/.test(card.text);
 }
 
+/** Mystic Forge: "You may cast artifact spells and colorless spells from the top of your library." */
+export function castFromTopEnabler(card: Card): { card: string; what: 'artifact or colorless' | 'any' } | null {
+  if (/you may cast artifact spells and colorless spells from the top of your library/.test(card.text)) return { card: card.name, what: 'artifact or colorless' };
+  if (/you may (?:cast spells|play lands and cast spells) from the top of your library/.test(card.text)) return { card: card.name, what: 'any' };
+  return null;
+}
+
+/** Panharmonicon: an artifact or creature entering makes your triggered abilities trigger an additional time. */
+export function etbDoubler(card: Card): boolean {
+  return /if an artifact or creature entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time/.test(card.text);
+}
+
+/** Urza, Lord High Artificer: "Tap an untapped artifact you control: Add {U}." */
+export function artifactTapper(card: Card): { card: string; mana: ManaProduction } | null {
+  const m = /(?:^|\n)tap an untapped artifact you control: add \{([wubrgc])\}/.exec(card.text);
+  if (!m) return null;
+  const mana = emptyProduction();
+  mana[m[1]!.toUpperCase() as Color]++;
+  return { card: card.name, mana };
+}
+
 /** Power Artifact: "Enchanted artifact's activated abilities cost {2} less ... can't reduce ... to less than one mana." */
 export function activationReducer(card: Card): { card: string; amount: number } | null {
   const m = /enchanted artifact's activated abilities cost \{(\d+)\} less to activate/.exec(card.text);
@@ -508,16 +543,18 @@ export function imprintAbilities(scepter: Card, instants: Card[]): Ability[] {
     )];
 }
 
-/** The implicit "cast this card from hand" ability, for cards something in the deck can return to hand. */
-export function castFromHand(card: Card): Ability {
+/** The implicit "cast this card from hand" (or from the top of the library) ability, for cards a loop can get there. */
+export function castFromHand(card: Card, from: 'hand' | 'library' = 'hand', enabler?: string): Ability {
   const types = card.typeLine.toLowerCase().split(/[\s—/]+/).filter((t) => ['artifact', 'creature', 'enchantment', 'instant', 'sorcery', 'planeswalker'].includes(t));
   const isSpellOnly = /\b(Instant|Sorcery)\b/.test(card.typeLine);
-  return makeAbility(card, 2000, `Cast ${card.name}`, {
+  return makeAbility(card, 2000, from === 'library' ? `Cast ${card.name} from the top of your library (${enabler})` : `Cast ${card.name}`, {
     kind: 'cast',
     outputs: isSpellOnly ? parseOutputs(card.text, false) : [],
     cost: { mana: parseManaCost(card.manaCost), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
     casts: types,
-    id: `${card.name}#cast`,
+    id: from === 'library' ? `${card.name}#castTop` : `${card.name}#cast`,
+    from,
+    with: enabler,
   });
 }
 

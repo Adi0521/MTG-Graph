@@ -1,5 +1,6 @@
 import { COLORS, emptyProduction, matchesTarget, payMana, type Ability, type ManaCost, type ManaProduction, type Output } from './abilities.ts';
 import type { Binding, Context, Helper } from './combo-engine.ts';
+import type { Card } from './types.ts';
 
 /**
  * Loop verifier: plays a candidate loop out on a small, concrete game state.
@@ -27,6 +28,8 @@ export interface LoopPlan {
   reanimates: Record<number, string>;
   /** The artifact whose activated abilities an activation reducer (Power Artifact) is attached to. */
   reducedCard?: string;
+  /** Other creatures a mass reanimation (Living Death) needs, beyond the loop's cards. */
+  extraCreatures?: number;
 }
 
 export interface PerLoop {
@@ -89,6 +92,8 @@ class Simulation {
   perms: Perm[] = [];
   graveyard: string[] = [];
   hand: string[] = [];
+  /** Library, top card first (only cards the loop puts there are tracked). */
+  library: string[] = [];
   exile: { card: string; by: string }[] = [];
   pool = emptyProduction();
   life = 20;
@@ -112,7 +117,7 @@ class Simulation {
   // --- small helpers --------------------------------------------------------
 
   private cardOf(name: string) {
-    return this.ctx.cardByName.get(name)!;
+    return this.ctx.cardByName.get(name) ?? fillerCard(name);
   }
 
   private typesOf(name: string) {
@@ -168,6 +173,12 @@ class Simulation {
     if (counters && !token) p.plus += NUMBER[counters[1]!] ?? (Number(counters[1]) || 0);
     this.perms.push(p);
     if (p.types.includes('creature')) this.events.push({ type: 'etb', card: token ? null : card, token, types: p.types });
+    // Urza: tap each artifact as it arrives for mana, unless the loop needs to tap it itself.
+    const tapper = this.plan.helpers.find((h): h is Extract<Helper, { kind: 'artifactTapper' }> => h.kind === 'artifactTapper');
+    if (tapper && p.types.includes('artifact') && !this.plan.cycle.some((a) => a.cost.tap && (this.plan.hosts[this.plan.cycle.indexOf(a)] ?? a.card) === card)) {
+      p.tapped = true;
+      for (const k of [...COLORS, 'any'] as const) this.pool[k] += tapper.mana[k];
+    }
     // Fiend Hunter-style enter abilities exile their linked card.
     const exiled = this.plan.exiles[card];
     if (exiled && !token) {
@@ -352,6 +363,7 @@ class Simulation {
       const victim = this.pickSacrifice(input, a);
       this.die(victim);
     }
+    if (a.cost.life > 0 && this.life <= a.cost.life && this.problem(`needs more than ${a.cost.life} life to start`)) this.life = a.cost.life + 1;
     this.life -= a.cost.life;
     if (a.cost.removeCounter) {
       const p = this.require(a.card, 'to remove a counter');
@@ -366,8 +378,17 @@ class Simulation {
     if (a.kind === 'recast') {
       if (!this.takeFrom(this.graveyard, a.card) && this.problem(`${a.card} starts in your graveyard`)) this.leaveIfPresent(a.card);
     }
-    if (a.kind === 'cast') {
+    if (a.kind === 'cast' && a.from === 'library') {
+      if (this.library[0] === a.card) this.library.shift();
+      else if (this.problem(`${a.card} starts on top of your library`)) this.leaveIfPresent(a.card);
+    } else if (a.kind === 'cast') {
       if (!this.takeFrom(this.hand, a.card) && this.problem(`${a.card} starts in your hand`)) this.leaveIfPresent(a.card);
+    }
+    // Before a mass reanimation (Living Death), sacrifice every creature to the outlet: that pays for it
+    // and puts them in the graveyard to come back.
+    if (has(a, 'massReanimate')) {
+      for (const p of [...this.perms]) if (p.types.includes('creature')) this.spareTokens.add(p.id);
+      this.sacrificeSpareTokens();
     }
     this.pay(this.costWithReductions(a), a.card);
     if (a.casts) this.events.push({ type: 'cast', casts: a.casts });
@@ -377,6 +398,16 @@ class Simulation {
     const permanentCast = (a.kind === 'cast' || a.kind === 'recast') && this.typesOf(a.card).length > 0;
     if (permanentCast) this.enter(a.card, false);
     for (const o of a.outputs) this.resolve(i, a, o, input, output, opts);
+    // Panharmonicon: enter triggers from an artifact or creature entering happen twice. A doubled bounce
+    // returns the source itself the second time (Venser bouncing Peregrine Drake, then itself).
+    const doubled =
+      this.plan.helpers.some((h) => h.kind === 'etbDoubler') &&
+      a.kind === 'triggered' &&
+      (a.trigger?.type === 'selfEtb' || a.trigger?.type === 'etb') &&
+      this.typesOf(a.card).some((t) => t === 'artifact' || t === 'creature');
+    if (doubled) {
+      for (const o of a.outputs) this.resolve(i, a, o, input, o.type === 'bounce' ? { res: 'hand', object: a.card } : output, opts);
+    }
     if (a.id.endsWith('#persist')) {
       const back = this.find(a.card);
       if (back) this.addCounters(back, 0, 1);
@@ -507,23 +538,49 @@ class Simulation {
         this.hand.push(card);
         return;
       }
-      case 'lifegain':
-        this.life += o.amount;
-        this.events.push({ type: 'lifegain', amount: o.amount });
+      case 'lifegain': {
+        // "you gain that much life" (Exquisite Blood) uses the life just lost.
+        const amount = o.amount === 0 ? (this.lastAmount('drain') ?? 1) : o.amount;
+        this.life += amount;
+        this.events.push({ type: 'lifegain', amount });
         return;
+      }
       case 'drain': {
+        const amount = o.amount === 0 ? (this.lastAmount('lifegain') ?? 1) : o.amount;
         if (opts.damageSelf) {
           const self = this.find(a.card);
-          if (self) self.damage += o.amount;
+          if (self) self.damage += amount;
         } else {
-          this.opponentLife -= o.amount;
-          this.events.push({ type: 'drain', amount: o.amount });
+          this.opponentLife -= amount;
+          this.events.push({ type: 'drain', amount });
         }
         const lifelink = output.lifelinkFrom || input.lifelinkFrom || this.cardOf(a.card).keywords.includes('lifelink');
         if (o.damage && lifelink) {
-          this.life += o.amount;
-          this.events.push({ type: 'lifegain', amount: o.amount });
+          this.life += amount;
+          this.events.push({ type: 'lifegain', amount });
         }
+        return;
+      }
+      case 'toTop': {
+        const self = this.find(a.card);
+        if (self) this.leave(self);
+        this.library.unshift(a.card);
+        return;
+      }
+      case 'bounce': {
+        const target = output.res === 'hand' ? output.object : null;
+        const p = target ? this.find(target) : undefined;
+        if (!p) return;
+        this.leave(p);
+        this.hand.push(p.card);
+        return;
+      }
+      case 'massReanimate': {
+        // Living Death: exile creature cards from the graveyard, sacrifice all creatures, return the exiled cards.
+        const returning = this.graveyard.filter((c) => this.cardOf(c).typeLine.includes('Creature'));
+        this.graveyard = this.graveyard.filter((c) => !returning.includes(c));
+        for (const p of [...this.perms]) if (p.types.includes('creature')) this.die(p);
+        for (const c of returning) this.enter(c, false);
         return;
       }
       case 'selfLifeLoss':
@@ -546,6 +603,10 @@ class Simulation {
       default:
         return;
     }
+  }
+
+  private lastAmount(type: 'drain' | 'lifegain'): number | undefined {
+    return [...this.events].reverse().find((e) => e.type === type)?.amount;
   }
 
   private lastLifegain(): number | undefined {
@@ -588,6 +649,7 @@ class Simulation {
     ];
     if (!outlets.length) return;
     for (const id of [...this.spareTokens]) {
+      // Tokens, or creature cards a mass reanimation returned (they must die again before the next one).
       const token = this.perms.find((p) => p.id === id);
       if (!token) continue;
       const outlet = outlets.find((o) => o.cost.sacrifice!.what === 'permanent' || token.types.includes(o.cost.sacrifice!.what));
@@ -606,7 +668,13 @@ class Simulation {
     // +1/+1 counters may grow from loop to loop (that is a payoff); everything else must repeat exactly.
     const perms = nontoken.map((p) => `${p.card}|${p.tapped ? 'T' : ''}|-${p.minus}|d${p.damage}|${p.loyaltyUsed ? 'L' : ''}`);
     return {
-      state: JSON.stringify({ perms, graveyard: [...this.graveyard].sort(), hand: [...this.hand].sort(), exile: this.exile.map((e) => e.card).sort() }),
+      state: JSON.stringify({
+        perms,
+        graveyard: [...this.graveyard].sort(),
+        hand: [...this.hand].sort(),
+        library: this.library,
+        exile: this.exile.map((e) => e.card).sort(),
+      }),
       plus: nontoken.map((p) => p.plus),
       tokens: this.perms.filter((p) => p.token).length,
       pool: { ...this.pool },
@@ -615,6 +683,24 @@ class Simulation {
       events: [...this.events],
     };
   }
+}
+
+/** Stand-in for the generic "other creatures" a mass reanimation needs. */
+function fillerCard(name: string): Card {
+  return {
+    name,
+    quantity: 1,
+    typeLine: 'Creature',
+    oracleText: '',
+    text: '',
+    keywords: [],
+    colorIdentity: [],
+    manaCost: '',
+    cmc: 0,
+    power: 1,
+    toughness: 1,
+    creatureTypes: [],
+  };
 }
 
 function reducerApplies(what: string, casts: string[]): boolean {
@@ -703,6 +789,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
       }
     }
   }
+  for (let n = 1; n <= (plan.extraCreatures ?? 0); n++) sim.enter(`Other creature ${n}`, false, { sick: false });
   for (const [by, target] of Object.entries(plan.exiles)) {
     const p = sim.perms.find((x) => x.card === target);
     if (p) {

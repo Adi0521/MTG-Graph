@@ -8,7 +8,7 @@ import { analyzeStructures, type StructureOptions, type Structures } from './str
 import type { Card, DeckEntry } from './types.ts';
 
 /** Bump when rules or algorithms change, so stored results can be compared like-for-like. */
-export const ENGINE_VERSION = '0.3.0';
+export const ENGINE_VERSION = '0.4.0';
 export const MAX_UNIQUE_CARDS = 250;
 
 export type CardSource = (names: string[]) => Promise<FetchResult>;

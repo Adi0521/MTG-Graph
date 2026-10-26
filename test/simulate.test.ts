@@ -53,4 +53,36 @@ describe('loop simulator', () => {
       expect(rejected.map((r) => r.reason)).toContain('Griselbrand died with a +1/+1 counter, so undying does not return it');
     });
   });
+
+  describe('zones, amounts and doubled triggers', () => {
+    it('recasts Sensei\'s Divining Top from the library with Mystic Forge and a cost reducer', () => {
+      expect(run("Sensei's Divining Top", 'Mystic Forge').combos).toEqual([]); // Top costs {1} each time
+      const combo = only("Sensei's Divining Top", 'Mystic Forge', 'Etherium Sculptor');
+      expect(combo.produces).toEqual(expect.arrayContaining(['Infinite card draw', 'Infinite spell casts']));
+    });
+
+    it('pays and regains exactly 50 life: Aetherflux Reservoir + Exquisite Blood', () => {
+      const combo = only('Aetherflux Reservoir', 'Exquisite Blood');
+      expect(combo.verification.startup).toEqual(['needs more than 50 life to start']);
+      expect(combo.verification.perLoop).toMatchObject({ opponentLife: -50, life: 0 });
+    });
+
+    it('taps each arriving artifact for mana: Urza + Thopter Foundry + Sword of the Meek', () => {
+      const combo = only('Urza, Lord High Artificer', 'Thopter Foundry', 'Sword of the Meek');
+      expect(combo.netMana).toBe('{U}');
+    });
+
+    it('needs enough other creatures for Living Death to pay for itself', () => {
+      const combo = only('Living Death', 'Eternal Witness', 'Phyrexian Altar');
+      expect(combo.prerequisites).toContain('You have at least 4 other creature cards in your graveyard or on the battlefield');
+      expect(combo.verification.perLoop).toMatchObject({ deaths: 5, etbs: 5, casts: 1 });
+    });
+
+    it('needs Panharmonicon for Venser to bounce both Peregrine Drake and itself', () => {
+      expect(run('Peregrine Drake', 'Venser, Shaper Savant').combos).toEqual([]);
+      const combo = only('Peregrine Drake', 'Venser, Shaper Savant', 'Panharmonicon');
+      // Two Drake triggers untap 10 lands; recasting both costs 9.
+      expect(combo.netMana).toBe('{any}');
+    });
+  });
 });

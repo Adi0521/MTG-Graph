@@ -6,7 +6,8 @@
       "Deadeye Navigator + Peregrine Drake",
       "Eternal Witness + Ghostly Flicker + Peregrine Drake",
       "Felidar Guardian + Restoration Angel",
-      "Felidar Guardian + Saheeli Rai"
+      "Felidar Guardian + Saheeli Rai",
+      "Panharmonicon + Peregrine Drake + Venser, Shaper Savant"
     ]
   },
   "counters": {
@@ -65,6 +66,7 @@
   "lifegain": {
     "connectivity": 1,
     "matchedCombos": [
+      "Aetherflux Reservoir + Exquisite Blood",
       "Archangel of Thune + Spike Feeder",
       "Archangel of Thune + Walking Ballista",
       "Cleric Class + Spike Feeder",
@@ -94,6 +96,7 @@
     "matchedCombos": [
       "Ashnod's Altar + Fiend Hunter + Karmic Guide",
       "Carrion Feeder + Fiend Hunter + Karmic Guide",
+      "Eternal Witness + Living Death + Phyrexian Altar",
       "Fiend Hunter + Karmic Guide + Phyrexian Altar",
       "Fiend Hunter + Karmic Guide + Viscera Seer",
       "Gravecrawler + Phyrexian Altar"
@@ -114,11 +117,14 @@
       "Basalt Monolith + Rings of Brighthearth",
       "Dramatic Reversal + Isochron Scepter",
       "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Etherium Sculptor + Mystic Forge + Sensei's Divining Top",
       "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Foundry Inspector + Mystic Forge + Sensei's Divining Top",
       "Grim Monolith + Power Artifact",
       "Isochron Scepter + Paradox Engine",
       "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
-      "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry"
+      "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry",
+      "Sword of the Meek + Thopter Foundry + Urza, Lord High Artificer"
     ]
   },
   "voltron": {
