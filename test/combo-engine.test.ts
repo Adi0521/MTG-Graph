@@ -225,6 +225,25 @@ describe('findEngineCombos', () => {
     expect(sets('Kiki-Jiki, Mirror Breaker', 'Deceiver Exarch')).toEqual([['Deceiver Exarch', 'Kiki-Jiki, Mirror Breaker']]);
   });
 
+  it('models extra combats: a new object each combat for "first time each turn" and exert', () => {
+    expect(combosOf('Aurelia, the Warleader')).toEqual([]);
+    expect(combosOf('Aurelia, the Warleader', 'Helm of the Host')[0]!.produces).toContain('Infinite combat phases');
+    expect(combosOf('Aurelia, the Warleader', 'Sword of Hearth and Home')[0]!.prerequisites).toContain('Aurelia, the Warleader deals combat damage to a player each combat');
+    expect(combosOf('Combat Celebrant')).toEqual([]);
+    expect(sets('Combat Celebrant', 'Kiki-Jiki, Mirror Breaker')).toEqual([['Combat Celebrant', 'Kiki-Jiki, Mirror Breaker']]);
+    expect(combosOf('Port Razer')).toEqual([]);
+    expect(combosOf('Port Razer', 'Helm of the Host')).toHaveLength(1);
+  });
+
+  it('pays for extra combats with land untaps and attack mana', () => {
+    const [sword] = combosOf('Aggravated Assault', 'Sword of Feast and Famine');
+    expect(sword!.prerequisites).toContain('Sword of Feast and Famine makes at least 5 mana (one per land you control)');
+    expect(combosOf('Aggravated Assault', 'Savage Ventmaw')[0]!.netMana).toBe('{G}');
+    expect(combosOf('Hellkite Charger', 'Bear Umbra')[0]!.helpers).toEqual(['Bear Umbra']);
+    expect(combosOf('Hellkite Charger')).toEqual([]);
+    expect(combosOf('Bear Umbra', 'Sword of Feast and Famine')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

@@ -1,4 +1,5 @@
 import {
+  COMBAT_STEP,
   COLORS,
   abilityCopier,
   activationReducer,
@@ -134,7 +135,7 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
 
-export type Resource = 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
+export type Resource = 'combat' | 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
 
 export interface Binding {
   res: Resource;
@@ -208,12 +209,37 @@ const putsBodyOnBattlefield = (a: Ability) =>
  * that is its host, read off the loop: a "deals damage" trigger's host is the previous
  * card (the damage source); a copy or counter goes to the next card.
  */
-function hostOf(abilities: Ability[], i: number): string {
+function hostOf(abilities: Ability[], i: number, ctx?: Pick<Context, 'cardByName'>): string {
   const a = abilities[i]!;
   const k = abilities.length;
   if (!a.host) return a.card;
   if (a.trigger?.type === 'damage') return abilities[(i - 1 + k) % k]!.card;
+  // An aura or equipment's attack / combat damage trigger: the attacking creature it is on. That is a creature of the
+  // loop if there is one (the previous step's first), or else any creature you control (Aggravated Assault + Bear Umbra).
+  if ((a.trigger?.type === 'attack' || a.trigger?.type === 'combatDamage') && ctx) {
+    const order = [(i - 1 + k) % k, ...Array.from({ length: k }, (_, d) => (i + 1 + d) % k)];
+    // Not a creature this trigger flickers, unless it has haste: it comes back summoning sick and could not attack
+    // again (Sword of Hearth and Home flickering Dockside Extortionist is on some other attacker).
+    const flickered = has(a, 'blink') ? abilities[(i + 1) % k]!.card : null;
+    const fits = (c: string) => isCreature(ctx, c) && !(c === flickered && !(ctx.cardByName.get(c)?.keywords.includes('haste') ?? false));
+    return order.map((j) => abilities[j]!.card).find(fits) ?? ANY_CREATURE;
+  }
   return abilities[(i + 1) % k]!.card;
+}
+
+/** Stand-in host for an aura or equipment that can be on any creature you control. */
+export const ANY_CREATURE = 'a creature you control';
+
+const combatStep = (a: Ability) => (a.trigger ? COMBAT_STEP[a.trigger.type] : undefined);
+
+/** Does ability i put a new, hasty object of `name` onto the battlefield (a creature that can attack right away)? */
+function freshAttacker(abilities: Ability[], i: number, name: string, ctx: Context): boolean {
+  const a = abilities[i]!;
+  const card = ctx.cardByName.get(name);
+  if (!card || !isCreature(ctx, name)) return false;
+  const copy = has(a, 'copy');
+  if (copy?.haste && (copy.target === 'host' ? hostOf(abilities, i, ctx) === name : matchesTarget(copy.target, card, a.card))) return true;
+  return blinkHits(abilities, i, name, ctx) && hasHaste(ctx, name);
 }
 
 /** The permanent a {T} cost taps. */
@@ -373,6 +399,18 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         if (t.source === 'self' && a.card !== next.card) return null;
         return { res: 'damage', object: a.card };
       }
+      case 'beginCombat':
+      case 'attack':
+      case 'combatDamage':
+      case 'postcombatMain': {
+        // An extra combat phase, a later step of the same combat, or (for a creature's own attack / combat damage
+        // trigger) a new hasty object of that creature, which can attack in the next combat.
+        const attacker = (t.type === 'attack' || t.type === 'combatDamage') && t.source === 'self' ? next.card : null;
+        const before = combatStep(a);
+        if (has(a, 'extraCombat') || (before !== undefined && before < COMBAT_STEP[t.type]!)) return { res: 'combat', object: attacker };
+        if (attacker && freshAttacker(abilities, i, attacker, ctx)) return { res: 'combat', object: attacker };
+        return null;
+      }
       case 'minus':
         return has(a, 'minusCounter') ? { res: 'minus' } : null;
       case 'spellCopy':
@@ -454,6 +492,10 @@ function addMana(into: ManaProduction, m: ManaProduction, times = 1) {
 }
 
 interface Events {
+  /** Combat phases the loop starts, and the creatures that attack / deal combat damage in them. */
+  combats: number;
+  attacks: string[];
+  combatDamage: string[];
   /** -1/-1 counters put on creatures. */
   minus: number;
   deaths: { object: string | null; token: boolean; types: string[] }[];
@@ -478,6 +520,13 @@ function riderFires(r: Ability, ev: Events): number {
       return ev.casts.filter((c) => (t.what === 'any' ? true : t.what === 'artifact' ? c.includes('artifact') : c.includes('instant') || c.includes('sorcery'))).length;
     case 'minus':
       return ev.minus;
+    // An aura or equipment's trigger is on one attacking creature, assumed to attack in every combat.
+    case 'attack':
+      return t.source === 'self' ? ev.attacks.filter((c) => c === r.card).length : ev.combats;
+    case 'combatDamage':
+      return t.source === 'self' ? ev.combatDamage.filter((c) => c === r.card).length : ev.combats;
+    case 'beginCombat':
+      return ev.combats;
     case 'selfEtb':
       // A card re-entering during the loop (returned by Nim Deathmantle) triggers its own enter ability.
       return ev.etbs.filter((e) => e.object === r.card).length;
@@ -564,6 +613,7 @@ const THEN: Record<Resource, (b: Binding, next: string) => string> = {
   library: (b) => `this puts ${b.object} on top of your library`,
   leave: (b, next) => `${b.object} leaving the battlefield triggers ${next}`,
   cast: (_, next) => `casting the spell triggers ${next}`,
+  combat: (b, next) => (b.object ? `${b.object} attacks in the next combat, triggering ${next}` : `the combat continues, triggering ${next}`),
 };
 
 const COLOR_NAMES: Record<string, string> = { W: 'white', U: 'blue', B: 'black', R: 'red', G: 'green', C: 'colorless' };
@@ -647,7 +697,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   const amountOf = (i: number, o: { amount: number }) => (o.amount === 0 ? (bound[i]!.amount ?? inputOf(i).amount ?? 1) : o.amount);
 
-  const events: Events = { minus: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
+  const events: Events = { combats: 0, attacks: [], combatDamage: [], minus: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
   for (const name of extraSacrifices) events.deaths.push({ object: name, token: false, types: typesOf(ctx, name) });
   const baseMana = emptyProduction();
   let baseLife = 0;
@@ -666,6 +716,9 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     if (a.cost.sacrifice) events.deaths.push({ object: inputOf(i).object ?? null, token: inputOf(i).token ?? false, types: inputOf(i).types ?? [] });
     else if (bound[i]!.res === 'death') events.deaths.push({ object: bound[i]!.object ?? null, token: false, types: bound[i]!.types ?? [] });
     if (a.casts) events.casts.push(a.casts);
+    if (a.trigger?.type === 'attack') events.attacks.push(a.trigger.source === 'self' ? a.card : hostOf(cycle, i, ctx));
+    if (a.trigger?.type === 'combatDamage') events.combatDamage.push(a.trigger.source === 'self' ? a.card : hostOf(cycle, i, ctx));
+    if (has(a, 'extraCombat')) events.combats++;
     const entering = putsBodyOnBattlefield(a) || has(a, 'blink') ? enteringObject(cycle, i, ctx, inputOf(i)) : null;
     if (entering?.types.includes('creature')) events.etbs.push(entering);
     const consumedAsBody = bound[i]!.res === 'body';
@@ -714,8 +767,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     // Rules-text conditions ("as long as you control a zombie") are prefixed with their card; synthesized ones are full sentences.
     for (const c of a.conditions) prerequisites.add(/^(as long as|if you control)/.test(c) ? `${a.card}: ${c}` : c);
     if (a.host) {
-      const host = hostOf(cycle, i);
-      if (!isCreature(ctx, host)) hostOk = false;
+      const host = hostOf(cycle, i, ctx);
+      if (!isCreature(ctx, host) && host !== ANY_CREATURE) hostOk = false;
       if (a.hostVia === 'paired') prerequisites.add(host === a.card ? `${a.card} is paired with another creature` : `${a.card} is paired with ${host}`);
       else prerequisites.add(`${a.card} is attached to ${host}`);
     }
@@ -747,7 +800,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     .filter((x) => x.fires > 0);
 
   const castAbilities = cycle.filter((a) => a.kind === 'cast');
-  const untapsAll = cycle.some((a) => a.outputs.some((o) => o.type === 'untap' && o.all));
+  // "Untap all permanents" also untaps mana rocks ("untap all creatures" does not).
+  const untapsAll = cycle.some((a) => a.outputs.some((o) => o.type === 'untap' && o.all && typeof o.target !== 'string' && o.target.types.includes('permanent')));
   const cycleOutlets = cycle.filter(isFreeOutlet);
   const manaActivated = cycle.filter((a) => a.kind === 'activated' && totalMana(a.cost.mana) > 0 && typesOf(ctx, a.card).includes('artifact'));
   const copyable = cycle.flatMap((a) => {
@@ -824,7 +878,9 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     for (const h of helpers) {
       if (h.kind === 'rider') {
         for (const o of h.ability.outputs) {
-          if (o.type === 'mana') addMana(mana, o.mana, riderTimes(h));
+          // Untapping all lands scales with the lands you control (a stated requirement); other board-dependent
+          // rider mana (Mana Echoes) counts as one unit, as that is all it is sure to make.
+          if (o.type === 'mana') addMana(mana, o.mana, riderTimes(h) * (o.variable && o.fromLands ? x : 1));
           if (o.type === 'lifegain') life += o.amount * h.fires;
           if (o.type === 'selfLifeLoss') life -= o.amount * h.fires;
           if (o.type === 'creature') for (let n = 0; n < o.count * h.fires; n++) spareBodies.push(o.artifact ? ['artifact', 'creature'] : ['creature']);
@@ -863,6 +919,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   };
 
   const hasEvents =
+    events.combats > 0 ||
     events.deaths.length > 0 || events.etbs.length > 0 || events.casts.length > 0 || events.draws > 0 || events.drains > 0 || events.lifegains > 0 || counters > 0 || tokens > 0;
   // -1/-1 counter costs need Vizier of Remedies, unless the creature is meant to die and come back (undying).
   // Each death by -1/-1 counter uses up a 1/1 token the loop has to make (Nest of Scarabs' Insects).
@@ -878,8 +935,10 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const params = (helpers: Helper[]): { extra: number; x: number } | null => {
     if (needsPreventer && !helpers.some((h) => h.kind === 'counterPreventer')) return null;
     if (needsDoubler && !helpers.some((h) => h.kind === 'etbDoubler')) return null;
-    const variableReducer = helpers.some((h) => h.kind === 'reducer' && h.variable);
-    const xs = variableMana.length || variableReducer ? Array.from({ length: MAX_VARIABLE }, (_, n) => n + 1) : [0];
+    const variableReducer = helpers.some((h) => (h.kind === 'reducer' && h.variable) || (h.kind === 'rider' && h.ability.outputs.some((o) => o.type === 'mana' && o.variable && o.fromLands)));
+    // A party has at most four creatures (Burakos, Party Leader).
+    const maxX = variableMana.some((v) => /\bparty\b/.test(v.variable)) ? 4 : MAX_VARIABLE;
+    const xs = variableMana.length || variableReducer ? Array.from({ length: maxX }, (_, n) => n + 1) : [0];
     const extras = massReanimate ? Array.from({ length: MAX_EXTRA_CREATURES + 1 }, (_, n) => n) : [0];
     for (const x of xs) for (const extra of extras) if (worksWith(helpers, extra, x)) return { extra, x };
     return null;
@@ -957,6 +1016,13 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   for (const h of helpers) {
     if (h.kind === 'rider') for (const c of h.ability.conditions) prerequisites.add(`${h.card}: ${c}`);
+    if (h.kind === 'rider' && h.ability.host) {
+      // An aura or equipment falls off a creature the loop flickers, so it goes on one the loop does not.
+      const flickered = new Set(cycle.flatMap((a, i) => (has(a, 'blink') ? [cycle[(i + 1) % k]!.card] : [])));
+      const attacker = [...events.attacks, ...events.combatDamage].find((c) => !flickered.has(c));
+      prerequisites.add(`${h.card} is attached to ${attacker && attacker !== ANY_CREATURE ? attacker : 'a creature that attacks each combat'}`);
+      if (h.ability.trigger?.type === 'combatDamage') prerequisites.add(`${attacker && attacker !== ANY_CREATURE ? attacker : 'the equipped creature'} deals combat damage to a player each combat`);
+    }
     if (h.kind === 'activationReducer' && manaActivated[0]) prerequisites.add(`${h.card} is attached to ${manaActivated[0].card}`);
     if (h.kind === 'blinkTarget') {
       prerequisites.add(`${h.card} is the second target of each flicker`);
@@ -984,6 +1050,15 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   if (extraCreatures) prerequisites.add(`You have at least ${extraCreatures} other creature cards in your graveyard or on the battlefield`);
   for (const v of variableMana) prerequisites.add(`${v.card} makes at least ${variableX} mana (${v.variable})`);
   for (const h of helpers) {
+    const v = h.kind === 'rider' ? h.ability.outputs.find((o) => o.type === 'mana' && o.variable && o.fromLands) : undefined;
+    if (v && v.type === 'mana') prerequisites.add(`${h.card} makes at least ${variableX} mana (${v.variable})`);
+  }
+  for (const [i, a] of cycle.entries()) {
+    const t = a.trigger;
+    if ((t?.type === 'combatDamage' || (t?.type === 'attack' && a.host)) && hostOf(cycle, i, ctx) === ANY_CREATURE) prerequisites.add(`${a.card} is attached to a creature you control that can attack`);
+    if (t?.type === 'combatDamage') prerequisites.add(`${t.source === 'self' ? a.card : hostOf(cycle, i, ctx) === ANY_CREATURE ? 'the equipped creature' : hostOf(cycle, i, ctx)} deals combat damage to a player each combat`);
+  }
+  for (const h of helpers) {
     if (h.kind === 'landAmplifier') prerequisites.add(`${h.card} was cast this turn and the lands untapped are Islands`);
     if (h.kind === 'reducer' && h.variable) prerequisites.add(h.variable.replace('X', String(variableX)));
     if (h.kind === 'reducer' && h.what === 'chosen') {
@@ -1001,7 +1076,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     cycle,
     bindings: bound,
     helpers,
-    hosts: Object.fromEntries(cycle.flatMap((a, i) => (a.host ? [[i, hostOf(cycle, i)]] : []))),
+    hosts: Object.fromEntries(cycle.flatMap((a, i) => (a.host ? [[i, hostOf(cycle, i, ctx)]] : []))),
     exiles: Object.fromEntries(cycle.flatMap((a, i) => {
       const returned = returnedExiled(a, cycle[(i + 1) % k]!, ctx);
       return returned ? [[a.card, returned]] : [];
@@ -1063,6 +1138,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   if (per.life > 0) produces.push('Infinite lifegain');
   if (counters > 0) produces.push('Infinite +1/+1 counters');
   if (per.draws) produces.push('Infinite card draw');
+  if (per.combats) produces.push('Infinite combat phases');
   if (produces.length === 0) return null;
 
   return {
@@ -1140,6 +1216,10 @@ export function inputs(a: Ability): Resource[] {
       leave: 'leave',
       minus: 'minus',
       spellCopy: 'spellCopy',
+      beginCombat: 'combat',
+      attack: 'combat',
+      combatDamage: 'combat',
+      postcombatMain: 'combat',
     };
     return [byTrigger[a.trigger!.type]];
   }
@@ -1194,6 +1274,7 @@ export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByNam
     }
   }
   if (has(a, 'counter')) r.add('counter');
+  if (has(a, 'extraCombat') || combatStep(a) !== undefined || has(a, 'copy')?.haste || has(a, 'blink')) r.add('combat');
   return [...r];
 }
 

@@ -5,15 +5,15 @@ simulator over the whole card pool; "new" means Commander Spellbook's full datab
 cards. **Candidates, not confirmed combos:** each one is only as right as the rules that found it, so check it
 by hand (and against the current Oracle text) before sharing it.
 
-- Card pool: 30897 paper Commander-legal cards (3011 with loop abilities, 2467 usable as helpers)
+- Card pool: 30897 paper Commander-legal cards (3458 with loop abilities, 2632 usable as helpers)
 - Spellbook database: 115954 combos (export from 2026-10-26T19:12:34.650124+00:00)
-- Candidates evaluated: 185 single cards, 267976 pairs, 593 imprint pairs
-- Verified combos: 5743: 892 already in Spellbook, 768 variants of a Spellbook combo (one card swapped or added), **4083 new**
-- Families (same pattern of roles, interchangeable cards): 180: 102 contain a known combo, 76 add one piece to a known engine, **2 are new**
-- Loops rejected by the simulator: 2181
-- Run time: 60.4 s
+- Candidates evaluated: 649 single cards, 408149 pairs, 600 imprint pairs
+- Verified combos: 5817: 919 already in Spellbook, 766 variants of a Spellbook combo (one card swapped or added), **4132 new**
+- Families (same pattern of roles, interchangeable cards): 198: 114 contain a known combo, 81 add one piece to a known engine, **3 are new**
+- Loops rejected by the simulator: 8866
+- Run time: 90.6 s
 
-## New families (2)
+## New families (3)
 
 Each family is one idea: the roles below, with any of the listed cards in each role. One representative is shown.
 
@@ -33,6 +33,23 @@ Each family is one idea: the roles below, with any of the listed cards in each r
 2. Deadeye Navigator: As long as Deadeye Navigator is paired with another creature, each of those creatures has "{1}{U}: Exile this creature, then return it to the battlefield under your control." → Birthing Hulk enters, triggering its ability.
 3. Repeat.
 
+### 2 combos: [2 options] + Bear Umbra + Aurelia, the Warleader
+
+- *activated [tap, mana] → blink*: Distinguished Conjurer, Nephalia Smuggler
+- *helper: on attack → mana*: Bear Umbra
+- *on attack → extraCombat+untap*: Aurelia, the Warleader
+
+#### Example: Aurelia, the Warleader + Distinguished Conjurer + Bear Umbra
+
+**Produces:** Infinite creature ETBs, Infinite lifegain, Infinite combat phases  
+**Each loop (simulated):** 1 creatures entering · you +1 life  
+**Helper:** Bear Umbra (or Sword of Feast and Famine)  
+**Needs:** Bear Umbra is attached to a creature that attacks each combat · Bear Umbra makes at least 5 mana (one per land you control)  
+
+1. Aurelia, the Warleader: Whenever Aurelia attacks for the first time each turn, untap all creatures you control. After this phase, there is an additional combat phase. → this untaps Distinguished Conjurer.
+2. Distinguished Conjurer: {4}{W}, {T}: Exile another target creature you control, then return it to the battlefield under its owner's control. → Aurelia, the Warleader attacks in the next combat, triggering Aurelia, the Warleader.
+3. Repeat.
+
 ### 1 combo: Deadeye Navigator + Pitiless Plunderer + Chittering Dispatcher
 
 - *activated [mana] → blink*: Deadeye Navigator
@@ -49,19 +66,19 @@ Each family is one idea: the roles below, with any of the listed cards in each r
 2. Deadeye Navigator: As long as Deadeye Navigator is paired with another creature, each of those creatures has "{1}{U}: Exile this creature, then return it to the battlefield under your control." → Chittering Dispatcher leaving the battlefield triggers Chittering Dispatcher.
 3. Repeat.
 
-## Variants of Spellbook combos (768)
+## Variants of Spellbook combos (766)
 
 Same idea as a known combo with one interchangeable card changed (another sacrifice outlet, another Treasure maker...).
 
-- Alena, Kessig Trapper + Captivating Crew: like [Spellbook 4747-7500](https://commanderspellbook.com/combo/4747-7500/) with Captivating Crew instead of Ringing Strike Mastery
+- Aggravated Assault + Klauth, Unrivaled Ancient: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Klauth, Unrivaled Ancient instead of Loot, the Nexus
+- Aggravated Assault + Orcrist, Goblin-cleaver: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Orcrist, Goblin-cleaver instead of Loot, the Nexus
+- Aggravated Assault + Tesak, Judith's Hellhound: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Tesak, Judith's Hellhound instead of Loot, the Nexus
 - Alena, Kessig Trapper + Voltaic Construct: like [Spellbook 1978-4747-5776](https://commanderspellbook.com/combo/1978-4747-5776/) with nothing instead of Ygra, Eater of All
 - Arc Reactor + Voltaic Construct: like [Spellbook 1978-7170-7685](https://commanderspellbook.com/combo/1978-7170-7685/) with nothing instead of Living Brain, Mechanical Marvel
-- Ardent Electromancer + Improvised Arsenal: like [Spellbook 4031-4499](https://commanderspellbook.com/combo/4031-4499/) with Improvised Arsenal instead of Emiel the Blessed
 - Ashnod's Altar + Necrogenesis: like [Spellbook 2034-7841--5](https://commanderspellbook.com/combo/2034-7841--5/) with Necrogenesis instead of Darksteel Angel
 - Ashnod's Altar + Words of Wilding: like [Spellbook 2034-4616-4963](https://commanderspellbook.com/combo/2034-4616-4963/) with nothing instead of Moldervine Reclamation
 - Avid Reclaimer + Freed from the Real: like [Spellbook 175-3028-4222](https://commanderspellbook.com/combo/175-3028-4222/) with nothing instead of Nissa, Vital Force
 - Avid Reclaimer + Pemmin's Aura: like [Spellbook 175-3028-3525](https://commanderspellbook.com/combo/175-3028-3525/) with nothing instead of Nissa, Vital Force
-- Axebane Guardian + Captivating Crew: like [Spellbook 3043-7500](https://commanderspellbook.com/combo/3043-7500/) with Captivating Crew instead of Ringing Strike Mastery
 - Axebane Guardian + Companion of the Trials: like [Spellbook 3043-7500](https://commanderspellbook.com/combo/3043-7500/) with Companion of the Trials instead of Ringing Strike Mastery
 - Axebane Guardian + Hapatra, the Desert Frost: like [Spellbook 3043-7500](https://commanderspellbook.com/combo/3043-7500/) with Hapatra, the Desert Frost instead of Ringing Strike Mastery
 - Axebane Guardian + Seedcradle Witch: like [Spellbook 3043-7500](https://commanderspellbook.com/combo/3043-7500/) with Seedcradle Witch instead of Ringing Strike Mastery
@@ -74,7 +91,9 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bighorner Rancher + Umbral Mantle: like [Spellbook 5614-7500](https://commanderspellbook.com/combo/5614-7500/) with Umbral Mantle instead of Ringing Strike Mastery
 - Bighorner Rancher + Voltaic Construct: like [Spellbook 1978-5614-5776](https://commanderspellbook.com/combo/1978-5614-5776/) with nothing instead of Ygra, Eater of All
 - Biomechan Engineer + Mana Echoes: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Biomechan Engineer instead of Ingris Stingerquill
-- Bloom Tender + Captivating Crew: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Captivating Crew instead of Sword of the Paruns
+- Bloodthirster + Helm of the Host: like [Spellbook 3057-7074](https://commanderspellbook.com/combo/3057-7074/) with Helm of the Host instead of Koh, the Face Stealer
+- Bloodthirster + Kiki-Jiki, Mirror Breaker: like [Spellbook 82-618-3057](https://commanderspellbook.com/combo/82-618-3057/) with nothing instead of Sting, the Glinting Dagger
+- Bloodthirster + Splinter Twin: like [Spellbook 3057-7074](https://commanderspellbook.com/combo/3057-7074/) with Splinter Twin instead of Koh, the Face Stealer
 - Bloom Tender + Companion of the Trials: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Companion of the Trials instead of Sword of the Paruns
 - Bloom Tender + Crab Umbra: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Crab Umbra instead of Sword of the Paruns
 - Bloom Tender + Hapatra, the Desert Frost: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Hapatra, the Desert Frost instead of Sword of the Paruns
@@ -87,9 +106,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Cabal Stronghold + Silvanus's Invoker: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Cabal Stronghold instead of Nykthos, Shrine to Nyx
 - Camera Launcher + Mana Echoes: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Camera Launcher instead of Ingris Stingerquill
 - Canopy Tactician + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Canopy Tactician instead of Cradle Clearcutter
-- Captivating Crew + Howlsquad Heavy: like [Spellbook 6410-7500](https://commanderspellbook.com/combo/6410-7500/) with Captivating Crew instead of Ringing Strike Mastery
-- Captivating Crew + Jegantha, the Wellspring: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Captivating Crew instead of Pemmin's Aura
-- Captivating Crew + Selvala, Heart of the Wilds: like [Spellbook 527-7500](https://commanderspellbook.com/combo/527-7500/) with Captivating Crew instead of Ringing Strike Mastery
 - Chandra, Flameshaper + Felidar Guardian: like [Spellbook 2781-7936](https://commanderspellbook.com/combo/2781-7936/) with Chandra, Flameshaper instead of Dominion Saboteur
 - Chromatic Orrery + Voltaic Construct: like [Spellbook 1283-1978-7329](https://commanderspellbook.com/combo/1283-1978-7329/) with nothing instead of Mind Transfer Protocol
 - Circle of Dreams Druid + Voltaic Construct: like [Spellbook 1526-1978-5776](https://commanderspellbook.com/combo/1526-1978-5776/) with nothing instead of Ygra, Eater of All
@@ -97,7 +113,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Cloudpost + Silvanus's Invoker: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Cloudpost instead of Nykthos, Shrine to Nyx
 - Companion of the Trials + Jegantha, the Wellspring: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Companion of the Trials instead of Pemmin's Aura
 - Companion of the Trials + Selvala, Heart of the Wilds: like [Spellbook 527-7500](https://commanderspellbook.com/combo/527-7500/) with Companion of the Trials instead of Ringing Strike Mastery
-- Conquering Manticore + Kiki-Jiki, Mirror Breaker: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Conquering Manticore instead of Little Bear
 - Cormela, Glamour Thief + Deadeye Navigator: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Deadeye Navigator instead of Doppelgang
 - Cormela, Glamour Thief + Freed from the Real: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Freed from the Real instead of Doppelgang
 - Cormela, Glamour Thief + Pemmin's Aura: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Pemmin's Aura instead of Doppelgang
@@ -114,7 +129,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Elvish Aberration + Voltaic Construct: like [Spellbook 1978-4667-5776](https://commanderspellbook.com/combo/1978-4667-5776/) with nothing instead of Ygra, Eater of All
 - Elvish Archdruid + Voltaic Construct: like [Spellbook 1978-3151-5776](https://commanderspellbook.com/combo/1978-3151-5776/) with nothing instead of Ygra, Eater of All
 - Emiel the Blessed + Valki, God of Lies // Tibalt, Cosmic Impostor: like [Spellbook 2033-4499--85--92](https://commanderspellbook.com/combo/2033-4499--85--92/) with Valki, God of Lies // Tibalt, Cosmic Impostor instead of Citanul Hierophants
-- Enthralling Victor + Kiki-Jiki, Mirror Breaker: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Enthralling Victor instead of Little Bear
 - Everflowing Chalice + Voltaic Construct: like [Spellbook 1978-4563-7329](https://commanderspellbook.com/combo/1978-4563-7329/) with nothing instead of Mind Transfer Protocol
 - Faceless Butcher + Felidar Guardian: like [Spellbook 372-2781-3991](https://commanderspellbook.com/combo/372-2781-3991/) with nothing instead of Abdel Adrian, Gorion's Ward
 - Faceless Butcher + Icewind Stalwart: like [Spellbook 372-3991-4200](https://commanderspellbook.com/combo/372-3991-4200/) with nothing instead of Abdel Adrian, Gorion's Ward
@@ -756,6 +770,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Prossh, Skyraider of Kher + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Prossh, Skyraider of Kher instead of Spawning Pit
 - Prossh, Skyraider of Kher + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Prossh, Skyraider of Kher instead of Kykar, Wind's Fury
 - Prossh, Skyraider of Kher + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Prossh, Skyraider of Kher instead of Kykar, Wind's Fury
+- Rakdos Riteknife + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Rakdos Riteknife instead of Kykar, Wind's Fury
 - Ravenous Intruder + Lesser Masticore + Solemnity: like [Spellbook 620-1429-5315](https://commanderspellbook.com/combo/620-1429-5315/) with Solemnity instead of Yotian Dissident
 - Ravenous Intruder + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-5315-5570](https://commanderspellbook.com/combo/2018-5315-5570/) with Solemnity instead of Luminous Broodmoth
 - Rootcoil Creeper + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Rootcoil Creeper instead of Omen Hawker
@@ -822,10 +837,15 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Vish Kal, Blood Arbiter + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
 - Warren Soultrader + Words of Wilding + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Words of Wilding instead of Quina, Qu Gourmet
 
-## Already in Spellbook (892)
+## Already in Spellbook (919)
 
 - Aetherflux Reservoir + Bloodthirsty Conqueror → [Spellbook 4740-6191](https://commanderspellbook.com/combo/4740-6191/)
 - Aetherflux Reservoir + Exquisite Blood → [Spellbook 3966-4740](https://commanderspellbook.com/combo/3966-4740/)
+- Aggravated Assault + Bear Umbra → [Spellbook 3750-4228](https://commanderspellbook.com/combo/3750-4228/)
+- Aggravated Assault + Cavern-Hoard Dragon → [Spellbook 3750-5988](https://commanderspellbook.com/combo/3750-5988/)
+- Aggravated Assault + Neheb, the Eternal → [Spellbook 3750-4945](https://commanderspellbook.com/combo/3750-4945/)
+- Aggravated Assault + Savage Ventmaw → [Spellbook 62-3750](https://commanderspellbook.com/combo/62-3750/)
+- Aggravated Assault + Sword of Feast and Famine → [Spellbook 900-3750](https://commanderspellbook.com/combo/900-3750/)
 - Alena, Kessig Trapper + Staff of Domination → [Spellbook 2645-4747](https://commanderspellbook.com/combo/2645-4747/)
 - Alena, Kessig Trapper + Sword of the Paruns → [Spellbook 4747-5200](https://commanderspellbook.com/combo/4747-5200/)
 - Alena, Kessig Trapper + Umbral Mantle → [Spellbook 2816-4747](https://commanderspellbook.com/combo/2816-4747/)
@@ -835,6 +855,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Arixmethes, Slumbering Isle + Freed from the Real → [Spellbook 3201-4222](https://commanderspellbook.com/combo/3201-4222/)
 - Arixmethes, Slumbering Isle + Pemmin's Aura → [Spellbook 3201-3525](https://commanderspellbook.com/combo/3201-3525/)
 - Ashnod's Altar + Spawnsire of Ulamog → [Spellbook 2034-2143](https://commanderspellbook.com/combo/2034-2143/)
+- Aurelia, the Warleader + Helm of the Host → [Spellbook 1692-4364](https://commanderspellbook.com/combo/1692-4364/)
+- Aurelia, the Warleader + Sword of Hearth and Home → [Spellbook 1550-4364](https://commanderspellbook.com/combo/1550-4364/)
 - Axebane Guardian + Crab Umbra → [Spellbook 1268-3043](https://commanderspellbook.com/combo/1268-3043/)
 - Axebane Guardian + Freed from the Real → [Spellbook 3043-4222](https://commanderspellbook.com/combo/3043-4222/)
 - Axebane Guardian + High Alert → [Spellbook 3043-4896](https://commanderspellbook.com/combo/3043-4896/)
@@ -844,8 +866,10 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Axebane Guardian + Umbral Mantle → [Spellbook 2816-3043](https://commanderspellbook.com/combo/2816-3043/)
 - Basalt Monolith + Rings of Brighthearth → [Spellbook 4131-4235](https://commanderspellbook.com/combo/4131-4235/)
 - Beck // Call + The Locust God → [Spellbook 350-1339](https://commanderspellbook.com/combo/350-1339/)
+- Berta, Wise Extrapolator + Intruder Alarm → [Spellbook 1636-7426](https://commanderspellbook.com/combo/1636-7426/)
 - Bighorner Rancher + Staff of Domination → [Spellbook 2645-5614](https://commanderspellbook.com/combo/2645-5614/)
 - Bighorner Rancher + Sword of the Paruns → [Spellbook 5200-5614](https://commanderspellbook.com/combo/5200-5614/)
+- Bloodline Keeper // Lord of Lineage + Intruder Alarm → [Spellbook 1636-2380](https://commanderspellbook.com/combo/1636-2380/)
 - Bloodthirsty Conqueror + Cliffhaven Vampire → [Spellbook 4789-6191](https://commanderspellbook.com/combo/4789-6191/)
 - Bloodthirsty Conqueror + Defiant Bloodlord → [Spellbook 2939-6191](https://commanderspellbook.com/combo/2939-6191/)
 - Bloodthirsty Conqueror + Dina, Soul Steeper → [Spellbook 2973-6191](https://commanderspellbook.com/combo/2973-6191/)
@@ -869,6 +893,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Circle of Dreams Druid + Umbral Mantle → [Spellbook 1526-2816](https://commanderspellbook.com/combo/1526-2816/)
 - Cliffhaven Vampire + Exquisite Blood → [Spellbook 3966-4789](https://commanderspellbook.com/combo/3966-4789/)
 - Cloud of Faeries + Deadeye Navigator → [Spellbook 1409-1741](https://commanderspellbook.com/combo/1409-1741/)
+- Combat Celebrant + Helm of the Host → [Spellbook 1692-2105](https://commanderspellbook.com/combo/1692-2105/)
+- Combat Celebrant + Kiki-Jiki, Mirror Breaker → [Spellbook 618-2105](https://commanderspellbook.com/combo/618-2105/)
 - Corridor Monitor + Kiki-Jiki, Mirror Breaker → [Spellbook 618-4404](https://commanderspellbook.com/combo/618-4404/)
 - Crab Umbra + Selvala, Heart of the Wilds → [Spellbook 527-1268](https://commanderspellbook.com/combo/527-1268/)
 - Cradle Clearcutter + Staff of Domination → [Spellbook 2645-4734](https://commanderspellbook.com/combo/2645-4734/)
@@ -929,6 +955,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Gaea's Cradle + Wakeroot Elemental → [Spellbook 192-2404](https://commanderspellbook.com/combo/192-2404/)
 - Giant-Sized Flying Ant + Kiki-Jiki, Mirror Breaker → [Spellbook 618-7747](https://commanderspellbook.com/combo/618-7747/)
 - Glamermite + Kiki-Jiki, Mirror Breaker → [Spellbook 618-7220](https://commanderspellbook.com/combo/618-7220/)
+- Godo, Bandit Warlord + Helm of the Host → [Spellbook 1692-4251](https://commanderspellbook.com/combo/1692-4251/)
+- Godsire + Intruder Alarm → [Spellbook 1420-1636](https://commanderspellbook.com/combo/1420-1636/)
 - Gravecrawler + Phyrexian Altar → [Spellbook 2577-4050](https://commanderspellbook.com/combo/2577-4050/)
 - Great Whale + Lilysplash Mentor → [Spellbook 2792-5900](https://commanderspellbook.com/combo/2792-5900/)
 - Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun + Silvanus's Invoker → [Spellbook 4915-4954](https://commanderspellbook.com/combo/4915-4954/)
@@ -937,6 +965,9 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Gyre Sage + Staff of Domination → [Spellbook 1597-2645](https://commanderspellbook.com/combo/1597-2645/)
 - Gyre Sage + Sword of the Paruns → [Spellbook 1597-5200](https://commanderspellbook.com/combo/1597-5200/)
 - Gyre Sage + Umbral Mantle → [Spellbook 1597-2816](https://commanderspellbook.com/combo/1597-2816/)
+- Hellkite Charger + Bear Umbra → [Spellbook 3398-4228](https://commanderspellbook.com/combo/3398-4228/)
+- Helm of the Host + Port Razer → [Spellbook 1548-1692](https://commanderspellbook.com/combo/1548-1692/)
+- Helm of the Host + Scourge of the Throne → [Spellbook 1405-1692](https://commanderspellbook.com/combo/1405-1692/)
 - High Alert + Selvala, Heart of the Wilds → [Spellbook 527-4896](https://commanderspellbook.com/combo/527-4896/)
 - Howlsquad Heavy + Staff of Domination → [Spellbook 2645-6410](https://commanderspellbook.com/combo/2645-6410/)
 - Howlsquad Heavy + Sword of the Paruns → [Spellbook 5200-6410](https://commanderspellbook.com/combo/5200-6410/)
@@ -946,6 +977,11 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Icewind Stalwart + Restoration Angel → [Spellbook 1090-4200](https://commanderspellbook.com/combo/1090-4200/)
 - Icewind Stalwart + Wispweaver Angel → [Spellbook 1621-4200](https://commanderspellbook.com/combo/1621-4200/)
 - Ingris Stingerquill + Mana Echoes → [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/)
+- Intruder Alarm + Kazandu Tuskcaller → [Spellbook 1636-1716](https://commanderspellbook.com/combo/1636-1716/)
+- Intruder Alarm + Speaker of the Heavens → [Spellbook 1636-1951](https://commanderspellbook.com/combo/1636-1951/)
+- Intruder Alarm + Thraben Doomsayer → [Spellbook 1413-1636](https://commanderspellbook.com/combo/1413-1636/)
+- Intruder Alarm + Ulamog's Dreadsire → [Spellbook 1636-5698](https://commanderspellbook.com/combo/1636-5698/)
+- Intruder Alarm + Xerex Strobe-Knight → [Spellbook 1636-4602](https://commanderspellbook.com/combo/1636-4602/)
 - Jegantha, the Wellspring + Pemmin's Aura → [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/)
 - Karametra's Acolyte + Staff of Domination → [Spellbook 2645-3291](https://commanderspellbook.com/combo/2645-3291/)
 - Karametra's Acolyte + Sword of the Paruns → [Spellbook 3291-5200](https://commanderspellbook.com/combo/3291-5200/)
@@ -954,8 +990,11 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Keen Sense + Niv-Mizzet, the Firemind → [Spellbook 148-4971](https://commanderspellbook.com/combo/148-4971/)
 - Kiki-Jiki, Mirror Breaker + Little Bear → [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/)
 - Kiki-Jiki, Mirror Breaker + Pestermite → [Spellbook 618-2905](https://commanderspellbook.com/combo/618-2905/)
+- Kiki-Jiki, Mirror Breaker + Port Razer → [Spellbook 618-1548](https://commanderspellbook.com/combo/618-1548/)
 - Kiki-Jiki, Mirror Breaker + Restoration Angel → [Spellbook 618-1090](https://commanderspellbook.com/combo/618-1090/)
+- Kiki-Jiki, Mirror Breaker + Sky Hussar → [Spellbook 618-3562](https://commanderspellbook.com/combo/618-3562/)
 - Kiki-Jiki, Mirror Breaker + Sparring Mummy → [Spellbook 618-4730](https://commanderspellbook.com/combo/618-4730/)
+- Kiki-Jiki, Mirror Breaker + Village Bell-Ringer → [Spellbook 618-2059](https://commanderspellbook.com/combo/618-2059/)
 - Kiki-Jiki, Mirror Breaker + Wispweaver Angel → [Spellbook 618-1621](https://commanderspellbook.com/combo/618-1621/)
 - Kiki-Jiki, Mirror Breaker + Zealous Conscripts → [Spellbook 618-1537](https://commanderspellbook.com/combo/618-1537/)
 - Kiora of Fire and Ashes + Mana Echoes → [Spellbook 2440-8167](https://commanderspellbook.com/combo/2440-8167/)
@@ -976,8 +1015,10 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Marwyn, the Nurturer + Umbral Mantle → [Spellbook 2436-2816](https://commanderspellbook.com/combo/2436-2816/)
 - Murderous Redcap + Solemnity → [Spellbook 1657-4053](https://commanderspellbook.com/combo/1657-4053/)
 - Niv-Mizzet, Parun + Ophidian Eye → [Spellbook 2353-2396](https://commanderspellbook.com/combo/2353-2396/)
+- Niv-Mizzet, Parun + Snake Umbra → [Spellbook 2353-3311](https://commanderspellbook.com/combo/2353-3311/)
 - Niv-Mizzet, Parun + Tandem Lookout → [Spellbook 406-2353](https://commanderspellbook.com/combo/406-2353/)
 - Niv-Mizzet, the Firemind + Ophidian Eye → [Spellbook 2396-4971](https://commanderspellbook.com/combo/2396-4971/)
+- Niv-Mizzet, the Firemind + Snake Umbra → [Spellbook 3311-4971](https://commanderspellbook.com/combo/3311-4971/)
 - Niv-Mizzet, the Firemind + Tandem Lookout → [Spellbook 406-4971](https://commanderspellbook.com/combo/406-4971/)
 - Omen Hawker + Pemmin's Aura → [Spellbook 3525-3772](https://commanderspellbook.com/combo/3525-3772/)
 - Overgrown Battlement + Staff of Domination → [Spellbook 850-2645](https://commanderspellbook.com/combo/850-2645/)
@@ -1263,6 +1304,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Esika, God of the Tree // The Prismatic Bridge + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Esika, God of the Tree // The Prismatic Bridge + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Filigree Sages + Gilded Lotus + Kinnan, Bonder Prodigy → [Spellbook 129-2544-5116](https://commanderspellbook.com/combo/129-2544-5116/)
+- Flamewright + Intruder Alarm + Mana Echoes → [Spellbook 1636-2487](https://commanderspellbook.com/combo/1636-2487/)
 - Foreboding Statue // Forsaken Thresher + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Foreboding Statue // Forsaken Thresher + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Freed from the Real + Frog Butler + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)

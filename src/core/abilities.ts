@@ -70,7 +70,8 @@ export type Output =
   /** "return target creature card from your graveyard to the battlefield" (Karmic Guide). */
   | { type: 'reanimate'; target: TargetSpec }
   /** 'self' = "untap ~"; `all` = "untap all nonland permanents you control". */
-  | { type: 'untap'; target: TargetSpec | 'self' | 'host'; all: boolean }
+  /** all: every matching permanent; other: except this one (Combat Celebrant); attacking: only attacking creatures. */
+  | { type: 'untap'; target: TargetSpec | 'self' | 'host'; all: boolean; other?: boolean; attacking?: boolean }
   /** Nim Deathmantle: "return that card to the battlefield" (the creature that just died). */
   | { type: 'recurDied' }
   /** "return target artifact card from your graveyard to your hand" (lesserMv: Scrap Trawler). */
@@ -88,6 +89,8 @@ export type Output =
   | { type: 'minusCounter'; target: TargetSpec }
   /** Dualcaster Mage: "copy target instant or sorcery spell". */
   | { type: 'spellCopy' }
+  /** "After this phase, there is an additional combat phase" (withMain: "followed by an additional main phase"). */
+  | { type: 'extraCombat'; withMain: boolean }
   /** 'host' = the creature an aura or soulbond grants this to. */
   /** each: "on each creature you control" (Archangel of Thune); amount 0 = "that many" (the life gained). */
   /** bolster: on the creature you control with the least toughness (Anafenza). */
@@ -111,7 +114,15 @@ export type Trigger =
   | { type: 'drain' }
   | { type: 'draw' }
   /** "Whenever ~/enchanted creature deals damage to an opponent" (not combat-only). */
-  | { type: 'damage'; source: 'self' | 'host' };
+  | { type: 'damage'; source: 'self' | 'host' }
+  /** "Whenever ~ attacks [for the first time each turn]"; exert: Combat Celebrant's "you may exert it as it attacks". */
+  | { type: 'attack'; source: 'self' | 'host'; firstTime: boolean; exert?: boolean }
+  /** "Whenever ~/equipped creature deals combat damage to a player". */
+  | { type: 'combatDamage'; source: 'self' | 'host' }
+  /** "At the beginning of combat on your turn" (Helm of the Host). */
+  | { type: 'beginCombat' }
+  /** "At the beginning of each of your postcombat main phases" (Neheb, the Eternal). */
+  | { type: 'postcombatMain' };
 
 export interface Ability {
   id: string;
@@ -156,7 +167,12 @@ export interface Ability {
   conditions: string[];
   /** The cost includes something not modeled (e.g. "Sacrifice a Food"), so the ability is never used in a loop. */
   unmodeledCost: boolean;
+  /** "Activate only as a sorcery": only in a main phase. */
+  sorcery?: boolean;
 }
+
+/** Triggers that happen in combat, in the order of the combat steps (the postcombat main phase follows combat). */
+export const COMBAT_STEP: Partial<Record<Trigger['type'], number>> = { beginCombat: 0, attack: 1, combatDamage: 2, postcombatMain: 3 };
 
 const NUMBER_WORDS: Record<string, number> = {
   a: 1,
@@ -274,10 +290,12 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   if (mana) outputs.push({ type: 'mana', mana });
 
   const copy =
-    /create a token that's a copy of (target [^,.]*?creature[^,.]*?|~)(?:,|\.|$)/.exec(effect) ??
+    /create a token that's a copy of (target [^,.]*?creature[^,.]*?|~|equipped creature|enchanted creature)(?:,|\.|$)/.exec(effect) ??
     /(target creatures? you control)\. for each of them, create a token that's a copy of that creature/.exec(effect);
-  if (copy) {
-    outputs.push({ type: 'copy', target: copy[1] === '~' || host ? 'host' : parseTargetSpec(copy[1]!), haste: /has haste|gains haste/.test(effect) });
+  // Feldon of the Third Path copies a creature *card in your graveyard*, not a creature on the battlefield.
+  if (copy && !/\bcards?\b/.test(copy[1]!)) {
+    const toHost = copy[1] === '~' || host || /^(equipped|enchanted) creature$/.test(copy[1]!);
+    outputs.push({ type: 'copy', target: toHost ? 'host' : parseTargetSpec(copy[1]!), haste: /has haste|gains haste/.test(effect) });
   } else {
     const tokens = /create (a|an|one|two|three|four|five|x|\d+|that many) [^.]*?\b(\d+\/\d+)[^.]*?creature tokens?|create (a|an|one|two|three|four|five|x|\d+|that many) [^.]*?creature tokens?/.exec(effect);
     if (tokens) {
@@ -298,7 +316,11 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   const blink = /exile (another target|target|up to one target|two target|up to two target) ([^.]*?(?:creature|permanent|artifact)s?[^.]*?)(?:,|\.)? (?:then )?return (?:it|them|that card|those cards|the exiled cards?)[^.]*to the battlefield/.exec(effect);
   // A delayed return ("... at the beginning of the next end step", Flickerwisp) happens once per turn, not in a loop.
   const delayed = blink && /^[^.]*\b(?:at the beginning of|end step)/.test(effect.slice(blink.index + blink[0].length));
-  if (blink && !delayed) {
+  // Sword of Hearth and Home: "exile up to one target creature you own, then search ... Put both cards onto the battlefield".
+  const swordBlink = /exile (?:up to one )?target (creature[^,.]*?), then search[^.]*\. put both cards onto the battlefield/.exec(effect);
+  if (swordBlink) {
+    outputs.push({ type: 'blink', target: parseTargetSpec(swordBlink[1]!), count: 1 });
+  } else if (blink && !delayed) {
     outputs.push({ type: 'blink', target: parseTargetSpec(blink[2]!, blink[1] === 'another target'), count: /two/.test(blink[1]!) ? 2 : 1 });
   } else if (/exile ~, then return it to the battlefield/.test(effect)) {
     outputs.push({ type: 'blink', target: host ? 'host' : 'self', count: 1 });
@@ -313,20 +335,36 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   if (/return that card to the battlefield/.test(effect) && !/\bexile\b/.test(effect)) outputs.push({ type: 'recurDied' });
   const landUntap = /untap up to (\w+) lands/.exec(effect);
   if (landUntap) outputs.push({ type: 'mana', mana: { ...emptyProduction(), any: toNumber(landUntap[1]) }, fromLands: true });
+  // Bear Umbra, Sword of Feast and Famine: every land untaps, so the mana scales with how many you control.
+  if (/\buntap all lands you control\b/.test(effect)) outputs.push({ type: 'mana', mana: { ...emptyProduction(), any: 1 }, fromLands: true, variable: 'one per land you control' });
+  const combat = /there is an additional combat phase( followed by an additional main phase)?/.exec(effect);
+  if (combat) outputs.push({ type: 'extraCombat', withMain: Boolean(combat[1]) });
 
   // Sword of the Paruns / Pemmin's Aura: "untap equipped creature", "untap enchanted creature".
   const untapHost = /\b(?:tap or )?untap (?:equipped|enchanted) creature/.test(effect);
-  const untapAll = /\buntap all (nonland )?permanents you control/.exec(effect);
+  const untapAll = /\buntap (?:all|each) (other )?(nonland permanents|permanents|attacking creatures|creatures?)(?: you control)?/.exec(effect);
+  // Godo: "untap it and all Samurai you control" untaps the attacking creature itself.
+  const untapItAnd = /\buntap it and all\b/.test(effect);
   const untap = /\b(?:tap or )?untap (target [^.,]*?|another target [^.,]*?|that \w+|it|~)(?:[.,]|$| and)/.exec(effect.replace(/untap up to \w+ lands/, ''));
   if (untapHost) {
     outputs.push({ type: 'untap', target: 'host', all: false });
   } else if (untapAll) {
-    outputs.push({ type: 'untap', target: { ...parseTargetSpec('permanent'), nonland: Boolean(untapAll[1]) }, all: true });
+    const what = untapAll[2]!;
+    outputs.push({
+      type: 'untap',
+      target: { ...parseTargetSpec(/permanent/.test(what) ? 'permanent' : 'creature'), nonland: what.startsWith('nonland') },
+      all: true,
+      other: Boolean(untapAll[1]),
+      attacking: what.startsWith('attacking'),
+    });
+  } else if (untapItAnd) {
+    outputs.push({ type: 'untap', target: host ? 'host' : 'self', all: false });
   } else if (untap && !/doesn't untap/.test(effect)) {
     let phrase = untap[1]!;
     // "gain control of target permanent ... Untap that permanent."
     if (/^(that|it)/.test(phrase)) phrase = /target ([^.,]*)/.exec(effect)?.[0] ?? 'permanent';
-    outputs.push({ type: 'untap', target: phrase === '~' ? 'self' : parseTargetSpec(phrase), all: false });
+    // Edea, Yasova: "gain control of target creature an opponent controls ... untap that creature" untaps theirs.
+    if (!/\ban opponent controls\b/.test(phrase)) outputs.push({ type: 'untap', target: phrase === '~' ? 'self' : parseTargetSpec(phrase), all: false });
   }
 
   // "return another target artifact card from your graveyard to your hand" (Myr Retriever),
@@ -383,6 +421,12 @@ function parseTrigger(condition: string, granted: boolean): Trigger | null {
   if (artifactDeath) {
     return { type: 'death', self: false, another: !artifactDeath[1] && artifactDeath[2] === 'another ', nontoken: Boolean(artifactDeath[3]), what: 'artifact' };
   }
+  if (/^at the beginning of combat on your turn/.test(condition)) return { type: 'beginCombat' };
+  if (/^at the beginning of (?:each of )?your postcombat main phases?/.test(condition)) return { type: 'postcombatMain' };
+  const combatDamage = /^when(?:ever)? (~|enchanted creature|equipped creature) deals combat damage to (?:a player|an opponent|one or more players)$/.exec(condition);
+  if (combatDamage) return { type: 'combatDamage', source: combatDamage[1] === '~' && !granted ? 'self' : 'host' };
+  const attack = /^whenever (~|enchanted creature|equipped creature) attacks( for the first time each turn)?$/.exec(condition);
+  if (attack) return { type: 'attack', source: attack[1] === '~' && !granted ? 'self' : 'host', firstTime: Boolean(attack[2]) };
   const damage = /^whenever (~|enchanted creature|equipped creature) deals damage to an opponent/.exec(condition);
   if (damage) return { type: 'damage', source: damage[1] === '~' && !granted ? 'self' : 'host' };
   const death = /^when(?:ever)? (~ or )?(another |a |one or more )?(other )?(nontoken )?creatures?(?: or planeswalkers?)?(?: you control)? (?:dies|die)\b/.exec(condition);
@@ -445,10 +489,14 @@ const UNTRACKED_CONDITIONS: [RegExp, string][] = [
   // ("~" is not a word character, so these end with (?!\w) rather than \b.)
   [/\b(?:convert|transform) (?:it|~|this creature)(?!\w)/, 'transforms after one use'],
   [/\bexiled with (?:this artifact|this creature|this enchantment|~)(?!\w)/, 'uses up cards it exiled'],
+  [/\bsacrifice it and attach\b/, 'sacrifices the creature it is attached to'],
+  [/\byou may sacrifice (?:another|a|an) [a-z]+\. if you do\b/, 'sacrifices another permanent each time'],
+  [/\bonly land creatures can attack\b/, 'restricts who attacks in the extra combat'],
+  [/\b(?:target|another target) [a-z ]*?(?:creature|permanent) that has an? [a-z]+ counter on it\b/, 'needs a counter on its target'],
 ];
 
-export function untrackedCondition(text: string): string | null {
-  for (const [re, why] of UNTRACKED_CONDITIONS) if (re.test(text)) return why;
+export function untrackedCondition(text: string, inCombat = false): string | null {
+  for (const [re, why] of UNTRACKED_CONDITIONS) if (re.test(text) && !(inCombat && why === 'only in combat')) return why;
   return null;
 }
 
@@ -468,7 +516,9 @@ function makeAbility(card: Card, line: number, text: string, partial: Partial<Ab
 
 /** Mark abilities whose text has a condition the engine can't track as unusable in loops. */
 function guard(ability: Ability | null, lineText: string): Ability | null {
-  if (ability && untrackedCondition(lineText)) ability.unmodeledCost = true;
+  // Combat triggers are modeled with combat, so "untap all attacking creatures" is fine there.
+  const inCombat = ability?.trigger !== undefined && COMBAT_STEP[ability.trigger.type] !== undefined;
+  if (ability && untrackedCondition(lineText, inCombat)) ability.unmodeledCost = true;
   return ability;
 }
 
@@ -505,6 +555,7 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
       loyalty,
       minusCounter: /put a -1\/-1 counter on ~/.test(costText),
     },
+    sorcery: /activate only as a sorcery/.test(effect),
   });
   ability.unmodeledCost = leftover.length > 0;
   // {Q} (the untap symbol, Umbral Mantle): activating untaps the creature that has the ability.
@@ -539,14 +590,27 @@ function parseTriggered(card: Card, lineNo: number, display: string, line: strin
   const payment = /you may pay ((?:\{[^}]+\})+)\. if you do, (.*)/.exec(effect);
   if (/you may pay/.test(effect) && !payment) return null;
   if (payment) effect = payment[2]!;
+  // Scourge of the Throne: attacking the player with the most life is a choice the player can usually make.
+  const mostLife = /^\s*if it's attacking the player with the most life or tied for most life,/;
+  const attacksMostLife = trigger.type === 'attack' && mostLife.test(effect);
+  if (attacksMostLife) effect = effect.replace(mostLife, '');
   // Any other intervening "if ..." condition ("if an Aura you controlled was attached to it", "if it was kicked")
   // is about state the engine does not track, so the trigger is not used in loops.
   const intervening = /^\s*if\b/.test(effect);
-  const host = granted || (trigger.type === 'damage' && trigger.source === 'host');
-  const outputs = parseOutputs(effect, host);
+  const host =
+    granted ||
+    ((trigger.type === 'damage' || trigger.type === 'attack' || trigger.type === 'combatDamage') && trigger.source === 'host') ||
+    (trigger.type === 'beginCombat' && /\b(?:equipped|enchanted) creature\b/.test(effect));
+  // In an aura or equipment's own trigger, "~" is the aura or equipment (Bloodforged Battle-Axe copying itself),
+  // not the creature it is on; only inside a granted ability does "~" mean the creature.
+  const outputs = parseOutputs(effect, granted).filter((o) => granted || !host || !(o.type === 'copy' && /copy of ~/.test(effect)));
   if (!outputs.length) return null;
   const ability = makeAbility(card, lineNo, display, { kind: 'triggered', trigger, outputs, host, hostVia: host && !granted ? 'attached' : undefined });
   if (payment) ability.cost.mana = parseManaCost(payment[1]!);
+  // "Attacks for the first time each turn" is once per creature object, which the simulator tracks (a token copy or
+  // a flickered creature is a new object), not once per turn.
+  if (trigger.type === 'attack' && trigger.firstTime) ability.oncePerTurn = false;
+  if (attacksMostLife) ability.conditions.push(`${card.name} attacks the player with the most life`);
   if (intervening) ability.unmodeledCost = true;
   return ability;
 }
@@ -585,7 +649,7 @@ function parseAbilitiesUncached(card: Card): Ability[] {
     const display = (displayLines[i] ?? rawLine).replace(/ ?\([^)]*\)/g, '');
 
     // Granted abilities: 'Enchanted creature has "{T}: ..."', soulbond's 'each of those creatures has "..."'.
-    const granted = /(enchanted creature|equipped creature|each of those creatures) has "([^"]+)"/.exec(line);
+    const granted = /(enchanted creature|equipped creature|each of those creatures) (?:gets [^".]*? and )?has "([^"]+)"/.exec(line);
     if (granted) {
       const hostVia = granted[1] === 'each of those creatures' ? 'paired' : 'attached';
       const inner = granted[2]!;
@@ -608,7 +672,15 @@ function parseAbilitiesUncached(card: Card): Ability[] {
       return;
     }
 
-    if (/^when|^whenever/.test(line)) {
+    // Combat Celebrant: "you may exert it as it attacks. When you do, ..." is an attack trigger, once per object.
+    const exert = /you may exert (?:~|it) as it attacks\. when you do, (.*)/.exec(line);
+    if (exert) {
+      const a = guard(parseTriggered(card, i, display, `whenever ~ attacks, ${exert[1]}`, false), line);
+      if (a?.trigger?.type === 'attack') abilities.push({ ...a, trigger: { ...a.trigger, exert: true } });
+      return;
+    }
+
+    if (/^when|^whenever|^at the beginning of/.test(line)) {
       const a = guard(parseTriggered(card, i, display, line, false), line);
       if (a) abilities.push(a);
       return;

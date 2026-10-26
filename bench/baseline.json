@@ -405,7 +405,17 @@
   },
   "voltron-combat": {
     "connectivity": 1,
-    "matchedCombos": []
+    "matchedCombos": [
+      "Aggravated Assault + Bear Umbra",
+      "Aggravated Assault + Neheb, the Eternal",
+      "Aggravated Assault + Savage Ventmaw",
+      "Aggravated Assault + Sword of Feast and Famine",
+      "Aurelia, the Warleader + Helm of the Host",
+      "Combat Celebrant + Helm of the Host",
+      "Godo, Bandit Warlord + Helm of the Host",
+      "Helm of the Host + Port Razer",
+      "Helm of the Host + Scourge of the Throne"
+    ]
   },
   "voltron": {
     "connectivity": 1,

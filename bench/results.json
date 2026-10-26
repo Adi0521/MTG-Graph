@@ -2078,82 +2078,21 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 11,
-      "engineCombos": 0,
-      "matched": 0,
-      "recall": 0,
-      "matchedCombos": [],
+      "engineCombos": 9,
+      "matched": 9,
+      "recall": 0.818,
+      "matchedCombos": [
+        "Aggravated Assault + Bear Umbra",
+        "Aggravated Assault + Neheb, the Eternal",
+        "Aggravated Assault + Savage Ventmaw",
+        "Aggravated Assault + Sword of Feast and Famine",
+        "Aurelia, the Warleader + Helm of the Host",
+        "Combat Celebrant + Helm of the Host",
+        "Godo, Bandit Warlord + Helm of the Host",
+        "Helm of the Host + Port Razer",
+        "Helm of the Host + Scourge of the Throne"
+      ],
       "missed": [
-        {
-          "cards": [
-            "Aggravated Assault",
-            "Bear Umbra"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Aggravated Assault: no loop abilities parsed",
-            "Bear Umbra: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Neheb, the Eternal",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite red mana",
-            "Infinite mana creatures you control can produce"
-          ],
-          "diagnosis": [
-            "Neheb, the Eternal: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Savage Ventmaw",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite green mana"
-          ],
-          "diagnosis": [
-            "Savage Ventmaw: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Sword of Feast and Famine",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Sword of Feast and Famine: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Aurelia, the Warleader",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Aurelia, the Warleader: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Najeela, the Blade-Blossom",
@@ -2165,68 +2104,7 @@
             "Infinite creature ETB"
           ],
           "diagnosis": [
-            "Najeela, the Blade-Blossom: no loop abilities parsed",
-            "Bear Umbra: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Combat Celebrant",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature ETB",
-            "Infinite mana creatures you control can produce"
-          ],
-          "diagnosis": [
-            "Combat Celebrant: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Godo, Bandit Warlord",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite death triggers",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Godo, Bandit Warlord: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Port Razer",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite creature tokens with haste"
-          ],
-          "diagnosis": [
-            "Port Razer: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Scourge of the Throne",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Scourge of the Throne: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
+            "Najeela, the Blade-Blossom: cost not modeled"
           ]
         },
         {
@@ -2240,8 +2118,7 @@
             "Infinite combat phases"
           ],
           "diagnosis": [
-            "Najeela, the Blade-Blossom: no loop abilities parsed",
-            "Sword of Feast and Famine: no loop abilities parsed"
+            "Najeela, the Blade-Blossom: cost not modeled"
           ]
         }
       ],
@@ -2308,29 +2185,17 @@
     "decks": 38,
     "connectivity": 0.983,
     "spellbookCombos": 290,
-    "matched": 246,
-    "recall": 0.848,
+    "matched": 255,
+    "recall": 0.879,
     "engineOnly": 59
   },
   "topUnparsed": [
-    {
-      "card": "Helm of the Host",
-      "misses": 5
-    },
-    {
-      "card": "Aggravated Assault",
-      "misses": 4
-    },
     {
       "card": "Food Chain",
       "misses": 3
     },
     {
       "card": "Academy Manufactor",
-      "misses": 2
-    },
-    {
-      "card": "Bear Umbra",
       "misses": 2
     },
     {
@@ -2358,19 +2223,11 @@
       "misses": 2
     },
     {
-      "card": "Najeela, the Blade-Blossom",
-      "misses": 2
-    },
-    {
       "card": "Nuka-Cola Vending Machine",
       "misses": 2
     },
     {
       "card": "Sharuum the Hegemon",
-      "misses": 2
-    },
-    {
-      "card": "Sword of Feast and Famine",
       "misses": 2
     },
     {
@@ -2390,10 +2247,6 @@
       "misses": 1
     },
     {
-      "card": "Aurelia, the Warleader",
-      "misses": 1
-    },
-    {
       "card": "Brain Freeze",
       "misses": 1
     },
@@ -2402,15 +2255,7 @@
       "misses": 1
     },
     {
-      "card": "Combat Celebrant",
-      "misses": 1
-    },
-    {
       "card": "Eternal Scourge",
-      "misses": 1
-    },
-    {
-      "card": "Godo, Bandit Warlord",
       "misses": 1
     },
     {
@@ -2418,23 +2263,7 @@
       "misses": 1
     },
     {
-      "card": "Neheb, the Eternal",
-      "misses": 1
-    },
-    {
       "card": "Phyrexian Metamorph",
-      "misses": 1
-    },
-    {
-      "card": "Port Razer",
-      "misses": 1
-    },
-    {
-      "card": "Savage Ventmaw",
-      "misses": 1
-    },
-    {
-      "card": "Scourge of the Throne",
       "misses": 1
     },
     {

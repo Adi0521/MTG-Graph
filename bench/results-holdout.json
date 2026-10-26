@@ -45,145 +45,29 @@
         "Swiftfoot Boots"
       ],
       "spellbookCombos": 21,
-      "engineCombos": 2,
-      "matched": 2,
-      "recall": 0.095,
+      "engineCombos": 18,
+      "matched": 17,
+      "recall": 0.81,
       "matchedCombos": [
+        "Aggravated Assault + Bear Umbra",
+        "Aggravated Assault + Dockside Extortionist + Helm of the Host",
+        "Aggravated Assault + Dockside Extortionist + Sword of Hearth and Home",
+        "Aggravated Assault + Neheb, the Eternal",
+        "Aggravated Assault + Savage Ventmaw",
+        "Aggravated Assault + Sword of Feast and Famine",
+        "Aurelia, the Warleader + Helm of the Host",
+        "Aurelia, the Warleader + Sword of Hearth and Home",
+        "Bear Umbra + Hellkite Charger",
+        "Combat Celebrant + Helm of the Host",
+        "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
         "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
+        "Hellkite Charger + Sword of Feast and Famine",
+        "Helm of the Host + Port Razer",
+        "Helm of the Host + Scourge of the Throne",
+        "Kiki-Jiki, Mirror Breaker + Port Razer",
         "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
       ],
       "missed": [
-        {
-          "cards": [
-            "Aggravated Assault",
-            "Bear Umbra"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Aggravated Assault: no loop abilities parsed",
-            "Bear Umbra: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Dockside Extortionist",
-            "Aggravated Assault",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Aggravated Assault: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Dockside Extortionist",
-            "Sword of Hearth and Home",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Sword of Hearth and Home: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Neheb, the Eternal",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite red mana",
-            "Infinite mana creatures you control can produce"
-          ],
-          "diagnosis": [
-            "Neheb, the Eternal: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Savage Ventmaw",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite green mana"
-          ],
-          "diagnosis": [
-            "Savage Ventmaw: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Sword of Feast and Famine",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Sword of Feast and Famine: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Aurelia, the Warleader",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Aurelia, the Warleader: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Aurelia, the Warleader",
-            "Sword of Hearth and Home"
-          ],
-          "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Aurelia, the Warleader: no loop abilities parsed",
-            "Sword of Hearth and Home: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Hellkite Charger",
-            "Bear Umbra"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Hellkite Charger: no loop abilities parsed",
-            "Bear Umbra: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Breath of Fury",
@@ -195,8 +79,7 @@
             "Infinite death triggers"
           ],
           "diagnosis": [
-            "Breath of Fury: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
+            "Breath of Fury: cost not modeled"
           ]
         },
         {
@@ -210,36 +93,7 @@
             "Infinite death triggers"
           ],
           "diagnosis": [
-            "Breath of Fury: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Combat Celebrant",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature ETB",
-            "Infinite mana creatures you control can produce"
-          ],
-          "diagnosis": [
-            "Combat Celebrant: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Combat Celebrant",
-            "Kiki-Jiki, Mirror Breaker"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Combat Celebrant: no loop abilities parsed"
+            "Breath of Fury: cost not modeled"
           ]
         },
         {
@@ -254,23 +108,7 @@
             "Infinite artifact sacrifice triggers"
           ],
           "diagnosis": [
-            "Hellkite Charger: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Hellkite Charger",
-            "Sword of Feast and Famine"
-          ],
-          "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite damage"
-          ],
-          "diagnosis": [
-            "Hellkite Charger: no loop abilities parsed",
-            "Sword of Feast and Famine: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
         },
         {
@@ -284,55 +122,35 @@
             "Infinite creature LTB"
           ],
           "diagnosis": [
-            "Helm of the Host: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
-        },
+        }
+      ],
+      "engineOnly": [
         {
           "cards": [
-            "Port Razer",
-            "Helm of the Host"
+            "Aggravated Assault",
+            "Kiki-Jiki, Mirror Breaker",
+            "Dockside Extortionist"
           ],
           "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite creature tokens with haste"
-          ],
-          "diagnosis": [
-            "Port Razer: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Scourge of the Throne",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Scourge of the Throne: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
           ]
         },
         {
           "cards": [
             "Kiki-Jiki, Mirror Breaker",
-            "Port Razer"
+            "Scourge of the Throne",
+            "Sword of Hearth and Home"
           ],
           "produces": [
-            "Infinite combat damage",
-            "Infinite combat phases",
-            "Infinite creature tokens with haste"
-          ],
-          "diagnosis": [
-            "Port Razer: no loop abilities parsed"
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite combat phases"
           ]
         }
-      ],
-      "engineOnly": []
+      ]
     },
     {
       "slug": "gitrog-dredge",
@@ -549,42 +367,18 @@
         "Treasure Nabber"
       ],
       "spellbookCombos": 9,
-      "engineCombos": 1,
-      "matched": 1,
-      "recall": 0.111,
+      "engineCombos": 7,
+      "matched": 6,
+      "recall": 0.667,
       "matchedCombos": [
+        "Aggravated Assault + Dockside Extortionist + Helm of the Host",
+        "Aggravated Assault + Sword of Feast and Famine",
+        "Combat Celebrant + Helm of the Host",
+        "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
+        "Godo, Bandit Warlord + Helm of the Host",
         "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
       ],
       "missed": [
-        {
-          "cards": [
-            "Dockside Extortionist",
-            "Aggravated Assault",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Aggravated Assault: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Sword of Feast and Famine",
-            "Aggravated Assault"
-          ],
-          "produces": [
-            "Infinite combat phases"
-          ],
-          "diagnosis": [
-            "Sword of Feast and Famine: no loop abilities parsed",
-            "Aggravated Assault: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Breath of Fury",
@@ -596,8 +390,7 @@
             "Infinite death triggers"
           ],
           "diagnosis": [
-            "Breath of Fury: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
+            "Breath of Fury: cost not modeled"
           ]
         },
         {
@@ -611,51 +404,7 @@
             "Infinite death triggers"
           ],
           "diagnosis": [
-            "Breath of Fury: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Combat Celebrant",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature ETB",
-            "Infinite mana creatures you control can produce"
-          ],
-          "diagnosis": [
-            "Combat Celebrant: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Combat Celebrant",
-            "Kiki-Jiki, Mirror Breaker"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite creature tokens with haste",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Combat Celebrant: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Godo, Bandit Warlord",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite combat phases",
-            "Infinite death triggers",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Godo, Bandit Warlord: no loop abilities parsed",
-            "Helm of the Host: no loop abilities parsed"
+            "Breath of Fury: cost not modeled"
           ]
         },
         {
@@ -669,11 +418,23 @@
             "Infinite creature LTB"
           ],
           "diagnosis": [
-            "Helm of the Host: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
         }
       ],
-      "engineOnly": []
+      "engineOnly": [
+        {
+          "cards": [
+            "Aggravated Assault",
+            "Kiki-Jiki, Mirror Breaker",
+            "Dockside Extortionist"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
     },
     {
       "slug": "kinnan-mana",
@@ -1502,7 +1263,7 @@
             "Infinite creature LTB"
           ],
           "diagnosis": [
-            "Helm of the Host: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
         }
       ],
@@ -1513,22 +1274,14 @@
     "decks": 12,
     "connectivity": 0.939,
     "spellbookCombos": 109,
-    "matched": 29,
-    "recall": 0.266,
-    "engineOnly": 5
+    "matched": 49,
+    "recall": 0.45,
+    "engineOnly": 8
   },
   "topUnparsed": [
     {
       "card": "Glacial Chasm",
       "misses": 18
-    },
-    {
-      "card": "Helm of the Host",
-      "misses": 14
-    },
-    {
-      "card": "Aggravated Assault",
-      "misses": 8
     },
     {
       "card": "Crucible of Worlds",
@@ -1555,14 +1308,6 @@
       "misses": 5
     },
     {
-      "card": "Breath of Fury",
-      "misses": 4
-    },
-    {
-      "card": "Combat Celebrant",
-      "misses": 4
-    },
-    {
       "card": "Exploration",
       "misses": 4
     },
@@ -1583,19 +1328,11 @@
       "misses": 3
     },
     {
-      "card": "Hellkite Charger",
-      "misses": 3
-    },
-    {
       "card": "Hullbreaker Horror",
       "misses": 3
     },
     {
       "card": "Sewer Nemesis",
-      "misses": 3
-    },
-    {
-      "card": "Sword of Feast and Famine",
       "misses": 3
     },
     {
@@ -1605,14 +1342,6 @@
     {
       "card": "Zirda, the Dawnwaker",
       "misses": 3
-    },
-    {
-      "card": "Aurelia, the Warleader",
-      "misses": 2
-    },
-    {
-      "card": "Bear Umbra",
-      "misses": 2
     },
     {
       "card": "Havengul Lich",
@@ -1635,14 +1364,6 @@
       "misses": 2
     },
     {
-      "card": "Port Razer",
-      "misses": 2
-    },
-    {
-      "card": "Sword of Hearth and Home",
-      "misses": 2
-    },
-    {
       "card": "Basal Sliver",
       "misses": 1
     },
@@ -1651,15 +1372,7 @@
       "misses": 1
     },
     {
-      "card": "Godo, Bandit Warlord",
-      "misses": 1
-    },
-    {
       "card": "Grindstone",
-      "misses": 1
-    },
-    {
-      "card": "Neheb, the Eternal",
       "misses": 1
     },
     {
@@ -1672,14 +1385,6 @@
     },
     {
       "card": "Putrid Imp",
-      "misses": 1
-    },
-    {
-      "card": "Savage Ventmaw",
-      "misses": 1
-    },
-    {
-      "card": "Scourge of the Throne",
       "misses": 1
     },
     {
