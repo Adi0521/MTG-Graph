@@ -1,0 +1,12 @@
+// Archetype: Mono-green stompy (60 cards)
+4 Llanowar Elves
+4 Steel Leaf Champion
+4 Pelt Collector
+4 Experiment One
+4 Ghalta, Primal Hunger
+4 Rancor
+4 Vines of Vastwood
+4 Aspect of Hydra
+4 Strangleroot Geist
+4 Old-Growth Troll
+20 Forest

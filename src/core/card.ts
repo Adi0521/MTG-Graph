@@ -44,6 +44,8 @@ export function creatureTypes(typeLine: string): string[] {
   return [...types];
 }
 
+const stat = (v: string | undefined) => (v !== undefined && /^\d+$/.test(v) ? Number(v) : null);
+
 export function toCard(raw: ScryfallCard, quantity = 1): Card {
   const faces = raw.card_faces ?? [];
   const faceNames = faces.map((f) => f.name);
@@ -60,6 +62,8 @@ export function toCard(raw: ScryfallCard, quantity = 1): Card {
     colorIdentity: raw.color_identity ?? raw.colors ?? [],
     manaCost: raw.mana_cost ?? faces.map((f) => f.mana_cost ?? '').join(' // '),
     cmc: raw.cmc ?? 0,
+    power: stat(raw.power ?? faces[0]?.power),
+    toughness: stat(raw.toughness ?? faces[0]?.toughness),
     creatureTypes: creatureTypes(typeLine),
     imageUrl: images?.normal,
     artUrl: images?.art_crop,

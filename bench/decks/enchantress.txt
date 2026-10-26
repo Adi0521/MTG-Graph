@@ -1,0 +1,36 @@
+// Archetype: Enchantress (Sythis, Harvest's Hand)
+Commander
+1 Sythis, Harvest's Hand
+Deck
+1 Argothian Enchantress
+1 Enchantress's Presence
+1 Satyr Enchanter
+1 Eidolon of Blossoms
+1 Setessan Champion
+1 Sterling Grove
+1 Sigil of the Empty Throne
+1 Sanctum Weaver
+1 Serra's Sanctum
+1 Destiny Spinner
+1 Ancestral Mask
+1 Utopia Sprawl
+1 Wild Growth
+1 Rancor
+1 Solitary Confinement
+1 Mesa Enchantress
+1 Verduran Enchantress
+1 Mirari's Wake
+1 Starfield of Nyx
+1 Sphere of Safety
+1 Ethereal Armor
+1 Shalai's Acolyte
+1 Overgrowth
+1 Fertile Ground
+1 Courser of Kruphix
+1 Doubling Season
+1 Replenish
+1 Femeref Enchantress
+1 Kor Spiritdancer
+1 Herald of the Pantheon
+15 Forest
+15 Plains

@@ -7,7 +7,8 @@ import { FileCardCache } from './card-cache.ts';
 import { cachedSpellbook } from './spellbook-cache.ts';
 
 const PORT = Number(process.env.PORT ?? 8787);
-const cache = new FileCardCache(process.env.CARD_CACHE ?? '.cache/scryfall-cards.json');
+// The file name carries the card format version (see CACHE_PREFIX in scryfall.ts).
+const cache = new FileCardCache(process.env.CARD_CACHE ?? '.cache/scryfall-cards-v2.json');
 const userAgent = 'mtg-graph/0.3';
 const withUserAgent: typeof fetch = (url, init) =>
   fetch(url, { ...init, headers: { ...(init?.headers as Record<string, string>), 'User-Agent': userAgent } });

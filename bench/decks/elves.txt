@@ -1,0 +1,35 @@
+// Archetype: Elf tribal (Ezuri, Renegade Leader)
+Commander
+1 Ezuri, Renegade Leader
+Deck
+1 Elvish Archdruid
+1 Priest of Titania
+1 Heritage Druid
+1 Elvish Visionary
+1 Nettle Sentinel
+1 Wirewood Symbiote
+1 Elvish Mystic
+1 Llanowar Elves
+1 Fyndhorn Elves
+1 Craterhoof Behemoth
+1 Glimpse of Nature
+1 Lys Alana Huntmaster
+1 Joraga Treespeaker
+1 Dwynen's Elite
+1 Elvish Champion
+1 Imperious Perfect
+1 Allosaurus Shepherd
+1 Marwyn, the Nurturer
+1 Elvish Piper
+1 Quirion Ranger
+1 Scryb Ranger
+1 Wellwisher
+1 Timberwatch Elf
+1 Elvish Harbinger
+1 Beast Whisperer
+1 Ambush Commander
+1 Shaman of the Pack
+1 Elvish Warmaster
+1 Selvala, Heart of the Wilds
+1 Circle of Dreams Druid
+30 Forest

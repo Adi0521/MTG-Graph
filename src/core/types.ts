@@ -2,6 +2,8 @@
 export interface ScryfallFace {
   name: string;
   type_line?: string;
+  power?: string;
+  toughness?: string;
   oracle_text?: string;
   mana_cost?: string;
   colors?: string[];
@@ -23,6 +25,8 @@ export interface ScryfallCard {
   color_identity?: string[];
   mana_cost?: string;
   cmc?: number;
+  power?: string;
+  toughness?: string;
   image_uris?: ScryfallImages;
   card_faces?: ScryfallFace[];
   scryfall_uri?: string;
@@ -41,6 +45,9 @@ export interface Card {
   colorIdentity: string[];
   manaCost: string;
   cmc: number;
+  /** Printed power/toughness; null for non-creatures and "*" values. */
+  power: number | null;
+  toughness: number | null;
   creatureTypes: string[];
   imageUrl?: string;
   artUrl?: string;

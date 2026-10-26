@@ -15,7 +15,8 @@
     "fixtures": "node --no-warnings scripts/fetch-fixtures.ts",
     "tags": "node --no-warnings scripts/inspect-tags.ts",
     "abilities": "node --no-warnings scripts/inspect-abilities.ts",
-    "combos": "node --no-warnings scripts/inspect-combos.ts"
+    "combos": "node --no-warnings scripts/inspect-combos.ts",
+    "bench": "node --no-warnings scripts/benchmark.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.5",

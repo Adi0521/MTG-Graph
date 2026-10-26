@@ -16,5 +16,5 @@
     "isolatedModules": true,
     "erasableSyntaxOnly": true
   },
-  "include": ["src", "test", "scripts", "server", "vite.config.ts"]
+  "include": ["src", "test", "scripts", "server", "bench", "vite.config.ts"]
 }

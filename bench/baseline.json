@@ -1,0 +1,125 @@
+{
+  "blink": {
+    "connectivity": 0.968,
+    "matchedCombos": [
+      "Archaeomancer + Ghostly Flicker + Peregrine Drake",
+      "Deadeye Navigator + Peregrine Drake",
+      "Eternal Witness + Ghostly Flicker + Peregrine Drake",
+      "Felidar Guardian + Restoration Angel",
+      "Felidar Guardian + Saheeli Rai"
+    ]
+  },
+  "counters": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Devoted Druid + Vizier of Remedies",
+      "Heliod, Sun-Crowned + Spike Feeder",
+      "Heliod, Sun-Crowned + Triskelion",
+      "Heliod, Sun-Crowned + Walking Ballista"
+    ]
+  },
+  "elves": {
+    "connectivity": 1,
+    "matchedCombos": []
+  },
+  "enchantress": {
+    "connectivity": 0.967,
+    "matchedCombos": []
+  },
+  "green-stompy": {
+    "connectivity": 1,
+    "matchedCombos": []
+  },
+  "izzet-spells": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Basalt Monolith + Rings of Brighthearth",
+      "Curiosity + Niv-Mizzet, Parun",
+      "Dramatic Reversal + Isochron Scepter",
+      "Niv-Mizzet, Parun + Ophidian Eye",
+      "Niv-Mizzet, Parun + Tandem Lookout"
+    ]
+  },
+  "korvold-aristocrats": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Gravecrawler + Pitiless Plunderer + Woe Strider",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+      "Pawn of Ulamog + Phyrexian Altar + Reassembling Skeleton",
+      "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+    ]
+  },
+  "landfall": {
+    "connectivity": 1,
+    "matchedCombos": []
+  },
+  "lifegain": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Archangel of Thune + Spike Feeder",
+      "Archangel of Thune + Walking Ballista",
+      "Cleric Class + Spike Feeder",
+      "Cleric Class + Walking Ballista",
+      "Exquisite Blood + Sanguine Bond",
+      "Exquisite Blood + Vito, Thorn of the Dusk Rose",
+      "Heliod, Sun-Crowned + Spike Feeder",
+      "Heliod, Sun-Crowned + Walking Ballista",
+      "Spike Feeder + Sunbond",
+      "Sunbond + Walking Ballista"
+    ]
+  },
+  "mardu-aristocrats": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Kiki-Jiki, Mirror Breaker + Restoration Angel",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+    ]
+  },
+  "reanimator": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Fiend Hunter + Karmic Guide",
+      "Carrion Feeder + Fiend Hunter + Karmic Guide",
+      "Fiend Hunter + Karmic Guide + Phyrexian Altar",
+      "Fiend Hunter + Karmic Guide + Viscera Seer",
+      "Gravecrawler + Phyrexian Altar"
+    ]
+  },
+  "tokens": {
+    "connectivity": 0.935,
+    "matchedCombos": []
+  },
+  "urza-artifacts": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Etherium Sculptor + Myr Retriever + Scrap Trawler",
+      "Ashnod's Altar + Foundry Inspector + Myr Retriever + Scrap Trawler",
+      "Ashnod's Altar + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+      "Ashnod's Altar + Sword of the Meek + Thopter Foundry",
+      "Basalt Monolith + Power Artifact",
+      "Basalt Monolith + Rings of Brighthearth",
+      "Dramatic Reversal + Isochron Scepter",
+      "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Grim Monolith + Power Artifact",
+      "Isochron Scepter + Paradox Engine",
+      "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+      "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry"
+    ]
+  },
+  "voltron": {
+    "connectivity": 1,
+    "matchedCombos": []
+  }
+}

@@ -2,14 +2,16 @@ import { THEMES, THEME_BY_ID, tagCard, type CardTags, type ThemeId } from './rul
 import { hasType, pluralize, referencedTypes } from './tribal.ts';
 import type { Card } from './types.ts';
 
-export type EdgeKind = ThemeId | 'tribal' | 'combo';
+export type EdgeKind = ThemeId | 'tribal' | 'devotion' | 'combo';
 
 export const TRIBAL_WEIGHT = 3;
+export const DEVOTION_WEIGHT = 2;
 export const COMBO_WEIGHT = 8;
 
 export const EDGE_KIND_META: Record<EdgeKind, { label: string; color: string }> = {
   ...Object.fromEntries(THEMES.map((t) => [t.id, { label: t.label, color: t.color }])),
   tribal: { label: 'Tribal', color: '#a0522d' },
+  devotion: { label: 'Devotion', color: '#2e8b57' },
   combo: { label: 'Known combo', color: '#ffd700' },
 } as Record<EdgeKind, { label: string; color: string }>;
 
@@ -111,6 +113,29 @@ export function buildGraph(
             to: to.name,
             description: `${from.name} is a ${type}; ${to.name} cares about ${pluralize(type)}`,
             weight: TRIBAL_WEIGHT,
+          });
+        }
+      }
+    }
+  }
+
+  // Devotion: a permanent with colored mana symbols → a card that counts devotion to that color.
+  if (enabled('devotion')) {
+    const COLOR_WORDS: Record<string, string> = { white: 'W', blue: 'U', black: 'B', red: 'R', green: 'G' };
+    for (const to of cards) {
+      const words = [...to.text.matchAll(/devotion to (white|blue|black|red|green)(?: and (white|blue|black|red|green))?/g)].flatMap((m) => [m[1]!, m[2]].filter((w): w is string => Boolean(w)));
+      for (const word of new Set(words)) {
+        const color = COLOR_WORDS[word]!;
+        for (const from of cards) {
+          if (from === to || /\b(Land|Instant|Sorcery)\b/.test(from.typeLine)) continue;
+          const pips = (from.manaCost.match(/\{[^}]+\}/g) ?? []).filter((sym) => sym.includes(color)).length;
+          if (!pips) continue;
+          reasons.push({
+            kind: 'devotion',
+            from: from.name,
+            to: to.name,
+            description: `${from.name} adds ${pips} to your devotion to ${word}; ${to.name} counts devotion to ${word}`,
+            weight: DEVOTION_WEIGHT,
           });
         }
       }

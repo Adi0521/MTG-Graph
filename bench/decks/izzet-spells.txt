@@ -1,0 +1,36 @@
+// Archetype: Spellslinger (Niv-Mizzet, Parun)
+Commander
+1 Niv-Mizzet, Parun
+Deck
+1 Curiosity
+1 Ophidian Eye
+1 Tandem Lookout
+1 Guttersnipe
+1 Young Pyromancer
+1 Talrand, Sky Summoner
+1 Dramatic Reversal
+1 Isochron Scepter
+1 Sol Ring
+1 Arcane Signet
+1 Brainstorm
+1 Ponder
+1 Lightning Bolt
+1 Counterspell
+1 Thousand-Year Storm
+1 Monastery Mentor
+1 Archmage Emeritus
+1 Storm-Kiln Artist
+1 Basalt Monolith
+1 Rings of Brighthearth
+1 Expressive Iteration
+1 Jeskai Ascendancy
+1 Veyran, Voice of Duality
+1 Baral, Chief of Compliance
+1 Electrostatic Field
+1 Firebrand Archer
+1 Kessig Flamebreather
+1 Third Path Iconoclast
+1 Murmuring Mystic
+1 Mizzix's Mastery
+20 Island
+18 Mountain

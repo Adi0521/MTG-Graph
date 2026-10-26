@@ -1,0 +1,38 @@
+// Archetype: Lifegain (Lathiel, the Bounteous Dawn)
+Commander
+1 Lathiel, the Bounteous Dawn
+Deck
+1 Soul Warden
+1 Soul's Attendant
+1 Ajani's Pridemate
+1 Serra Ascendant
+1 Archangel of Thune
+1 Heliod, Sun-Crowned
+1 Walking Ballista
+1 Sanguine Bond
+1 Exquisite Blood
+1 Righteous Valkyrie
+1 Linden, the Steadfast Queen
+1 Aetherflux Reservoir
+1 Well of Lost Dreams
+1 Spike Feeder
+1 Trelasarra, Moon Dancer
+1 Lightning Helix
+1 Daxos, Blessed by the Sun
+1 Cleric Class
+1 Celestial Unicorn
+1 Voice of the Blessed
+1 Lunarch Veteran
+1 Speaker of the Heavens
+1 Resplendent Angel
+1 Dawn of Hope
+1 Ocelot Pride
+1 Sunbond
+1 Felidar Sovereign
+1 Authority of the Consuls
+1 Starfield Mystic
+1 Children of Korlis
+1 Sorin, Vengeful Bloodlord
+1 Vito, Thorn of the Dusk Rose
+14 Plains
+14 Swamp

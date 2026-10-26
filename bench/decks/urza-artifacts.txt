@@ -1,0 +1,36 @@
+// Archetype: Artifact combo (Urza, Lord High Artificer)
+Commander
+1 Urza, Lord High Artificer
+Deck
+1 Basalt Monolith
+1 Grim Monolith
+1 Power Artifact
+1 Rings of Brighthearth
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Sol Ring
+1 Mana Vault
+1 Mana Crypt
+1 Krark-Clan Ironworks
+1 Scrap Trawler
+1 Myr Retriever
+1 Sai, Master Thopterist
+1 Thopter Foundry
+1 Sword of the Meek
+1 Paradox Engine
+1 Unwinding Clock
+1 Voltaic Key
+1 Manifold Key
+1 Cranial Plating
+1 Etherium Sculptor
+1 Foundry Inspector
+1 Tezzeret the Seeker
+1 Whir of Invention
+1 Thought Monitor
+1 Sensei's Divining Top
+1 Mystic Forge
+1 Emry, Lurker of the Loch
+1 Bident of Thassa
+1 Ashnod's Altar
+1 Krark-Clan Shaman
+30 Island

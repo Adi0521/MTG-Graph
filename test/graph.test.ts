@@ -63,6 +63,17 @@ describe('buildGraph', () => {
   });
 });
 
+describe('devotion', () => {
+  it('links permanents with colored mana symbols to cards that count devotion', () => {
+    const g = buildGraph([card('Aspect of Hydra'), card('Steel Leaf Champion'), card('Llanowar Elves'), card('Forest')]);
+    const reasons = g.edges.filter((e) => e.kinds.includes('devotion')).map((e) => e.reasons.find((r) => r.kind === 'devotion')!.description);
+    expect(reasons).toEqual([
+      'Llanowar Elves adds 1 to your devotion to green; Aspect of Hydra counts devotion to green',
+      'Steel Leaf Champion adds 3 to your devotion to green; Aspect of Hydra counts devotion to green',
+    ]);
+  });
+});
+
 describe('generic two-card loops', () => {
   it('detects Sanguine Bond + Exquisite Blood without the combo list', () => {
     const g = buildGraph([card('Sanguine Bond'), card('Exquisite Blood')], { enabledKinds: new Set(['lifegain', 'drain']) });

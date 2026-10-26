@@ -74,6 +74,107 @@ describe('findEngineCombos', () => {
     expect(combosOf('Reassembling Skeleton', 'Lotus Cobra')).toEqual([]);
   });
 
+  it('finds blink loops through any permanent, including planeswalker loyalty resets', () => {
+    expect(sets('Restoration Angel', 'Felidar Guardian')).toEqual([['Felidar Guardian', 'Restoration Angel']]);
+    const [saheeli] = combosOf('Saheeli Rai', 'Felidar Guardian');
+    expect(saheeli!.cards.sort()).toEqual(['Felidar Guardian', 'Saheeli Rai']);
+    expect(saheeli!.steps.map((s) => s.then).join(' ')).toContain('blinks Saheeli Rai');
+  });
+
+  it('does not treat delayed returns as blink loops', () => {
+    // Flickerwisp returns the card at the next end step, so nothing repeats this turn.
+    expect(combosOf('Flickerwisp', 'Restoration Angel')).toEqual([]);
+  });
+
+  it('finds draw/damage loops through auras and soulbond', () => {
+    const [curiosity] = combosOf('Niv-Mizzet, Parun', 'Curiosity');
+    expect(curiosity!.prerequisites).toEqual(['Curiosity is attached to Niv-Mizzet, Parun']);
+    expect(curiosity!.produces).toEqual(expect.arrayContaining(['Infinite damage', 'Infinite card draw']));
+    const [lookout] = combosOf('Niv-Mizzet, Parun', 'Tandem Lookout');
+    expect(lookout!.prerequisites).toEqual(['Tandem Lookout is paired with Niv-Mizzet, Parun']);
+  });
+
+  it('finds lifegain/counter loops with "each creature" and aura-granted triggers', () => {
+    expect(sets('Spike Feeder', 'Archangel of Thune')).toEqual([['Archangel of Thune', 'Spike Feeder']]);
+    const [sunbond] = combosOf('Spike Feeder', 'Sunbond');
+    expect(sunbond!.prerequisites).toEqual(['Sunbond is attached to Spike Feeder']);
+  });
+
+  describe('artifact loops', () => {
+    it('needs a reason to untap Basalt Monolith profitably', () => {
+      // Tapping for {C}{C}{C} and paying {3} to untap breaks even and produces nothing.
+      expect(combosOf('Basalt Monolith')).toEqual([]);
+      const [power] = combosOf('Basalt Monolith', 'Power Artifact');
+      expect(power).toMatchObject({ helpers: ['Power Artifact'], netMana: '{C}{C}' });
+      expect(power!.prerequisites).toContain('Power Artifact is attached to Basalt Monolith');
+      const [rings] = combosOf('Basalt Monolith', 'Rings of Brighthearth');
+      expect(rings).toMatchObject({ helpers: ['Rings of Brighthearth'], netMana: '{C}' });
+    });
+
+    it('finds Isochron Scepter + Dramatic Reversal with enough mana rocks', () => {
+      // Sol Ring's {C}{C} pays for the Scepter, and Dramatic Reversal untaps both.
+      const [combo] = combosOf('Isochron Scepter', 'Dramatic Reversal', 'Sol Ring');
+      expect(combo!.loop.sort()).toEqual(['Dramatic Reversal', 'Isochron Scepter']);
+      expect(combo!.helpers).toEqual(['Sol Ring']);
+      expect(combo!.produces).toContain('Infinite spell casts');
+      // Without a mana rock the Scepter cannot pay for itself.
+      expect(combosOf('Isochron Scepter', 'Dramatic Reversal')).toEqual([]);
+    });
+
+    it('finds Paradox Engine + Isochron Scepter with any imprinted instant', () => {
+      const combos = combosOf('Paradox Engine', 'Isochron Scepter', 'Brainstorm', 'Sol Ring');
+      expect(combos.map((c) => c.loop.sort())).toContainEqual(['Isochron Scepter', 'Paradox Engine']);
+    });
+
+    it('turns spare tokens into mana: Thopter Foundry + Sword of the Meek', () => {
+      expect(combosOf('Thopter Foundry', 'Sword of the Meek')).toEqual([]);
+      const [combo] = combosOf('Thopter Foundry', 'Sword of the Meek', "Ashnod's Altar", 'Krark-Clan Ironworks');
+      expect(combo!.loop.sort()).toEqual(['Sword of the Meek', 'Thopter Foundry']);
+      expect(combo!.helpers).toEqual(["Ashnod's Altar"]);
+      expect(combo!.helperAlternatives).toEqual({ "Ashnod's Altar": ['Krark-Clan Ironworks'] });
+    });
+
+    it('loops cards through graveyard and hand: Krark-Clan Ironworks + Scrap Trawler + Myr Retriever', () => {
+      // Two sacrifices make {C}{C}{C}{C}, recasting both costs 5: short by one without a cost reducer.
+      expect(combosOf('Krark-Clan Ironworks', 'Scrap Trawler', 'Myr Retriever')).toEqual([]);
+      const [combo] = combosOf('Krark-Clan Ironworks', 'Scrap Trawler', 'Myr Retriever', 'Etherium Sculptor');
+      expect(combo!.loop.sort()).toEqual(['Krark-Clan Ironworks', 'Myr Retriever', 'Scrap Trawler']);
+      expect(combo).toMatchObject({ helpers: ['Etherium Sculptor'], netMana: '{C}' });
+      expect(combo!.steps.map((s) => s.then)).toEqual(expect.arrayContaining(['this returns Myr Retriever to your hand', 'this returns Scrap Trawler to your hand']));
+    });
+  });
+
+  describe('blink and leave-the-battlefield loops', () => {
+    it('loops Fiend Hunter and Karmic Guide through a sacrifice outlet', () => {
+      expect(combosOf('Fiend Hunter', 'Karmic Guide')).toEqual([]);
+      const [combo] = combosOf('Fiend Hunter', 'Karmic Guide', 'Viscera Seer');
+      expect(combo!.cards.sort()).toEqual(['Fiend Hunter', 'Karmic Guide', 'Viscera Seer']);
+      expect(combo!.prerequisites).toContain("Fiend Hunter's enter ability exiles Karmic Guide each time");
+      expect(combo!.steps.map((s) => s.then)).toContain('Fiend Hunter leaving the battlefield triggers Fiend Hunter');
+    });
+
+    it('flickers Peregrine Drake with a soulbond partner for net mana', () => {
+      const [combo] = combosOf('Peregrine Drake', 'Deadeye Navigator');
+      expect(combo!.prerequisites).toEqual(
+        expect.arrayContaining(['Deadeye Navigator is paired with Peregrine Drake', 'Peregrine Drake: assumes the lands it untaps make the colors you need']),
+      );
+      expect(combo!.produces).toContain('Infinite mana of any color');
+    });
+
+    it('recasts Ghostly Flicker with Archaeomancer, paid for by Peregrine Drake as the second target', () => {
+      expect(combosOf('Ghostly Flicker', 'Archaeomancer')).toEqual([]);
+      const [combo] = combosOf('Ghostly Flicker', 'Archaeomancer', 'Peregrine Drake');
+      expect(combo).toMatchObject({ loop: expect.arrayContaining(['Ghostly Flicker', 'Archaeomancer']), helpers: ['Peregrine Drake'] });
+    });
+
+    it('needs Vizier of Remedies to make Devoted Druid repeatable', () => {
+      expect(combosOf('Devoted Druid')).toEqual([]);
+      const [combo] = combosOf('Devoted Druid', 'Vizier of Remedies');
+      expect(combo).toMatchObject({ loop: ['Devoted Druid'], helpers: ['Vizier of Remedies'] });
+      expect(combo!.produces).toContain('Infinite green mana');
+    });
+  });
+
   it('lists payoffs, helper alternatives and warnings in a full deck', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     const { combos, exhaustive } = findEngineCombos(deck);

@@ -36,7 +36,7 @@ describe('parseAbilities', () => {
     expect(kiki.cost.tap).toBe(true);
     expect(kiki.outputs[0]).toMatchObject({ type: 'copy', haste: true, target: { types: ['creature'], nonlegendary: true } });
     expect(abilities('Zealous Conscripts')[0]!.outputs).toEqual([
-      { type: 'untap', target: { types: ['permanent'], nonlegendary: false, excluded: [], another: false } },
+      { type: 'untap', target: { types: ['permanent'], nonlegendary: false, excluded: [], another: false, nonland: false }, all: false },
     ]);
     expect(abilities('Restoration Angel')[0]!.outputs[0]).toMatchObject({ type: 'blink', target: { types: ['creature'], excluded: ['angel'] } });
   });
@@ -49,12 +49,12 @@ describe('parseAbilities', () => {
     // Pawn's Eldrazi Spawn can sacrifice itself for {C}; that is not mana Pawn makes directly.
     expect(abilities('Pawn of Ulamog')[0]!.outputs).toEqual([
       { type: 'tokenMana', mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1, any: 0 } },
-      { type: 'creature', token: true, count: 1, haste: false },
+      { type: 'creature', token: true, count: 1, haste: false, artifact: false, pt: '0/1' },
     ]);
   });
 
   it('parses death triggers including the nontoken restriction', () => {
-    expect(abilities('Blood Artist')[0]!.trigger).toEqual({ type: 'death', self: false, another: false, nontoken: false });
+    expect(abilities('Blood Artist')[0]!.trigger).toEqual({ type: 'death', self: false, another: false, nontoken: false, what: 'creature' });
     expect(abilities('Grim Haruspex')[0]!.trigger).toMatchObject({ type: 'death', nontoken: true, another: true });
   });
 });

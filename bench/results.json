@@ -1,0 +1,544 @@
+{
+  "decks": [
+    {
+      "slug": "blink",
+      "archetype": "Blink (Brago, King Eternal)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 0.968,
+      "isolated": [
+        "Ugin's Conjurant"
+      ],
+      "spellbookCombos": 6,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 0.833,
+      "matchedCombos": [
+        "Archaeomancer + Ghostly Flicker + Peregrine Drake",
+        "Deadeye Navigator + Peregrine Drake",
+        "Eternal Witness + Ghostly Flicker + Peregrine Drake",
+        "Felidar Guardian + Restoration Angel",
+        "Felidar Guardian + Saheeli Rai"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Peregrine Drake",
+            "Panharmonicon",
+            "Venser, Shaper Savant"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite mana lands you control can produce"
+          ],
+          "diagnosis": [
+            "Panharmonicon: no loop abilities parsed",
+            "Venser, Shaper Savant: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "counters",
+      "archetype": "+1/+1 counters (Atraxa, Praetors' Voice)",
+      "uniqueCards": 35,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 7,
+      "engineCombos": 4,
+      "matched": 4,
+      "recall": 0.571,
+      "matchedCombos": [
+        "Devoted Druid + Vizier of Remedies",
+        "Heliod, Sun-Crowned + Spike Feeder",
+        "Heliod, Sun-Crowned + Triskelion",
+        "Heliod, Sun-Crowned + Walking Ballista"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Mikaeus, the Unhallowed",
+            "Devoted Druid"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Mikaeus, the Unhallowed: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Mikaeus, the Unhallowed",
+            "Triskelion"
+          ],
+          "produces": [
+            "Infinite damage",
+            "Infinite death triggers",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "Mikaeus, the Unhallowed: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Walking Ballista",
+            "Mikaeus, the Unhallowed"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Mikaeus, the Unhallowed: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "elves",
+      "archetype": "Elf tribal (Ezuri, Renegade Leader)",
+      "uniqueCards": 32,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "enchantress",
+      "archetype": "Enchantress (Sythis, Harvest's Hand)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 0.967,
+      "isolated": [
+        "Femeref Enchantress"
+      ],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "green-stompy",
+      "archetype": "Mono-green stompy (60 cards)",
+      "uniqueCards": 11,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "izzet-spells",
+      "archetype": "Spellslinger (Niv-Mizzet, Parun)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 5,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 1,
+      "matchedCombos": [
+        "Basalt Monolith + Rings of Brighthearth",
+        "Curiosity + Niv-Mizzet, Parun",
+        "Dramatic Reversal + Isochron Scepter",
+        "Niv-Mizzet, Parun + Ophidian Eye",
+        "Niv-Mizzet, Parun + Tandem Lookout"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "korvold-aristocrats",
+      "archetype": "Aristocrats (Korvold, Fae-Cursed King)",
+      "uniqueCards": 46,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 10,
+      "engineCombos": 16,
+      "matched": 10,
+      "recall": 1,
+      "matchedCombos": [
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+        "Gravecrawler + Pitiless Plunderer + Woe Strider",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+        "Pawn of Ulamog + Phyrexian Altar + Reassembling Skeleton",
+        "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+      ],
+      "missed": [],
+      "engineOnly": [
+        {
+          "cards": [
+            "Gravecrawler",
+            "Yawgmoth, Thran Physician",
+            "Pitiless Plunderer",
+            "Bastion of Remembrance"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Carrion Feeder",
+            "Pawn of Ulamog",
+            "Reassembling Skeleton",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Goblin Bombardment",
+            "Pawn of Ulamog",
+            "Reassembling Skeleton",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Reassembling Skeleton",
+            "Viscera Seer",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Reassembling Skeleton",
+            "Woe Strider",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Pawn of Ulamog",
+            "Reassembling Skeleton",
+            "Yawgmoth, Thran Physician",
+            "Bastion of Remembrance",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "landfall",
+      "archetype": "Landfall (Omnath, Locus of Creation)",
+      "uniqueCards": 35,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "lifegain",
+      "archetype": "Lifegain (Lathiel, the Bounteous Dawn)",
+      "uniqueCards": 35,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 11,
+      "engineCombos": 10,
+      "matched": 10,
+      "recall": 0.909,
+      "matchedCombos": [
+        "Archangel of Thune + Spike Feeder",
+        "Archangel of Thune + Walking Ballista",
+        "Cleric Class + Spike Feeder",
+        "Cleric Class + Walking Ballista",
+        "Exquisite Blood + Sanguine Bond",
+        "Exquisite Blood + Vito, Thorn of the Dusk Rose",
+        "Heliod, Sun-Crowned + Spike Feeder",
+        "Heliod, Sun-Crowned + Walking Ballista",
+        "Spike Feeder + Sunbond",
+        "Sunbond + Walking Ballista"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Aetherflux Reservoir",
+            "Exquisite Blood"
+          ],
+          "produces": [
+            "Infinite damage",
+            "Infinite lifegain triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "mardu-aristocrats",
+      "archetype": "Mardu aristocrats (60 cards)",
+      "uniqueCards": 29,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 7,
+      "engineCombos": 7,
+      "matched": 7,
+      "recall": 1,
+      "matchedCombos": [
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+        "Kiki-Jiki, Mirror Breaker + Restoration Angel",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "reanimator",
+      "archetype": "Reanimator (Meren of Clan Nel Toth)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 6,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 0.833,
+      "matchedCombos": [
+        "Ashnod's Altar + Fiend Hunter + Karmic Guide",
+        "Carrion Feeder + Fiend Hunter + Karmic Guide",
+        "Fiend Hunter + Karmic Guide + Phyrexian Altar",
+        "Fiend Hunter + Karmic Guide + Viscera Seer",
+        "Gravecrawler + Phyrexian Altar"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Living Death",
+            "Eternal Witness",
+            "Phyrexian Altar"
+          ],
+          "produces": [
+            "Infinite blinking",
+            "Infinite colored mana",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Living Death: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "tokens",
+      "archetype": "Go-wide tokens (Rhys the Redeemed)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 0.935,
+      "isolated": [
+        "Esper Sentinel",
+        "Wake the Past"
+      ],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "urza-artifacts",
+      "archetype": "Artifact combo (Urza, Lord High Artificer)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 16,
+      "engineCombos": 7,
+      "matched": 13,
+      "recall": 0.813,
+      "matchedCombos": [
+        "Ashnod's Altar + Etherium Sculptor + Myr Retriever + Scrap Trawler",
+        "Ashnod's Altar + Foundry Inspector + Myr Retriever + Scrap Trawler",
+        "Ashnod's Altar + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+        "Ashnod's Altar + Sword of the Meek + Thopter Foundry",
+        "Basalt Monolith + Power Artifact",
+        "Basalt Monolith + Rings of Brighthearth",
+        "Dramatic Reversal + Isochron Scepter",
+        "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Grim Monolith + Power Artifact",
+        "Isochron Scepter + Paradox Engine",
+        "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+        "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Sensei's Divining Top",
+            "Mystic Forge",
+            "Etherium Sculptor"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Near-infinite storm count",
+            "Infinite draw triggers"
+          ],
+          "diagnosis": [
+            "Mystic Forge: no loop abilities parsed",
+            "Etherium Sculptor: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Sensei's Divining Top",
+            "Foundry Inspector",
+            "Mystic Forge"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Near-infinite storm count",
+            "Infinite draw triggers"
+          ],
+          "diagnosis": [
+            "Foundry Inspector: no loop abilities parsed",
+            "Mystic Forge: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Urza, Lord High Artificer",
+            "Thopter Foundry",
+            "Sword of the Meek"
+          ],
+          "produces": [
+            "Cast all spells in your library",
+            "Infinite blue mana",
+            "Infinite creature tokens"
+          ],
+          "diagnosis": [
+            "Urza, Lord High Artificer: cost not modeled"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "voltron",
+      "archetype": "Equipment voltron (Sram, Senior Edificer)",
+      "uniqueCards": 32,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 0,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": null,
+      "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    }
+  ],
+  "totals": {
+    "decks": 14,
+    "connectivity": 0.991,
+    "spellbookCombos": 68,
+    "matched": 59,
+    "recall": 0.868,
+    "engineOnly": 6
+  },
+  "topUnparsed": [
+    {
+      "card": "Mikaeus, the Unhallowed",
+      "misses": 3
+    },
+    {
+      "card": "Mystic Forge",
+      "misses": 2
+    },
+    {
+      "card": "Etherium Sculptor",
+      "misses": 1
+    },
+    {
+      "card": "Foundry Inspector",
+      "misses": 1
+    },
+    {
+      "card": "Living Death",
+      "misses": 1
+    },
+    {
+      "card": "Panharmonicon",
+      "misses": 1
+    },
+    {
+      "card": "Venser, Shaper Savant",
+      "misses": 1
+    }
+  ]
+}

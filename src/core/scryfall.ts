@@ -3,7 +3,8 @@ import type { ScryfallCard } from './types.ts';
 const COLLECTION_URL = 'https://api.scryfall.com/cards/collection';
 const BATCH_SIZE = 75; // Scryfall's maximum identifiers per collection request.
 const REQUEST_DELAY_MS = 100; // Scryfall asks for 50–100ms between requests.
-const CACHE_PREFIX = 'mtg-graph:card:';
+// Bump when slim() keeps new fields, so cached cards missing them are fetched again.
+const CACHE_PREFIX = 'mtg-graph:card:v2:';
 
 export interface FetchResult {
   cards: Map<string, ScryfallCard>;
@@ -36,7 +37,7 @@ export const localStorageCache: CardCache = {
 
 /** Keep only the fields the analyzer reads, to keep the cache small. */
 export function slim(card: ScryfallCard): ScryfallCard {
-  const { name, type_line, oracle_text, keywords, colors, color_identity, mana_cost, cmc, image_uris, card_faces, scryfall_uri } = card;
+  const { name, type_line, oracle_text, keywords, colors, color_identity, mana_cost, cmc, power, toughness, image_uris, card_faces, scryfall_uri } = card;
   return {
     name,
     type_line,
@@ -46,6 +47,8 @@ export function slim(card: ScryfallCard): ScryfallCard {
     color_identity,
     mana_cost,
     cmc,
+    power,
+    toughness,
     image_uris: image_uris && { normal: image_uris.normal, art_crop: image_uris.art_crop },
     card_faces: card_faces?.map((f) => ({
       name: f.name,
@@ -53,6 +56,8 @@ export function slim(card: ScryfallCard): ScryfallCard {
       oracle_text: f.oracle_text,
       mana_cost: f.mana_cost,
       colors: f.colors,
+      power: f.power,
+      toughness: f.toughness,
       image_uris: f.image_uris && { normal: f.image_uris.normal, art_crop: f.image_uris.art_crop },
     })),
     scryfall_uri,

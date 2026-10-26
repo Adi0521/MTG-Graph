@@ -12,6 +12,8 @@
     ],
     "mana_cost": "{1}{W}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/2/2/222c1a68-e34c-4103-b1be-17d4ceaef6ce.jpg?1783909088",
       "art_crop": "https://cards.scryfall.io/art_crop/front/2/2/222c1a68-e34c-4103-b1be-17d4ceaef6ce.jpg?1783909088"
@@ -86,6 +88,8 @@
     ],
     "mana_cost": "{2}{R}{R}",
     "cmc": 4,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/2/d/2d19a474-b008-4088-8a31-333c0b2d9d65.jpg?1783907076",
       "art_crop": "https://cards.scryfall.io/art_crop/front/2/d/2d19a474-b008-4088-8a31-333c0b2d9d65.jpg?1783907076"
@@ -124,6 +128,8 @@
     ],
     "mana_cost": "{1}{B}",
     "cmc": 2,
+    "power": "0",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/5/b5275d76-2947-4219-be21-614c7421614a.jpg?1783903786",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5275d76-2947-4219-be21-614c7421614a.jpg?1783903786"
@@ -145,6 +151,8 @@
     ],
     "mana_cost": "{B}{B}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/c/e/cee85485-598f-4dfc-aa0b-7b1de86c7788.jpg?1783903786",
       "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/cee85485-598f-4dfc-aa0b-7b1de86c7788.jpg?1783903786"
@@ -198,6 +206,8 @@
     ],
     "mana_cost": "{B}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
       "art_crop": "https://cards.scryfall.io/art_crop/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131"
@@ -217,6 +227,8 @@
     ],
     "mana_cost": "{B}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/3/2/32cf273e-b8f7-434b-9d5d-883dfd6f7423.jpg?1783930430",
       "art_crop": "https://cards.scryfall.io/art_crop/front/3/2/32cf273e-b8f7-434b-9d5d-883dfd6f7423.jpg?1783930430"
@@ -257,6 +269,8 @@
     ],
     "mana_cost": "{W}{B}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/3/b3f8be99-a398-4664-beb6-3e98d6e62a32.jpg?1783913853",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b3f8be99-a398-4664-beb6-3e98d6e62a32.jpg?1783913853"
@@ -304,6 +318,8 @@
         "colors": [
           "U"
         ],
+        "power": "1",
+        "toughness": "1",
         "image_uris": {
           "normal": "https://cards.scryfall.io/normal/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
           "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173"
@@ -317,6 +333,8 @@
         "colors": [
           "U"
         ],
+        "power": "3",
+        "toughness": "2",
         "image_uris": {
           "normal": "https://cards.scryfall.io/normal/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
           "art_crop": "https://cards.scryfall.io/art_crop/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173"
@@ -361,6 +379,8 @@
     ],
     "mana_cost": "{1}{R}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/9/e/9e2e3efb-75cb-430f-b9f4-cb58f3aeb91b.jpg?1783921889",
       "art_crop": "https://cards.scryfall.io/art_crop/front/9/e/9e2e3efb-75cb-430f-b9f4-cb58f3aeb91b.jpg?1783921889"
@@ -423,6 +443,8 @@
     ],
     "mana_cost": "{1}{U}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/c/bc9a7599-3c7d-4b83-bff3-e3d1f20f1b0f.jpg?1783903820",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/c/bc9a7599-3c7d-4b83-bff3-e3d1f20f1b0f.jpg?1783903820"
@@ -480,6 +502,8 @@
     ],
     "mana_cost": "{1}{R}{R}",
     "cmc": 3,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/8/9/89fcc35b-76fa-4408-8620-a1e11b2caf1f.jpg?1783930390",
       "art_crop": "https://cards.scryfall.io/art_crop/front/8/9/89fcc35b-76fa-4408-8620-a1e11b2caf1f.jpg?1783930390"
@@ -518,6 +542,8 @@
     ],
     "mana_cost": "{B}",
     "cmc": 1,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/6/9/6987d609-ba0f-42bf-9b61-bdfb943c03b5.jpg?1783907138",
       "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/6987d609-ba0f-42bf-9b61-bdfb943c03b5.jpg?1783907138"
@@ -539,6 +565,8 @@
     ],
     "mana_cost": "{2}{B}",
     "cmc": 3,
+    "power": "3",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/5/f5c19b87-e114-46d4-9f6c-c02e838a08dd.jpg?1783922449",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/5/f5c19b87-e114-46d4-9f6c-c02e838a08dd.jpg?1783922449"
@@ -560,6 +588,8 @@
     ],
     "mana_cost": "{6}{B}",
     "cmc": 7,
+    "power": "5",
+    "toughness": "5",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/c/e/cedd44eb-f381-46e1-bcb0-88416b4ce33d.jpg?1783933821",
       "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/cedd44eb-f381-46e1-bcb0-88416b4ce33d.jpg?1783933821"
@@ -579,6 +609,8 @@
     ],
     "mana_cost": "{2}{R}",
     "cmc": 3,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/6/f6bb1ffc-2251-4655-b8f9-4c8047dd5d5f.jpg?1785497556",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/6/f6bb1ffc-2251-4655-b8f9-4c8047dd5d5f.jpg?1785497556"
@@ -619,6 +651,8 @@
     ],
     "mana_cost": "{2}{W}",
     "cmc": 3,
+    "power": "5",
+    "toughness": "5",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/3/2/3245ff74-1f9c-4518-a23f-1579f338f232.jpg?1783915722",
       "art_crop": "https://cards.scryfall.io/art_crop/front/3/2/3245ff74-1f9c-4518-a23f-1579f338f232.jpg?1783915722"
@@ -640,6 +674,8 @@
     ],
     "mana_cost": "{2}{R}{R}{R}",
     "cmc": 5,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1783935527",
       "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1783935527"
@@ -665,6 +701,8 @@
     ],
     "mana_cost": "{2}{B}{R}{G}",
     "cmc": 5,
+    "power": "4",
+    "toughness": "4",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/6/0/607c1793-8e5a-4ebf-87c6-7f9c99bbd29a.jpg?1783906027",
       "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/607c1793-8e5a-4ebf-87c6-7f9c99bbd29a.jpg?1783906027"
@@ -684,6 +722,8 @@
     ],
     "mana_cost": "{2}{R}{R}",
     "cmc": 4,
+    "power": "3",
+    "toughness": "3",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/8/2/824b2d73-2151-4e5e-9f05-8f63e2bdcaa9.jpg?1783909065",
       "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/824b2d73-2151-4e5e-9f05-8f63e2bdcaa9.jpg?1783909065"
@@ -722,6 +762,8 @@
     ],
     "mana_cost": "{U}{U}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/a/9/a9407b60-8921-4531-bdbe-9a82aaa38d28.jpg?1783943280",
       "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9407b60-8921-4531-bdbe-9a82aaa38d28.jpg?1783943280"
@@ -743,6 +785,8 @@
     ],
     "mana_cost": "{1}{G}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/a/4/a4b759f0-901f-4be3-93fa-224609b08d48.jpg?1783929336",
       "art_crop": "https://cards.scryfall.io/art_crop/front/a/4/a4b759f0-901f-4be3-93fa-224609b08d48.jpg?1783929336"
@@ -764,6 +808,8 @@
     ],
     "mana_cost": "{1}{B}{R}",
     "cmc": 3,
+    "power": "3",
+    "toughness": "3",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/6/7/674f3a8a-4552-4289-b92a-06ce158f115c.jpg?1783906026",
       "art_crop": "https://cards.scryfall.io/art_crop/front/6/7/674f3a8a-4552-4289-b92a-06ce158f115c.jpg?1783906026"
@@ -783,6 +829,8 @@
     ],
     "mana_cost": "{2}{B}",
     "cmc": 3,
+    "power": "3",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929"
@@ -804,6 +852,8 @@
     ],
     "mana_cost": "{1}{R}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
       "art_crop": "https://cards.scryfall.io/art_crop/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460"
@@ -847,6 +897,8 @@
     ],
     "mana_cost": "{R}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1783920066",
       "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1783920066"
@@ -886,6 +938,8 @@
     ],
     "mana_cost": "{4}{U}",
     "cmc": 5,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
       "art_crop": "https://cards.scryfall.io/art_crop/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564"
@@ -905,6 +959,8 @@
     ],
     "mana_cost": "{1}{B}{B}",
     "cmc": 3,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/c/1/c1b0377c-efd6-4fab-89f0-b219ca2c4c22.jpg?1783903781",
       "art_crop": "https://cards.scryfall.io/art_crop/front/c/1/c1b0377c-efd6-4fab-89f0-b219ca2c4c22.jpg?1783903781"
@@ -927,6 +983,8 @@
     ],
     "mana_cost": "{2}{U}",
     "cmc": 3,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/5/b58a6a63-c7d8-4f2f-acaf-b0a871eb5a7c.jpg?1783939995",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b58a6a63-c7d8-4f2f-acaf-b0a871eb5a7c.jpg?1783939995"
@@ -963,6 +1021,8 @@
     ],
     "mana_cost": "{3}{B}",
     "cmc": 4,
+    "power": "1",
+    "toughness": "4",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/5/b/5b5cd187-857a-44dd-8595-a52857a0b753.jpg?1783913869",
       "art_crop": "https://cards.scryfall.io/art_crop/front/5/b/5b5cd187-857a-44dd-8595-a52857a0b753.jpg?1783913869"
@@ -999,6 +1059,8 @@
     ],
     "mana_cost": "{1}{B}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/3/6/363f8761-91a7-47e8-9e15-3b73d59bc020.jpg?1783903781",
       "art_crop": "https://cards.scryfall.io/art_crop/front/3/6/363f8761-91a7-47e8-9e15-3b73d59bc020.jpg?1783903781"
@@ -1018,6 +1080,8 @@
     ],
     "mana_cost": "{1}{B}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
       "art_crop": "https://cards.scryfall.io/art_crop/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080"
@@ -1059,6 +1123,8 @@
     ],
     "mana_cost": "{3}{W}",
     "cmc": 4,
+    "power": "3",
+    "toughness": "4",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/1/f17f85d3-58e5-4128-90c5-98b524256af8.jpg?1783908175",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/1/f17f85d3-58e5-4128-90c5-98b524256af8.jpg?1783908175"
@@ -1078,6 +1144,8 @@
     ],
     "mana_cost": "{1}{G}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/7/a/7a8b1c49-8594-426d-b585-41140235bb0e.jpg?1783903761",
       "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7a8b1c49-8594-426d-b585-41140235bb0e.jpg?1783903761"
@@ -1116,6 +1184,8 @@
     ],
     "mana_cost": "{1}{G}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/8/b/8bbbe65d-7162-42fb-94ee-d835d6c3f02a.jpg?1783906031",
       "art_crop": "https://cards.scryfall.io/art_crop/front/8/b/8bbbe65d-7162-42fb-94ee-d835d6c3f02a.jpg?1783906031"
@@ -1135,6 +1205,8 @@
     ],
     "mana_cost": "{1}{U}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/4/5/45ea8ca1-612d-4984-8572-06710d38bfa6.jpg?1783935319",
       "art_crop": "https://cards.scryfall.io/art_crop/front/4/5/45ea8ca1-612d-4984-8572-06710d38bfa6.jpg?1783935319"
@@ -1153,10 +1225,10 @@
     "mana_cost": "{1}",
     "cmc": 1,
     "image_uris": {
-      "normal": "https://cards.scryfall.io/normal/front/1/d/1d8b007b-3169-4ee3-80c7-781fc096fc7a.jpg?1783903215",
-      "art_crop": "https://cards.scryfall.io/art_crop/front/1/d/1d8b007b-3169-4ee3-80c7-781fc096fc7a.jpg?1783903215"
+      "normal": "https://cards.scryfall.io/normal/front/e/1/e1da8b79-249b-439a-a0ad-c8784bd716df.jpg?1793021175",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/e/1/e1da8b79-249b-439a-a0ad-c8784bd716df.jpg?1793021175"
     },
-    "scryfall_uri": "https://scryfall.com/card/msc/210/skullclamp?utm_source=api"
+    "scryfall_uri": "https://scryfall.com/card/trc/498/skullclamp?utm_source=api"
   },
   "Sol Ring": {
     "name": "Sol Ring",
@@ -1168,10 +1240,10 @@
     "mana_cost": "{1}",
     "cmc": 1,
     "image_uris": {
-      "normal": "https://cards.scryfall.io/normal/front/8/e/8ee443cc-e17a-493b-9c93-1f9e141a30e4.jpg?1789644446",
-      "art_crop": "https://cards.scryfall.io/art_crop/front/8/e/8ee443cc-e17a-493b-9c93-1f9e141a30e4.jpg?1789644446"
+      "normal": "https://cards.scryfall.io/normal/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181"
     },
-    "scryfall_uri": "https://scryfall.com/card/frc/21/sol-ring?utm_source=api"
+    "scryfall_uri": "https://scryfall.com/card/trc/499/sol-ring?utm_source=api"
   },
   "Soul Warden": {
     "name": "Soul Warden",
@@ -1186,6 +1258,8 @@
     ],
     "mana_cost": "{W}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/d/9/d96266b3-a7cb-40ce-a328-ac13719fe5f0.jpg?1783936677",
       "art_crop": "https://cards.scryfall.io/art_crop/front/d/9/d96266b3-a7cb-40ce-a328-ac13719fe5f0.jpg?1783936677"
@@ -1245,6 +1319,8 @@
     ],
     "mana_cost": "{G}{W}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/8/9/89511ab5-8ea6-4f07-a80b-c1ec7e89924e.jpg?1783915411",
       "art_crop": "https://cards.scryfall.io/art_crop/front/8/9/89511ab5-8ea6-4f07-a80b-c1ec7e89924e.jpg?1783915411"
@@ -1267,6 +1343,8 @@
     ],
     "mana_cost": "{6}{U}",
     "cmc": 7,
+    "power": "2",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/1/8/18a6ea89-417c-4ee0-a410-8a0067b92967.jpg?1783906042",
       "art_crop": "https://cards.scryfall.io/art_crop/front/1/8/18a6ea89-417c-4ee0-a410-8a0067b92967.jpg?1783906042"
@@ -1288,6 +1366,8 @@
     ],
     "mana_cost": "{W}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/0/8/08a5007f-06a0-40fa-a252-c38baa6b5c6f.jpg?1783908171",
       "art_crop": "https://cards.scryfall.io/art_crop/front/0/8/08a5007f-06a0-40fa-a252-c38baa6b5c6f.jpg?1783908171"
@@ -1311,6 +1391,8 @@
     ],
     "mana_cost": "{2}{G}",
     "cmc": 3,
+    "power": "3",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/a/1/a1e048e0-19d2-4076-892d-f8b3104dee37.jpg?1783917135",
       "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a1e048e0-19d2-4076-892d-f8b3104dee37.jpg?1783917135"
@@ -1366,6 +1448,8 @@
     ],
     "mana_cost": "{B}",
     "cmc": 1,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/5/f511830b-1c1f-4d30-aa5d-4314726d142e.jpg?1783903780",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/5/f511830b-1c1f-4d30-aa5d-4314726d142e.jpg?1783903780"
@@ -1381,6 +1465,8 @@
     "color_identity": [],
     "mana_cost": "{X}{X}",
     "cmc": 0,
+    "power": "0",
+    "toughness": "0",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/5/2/5272436e-74f0-44c4-a291-ea8ebc3f1525.jpg?1783930088",
       "art_crop": "https://cards.scryfall.io/art_crop/front/5/2/5272436e-74f0-44c4-a291-ea8ebc3f1525.jpg?1783930088"
@@ -1420,6 +1506,8 @@
     ],
     "mana_cost": "{2}{B}",
     "cmc": 3,
+    "power": "3",
+    "toughness": "2",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/f/4/f458ae68-5cda-4c40-a348-47b4196fba02.jpg?1783903780",
       "art_crop": "https://cards.scryfall.io/art_crop/front/f/4/f458ae68-5cda-4c40-a348-47b4196fba02.jpg?1783903780"
@@ -1476,6 +1564,8 @@
     ],
     "mana_cost": "{2}{B}{B}",
     "cmc": 4,
+    "power": "2",
+    "toughness": "4",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/5/b5a79f5d-d0df-4799-ac3a-84305e3af0c9.jpg?1783918469",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5a79f5d-d0df-4799-ac3a-84305e3af0c9.jpg?1783918469"
@@ -1495,6 +1585,8 @@
     ],
     "mana_cost": "{1}{R}",
     "cmc": 2,
+    "power": "2",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/c/0/c0d74ecd-a595-4012-81b4-083264b40c94.jpg?1783907139",
       "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c0d74ecd-a595-4012-81b4-083264b40c94.jpg?1783907139"
@@ -1516,6 +1608,8 @@
     ],
     "mana_cost": "{4}{R}",
     "cmc": 5,
+    "power": "3",
+    "toughness": "3",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/b/5/b5ca6c08-bfe0-4021-b6ad-e235c8905661.jpg?1783908106",
       "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5ca6c08-bfe0-4021-b6ad-e235c8905661.jpg?1783908106"
@@ -1535,6 +1629,8 @@
     ],
     "mana_cost": "{1}{B}",
     "cmc": 2,
+    "power": "1",
+    "toughness": "1",
     "image_uris": {
       "normal": "https://cards.scryfall.io/normal/front/c/4/c43609fb-3cee-44e0-98d0-3ecaba1d5767.jpg?1783903779",
       "art_crop": "https://cards.scryfall.io/art_crop/front/c/4/c43609fb-3cee-44e0-98d0-3ecaba1d5767.jpg?1783903779"

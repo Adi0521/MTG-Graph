@@ -37,19 +37,32 @@ function engineSteps(e: EngineCombo): string[] {
   return [...e.steps.map((s) => `${s.card}: ${s.ability} → ${s.then}.`), 'Repeat.'];
 }
 
+/**
+ * Does an engine combo confirm a Spellbook combo? Its loop cards must all be in the Spellbook combo,
+ * and every Spellbook card must be one of its pieces or an alternative for one of its helpers.
+ * (Spellbook often lists a generic role, like "a mana rock", as a prerequisite instead of a card.)
+ */
+export function confirms(e: EngineCombo, sbCards: string[]): boolean {
+  const sb = new Set(sbCards);
+  const covered = new Set([...e.cards, ...Object.values(e.helperAlternatives).flat()]);
+  return e.loop.every((c) => sb.has(c)) && sbCards.every((c) => covered.has(c));
+}
+
 export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean }, spellbook: SpellbookResult | null, status: SpellbookStatus): ComboReport {
-  const engineByKey = new Map(engine.combos.map((e) => [setKey(e.cards), e]));
-  const used = new Set<string>();
+  const used = new Set<EngineCombo>();
   const combos: DetectedCombo[] = [];
 
   for (const sb of spellbook?.included ?? []) {
-    const key = setKey(sb.cards);
-    const match = engineByKey.get(key);
-    if (match) used.add(key);
+    // Prefer the engine combo closest in size to the Spellbook one.
+    const match = engine.combos
+      .filter((e) => confirms(e, sb.cards))
+      .sort((a, b) => Math.abs(a.cards.length - sb.cards.length) - Math.abs(b.cards.length - sb.cards.length))[0];
+    if (match) used.add(match);
     combos.push(fromSpellbook(sb, match));
   }
-  for (const [key, e] of engineByKey) {
-    if (used.has(key)) continue;
+  for (const e of engine.combos) {
+    const key = setKey(e.cards);
+    if (used.has(e)) continue;
     combos.push({
       id: `engine:${key}`,
       cards: e.cards,
@@ -75,8 +88,8 @@ export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean
 function fromSpellbook(sb: SpellbookCombo, engine: EngineCombo | undefined): DetectedCombo {
   return {
     id: `spellbook:${sb.id}`,
-    // Prefer the engine's loop order when it verified the combo.
-    cards: engine ? engine.cards : sb.cards,
+    // Spellbook's card list is authoritative; the engine's analysis is attached for loop order and helpers.
+    cards: sb.cards,
     produces: sb.produces,
     steps: sb.steps,
     prerequisites: sb.prerequisites,

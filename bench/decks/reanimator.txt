@@ -1,0 +1,37 @@
+// Archetype: Reanimator (Meren of Clan Nel Toth)
+Commander
+1 Meren of Clan Nel Toth
+Deck
+1 Entomb
+1 Buried Alive
+1 Animate Dead
+1 Reanimate
+1 Necromancy
+1 Griselbrand
+1 Archon of Cruelty
+1 Sheoldred, Whispering One
+1 Stitcher's Supplier
+1 Satyr Wayfinder
+1 Mulldrifter
+1 Karmic Guide
+1 Viscera Seer
+1 Fiend Hunter
+1 Dread Return
+1 Eternal Witness
+1 Spore Frog
+1 Sakura-Tribe Elder
+1 Grisly Salvage
+1 Life from the Loam
+1 Fauna Shaman
+1 Mikaeus, the Unhallowed
+1 Phyrexian Altar
+1 Ashnod's Altar
+1 Blood Artist
+1 Carrion Feeder
+1 Sidisi, Undead Vizier
+1 Plaguecrafter
+1 Living Death
+1 Gravecrawler
+1 Shriekmaw
+15 Swamp
+15 Forest

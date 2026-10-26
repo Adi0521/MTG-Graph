@@ -43,48 +43,83 @@ export interface TargetSpec {
   excluded: string[];
   /** "another target": may not target the source card. */
   another: boolean;
+  /** "nonland permanents": excludes lands. */
+  nonland?: boolean;
 }
 
 export type Output =
-  | { type: 'mana'; mana: ManaProduction }
+  /** fromLands: "untap up to five lands" (Peregrine Drake); assumes the lands make the colors needed. */
+  | { type: 'mana'; mana: ManaProduction; fromLands?: boolean }
   /** Mana from a created token sacrificing itself (Eldrazi Spawn). Only usable if the token is not also sacrificed elsewhere. */
   | { type: 'tokenMana'; mana: ManaProduction }
-  | { type: 'creature'; token: boolean; count: number; haste: boolean }
+  | { type: 'creature'; token: boolean; count: number; haste: boolean; artifact: boolean; pt: string | null }
   | { type: 'copy'; target: TargetSpec | 'host'; haste: boolean }
   | { type: 'recur' }
-  | { type: 'blink'; target: TargetSpec }
-  | { type: 'untap'; target: TargetSpec }
+  /** Exile and return right away. 'self'/'host' = "exile ~, then return it" (Deadeye Navigator). */
+  | { type: 'blink'; target: TargetSpec | 'self' | 'host'; count: number }
+  /** "exile another target creature" with the return on leaving (Fiend Hunter). */
+  | { type: 'exile'; target: TargetSpec }
+  /** "return the exiled card to the battlefield" (Fiend Hunter leaving). */
+  | { type: 'returnExiled' }
+  /** "return target creature card from your graveyard to the battlefield" (Karmic Guide). */
+  | { type: 'reanimate'; target: TargetSpec }
+  /** 'self' = "untap ~"; `all` = "untap all nonland permanents you control". */
+  | { type: 'untap'; target: TargetSpec | 'self'; all: boolean }
+  /** "return target artifact card from your graveyard to your hand" (lesserMv: Scrap Trawler). */
+  | { type: 'toHand'; target: TargetSpec; lesserMv: boolean }
   | { type: 'lifegain'; amount: number }
   | { type: 'drain'; amount: number; damage: boolean }
-  | { type: 'counter'; target: TargetSpec | 'self' }
+  /** 'host' = the creature an aura or soulbond grants this to. */
+  | { type: 'counter'; target: TargetSpec | 'self' | 'host' }
   | { type: 'draw'; amount: number }
   | { type: 'selfLifeLoss'; amount: number };
 
 export type Trigger =
-  | { type: 'death'; self: boolean; another: boolean; nontoken: boolean }
+  | { type: 'death'; self: boolean; another: boolean; nontoken: boolean; what: 'creature' | 'artifact' }
   | { type: 'selfEtb' }
-  | { type: 'etb'; another: boolean; nontoken: boolean }
+  | { type: 'etb'; another: boolean; nontoken: boolean; pt: string | null }
+  | { type: 'cast'; what: 'artifact' | 'instant or sorcery' | 'any' }
+  /** "When ~ leaves the battlefield" */
+  | { type: 'leave' }
   | { type: 'lifegain' }
-  | { type: 'drain' };
+  | { type: 'drain' }
+  | { type: 'draw' }
+  /** "Whenever ~/enchanted creature deals damage to an opponent" (not combat-only). */
+  | { type: 'damage'; source: 'self' | 'host' };
 
 export interface Ability {
   id: string;
   card: string;
   /** The oracle line it came from, for display. */
   text: string;
-  /** activated: paid costs; triggered: fires on an event; recast: cast/return this card from the graveyard. */
-  kind: 'activated' | 'triggered' | 'recast';
+  /**
+   * activated: paid costs; triggered: fires on an event; recast: cast/return this card from the graveyard;
+   * cast: cast this card from hand (added by the engine for cards something can return to hand).
+   */
+  kind: 'activated' | 'triggered' | 'recast' | 'cast';
   trigger?: Trigger;
   cost: {
     mana: ManaCost;
     tap: boolean;
-    /** Sacrifice a creature as a cost. "another" excludes this card. */
-    sacrifice: null | { another: boolean };
+    /** Sacrifice a permanent as a cost. "another" excludes this card. */
+    sacrifice: null | { another: boolean; what: 'creature' | 'artifact' | 'permanent'; nontoken: boolean };
     life: number;
     removeCounter: boolean;
+    /** Planeswalker loyalty ability: usable once per turn per object, so a loop must blink the planeswalker. */
+    loyalty: boolean;
+    /** "Put a -1/-1 counter on ~" (Devoted Druid): only repeatable if something prevents the counter. */
+    minusCounter?: boolean;
   };
-  /** Granted to "enchanted creature": the tap and copy apply to the creature it is attached to. */
+  /**
+   * The ability acts through another creature (its "host"): an aura's enchanted creature,
+   * an equipment's equipped creature, or a soulbond partner.
+   */
   host: boolean;
+  hostVia?: 'attached' | 'paired';
+  /** Spell types this ability casts (a cast-from-hand ability, or Isochron Scepter casting its imprint). */
+  casts?: string[];
+  /** Another card this ability needs, e.g. the instant imprinted on Isochron Scepter. */
+  with?: string;
   outputs: Output[];
   oncePerTurn: boolean;
   /** "as long as ..." / "if you control ..." clauses, shown as prerequisites. */
@@ -129,9 +164,12 @@ function parseManaProduction(effect: string): ManaProduction | null {
 }
 
 function parseTargetSpec(phrase: string, another = false): TargetSpec {
-  const types = [...phrase.matchAll(/\b(permanent|creature|artifact|enchantment|land|planeswalker)s?\b/g)].map((m) => m[1]!);
+  const types = [...phrase.matchAll(/\b(permanent|creature|artifact|enchantment|land|planeswalker|instant|sorcery|card)s?\b/g)]
+    .map((m) => m[1]!)
+    .filter((t, _, all) => t !== 'card' || all.length === 1);
   return {
     types: types.length ? [...new Set(types)] : ['permanent'],
+    nonland: /\bnonland\b/.test(phrase),
     nonlegendary: /\bnonlegendary\b/.test(phrase),
     excluded: [...phrase.matchAll(/\bnon-(\w+)/g)].map((m) => m[1]!),
     another: another || /\banother\b/.test(phrase),
@@ -143,9 +181,14 @@ const CAPITALIZE = (s: string) => s[0]!.toUpperCase() + s.slice(1);
 export function matchesTarget(spec: TargetSpec, target: Card, source: string): boolean {
   if (spec.another && target.name === source) return false;
   if (spec.nonlegendary && /\bLegendary\b/.test(target.typeLine)) return false;
+  if (spec.nonland && /\bLand\b/.test(target.typeLine)) return false;
   for (const ex of spec.excluded) if (new RegExp(`\\b${CAPITALIZE(ex)}\\b`).test(target.typeLine)) return false;
   return spec.types.some((t) =>
-    t === 'permanent' ? !/\b(Instant|Sorcery)\b/.test(target.typeLine) : new RegExp(`\\b${CAPITALIZE(t)}\\b`).test(target.typeLine),
+    t === 'card'
+      ? true
+      : t === 'permanent'
+        ? !/\b(Instant|Sorcery)\b/.test(target.typeLine)
+        : new RegExp(`\\b${CAPITALIZE(t)}\\b`).test(target.typeLine),
   );
 }
 
@@ -165,20 +208,53 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
     outputs.push({ type: 'copy', target: copy[1] === '~' || host ? 'host' : parseTargetSpec(copy[1]!), haste: /has haste|gains haste/.test(effect) });
   } else {
     const tokens = /create (a|an|one|two|three|four|five|x|\d+) [^.]*?\b(\d+\/\d+)[^.]*?creature tokens?|create (a|an|one|two|three|four|five|x|\d+) [^.]*?creature tokens?/.exec(effect);
-    if (tokens) outputs.push({ type: 'creature', token: true, count: toNumber(tokens[1] ?? tokens[3]), haste: /with haste|gains? haste/.test(effect) });
+    if (tokens) {
+      outputs.push({
+        type: 'creature',
+        token: true,
+        count: toNumber(tokens[1] ?? tokens[3]),
+        haste: /with haste|gains? haste/.test(effect),
+        artifact: /artifact creature tokens?/.test(tokens[0]),
+        pt: tokens[2] ?? null,
+      });
+    }
   }
 
   if (/return ~ from your graveyard to the battlefield/.test(effect)) outputs.push({ type: 'recur' });
 
-  const blink = /exile (another target|target|up to one target) ([^.,]*?creature[^.,]*?)(?:,|\.)? (?:then )?return (?:it|that card|the exiled card)[^.]*to the battlefield/.exec(effect);
-  if (blink) outputs.push({ type: 'blink', target: parseTargetSpec(blink[2]!, blink[1] === 'another target') });
+  const blink = /exile (another target|target|up to one target|two target|up to two target) ([^.]*?(?:creature|permanent|artifact)s?[^.]*?)(?:,|\.)? (?:then )?return (?:it|them|that card|those cards|the exiled cards?)[^.]*to the battlefield/.exec(effect);
+  // A delayed return ("... at the beginning of the next end step", Flickerwisp) happens once per turn, not in a loop.
+  const delayed = blink && /^[^.]*\b(?:at the beginning of|end step)/.test(effect.slice(blink.index + blink[0].length));
+  if (blink && !delayed) {
+    outputs.push({ type: 'blink', target: parseTargetSpec(blink[2]!, blink[1] === 'another target'), count: /two/.test(blink[1]!) ? 2 : 1 });
+  } else if (/exile ~, then return it to the battlefield/.test(effect)) {
+    outputs.push({ type: 'blink', target: host ? 'host' : 'self', count: 1 });
+  } else {
+    const exile = /exile (another target|target) ([^.]*?creature[^.]*?)\./.exec(effect);
+    if (exile && !delayed) outputs.push({ type: 'exile', target: parseTargetSpec(exile[2]!, exile[1] === 'another target') });
+  }
+  if (/return the exiled card to the battlefield/.test(effect)) outputs.push({ type: 'returnExiled' });
+  const reanimate = /return target ([^.]*?creature card) from your graveyard to the battlefield/.exec(effect);
+  if (reanimate) outputs.push({ type: 'reanimate', target: parseTargetSpec(reanimate[1]!) });
+  const landUntap = /untap up to (\w+) lands/.exec(effect);
+  if (landUntap) outputs.push({ type: 'mana', mana: { ...emptyProduction(), any: toNumber(landUntap[1]) }, fromLands: true });
 
-  const untap = /\b(?:tap or )?untap (target [^.,]*?|another target [^.,]*?|that \w+|it)(?:[.,]|$| and)/.exec(effect);
-  if (untap && !/doesn't untap/.test(effect)) {
+  const untapAll = /\buntap all (nonland )?permanents you control/.exec(effect);
+  const untap = /\b(?:tap or )?untap (target [^.,]*?|another target [^.,]*?|that \w+|it|~)(?:[.,]|$| and)/.exec(effect.replace(/untap up to \w+ lands/, ''));
+  if (untapAll) {
+    outputs.push({ type: 'untap', target: { ...parseTargetSpec('permanent'), nonland: Boolean(untapAll[1]) }, all: true });
+  } else if (untap && !/doesn't untap/.test(effect)) {
     let phrase = untap[1]!;
     // "gain control of target permanent ... Untap that permanent."
     if (/^(that|it)/.test(phrase)) phrase = /target ([^.,]*)/.exec(effect)?.[0] ?? 'permanent';
-    outputs.push({ type: 'untap', target: parseTargetSpec(phrase) });
+    outputs.push({ type: 'untap', target: phrase === '~' ? 'self' : parseTargetSpec(phrase), all: false });
+  }
+
+  // "return another target artifact card from your graveyard to your hand" (Myr Retriever),
+  // "return to your hand target artifact card in your graveyard with lesser mana value" (Scrap Trawler).
+  const toHand = /return (?:to your hand )?(another )?target ([^.]*?) (?:in|from) your graveyard( with lesser mana value)?(?: to your hand)?/.exec(effect);
+  if (toHand && /\bhand\b/.test(toHand[0])) {
+    outputs.push({ type: 'toHand', target: parseTargetSpec(toHand[2]!, Boolean(toHand[1])), lesserMv: Boolean(toHand[3]) });
   }
 
   const gain = /\byou gain (\d+|x|that much) life/.exec(effect);
@@ -191,8 +267,12 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   const selfDamage = /deals? (\d+) damage to you|you lose (\d+) life/.exec(effect);
   if (selfDamage) outputs.push({ type: 'selfLifeLoss', amount: toNumber(selfDamage[1] ?? selfDamage[2]) });
 
-  const counter = /put (?:a|one|two|\w+) \+1\/\+1 counters? on (~|target [^.]*?)(?:\.|,| and|$)/.exec(effect);
-  if (counter) outputs.push({ type: 'counter', target: counter[1] === '~' ? 'self' : parseTargetSpec(counter[1]!) });
+  const counter = /put (?:a|one|two|that many|\w+) \+1\/\+1 counters? on (~|target [^.]*?|each (?:other )?creature you control)(?:\.|,| and|$)/.exec(effect);
+  if (counter) {
+    // Inside a granted ability, "~" ("this creature") is the host, not the card granting it.
+    const target = counter[1] === '~' ? (host ? 'host' : 'self') : parseTargetSpec(counter[1]!.replace(/^each /, ''));
+    outputs.push({ type: 'counter', target });
+  }
 
   const draw = /\bdraws? (a|two|three|x|\d+) cards?/.exec(effect);
   if (draw && !/opponent draws|each player draws/.test(effect)) outputs.push({ type: 'draw', amount: toNumber(draw[1]) });
@@ -200,19 +280,33 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   return outputs;
 }
 
-function parseTrigger(condition: string): Trigger | null {
+function parseTrigger(condition: string, granted: boolean): Trigger | null {
+  if (/^whenever you draw a card/.test(condition)) return { type: 'draw' };
+  if (/^when ~ leaves the battlefield/.test(condition)) return { type: 'leave' };
+  const cast = /^whenever (?:you cast|a player casts) (an artifact|an instant or sorcery|a) spell/.exec(condition);
+  if (cast) return { type: 'cast', what: cast[1] === 'an artifact' ? 'artifact' : cast[1] === 'a' ? 'any' : 'instant or sorcery' };
+  const artifactDeath = /^whenever (~ dies or |~ or )?(another |an |one or more )?(nontoken )?artifacts?(?: you control)? (?:is|are) put into a graveyard from the battlefield/.exec(condition);
+  if (artifactDeath) {
+    return { type: 'death', self: false, another: !artifactDeath[1] && artifactDeath[2] === 'another ', nontoken: Boolean(artifactDeath[3]), what: 'artifact' };
+  }
+  const damage = /^whenever (~|enchanted creature|equipped creature) deals damage to an opponent/.exec(condition);
+  if (damage) return { type: 'damage', source: damage[1] === '~' && !granted ? 'self' : 'host' };
   const death = /^when(?:ever)? (~ or )?(another |a |one or more )?(other )?(nontoken )?creatures?(?: or planeswalkers?)?(?: you control)? (?:dies|die)\b/.exec(condition);
   if (death) {
     // "~ or another creature" includes the card itself, so it is not an "another" restriction.
     const another = !death[1] && Boolean(death[2]?.startsWith('another') || death[3]);
-    return { type: 'death', self: false, another, nontoken: Boolean(death[4]) };
+    return { type: 'death', self: false, another, nontoken: Boolean(death[4]), what: 'creature' };
   }
-  if (/^whenever you sacrifice (?:a|another) (?:creature|permanent)/.test(condition)) return { type: 'death', self: false, another: false, nontoken: false };
+  if (/^whenever you sacrifice (?:a|another) (?:creature|permanent)/.test(condition)) {
+    return { type: 'death', self: false, another: false, nontoken: false, what: 'creature' };
+  }
   if (/^when(?:ever)? ~ (?:enters|dies)/.test(condition)) {
-    return /^when(?:ever)? ~ enters/.test(condition) ? { type: 'selfEtb' } : { type: 'death', self: true, another: false, nontoken: false };
+    return /^when(?:ever)? ~ enters/.test(condition)
+      ? { type: 'selfEtb' }
+      : { type: 'death', self: true, another: false, nontoken: false, what: 'creature' };
   }
-  const etb = /^whenever (another |a |one or more )(other )?(nontoken )?creatures?(?: you control)? enters?/.exec(condition);
-  if (etb) return { type: 'etb', another: etb[1]!.startsWith('another') || Boolean(etb[2]), nontoken: Boolean(etb[3]) };
+  const etb = /^whenever (another |a |one or more )(other )?(nontoken )?(\d+\/\d+ )?creatures?(?: tokens?)?(?: you control)? enters?/.exec(condition);
+  if (etb) return { type: 'etb', another: etb[1]!.startsWith('another') || Boolean(etb[2]), nontoken: Boolean(etb[3]), pt: etb[4]?.trim() ?? null };
   if (/^whenever you gain life/.test(condition)) return { type: 'lifegain' };
   if (/^whenever (?:an opponent|a player|one or more opponents) loses? life/.test(condition)) return { type: 'drain' };
   return null;
@@ -237,7 +331,7 @@ function makeAbility(card: Card, line: number, text: string, partial: Partial<Ab
     id: `${card.name}#${line}`,
     card: card.name,
     text,
-    cost: { mana: emptyCost(), tap: false, sacrifice: null, life: 0, removeCounter: false },
+    cost: { mana: emptyCost(), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
     host: false,
     oncePerTurn: /only once each turn|activate only once/.test(text.toLowerCase()),
     unmodeledCost: false,
@@ -251,16 +345,19 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
   if (split === -1) return null;
   const costText = line.slice(0, split);
   const effect = line.slice(split + 1).trim();
-  // Loyalty abilities and keyword costs ("Equip {2}") are not loop pieces.
-  if (/^[+-−]?\d+$|^\[/.test(costText.trim())) return null;
+  // Loyalty costs like "-2" are modeled; bracketed and keyword costs are not.
+  const loyalty = /^[+\-−]?\d+$/.test(costText.trim());
+  if (/^\[/.test(costText.trim())) return null;
   const outputs = parseOutputs(effect, host);
-  const sac = /sacrifice (another|a|an) (?:nontoken )?creature/.exec(costText);
+  const sac = /sacrifice (another|a|an) (nontoken )?(creature|artifact|permanent)\b/.exec(costText);
   // Whatever is left after removing the cost parts we understand must be empty.
   const leftover = costText
     .replace(/\{[^}]+\}/g, '')
-    .replace(/sacrifice (?:another|a|an) (?:nontoken )?creature/, '')
+    .replace(/sacrifice (?:another|a|an) (?:nontoken )?(?:creature|artifact|permanent)\b/, '')
     .replace(/pay \d+ life/, '')
     .replace(/remove (?:a|one) \+1\/\+1 counter from ~/, '')
+    .replace(/^[+\-−]?\d+$/, '')
+    .replace(/put a -1\/-1 counter on ~/, '')
     .replace(/[,\s]|\band\b/g, '');
   const ability = makeAbility(card, lineNo, display, {
     kind: /return ~ from your graveyard to the battlefield/.test(effect) ? 'recast' : 'activated',
@@ -269,9 +366,11 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     cost: {
       mana: parseManaCost(costText),
       tap: /\{t\}/.test(costText),
-      sacrifice: sac ? { another: sac[1] === 'another' } : null,
+      sacrifice: sac ? { another: sac[1] === 'another', what: sac[3] as 'creature' | 'artifact' | 'permanent', nontoken: Boolean(sac[2]) } : null,
       life: toNumber(/pay (\d+) life/.exec(costText)?.[1], 0),
       removeCounter: /remove (?:a|one) \+1\/\+1 counter from ~/.test(costText),
+      loyalty,
+      minusCounter: /put a -1\/-1 counter on ~/.test(costText),
     },
   });
   ability.unmodeledCost = leftover.length > 0;
@@ -280,6 +379,20 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     return ability;
   }
   return ability.outputs.length || ability.cost.sacrifice ? ability : null;
+}
+
+function parseTriggered(card: Card, lineNo: number, display: string, line: string, granted: boolean): Ability | null {
+  const comma = line.indexOf(',');
+  const condition = comma === -1 ? line : line.slice(0, comma);
+  const trigger = parseTrigger(condition, granted);
+  if (!trigger) return null;
+  const effect = comma === -1 ? '' : line.slice(comma + 1);
+  // "you may pay {1}. If you do, ..." costs mana per trigger; treat it as unmodeled.
+  if (/you may pay \{/.test(effect)) return null;
+  const host = granted || (trigger.type === 'damage' && trigger.source === 'host');
+  const outputs = parseOutputs(effect, host);
+  if (!outputs.length) return null;
+  return makeAbility(card, lineNo, display, { kind: 'triggered', trigger, outputs, host, hostVia: host && !granted ? 'attached' : undefined });
 }
 
 /** Parse the loop-relevant abilities of a card. Ability ids are "<card>#<oracle line>". */
@@ -291,11 +404,15 @@ export function parseAbilities(card: Card): Ability[] {
   lines.forEach((line, i) => {
     const display = (displayLines[i] ?? line).replace(/ ?\([^)]*\)/g, '');
 
-    // Granted to the enchanted creature: 'Enchanted creature has "{T}: ..."'.
-    const granted = /enchanted creature has "([^"]+)"/.exec(line);
+    // Granted abilities: 'Enchanted creature has "{T}: ..."', soulbond's 'each of those creatures has "..."'.
+    const granted = /(enchanted creature|equipped creature|each of those creatures) has "([^"]+)"/.exec(line);
     if (granted) {
-      const a = parseActivated(card, i, display, granted[1]!, true);
-      if (a) abilities.push(a);
+      const hostVia = granted[1] === 'each of those creatures' ? 'paired' : 'attached';
+      const inner = granted[2]!;
+      const a = /^when/.test(inner) ? parseTriggered(card, i, display, inner, true) : parseActivated(card, i, display, inner, true);
+      // The pairing/attachment itself is reported from hostVia, so drop "as long as ~ is paired ..." here.
+      const conditions = conditionsOf(line.slice(0, granted.index)).filter((c) => !/paired|attached|enchant/.test(c));
+      if (a) abilities.push({ ...a, hostVia, conditions });
       return;
     }
 
@@ -305,22 +422,15 @@ export function parseAbilities(card: Card): Ability[] {
         makeAbility(card, i, display, {
           kind: 'recast',
           outputs: [],
-          cost: { mana: parseManaCost(card.manaCost), tap: false, sacrifice: null, life: 0, removeCounter: false },
+          cost: { mana: parseManaCost(card.manaCost), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
         }),
       );
       return;
     }
 
     if (/^when|^whenever/.test(line)) {
-      const comma = line.indexOf(',');
-      const condition = comma === -1 ? line : line.slice(0, comma);
-      const trigger = parseTrigger(condition);
-      if (!trigger) return;
-      const effect = comma === -1 ? '' : line.slice(comma + 1);
-      // "you may pay {1}. If you do, ..." costs mana per trigger; treat it as unmodeled.
-      if (/you may pay \{/.test(effect)) return;
-      const outputs = parseOutputs(effect, false);
-      if (outputs.length) abilities.push(makeAbility(card, i, display, { kind: 'triggered', trigger, outputs }));
+      const a = parseTriggered(card, i, display, line, false);
+      if (a) abilities.push(a);
       return;
     }
 
@@ -328,6 +438,86 @@ export function parseAbilities(card: Card): Ability[] {
     if (activated) abilities.push(activated);
   });
   return abilities;
+}
+
+/** "Artifact spells you cast cost {1} less to cast." */
+export interface CostReducer {
+  card: string;
+  /** Spell type reduced, or "any". */
+  what: string;
+  amount: number;
+}
+
+export function costReducers(card: Card): CostReducer[] {
+  return [...card.text.matchAll(/(?:^|\n)(artifact |creature |noncreature |instant and sorcery )?spells you cast cost \{(\d+)\} less to cast/g)].map((m) => ({
+    card: card.name,
+    what: m[1]?.trim() ?? 'any',
+    amount: Number(m[2]),
+  }));
+}
+
+/** Vizier of Remedies: "-1/-1 counters ... that many minus one are put on it instead", so one-counter costs become free. */
+export function preventsMinusCounter(card: Card): boolean {
+  return /if one or more -1\/-1 counters would be put on a creature you control, that many -1\/-1 counters minus one/.test(card.text);
+}
+
+/** Power Artifact: "Enchanted artifact's activated abilities cost {2} less ... can't reduce ... to less than one mana." */
+export function activationReducer(card: Card): { card: string; amount: number } | null {
+  const m = /enchanted artifact's activated abilities cost \{(\d+)\} less to activate/.exec(card.text);
+  return m ? { card: card.name, amount: Number(m[1]) } : null;
+}
+
+/** Rings of Brighthearth: "Whenever you activate an ability, if it isn't a mana ability, you may pay {2}. If you do, copy that ability." */
+export function abilityCopier(card: Card): { card: string; cost: number } | null {
+  const m = /whenever you activate an ability, if it isn't a mana ability, you may pay \{(\d+)\}\. if you do, copy that ability/.exec(card.text);
+  return m ? { card: card.name, cost: Number(m[1]) } : null;
+}
+
+/**
+ * Isochron Scepter: one ability per instant it could imprint, which casts a copy of that instant.
+ * The copy's effect comes from the instant's own text.
+ */
+export function imprintAbilities(scepter: Card, instants: Card[]): Ability[] {
+  const imprint = /imprint — when ~ enters, you may exile an instant card with mana value (\d+) or less from your hand/.exec(scepter.text);
+  const activate = /(?:^|\n)([^:\n]*\{t\}[^:\n]*): you may copy the exiled card\. if you do, you may cast the copy without paying its mana cost/.exec(scepter.text);
+  if (!imprint || !activate) return [];
+  const eligible = instants.filter((i) => /\bInstant\b/.test(i.typeLine) && i.cmc <= Number(imprint[1]));
+  if (eligible.length === 0) return [];
+  const cost = { mana: parseManaCost(activate[1]!), tap: true, sacrifice: null, life: 0, removeCounter: false, loyalty: false };
+  // Casting any imprinted instant is itself a spell cast (Paradox Engine untaps on it), whatever the instant does.
+  const anyInstant = makeAbility(scepter, 1000, `${activate[0].trim()} (copying any imprinted instant)`, {
+    kind: 'activated',
+    outputs: [],
+    cost,
+    casts: ['instant'],
+    conditions: [`An instant with mana value ${imprint[1]} or less (e.g. ${eligible.map((i) => i.name).join(', ')}) is imprinted on ${scepter.name}`],
+    id: `${scepter.name}#imprint:any`,
+  });
+  return [anyInstant, ...eligible
+    .map((instant) =>
+      makeAbility(scepter, 1000, `${activate[0].trim()} (copying ${instant.name})`, {
+        kind: 'activated',
+        outputs: parseOutputs(instant.text, false),
+        cost,
+        casts: ['instant'],
+        with: instant.name,
+        conditions: [`${instant.name} is imprinted on ${scepter.name}`],
+        id: `${scepter.name}#imprint:${instant.name}`,
+      }),
+    )];
+}
+
+/** The implicit "cast this card from hand" ability, for cards something in the deck can return to hand. */
+export function castFromHand(card: Card): Ability {
+  const types = card.typeLine.toLowerCase().split(/[\s—/]+/).filter((t) => ['artifact', 'creature', 'enchantment', 'instant', 'sorcery', 'planeswalker'].includes(t));
+  const isSpellOnly = /\b(Instant|Sorcery)\b/.test(card.typeLine);
+  return makeAbility(card, 2000, `Cast ${card.name}`, {
+    kind: 'cast',
+    outputs: isSpellOnly ? parseOutputs(card.text, false) : [],
+    cost: { mana: parseManaCost(card.manaCost), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
+    casts: types,
+    id: `${card.name}#cast`,
+  });
 }
 
 /** Cards in the deck that can give another creature lifelink, by name. */

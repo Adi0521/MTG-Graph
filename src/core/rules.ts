@@ -22,7 +22,15 @@ export type ThemeId =
   | 'creature_enters'
   | 'mana'
   | 'untap'
-  | 'drain';
+  | 'drain'
+  | 'equipment'
+  | 'reanimation'
+  | 'leaves'
+  | 'land_sacrifice'
+  | 'power'
+  | 'evolve'
+  | 'ramp'
+  | 'creature_spells';
 
 export interface Matcher {
   /** Human-readable reason shown in the UI, e.g. "creates creature tokens". */
@@ -41,6 +49,13 @@ export interface Theme {
 }
 
 const text = (why: string, re: RegExp): Matcher => ({ why, test: (c) => re.test(c.text) });
+/** Like `text`, but ignores quoted abilities the card grants to something else (Old-Growth Troll's Forest). */
+const ownText = (why: string, re: RegExp): Matcher => ({ why, test: (c) => re.test(c.text.replace(/"[^"]*"/g, '')) });
+/** Matches `re` only in sentences that do not destroy, exile or restrict (Elspeth's "destroy all creatures with power 4 or greater"). */
+const nonHostile = (why: string, re: RegExp): Matcher => ({
+  why,
+  test: (c) => c.text.split(/[.\n]/).some((sentence) => re.test(sentence) && !/\b(?:destroy|exile|can't block|can't be blocked|sacrifices?)\b/.test(sentence)),
+});
 const type = (why: string, re: RegExp): Matcher => ({ why, test: (c) => re.test(c.typeLine) });
 const keyword = (why: string, ...kws: string[]): Matcher => ({
   why,
@@ -51,9 +66,13 @@ const not = (m: Matcher): Matcher => ({ why: `not ${m.why}`, test: (c) => !m.tes
 
 const isCreature = type('is a creature', /\bCreature\b/);
 const notLand: Matcher = { why: 'is not a land', test: (c) => !/\bLand\b/.test(c.typeLine) };
+const cmcAtLeast = (n: number): Matcher => ({ why: `costs ${n}+`, test: (c) => c.cmc >= n });
+const cmcAtMost = (n: number): Matcher => ({ why: `costs ${n} or less`, test: (c) => c.cmc <= n });
+const powerAtLeast = (n: number): Matcher => ({ why: `has power ${n}+`, test: (c) => (c.power ?? 0) >= n });
 const isLand = type('is a land', /\bLand\b/);
 
-const BLINK = /exile (?:up to \w+ )?(?:another )?(?:target )?[^.]*creatures?[^.]*(?:\.|,)? (?:then )?return (?:it|them|that card|those cards|the exiled cards?)[^.]*to the battlefield/;
+const BLINK = /exile (?:up to \w+ )?(?:another )?(?:target )?[^.]*(?:creatures?|permanents?)[^.]*(?:\.|,)? (?:then )?return (?:it|them|that card|those cards|the exiled cards?)[^.]*to the battlefield/;
+const REANIMATE = /(?:return|put) [^.]*creature cards?[^.]*(?:to|onto) the battlefield/;
 const COPY_CREATURE = /create[^.]*token that's a copy of[^.]*creature/;
 const CREATURE_TOKENS = /create[^.]*creature tokens?|create[^.]*\d+\/\d+[^.]*tokens?/;
 /** Splinter Twin-style auras: 'Enchanted creature has "{T}: Create a token that's a copy of this creature..."'. */
@@ -83,7 +102,7 @@ export const THEMES: Theme[] = [
     wants: [
       // Untyped anthems only; "Other Goblin creatures you control" is handled by tribal rules.
       text('pumps your team', /(?:^|[\n.,:]\s*|\bother )creatures you control get \+/m),
-      text('scales with creature count', /for each creature you control|number of creatures you control|tokens you control/),
+      text('scales with creature count', /for each (?:other )?creature you control|number of creatures you control|tokens you control|for each token you control|for each other creature on the battlefield that shares/),
       keyword('has convoke', 'convoke'),
     ],
   },
@@ -108,6 +127,8 @@ export const THEMES: Theme[] = [
     provides: [
       text('is a sacrifice outlet', new RegExp(SAC_COST)),
       text('kills creatures en masse', /destroy all creatures|each player sacrifices|all creatures get -\d+\/-\d+/),
+      all('can sacrifice itself', isCreature, text('', /sacrifice ~:/)),
+      keyword('is sacrificed by evoke', 'evoke'),
       text('makes opponents sacrifice', /each (?:other player|opponent) sacrifices/),
     ],
     wants: [
@@ -125,6 +146,7 @@ export const THEMES: Theme[] = [
       text('blinks creatures', BLINK),
       text('copies creatures', COPY_CREATURE),
       text('grants a copy ability', GRANTED_COPY),
+      text('reanimates creatures', REANIMATE),
     ],
     wants: [all('has an enter-the-battlefield trigger', isCreature, text('', /when(?:ever)? ~ enters/))],
   },
@@ -139,7 +161,7 @@ export const THEMES: Theme[] = [
     ],
     wants: [
       keyword('proliferates', 'proliferate'),
-      text('rewards +1/+1 counters', /whenever one or more \+1\/\+1 counters|with (?:a|one or more) \+1\/\+1 counters? on (?:it|them)|if (?:one or more )?\+1\/\+1 counters? would be put|for each \+1\/\+1 counter|twice that many[^.]*counters/),
+      text('rewards +1/+1 counters', /whenever one or more \+1\/\+1 counters|with (?:a|one or more) \+1\/\+1 counters? on (?:it|them)|if (?:one or more )?(?:\+1\/\+1 )?counters? would be put|for each \+1\/\+1 counter|twice that many[^.]*counters/),
     ],
   },
   {
@@ -188,7 +210,7 @@ export const THEMES: Theme[] = [
     wants: [
       keyword('casts from the graveyard', 'flashback', 'escape', 'delve', 'unearth', 'embalm', 'eternalize', 'disturb', 'jump-start', 'retrace'),
       // "Cast ~ from your graveyard" is self-recursion, not a payoff for filling the graveyard.
-      text('uses cards in your graveyard', /(?<!~ )from your graveyard|cards? in (?:your|a) graveyard|threshold/),
+      text('uses cards in your graveyard', /(?<!~ )from (?:your|a) graveyard|cards? in (?:your|a) graveyard|threshold/),
     ],
   },
   {
@@ -226,7 +248,7 @@ export const THEMES: Theme[] = [
     color: '#8cd17d',
     weight: 2,
     provides: [
-      text('puts extra lands onto the battlefield', /search your library for [^.]*\b(?:lands?|plains|island|swamp|mountain|forest)\b[^.]*onto the battlefield|put (?:a|up to \w+) land cards?[^.]*onto the battlefield|play (?:an )?additional lands?|play lands from your graveyard/),
+      text('puts extra lands onto the battlefield', /search your library for [^.]*\b(?:lands?|plains|island|swamp|mountain|forest)\b[^.]*onto the battlefield|put (?:a|up to \w+) land cards?[^.]*onto the battlefield|play (?:an |two |three )?additional lands?|play lands from your graveyard/),
     ],
     wants: [
       keyword('has landfall', 'landfall'),
@@ -296,6 +318,78 @@ export const THEMES: Theme[] = [
       text('deals damage to players', /deals? (?:\d+|x|that much) damage to (?:any target|each opponent|target player|target opponent|that player|each player)/),
     ],
     wants: [text('pays off when opponents lose life', /whenever (?:an|a|one or more) (?:opponents?|players?) loses? life|whenever an opponent is dealt damage/)],
+  },
+  {
+    id: 'equipment',
+    label: 'Equipment & Auras',
+    color: '#6b8e9b',
+    weight: 2,
+    provides: [type('is an Equipment', /\bEquipment\b/), type('is an Aura', /\bAura\b/)],
+    wants: [text('cares about Equipment or Auras', /\b(?:equipment|auras?)\b/)],
+  },
+  {
+    id: 'reanimation',
+    label: 'Reanimate / cheat into play',
+    color: '#5b3a6e',
+    weight: 2,
+    provides: [all('is a big creature worth reanimating', isCreature, cmcAtLeast(6)), keyword('has evoke (dies on entering)', 'evoke')],
+    wants: [text('puts creatures onto the battlefield from graveyard or hand', REANIMATE)],
+  },
+  {
+    id: 'leaves',
+    label: 'Leaves the battlefield',
+    color: '#9467bd',
+    weight: 2,
+    provides: [
+      text('is a sacrifice outlet', new RegExp(SAC_COST)),
+      text('blinks permanents', BLINK),
+      text('returns permanents to hand', /return (?:target|another target|up to one target) (?:creature|nonland permanent|permanent|spell or permanent)[^.]* to (?:its|their) owner's hand/),
+    ],
+    // Drawbacks like Necromancy's "When ~ leaves the battlefield, ... sacrifices it" do not count.
+    wants: [nonHostile('has a leaves-the-battlefield trigger', /when(?:ever)? ~ leaves the battlefield/)],
+  },
+  {
+    id: 'land_sacrifice',
+    label: 'Lands to graveyard',
+    color: '#6a994e',
+    weight: 2,
+    provides: [text('sacrifices lands', /sacrifice (?:a|another) land/), all('is a fetch land', isLand, text('', /sacrifice ~: search your library for/))],
+    wants: [text('uses lands in the graveyard', /whenever a land (?:you control )?is put into a graveyard|play lands from your graveyard|land cards? from your graveyard/)],
+  },
+  {
+    id: 'power',
+    label: 'Power matters',
+    color: '#c0504d',
+    weight: 2,
+    provides: [all('is a big creature', isCreature, powerAtLeast(4)), text('pumps creatures', /gets? \+(?:\d+|x)\/\+(?:\d+|x)/)],
+    wants: [nonHostile('scales with power', /total power|greatest power|power (?:\d+|x) or greater|power is greater/)],
+  },
+  {
+    id: 'evolve',
+    label: 'Evolve / bigger creatures',
+    color: '#4f9d69',
+    weight: 1,
+    provides: [all('is a creature with 3+ power', isCreature, powerAtLeast(3))],
+    wants: [keyword('has evolve', 'evolve'), text('grows when bigger creatures arrive', /if that creature's power is greater than/)],
+  },
+  {
+    id: 'ramp',
+    label: 'Ramp',
+    color: '#8c8c3c',
+    weight: 1,
+    provides: [
+      all('is a cheap mana source', notLand, cmcAtMost(3), ownText('', /\badd (?:\{|one mana|two mana|three mana)/)),
+      all('puts lands onto the battlefield', notLand, text('', /search your library for [^.]*\blands? cards?[^.]*onto the battlefield/)),
+    ],
+    wants: [all('is an expensive spell (6+ mana)', notLand, cmcAtLeast(6))],
+  },
+  {
+    id: 'creature_spells',
+    label: 'Creature spells',
+    color: '#3d7ea6',
+    weight: 1,
+    provides: [all('is a creature spell', isCreature, notLand)],
+    wants: [text('triggers on creature spells', /whenever you cast a creature spell/)],
   },
 ];
 

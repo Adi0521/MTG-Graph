@@ -100,10 +100,28 @@ Combos are added to the graph as loops (`combo` links).
   search was exhaustive. Narrow the length window or raise `minEdgeWeight` to search more of the space.
 - **A synergy loop is not an infinite combo.** The Loops tab shows cards that help each other in a cycle; the
   Combos tab shows loops that are actually infinite.
-- **The combo engine models a subset of the rules.** It covers sacrifice, mana, untap, copy, blink, graveyard
-  recursion, lifegain/drain and +1/+1 counters. It does not model undying/persist, -1/-1 counters, cost
-  reducers, spells cast from hand, or combat. Spellbook covers many of those.
+- **The combo engine models a subset of the rules.** It covers sacrifice (creatures and artifacts), mana with
+  colors, untap (including "untap all" and self-untap), copy, blink (including planeswalker loyalty resets),
+  graveyard recursion and reanimation, return-to-hand and recast, leave-the-battlefield triggers, cast triggers,
+  draw/damage triggers, lifegain/drain, +1/+1 counters, cost reducers, Isochron Scepter, Power Artifact, Rings of
+  Brighthearth and -1/-1 counter prevention. It does not model undying/persist (Mikaeus), casting from the
+  library (Mystic Forge), trigger doubling (Panharmonicon), mass reanimation (Living Death), or exact life totals
+  (Aetherflux Reservoir). Spellbook covers those. Current coverage is in `bench/report.md`.
 - **Coverage is only as good as the rules.** Unusual wording needs a new rule. See below.
+
+## Coverage benchmark
+
+`bench/decks/` holds 14 decks across archetypes (aristocrats, spells, artifacts, blink, landfall, counters,
+elves, voltron, lifegain, reanimator, enchantress, tokens, stompy). `npm run bench` scores each one:
+
+- **Synergy coverage:** share of non-land cards with at least one link (and which cards have none).
+- **Combo recall:** share of Commander Spellbook's combos the rules engine finds on its own, with a
+  diagnosis for every miss (e.g. "Curiosity: no loop abilities parsed").
+
+Card and Spellbook data are frozen in `bench/data/`, so runs are offline and reproducible
+(`--fetch` downloads data for new decks, `--refresh` re-downloads everything). Results go to
+`bench/report.md`. `test/benchmark.test.ts` fails if coverage drops below `bench/baseline.json`;
+after an improvement, update it with `npm run bench -- --baseline`.
 
 ## Extending the rules
 

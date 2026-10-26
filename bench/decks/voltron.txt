@@ -1,0 +1,35 @@
+// Archetype: Equipment voltron (Sram, Senior Edificer)
+Commander
+1 Sram, Senior Edificer
+Deck
+1 Puresteel Paladin
+1 Stoneforge Mystic
+1 Sword of Fire and Ice
+1 Skullclamp
+1 Colossus Hammer
+1 Sigarda's Aid
+1 Bone Saw
+1 Hammer of Nazahn
+1 Kor Outfitter
+1 Steelshaper's Gift
+1 Swiftfoot Boots
+1 Lightning Greaves
+1 Argentum Armor
+1 Sunforger
+1 Mithril Coat
+1 Ardenn, Intrepid Archaeologist
+1 Kemba, Kha Regent
+1 Akiri, Line-Slinger
+1 Sram's Expertise
+1 Brass Squire
+1 Armory Automaton
+1 Leonin Shikari
+1 Auriok Steelshaper
+1 Sword of Feast and Famine
+1 Batterskull
+1 Grafted Exoskeleton
+1 Paradise Mantle
+1 Cranial Plating
+1 Open the Armory
+1 Danitha Capashen, Paragon
+30 Plains

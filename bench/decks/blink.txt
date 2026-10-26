@@ -1,0 +1,36 @@
+// Archetype: Blink (Brago, King Eternal)
+Commander
+1 Brago, King Eternal
+Deck
+1 Restoration Angel
+1 Ephemerate
+1 Felidar Guardian
+1 Saheeli Rai
+1 Mulldrifter
+1 Cloudshift
+1 Flickerwisp
+1 Soulherder
+1 Conjurer's Closet
+1 Thassa, Deep-Dwelling
+1 Deadeye Navigator
+1 Peregrine Drake
+1 Archaeomancer
+1 Ghostly Flicker
+1 Wall of Omens
+1 Charming Prince
+1 Panharmonicon
+1 Eternal Witness
+1 Reveillark
+1 Karmic Guide
+1 Ugin's Conjurant
+1 Venser, Shaper Savant
+1 Cloudblazer
+1 Spellseeker
+1 Roon of the Hidden Realm
+1 Yorion, Sky Nomad
+1 Sun Titan
+1 Deputy of Detention
+1 Displacer Kitten
+1 Aminatou's Augury
+16 Island
+16 Plains

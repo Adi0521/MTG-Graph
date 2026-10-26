@@ -45,6 +45,21 @@ const EXPECTED: [string, ThemeId[], ThemeId[]][] = [
   ['Exquisite Blood', ['lifegain'], ['drain']],
   ['Animate Dead', ['creature_enters'], ['graveyard']],
   ['Walking Ballista', ['drain'], ['mana']],
+  ['Ghalta, Primal Hunger', ['power'], ['power']],
+  ['Steel Leaf Champion', ['power', 'evolve'], []],
+  ['Experiment One', [], ['evolve']],
+  ['Sram, Senior Edificer', [], ['equipment']],
+  ['Sword of Fire and Ice', ['equipment'], []],
+  ['Reanimate', [], ['reanimation']],
+  ['Griselbrand', ['reanimation'], []],
+  ['Reveillark', [], ['leaves']],
+  ['Fabled Passage', ['land_sacrifice'], []],
+  ['Ramunap Excavator', [], ['land_sacrifice']],
+  ['Azusa, Lost but Seeking', ['landfall'], []],
+  ['Winding Constrictor', [], ['counters']],
+  ['Glimpse of Nature', [], ['creature_spells']],
+  ['Coat of Arms', [], ['tokens']],
+  ['Brago, King Eternal', ['etb'], []],
 ];
 
 describe('tagCard', () => {
@@ -66,6 +81,21 @@ describe('tagCard', () => {
     for (const name of ['Sanguine Bond', "Ajani's Pridemate", 'Heliod, Sun-Crowned']) {
       expect(tagCard(card(name)).provides.has('lifegain'), name).toBe(false);
     }
+  });
+
+  it('does not count drawbacks or removal as synergy', () => {
+    // Necromancy's leave trigger sacrifices your creature; Elspeth destroys big creatures.
+    expect(tagCard(card('Necromancy')).wants.has('leaves')).toBe(false);
+    expect(tagCard(card("Elspeth, Sun's Champion")).wants.has('power')).toBe(false);
+  });
+
+  it('ignores mana abilities a card grants to something else', () => {
+    // Old-Growth Troll's mana ability belongs to the Forest it enchants after dying.
+    expect(tagCard(card('Old-Growth Troll')).provides.has('ramp')).toBe(false);
+  });
+
+  it('only counts fetch lands, not self-sacrificing creatures, as land sacrifice', () => {
+    expect(tagCard(card('Sakura-Tribe Elder')).provides.has('land_sacrifice')).toBe(false);
   });
 
   it('does not treat lands as mana enablers', () => {

@@ -1,0 +1,38 @@
+// Archetype: +1/+1 counters (Atraxa, Praetors' Voice)
+Commander
+1 Atraxa, Praetors' Voice
+Deck
+1 Hardened Scales
+1 Walking Ballista
+1 Winding Constrictor
+1 Corpsejack Menace
+1 Doubling Season
+1 Cathars' Crusade
+1 The Ozolith
+1 Rishkar, Peema Renegade
+1 Champion of Lambholt
+1 Managorger Hydra
+1 Kalonian Hydra
+1 Evolution Sage
+1 Inexorable Tide
+1 Heliod, Sun-Crowned
+1 Spike Feeder
+1 Devoted Druid
+1 Vizier of Remedies
+1 Arcbound Ravager
+1 Steel Overseer
+1 Ozolith, the Shattered Spire
+1 Forgotten Ancient
+1 Mikaeus, the Lunarch
+1 Mikaeus, the Unhallowed
+1 Triskelion
+1 Vorinclex, Monstrous Raider
+1 Contagion Engine
+1 Grateful Apparition
+1 Abzan Falconer
+1 Experiment One
+1 Ajani's Pridemate
+10 Forest
+8 Plains
+6 Swamp
+6 Island
