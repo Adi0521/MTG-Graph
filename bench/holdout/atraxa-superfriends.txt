@@ -1,0 +1,41 @@
+// Archetype: Four-color planeswalkers and proliferate (Atraxa, Praetors' Voice)
+Commander
+1 Atraxa, Praetors' Voice
+Deck
+1 Doubling Season
+1 Deepglow Skate
+1 Oath of Teferi
+1 The Chain Veil
+1 Teferi, Temporal Archmage
+1 Teferi, Master of Time
+1 Nissa, Who Shakes the World
+1 Tamiyo, Field Researcher
+1 Karn Liberated
+1 Narset, Parter of Veils
+1 Teferi, Time Raveler
+1 Vraska, Golgari Queen
+1 Liliana, Dreadhorde General
+1 Elspeth, Sun's Champion
+1 Ajani, Mentor of Heroes
+1 Garruk Wildspeaker
+1 Nissa, Voice of Zendikar
+1 Jace, the Mind Sculptor
+1 Oko, Thief of Crowns
+1 Vorinclex, Monstrous Raider
+1 Contagion Engine
+1 Inexorable Tide
+1 Flux Channeler
+1 Thrummingbird
+1 Evolution Sage
+1 Tezzeret's Gambit
+1 Spark Double
+1 Swords to Plowshares
+1 Path to Exile
+1 Cyclonic Rift
+1 Sol Ring
+1 Arcane Signet
+1 Chromatic Lantern
+1 Cultivate
+1 Kodama's Reach
+1 Farseek
+1 Smothering Tithe

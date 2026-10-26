@@ -1,4 +1,16 @@
 {
+  "animar": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ancestral Statue + Animar, Soul of Elements",
+      "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+      "Dockside Extortionist + Kiki-Jiki, Mirror Breaker + Pemmin's Aura",
+      "Dockside Extortionist + Temur Sabertooth",
+      "Kiki-Jiki, Mirror Breaker + Pemmin's Aura",
+      "Kiki-Jiki, Mirror Breaker + Pestermite",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+    ]
+  },
   "bant-landfall": {
     "connectivity": 1,
     "matchedCombos": []
@@ -41,6 +53,20 @@
       "Kinnan, Bonder Prodigy + Pemmin's Aura"
     ]
   },
+  "chulane": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ancestral Statue + Panharmonicon + Peregrine Drake",
+      "Deadeye Navigator + Great Whale",
+      "Deadeye Navigator + Peregrine Drake",
+      "Felidar Guardian + Restoration Angel",
+      "Great Whale + Panharmonicon + Shrieking Drake",
+      "Kor Skyfisher + Panharmonicon + Peregrine Drake",
+      "Man-o'-War + Panharmonicon + Peregrine Drake",
+      "Panharmonicon + Peregrine Drake + Shrieking Drake",
+      "Panharmonicon + Peregrine Drake + Whitemane Lion"
+    ]
+  },
   "counters": {
     "connectivity": 1,
     "matchedCombos": [
@@ -51,6 +77,13 @@
       "Heliod, Sun-Crowned + Walking Ballista",
       "Mikaeus, the Unhallowed + Triskelion",
       "Mikaeus, the Unhallowed + Walking Ballista"
+    ]
+  },
+  "edgar-vampires": {
+    "connectivity": 0.968,
+    "matchedCombos": [
+      "Exquisite Blood + Sanguine Bond",
+      "Exquisite Blood + Vito, Thorn of the Dusk Rose"
     ]
   },
   "elves-selvala": {
@@ -81,6 +114,22 @@
     "connectivity": 0.967,
     "matchedCombos": []
   },
+  "ghave": {
+    "connectivity": 0.968,
+    "matchedCombos": [
+      "Ashnod's Altar + Cathars' Crusade",
+      "Ashnod's Altar + Cathars' Crusade + Ghave, Guru of Spores",
+      "Ashnod's Altar + Melira, Sylvok Outcast",
+      "Carrion Feeder + Cathars' Crusade",
+      "Carrion Feeder + Melira, Sylvok Outcast",
+      "Cathars' Crusade + Ghave, Guru of Spores + Phyrexian Altar",
+      "Cathars' Crusade + Murderous Redcap",
+      "Cathars' Crusade + Phyrexian Altar",
+      "Cathars' Crusade + Viscera Seer",
+      "Melira, Sylvok Outcast + Phyrexian Altar",
+      "Melira, Sylvok Outcast + Viscera Seer"
+    ]
+  },
   "goblins": {
     "connectivity": 1,
     "matchedCombos": [
@@ -97,6 +146,24 @@
       "Midnight Guard + Presence of Gond"
     ]
   },
+  "gyome-food": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Nim Deathmantle + Wurmcoil Engine",
+      "Krark-Clan Ironworks + Nim Deathmantle + Wurmcoil Engine"
+    ]
+  },
+  "hapatra": {
+    "connectivity": 0.903,
+    "matchedCombos": [
+      "Ashnod's Altar + Vizier of Remedies",
+      "Blowfly Infestation + Flourishing Defenses",
+      "Blowfly Infestation + Hapatra, Vizier of Poisons",
+      "Blowfly Infestation + Nest of Scarabs",
+      "Devoted Druid + Vizier of Remedies",
+      "Viscera Seer + Vizier of Remedies"
+    ]
+  },
   "izzet-spells": {
     "connectivity": 1,
     "matchedCombos": [
@@ -105,6 +172,28 @@
       "Dramatic Reversal + Isochron Scepter",
       "Niv-Mizzet, Parun + Ophidian Eye",
       "Niv-Mizzet, Parun + Tandem Lookout"
+    ]
+  },
+  "jhoira-storm": {
+    "connectivity": 0.935,
+    "matchedCombos": [
+      "Basalt Monolith + Power Artifact",
+      "Basalt Monolith + Rings of Brighthearth",
+      "Cloud Key + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Cloud Key + Mystic Forge + Sensei's Divining Top",
+      "Dramatic Reversal + Isochron Scepter",
+      "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Etherium Sculptor + Mystic Forge + Sensei's Divining Top",
+      "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Foundry Inspector + Mystic Forge + Sensei's Divining Top",
+      "Grim Monolith + Power Artifact",
+      "Helm of Awakening + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Helm of Awakening + Mystic Forge + Sensei's Divining Top",
+      "Isochron Scepter + Paradox Engine",
+      "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+      "Krark-Clan Ironworks + Myr Retriever + Scrap Trawler + Semblance Anvil",
+      "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry",
+      "Mystic Forge + Semblance Anvil + Sensei's Divining Top"
     ]
   },
   "korvold-aristocrats": {
@@ -122,9 +211,29 @@
       "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
     ]
   },
+  "kykar-spells": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Curiosity + Niv-Mizzet, Parun",
+      "Dramatic Reversal + Isochron Scepter",
+      "Dualcaster Mage + Ghostly Flicker",
+      "Dualcaster Mage + Twinflame"
+    ]
+  },
   "landfall": {
     "connectivity": 1,
     "matchedCombos": []
+  },
+  "lathril-elves": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Elvish Archdruid + Staff of Domination",
+      "Elvish Archdruid + Umbral Mantle",
+      "Marwyn, the Nurturer + Staff of Domination",
+      "Marwyn, the Nurturer + Umbral Mantle",
+      "Priest of Titania + Staff of Domination",
+      "Priest of Titania + Umbral Mantle"
+    ]
   },
   "lifegain-vito": {
     "connectivity": 1,
@@ -152,6 +261,26 @@
       "Sunbond + Walking Ballista"
     ]
   },
+  "marchesa": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Ashnod's Altar + Mikaeus, the Unhallowed",
+      "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Carrion Feeder + Mikaeus, the Unhallowed",
+      "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Kiki-Jiki, Mirror Breaker + Pestermite",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+      "Mikaeus, the Unhallowed + Phyrexian Altar",
+      "Mikaeus, the Unhallowed + Triskelion",
+      "Mikaeus, the Unhallowed + Viscera Seer",
+      "Mikaeus, the Unhallowed + Walking Ballista",
+      "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+    ]
+  },
   "mardu-aristocrats": {
     "connectivity": 1,
     "matchedCombos": [
@@ -162,6 +291,25 @@
       "Gravecrawler + Pitiless Plunderer + Viscera Seer",
       "Kiki-Jiki, Mirror Breaker + Restoration Angel",
       "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+    ]
+  },
+  "muldrotha": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Archaeomancer + Ghostly Flicker + Peregrine Drake",
+      "Ashnod's Altar + Fiend Hunter + Karmic Guide",
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+      "Carrion Feeder + Fiend Hunter + Karmic Guide",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Deadeye Navigator + Peregrine Drake",
+      "Eternal Witness + Ghostly Flicker + Peregrine Drake",
+      "Fiend Hunter + Karmic Guide + Phyrexian Altar",
+      "Fiend Hunter + Karmic Guide + Viscera Seer",
+      "Ghostly Flicker + Mnemonic Wall + Peregrine Drake",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
     ]
   },
   "prossh-food-chain": {
@@ -262,5 +410,21 @@
   "voltron": {
     "connectivity": 1,
     "matchedCombos": []
+  },
+  "yawgmoth": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Blood Artist + Hapatra, Vizier of Poisons + Yawgmoth, Thran Physician",
+      "Blood Artist + Nest of Scarabs + Yawgmoth, Thran Physician",
+      "Blowfly Infestation + Hapatra, Vizier of Poisons",
+      "Blowfly Infestation + Nest of Scarabs",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Gravecrawler + Pitiless Plunderer + Woe Strider",
+      "Hapatra, Vizier of Poisons + Yawgmoth, Thran Physician + Zulaport Cutthroat",
+      "Nest of Scarabs + Yawgmoth, Thran Physician + Zulaport Cutthroat"
+    ]
   }
 }

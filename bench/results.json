@@ -1,6 +1,44 @@
 {
   "decks": [
     {
+      "slug": "animar",
+      "archetype": "Temur creature cost reduction (Animar, Soul of Elements)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 8,
+      "engineCombos": 6,
+      "matched": 7,
+      "recall": 0.875,
+      "matchedCombos": [
+        "Ancestral Statue + Animar, Soul of Elements",
+        "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+        "Dockside Extortionist + Kiki-Jiki, Mirror Breaker + Pemmin's Aura",
+        "Dockside Extortionist + Temur Sabertooth",
+        "Kiki-Jiki, Mirror Breaker + Pemmin's Aura",
+        "Kiki-Jiki, Mirror Breaker + Pestermite",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Dockside Extortionist",
+            "Cloudstone Curio"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Cloudstone Curio: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
       "slug": "bant-landfall",
       "archetype": "Bant landfall (60 cards)",
       "uniqueCards": 18,
@@ -165,6 +203,211 @@
       "engineOnly": []
     },
     {
+      "slug": "chulane",
+      "archetype": "Bant bounce (Chulane, Teller of Tales)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 10,
+      "engineCombos": 23,
+      "matched": 9,
+      "recall": 0.9,
+      "matchedCombos": [
+        "Ancestral Statue + Panharmonicon + Peregrine Drake",
+        "Deadeye Navigator + Great Whale",
+        "Deadeye Navigator + Peregrine Drake",
+        "Felidar Guardian + Restoration Angel",
+        "Great Whale + Panharmonicon + Shrieking Drake",
+        "Kor Skyfisher + Panharmonicon + Peregrine Drake",
+        "Man-o'-War + Panharmonicon + Peregrine Drake",
+        "Panharmonicon + Peregrine Drake + Shrieking Drake",
+        "Panharmonicon + Peregrine Drake + Whitemane Lion"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Aluren",
+            "Cloudstone Curio"
+          ],
+          "produces": [
+            "Infinite creature ETB",
+            "Infinite creature LTB",
+            "Infinite storm count"
+          ],
+          "diagnosis": [
+            "Aluren: no loop abilities parsed",
+            "Cloudstone Curio: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Kor Skyfisher",
+            "Aluren"
+          ],
+          "produces": [
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Man-o'-War",
+            "Aluren"
+          ],
+          "produces": [
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Shrieking Drake",
+            "Aluren"
+          ],
+          "produces": [
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Whitemane Lion",
+            "Aluren"
+          ],
+          "produces": [
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Ancestral Statue",
+            "Great Whale",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Felidar Guardian",
+            "Great Whale",
+            "Temur Sabertooth"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Great Whale",
+            "Kor Skyfisher",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Great Whale",
+            "Man-o'-War",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Great Whale",
+            "Temur Sabertooth",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Great Whale",
+            "Whitemane Lion",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Great Whale",
+            "Temur Sabertooth",
+            "Restoration Angel"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Peregrine Drake",
+            "Temur Sabertooth",
+            "Panharmonicon"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Eternal Witness",
+            "Ephemerate",
+            "Great Whale",
+            "Temur Sabertooth"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        },
+        {
+          "cards": [
+            "Eternal Witness",
+            "Ephemerate",
+            "Peregrine Drake",
+            "Temur Sabertooth",
+            "Aluren"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite creature ETBs",
+            "Infinite spell casts"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "counters",
       "archetype": "+1/+1 counters (Atraxa, Praetors' Voice)",
       "uniqueCards": 35,
@@ -183,6 +426,26 @@
         "Heliod, Sun-Crowned + Walking Ballista",
         "Mikaeus, the Unhallowed + Triskelion",
         "Mikaeus, the Unhallowed + Walking Ballista"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "edgar-vampires",
+      "archetype": "Mardu vampire tribal (Edgar Markov)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 0.968,
+      "isolated": [
+        "Door of Destinies"
+      ],
+      "spellbookCombos": 2,
+      "engineCombos": 2,
+      "matched": 2,
+      "recall": 1,
+      "matchedCombos": [
+        "Exquisite Blood + Sanguine Bond",
+        "Exquisite Blood + Vito, Thorn of the Dusk Rose"
       ],
       "missed": [],
       "engineOnly": []
@@ -249,6 +512,107 @@
       "matchedCombos": [],
       "missed": [],
       "engineOnly": []
+    },
+    {
+      "slug": "ghave",
+      "archetype": "Abzan counters and tokens (Ghave, Guru of Spores)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 0.968,
+      "isolated": [
+        "Cauldron of Souls"
+      ],
+      "spellbookCombos": 14,
+      "engineCombos": 8,
+      "matched": 11,
+      "recall": 0.786,
+      "matchedCombos": [
+        "Ashnod's Altar + Cathars' Crusade",
+        "Ashnod's Altar + Cathars' Crusade + Ghave, Guru of Spores",
+        "Ashnod's Altar + Melira, Sylvok Outcast",
+        "Carrion Feeder + Cathars' Crusade",
+        "Carrion Feeder + Melira, Sylvok Outcast",
+        "Cathars' Crusade + Ghave, Guru of Spores + Phyrexian Altar",
+        "Cathars' Crusade + Murderous Redcap",
+        "Cathars' Crusade + Phyrexian Altar",
+        "Cathars' Crusade + Viscera Seer",
+        "Melira, Sylvok Outcast + Phyrexian Altar",
+        "Melira, Sylvok Outcast + Viscera Seer"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Anafenza, Kin-Tree Spirit",
+            "Murderous Redcap",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite damage",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Anafenza, Kin-Tree Spirit",
+            "Murderous Redcap",
+            "Phyrexian Altar"
+          ],
+          "produces": [
+            "Infinite colored mana",
+            "Infinite damage",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        },
+        {
+          "cards": [
+            "Anafenza, Kin-Tree Spirit",
+            "Murderous Redcap",
+            "Viscera Seer"
+          ],
+          "produces": [
+            "Infinite damage",
+            "Infinite death triggers",
+            "Infinite creature ETB"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Carrion Feeder",
+            "Ghave, Guru of Spores",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Ghave, Guru of Spores",
+            "Kitchen Finks",
+            "Pitiless Plunderer",
+            "Melira, Sylvok Outcast"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
     },
     {
       "slug": "goblins",
@@ -381,6 +745,183 @@
       "engineOnly": []
     },
     {
+      "slug": "gyome-food",
+      "archetype": "Golgari Food and artifacts (Gyome, Master Chef)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 7,
+      "engineCombos": 6,
+      "matched": 2,
+      "recall": 0.286,
+      "matchedCombos": [
+        "Ashnod's Altar + Nim Deathmantle + Wurmcoil Engine",
+        "Krark-Clan Ironworks + Nim Deathmantle + Wurmcoil Engine"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Academy Manufactor",
+            "Pitiless Plunderer",
+            "Cauldron Familiar",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Academy Manufactor: no loop abilities parsed",
+            "Cauldron Familiar: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Nuka-Cola Vending Machine",
+            "Academy Manufactor",
+            "Krark-Clan Ironworks"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact tokens",
+            "Infinite colorless mana"
+          ],
+          "diagnosis": [
+            "Nuka-Cola Vending Machine: no loop abilities parsed",
+            "Academy Manufactor: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Peregrin Took",
+            "Cauldron Familiar",
+            "Pitiless Plunderer",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Peregrin Took: cost not modeled",
+            "Cauldron Familiar: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Chatterfang, Squirrel General",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Chatterfang, Squirrel General: no loop abilities parsed"
+          ]
+        },
+        {
+          "cards": [
+            "Peregrin Took",
+            "Nuka-Cola Vending Machine"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite draw triggers",
+            "Near-infinite tapped Treasure tokens"
+          ],
+          "diagnosis": [
+            "Peregrin Took: cost not modeled",
+            "Nuka-Cola Vending Machine: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Myr Retriever",
+            "Scrap Trawler",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Myr Retriever",
+            "Wurmcoil Engine",
+            "Scrap Trawler"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Krark-Clan Ironworks",
+            "Myr Retriever",
+            "Scrap Trawler",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Krark-Clan Ironworks",
+            "Myr Retriever",
+            "Wurmcoil Engine",
+            "Scrap Trawler"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hapatra",
+      "archetype": "-1/-1 counters (Hapatra, Vizier of Poisons)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 0.903,
+      "isolated": [
+        "Black Sun's Zenith",
+        "Necroskitter",
+        "The Ozolith"
+      ],
+      "spellbookCombos": 6,
+      "engineCombos": 8,
+      "matched": 6,
+      "recall": 1,
+      "matchedCombos": [
+        "Ashnod's Altar + Vizier of Remedies",
+        "Blowfly Infestation + Flourishing Defenses",
+        "Blowfly Infestation + Hapatra, Vizier of Poisons",
+        "Blowfly Infestation + Nest of Scarabs",
+        "Devoted Druid + Vizier of Remedies",
+        "Viscera Seer + Vizier of Remedies"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
       "slug": "izzet-spells",
       "archetype": "Spellslinger (Niv-Mizzet, Parun)",
       "uniqueCards": 33,
@@ -397,6 +938,42 @@
         "Dramatic Reversal + Isochron Scepter",
         "Niv-Mizzet, Parun + Ophidian Eye",
         "Niv-Mizzet, Parun + Tandem Lookout"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "jhoira-storm",
+      "archetype": "Artifact storm (Jhoira, Weatherlight Captain)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 0.935,
+      "isolated": [
+        "Jhoira, Weatherlight Captain",
+        "Kurkesh, Onakke Ancient"
+      ],
+      "spellbookCombos": 17,
+      "engineCombos": 7,
+      "matched": 17,
+      "recall": 1,
+      "matchedCombos": [
+        "Basalt Monolith + Power Artifact",
+        "Basalt Monolith + Rings of Brighthearth",
+        "Cloud Key + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Cloud Key + Mystic Forge + Sensei's Divining Top",
+        "Dramatic Reversal + Isochron Scepter",
+        "Etherium Sculptor + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Etherium Sculptor + Mystic Forge + Sensei's Divining Top",
+        "Foundry Inspector + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Foundry Inspector + Mystic Forge + Sensei's Divining Top",
+        "Grim Monolith + Power Artifact",
+        "Helm of Awakening + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+        "Helm of Awakening + Mystic Forge + Sensei's Divining Top",
+        "Isochron Scepter + Paradox Engine",
+        "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+        "Krark-Clan Ironworks + Myr Retriever + Scrap Trawler + Semblance Anvil",
+        "Krark-Clan Ironworks + Sword of the Meek + Thopter Foundry",
+        "Mystic Forge + Semblance Anvil + Sensei's Divining Top"
       ],
       "missed": [],
       "engineOnly": []
@@ -508,6 +1085,26 @@
       ]
     },
     {
+      "slug": "kykar-spells",
+      "archetype": "Jeskai spells and spirits (Kykar, Wind's Fury)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 4,
+      "engineCombos": 4,
+      "matched": 4,
+      "recall": 1,
+      "matchedCombos": [
+        "Curiosity + Niv-Mizzet, Parun",
+        "Dramatic Reversal + Isochron Scepter",
+        "Dualcaster Mage + Ghostly Flicker",
+        "Dualcaster Mage + Twinflame"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
       "slug": "landfall",
       "archetype": "Landfall (Omnath, Locus of Creation)",
       "uniqueCards": 35,
@@ -519,6 +1116,28 @@
       "matched": 0,
       "recall": null,
       "matchedCombos": [],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "lathril-elves",
+      "archetype": "Golgari elf tokens (Lathril, Blade of the Elves)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 6,
+      "engineCombos": 6,
+      "matched": 6,
+      "recall": 1,
+      "matchedCombos": [
+        "Elvish Archdruid + Staff of Domination",
+        "Elvish Archdruid + Umbral Mantle",
+        "Marwyn, the Nurturer + Staff of Domination",
+        "Marwyn, the Nurturer + Umbral Mantle",
+        "Priest of Titania + Staff of Domination",
+        "Priest of Titania + Umbral Mantle"
+      ],
       "missed": [],
       "engineOnly": []
     },
@@ -571,6 +1190,37 @@
       "engineOnly": []
     },
     {
+      "slug": "marchesa",
+      "archetype": "Grixis counters and recursion (Marchesa, the Black Rose)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 15,
+      "engineCombos": 28,
+      "matched": 15,
+      "recall": 1,
+      "matchedCombos": [
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Ashnod's Altar + Mikaeus, the Unhallowed",
+        "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Carrion Feeder + Mikaeus, the Unhallowed",
+        "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+        "Kiki-Jiki, Mirror Breaker + Pestermite",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+        "Mikaeus, the Unhallowed + Phyrexian Altar",
+        "Mikaeus, the Unhallowed + Triskelion",
+        "Mikaeus, the Unhallowed + Viscera Seer",
+        "Mikaeus, the Unhallowed + Walking Ballista",
+        "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
       "slug": "mardu-aristocrats",
       "archetype": "Mardu aristocrats (60 cards)",
       "uniqueCards": 29,
@@ -592,6 +1242,63 @@
       ],
       "missed": [],
       "engineOnly": []
+    },
+    {
+      "slug": "muldrotha",
+      "archetype": "Sultai graveyard value (Muldrotha, the Gravetide)",
+      "uniqueCards": 34,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 14,
+      "engineCombos": 16,
+      "matched": 14,
+      "recall": 1,
+      "matchedCombos": [
+        "Archaeomancer + Ghostly Flicker + Peregrine Drake",
+        "Ashnod's Altar + Fiend Hunter + Karmic Guide",
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+        "Carrion Feeder + Fiend Hunter + Karmic Guide",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Deadeye Navigator + Peregrine Drake",
+        "Eternal Witness + Ghostly Flicker + Peregrine Drake",
+        "Fiend Hunter + Karmic Guide + Phyrexian Altar",
+        "Fiend Hunter + Karmic Guide + Viscera Seer",
+        "Ghostly Flicker + Mnemonic Wall + Peregrine Drake",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+        "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+      ],
+      "missed": [],
+      "engineOnly": [
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Deadeye Navigator",
+            "Karmic Guide",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Deadeye Navigator",
+            "Karmic Guide",
+            "Phyrexian Altar",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
     },
     {
       "slug": "prossh-food-chain",
@@ -1554,15 +2261,56 @@
       "matchedCombos": [],
       "missed": [],
       "engineOnly": []
+    },
+    {
+      "slug": "yawgmoth",
+      "archetype": "Undying/persist (Yawgmoth, Thran Physician)",
+      "uniqueCards": 33,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 11,
+      "engineCombos": 9,
+      "matched": 11,
+      "recall": 1,
+      "matchedCombos": [
+        "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+        "Blood Artist + Hapatra, Vizier of Poisons + Yawgmoth, Thran Physician",
+        "Blood Artist + Nest of Scarabs + Yawgmoth, Thran Physician",
+        "Blowfly Infestation + Hapatra, Vizier of Poisons",
+        "Blowfly Infestation + Nest of Scarabs",
+        "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+        "Gravecrawler + Pitiless Plunderer + Woe Strider",
+        "Hapatra, Vizier of Poisons + Yawgmoth, Thran Physician + Zulaport Cutthroat",
+        "Nest of Scarabs + Yawgmoth, Thran Physician + Zulaport Cutthroat"
+      ],
+      "missed": [],
+      "engineOnly": [
+        {
+          "cards": [
+            "Gravecrawler",
+            "Yawgmoth, Thran Physician",
+            "Pitiless Plunderer",
+            "Blood Artist"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
     }
   ],
   "totals": {
-    "decks": 26,
+    "decks": 38,
     "connectivity": 0.983,
-    "spellbookCombos": 176,
-    "matched": 142,
-    "recall": 0.807,
-    "engineOnly": 36
+    "spellbookCombos": 290,
+    "matched": 246,
+    "recall": 0.848,
+    "engineOnly": 59
   },
   "topUnparsed": [
     {
@@ -1578,7 +2326,15 @@
       "misses": 3
     },
     {
+      "card": "Academy Manufactor",
+      "misses": 2
+    },
+    {
       "card": "Bear Umbra",
+      "misses": 2
+    },
+    {
+      "card": "Cloudstone Curio",
       "misses": 2
     },
     {
@@ -1606,6 +2362,10 @@
       "misses": 2
     },
     {
+      "card": "Nuka-Cola Vending Machine",
+      "misses": 2
+    },
+    {
       "card": "Sharuum the Hegemon",
       "misses": 2
     },
@@ -1626,11 +2386,19 @@
       "misses": 2
     },
     {
+      "card": "Aluren",
+      "misses": 1
+    },
+    {
       "card": "Aurelia, the Warleader",
       "misses": 1
     },
     {
       "card": "Brain Freeze",
+      "misses": 1
+    },
+    {
+      "card": "Chatterfang, Squirrel General",
       "misses": 1
     },
     {

@@ -1,0 +1,40 @@
+// Archetype: Izzet card draw and wheels (Niv-Mizzet, Parun)
+Commander
+1 Niv-Mizzet, Parun
+Deck
+1 Curiosity
+1 Ophidian Eye
+1 Tandem Lookout
+1 Psychosis Crawler
+1 Teferi's Puzzle Box
+1 Windfall
+1 Wheel of Fortune
+1 Reforge the Soul
+1 Niv-Mizzet, the Firemind
+1 Kederekt Parasite
+1 Fevered Visions
+1 Brainstorm
+1 Ponder
+1 Preordain
+1 Opt
+1 Consider
+1 Frantic Search
+1 Faithless Looting
+1 Thrill of Possibility
+1 Expressive Iteration
+1 Izzet Charm
+1 Electrostatic Field
+1 Guttersnipe
+1 Young Pyromancer
+1 Thousand-Year Storm
+1 Riddlesmith
+1 Mizzix's Mastery
+1 Sol Ring
+1 Arcane Signet
+1 Izzet Signet
+1 Talisman of Creativity
+1 Mind Stone
+1 Counterspell
+1 Arcane Denial
+1 Swan Song
+1 Dualcaster Mage

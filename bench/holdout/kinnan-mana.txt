@@ -1,0 +1,39 @@
+// Archetype: Simic mana engines (Kinnan, Bonder Prodigy)
+Commander
+1 Kinnan, Bonder Prodigy
+Deck
+1 Basalt Monolith
+1 Grim Monolith
+1 Freed from the Real
+1 Pemmin's Aura
+1 Bloom Tender
+1 Faeburrow Elder
+1 Devoted Druid
+1 Vizier of Remedies
+1 Incubation Druid
+1 Bounty of the Luxa
+1 Thousand-Year Elixir
+1 Kiora's Follower
+1 Training Grounds
+1 Rings of Brighthearth
+1 Power Artifact
+1 Hullbreaker Horror
+1 Birds of Paradise
+1 Llanowar Elves
+1 Elvish Mystic
+1 Sol Ring
+1 Mana Vault
+1 Arcane Signet
+1 Chrome Mox
+1 Mox Diamond
+1 Seedborn Muse
+1 Unwinding Clock
+1 Utopia Sprawl
+1 Wild Growth
+1 Gilded Lotus
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Finale of Devastation
+1 Rhystic Study
+1 Fierce Guardianship
+1 Ancient Tomb

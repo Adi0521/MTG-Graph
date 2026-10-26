@@ -1,0 +1,39 @@
+// Archetype: Mono-red equipment and combat (Godo, Bandit Warlord)
+Commander
+1 Godo, Bandit Warlord
+Deck
+1 Helm of the Host
+1 Bloodforged Battle-Axe
+1 Sword of Feast and Famine
+1 Aggravated Assault
+1 Embercleave
+1 Sword of Fire and Ice
+1 Fireshrieker
+1 Brass Squire
+1 Goblin Welder
+1 Breath of Fury
+1 Relentless Assault
+1 Fury of the Horde
+1 World at War
+1 Combat Celebrant
+1 Moraug, Fury of Akoum
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Dockside Extortionist
+1 Goldspan Dragon
+1 Professional Face-Breaker
+1 Ruby Medallion
+1 Sol Ring
+1 Mana Vault
+1 Mind Stone
+1 Fire Diamond
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Gamble
+1 Inventors' Fair
+1 Ancient Tomb
+1 Strionic Resonator
+1 Grim Monolith
+1 Basalt Monolith
+1 Treasure Nabber
+1 Pyrohemia

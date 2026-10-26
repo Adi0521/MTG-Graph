@@ -1,0 +1,41 @@
+// Archetype: Dimir zombie aristocrats (Wilhelt, the Rotcleaver)
+Commander
+1 Wilhelt, the Rotcleaver
+Deck
+1 Gravecrawler
+1 Phyrexian Altar
+1 Carrion Feeder
+1 Diregraf Captain
+1 Cryptbreaker
+1 Undead Augur
+1 Grim Haruspex
+1 Rooftop Storm
+1 Sidisi, Undead Vizier
+1 Ghoulraiser
+1 Lord of the Accursed
+1 Death Baron
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Plaguecrafter
+1 Viscera Seer
+1 Stitcher's Supplier
+1 Rotlung Reanimator
+1 Champion of the Perished
+1 Noxious Ghoul
+1 Gravespawn Sovereign
+1 Havengul Lich
+1 Ashnod's Altar
+1 Altar of Dementia
+1 Skull Skaab
+1 Necrotic Ooze
+1 Gisa and Geralf
+1 Ghoulcaller Gisa
+1 Dread Wanderer
+1 Prized Amalgam
+1 Sol Ring
+1 Dimir Signet
+1 Arcane Signet
+1 Fellwar Stone
+1 Demonic Tutor
+1 Entomb
+1 Animate Dead

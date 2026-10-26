@@ -1,0 +1,41 @@
+// Archetype: Golgari creature recursion and sacrifice (Meren of Clan Nel Toth)
+Commander
+1 Meren of Clan Nel Toth
+Deck
+1 Sakura-Tribe Elder
+1 Eternal Witness
+1 Fleshbag Marauder
+1 Merciless Executioner
+1 Plaguecrafter
+1 Grave Pact
+1 Dictate of Erebos
+1 Viscera Seer
+1 Spore Frog
+1 Satyr Wayfinder
+1 Shriekmaw
+1 Reassembling Skeleton
+1 Bloodghast
+1 Ashnod's Altar
+1 Phyrexian Tower
+1 Liliana, Death's Majesty
+1 Victimize
+1 Reanimate
+1 Animate Dead
+1 Necromancy
+1 Mikaeus, the Unhallowed
+1 Triskelion
+1 Protean Hulk
+1 Zulaport Cutthroat
+1 Skullclamp
+1 Nether Traitor
+1 Dread Return
+1 Living Death
+1 Pernicious Deed
+1 Acidic Slime
+1 Ravenous Chupacabra
+1 Sol Ring
+1 Golgari Signet
+1 Birds of Paradise
+1 Elves of Deep Shadow
+1 Demonic Tutor
+1 Buried Alive

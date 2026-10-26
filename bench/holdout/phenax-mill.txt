@@ -1,0 +1,39 @@
+// Archetype: Dimir mill (Phenax, God of Deception)
+Commander
+1 Phenax, God of Deception
+Deck
+1 Duskmantle Guildmage
+1 Mindcrank
+1 Bloodchief Ascension
+1 Hedron Crab
+1 Altar of Dementia
+1 Fraying Sanity
+1 Bruvac the Grandiloquent
+1 Painter's Servant
+1 Grindstone
+1 Sphinx's Tutelage
+1 Consuming Aberration
+1 Mind Grind
+1 Traumatize
+1 Glimpse the Unthinkable
+1 Sanguine Bond
+1 Exquisite Blood
+1 Persistent Petitioners
+1 Jace's Erasure
+1 Psychic Corrosion
+1 Sewer Nemesis
+1 Duskmantle Seer
+1 Oona, Queen of the Fae
+1 Phyrexian Altar
+1 Counterspell
+1 Sol Ring
+1 Dimir Signet
+1 Arcane Signet
+1 Talisman of Dominance
+1 Thought Vessel
+1 Demonic Tutor
+1 Vampiric Tutor
+1 Bitterblossom
+1 Ruin Crab
+1 Maddening Cacophony
+1 Fleet Swallower

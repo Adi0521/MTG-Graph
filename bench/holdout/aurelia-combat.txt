@@ -1,0 +1,39 @@
+// Archetype: Boros extra combats (Aurelia, the Warleader)
+Commander
+1 Aurelia, the Warleader
+Deck
+1 Aggravated Assault
+1 Sword of Feast and Famine
+1 Bear Umbra
+1 Savage Ventmaw
+1 Combat Celebrant
+1 Helm of the Host
+1 Hellkite Charger
+1 Port Razer
+1 Moraug, Fury of Akoum
+1 Relentless Assault
+1 World at War
+1 Seize the Day
+1 Fury of the Horde
+1 Scourge of the Throne
+1 Breath of Fury
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Sword of Hearth and Home
+1 Neheb, the Eternal
+1 Smothering Tithe
+1 Dockside Extortionist
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Felidar Guardian
+1 Hero of Bladehold
+1 Adeline, Resplendent Cathar
+1 Grand Abolisher
+1 Boros Signet
+1 Sol Ring
+1 Arcane Signet
+1 Mana Vault
+1 Ancient Tomb
+1 Ruby Medallion
+1 Enlightened Tutor
+1 Gamble
