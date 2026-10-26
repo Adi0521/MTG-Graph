@@ -16,7 +16,8 @@
     "tags": "node --no-warnings scripts/inspect-tags.ts",
     "abilities": "node --no-warnings scripts/inspect-abilities.ts",
     "combos": "node --no-warnings scripts/inspect-combos.ts",
-    "bench": "node --no-warnings scripts/benchmark.ts"
+    "bench": "node --no-warnings scripts/benchmark.ts",
+    "rejected": "node --no-warnings scripts/inspect-rejected.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.5",

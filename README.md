@@ -82,7 +82,16 @@ Combos come from two sources, and each combo says which found it:
   life is short, it adds cards from the deck that trigger on the loop (e.g. a Treasure per death) as
   extra pieces, and lists the other cards that trigger on it as payoffs.
 
-On the sample Korvold deck, the engine independently finds all 10 combos Spellbook lists, plus 7 larger variants.
+Every loop the engine accepts is then **played out by a loop simulator** (`src/core/simulate.ts`) on a concrete
+game state: which permanents are tapped or summoning sick, +1/+1 and -1/-1 counters (which cancel), damage and
+toughness (including anthems), loyalty, graveyard, hand, linked exile, mana pool and life totals. After a setup
+pass it runs three strict passes; the board must return to the same state each time (tokens, +1/+1 counters,
+mana and opponent damage may grow). The setup pass records what you need to start ("needs {B} available",
+"Walking Ballista cast with X ≥ 1"), and the last pass gives the exact result per loop. This is what makes
+undying/persist work: Mikaeus + Triskelion is verified at exactly 2 damage per loop, while Mikaeus + any
+sacrifice outlet + any creature is rejected because the creature returns with a +1/+1 counter.
+
+On the sample Korvold deck, the engine independently finds all 10 combos Spellbook lists, plus 6 larger variants.
 Any cost the parser does not understand (e.g. "Sacrifice a Food") marks the ability as unusable in loops,
 so unknown wording makes the engine miss combos rather than invent them.
 
@@ -104,7 +113,7 @@ Combos are added to the graph as loops (`combo` links).
   colors, untap (including "untap all" and self-untap), copy, blink (including planeswalker loyalty resets),
   graveyard recursion and reanimation, return-to-hand and recast, leave-the-battlefield triggers, cast triggers,
   draw/damage triggers, lifegain/drain, +1/+1 counters, cost reducers, Isochron Scepter, Power Artifact, Rings of
-  Brighthearth and -1/-1 counter prevention. It does not model undying/persist (Mikaeus), casting from the
+  Brighthearth and -1/-1 counter prevention. It also handles undying/persist through the simulator. It does not model casting from the
   library (Mystic Forge), trigger doubling (Panharmonicon), mass reanimation (Living Death), or exact life totals
   (Aetherflux Reservoir). Spellbook covers those. Current coverage is in `bench/report.md`.
 - **Coverage is only as good as the rules.** Unusual wording needs a new rule. See below.

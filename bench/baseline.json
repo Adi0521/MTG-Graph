@@ -12,10 +12,13 @@
   "counters": {
     "connectivity": 1,
     "matchedCombos": [
+      "Devoted Druid + Mikaeus, the Unhallowed",
       "Devoted Druid + Vizier of Remedies",
       "Heliod, Sun-Crowned + Spike Feeder",
       "Heliod, Sun-Crowned + Triskelion",
-      "Heliod, Sun-Crowned + Walking Ballista"
+      "Heliod, Sun-Crowned + Walking Ballista",
+      "Mikaeus, the Unhallowed + Triskelion",
+      "Mikaeus, the Unhallowed + Walking Ballista"
     ]
   },
   "elves": {

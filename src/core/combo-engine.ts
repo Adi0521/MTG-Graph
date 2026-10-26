@@ -10,6 +10,7 @@ import {
   lifelinkGranters,
   matchesTarget,
   parseAbilities,
+  payMana,
   preventsMinusCounter,
   type Ability,
   type CostReducer,
@@ -17,6 +18,7 @@ import {
   type ManaProduction,
   type Output,
 } from './abilities.ts';
+import { verifyLoop, type LoopPlan, type PerLoop } from './simulate.ts';
 import type { Card } from './types.ts';
 
 /**
@@ -60,6 +62,14 @@ export interface EngineCombo {
   warnings: string[];
   /** Mana left over per loop, e.g. "{C}{C}", or "none". */
   netMana: string;
+  /** The loop played out on a concrete game state: what it needs to start and its exact net per loop. */
+  verification: { startup: string[]; perLoop: PerLoop };
+}
+
+/** A loop the resource check accepted but the simulator rejected, with the reason. */
+export interface RejectedLoop {
+  cards: string[];
+  reason: string;
 }
 
 export interface EngineOptions {
@@ -71,9 +81,9 @@ export interface EngineOptions {
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
 
-type Resource = 'free' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
+export type Resource = 'free' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
 
-interface Binding {
+export interface Binding {
   res: Resource;
   /** The permanent or card involved: a card name, or null for a token. */
   object?: string | null;
@@ -85,7 +95,7 @@ interface Binding {
   lifelinkFrom?: string;
 }
 
-interface Context {
+export interface Context {
   cardByName: Map<string, Card>;
   granters: string[];
   reducers: CostReducer[];
@@ -95,6 +105,8 @@ interface Context {
   counterPreventers: string[];
   /** Every parsed ability in the deck, for helpers and payoffs. */
   deckAbilities: Ability[];
+  /** Loops the simulator rejected (for diagnostics). */
+  rejected: RejectedLoop[];
 }
 
 const PERMANENT_TYPES = ['artifact', 'creature', 'enchantment', 'planeswalker', 'land'];
@@ -214,7 +226,13 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
     const t = next.trigger!;
     switch (t.type) {
       case 'death': {
-        if (!a.cost.sacrifice || input?.res !== 'body') return null;
+        // A creature can also kill itself: pinging itself, or piling -1/-1 counters on itself (undying loops).
+        if (!a.cost.sacrifice) {
+          const selfKill =
+            t.self && a.card === next.card && isCreature(ctx, a.card) && (a.cost.minusCounter || a.outputs.some((o) => o.type === 'drain' && o.damage));
+          return selfKill ? { res: 'death', object: a.card, token: false, types: typesOf(ctx, a.card) } : null;
+        }
+        if (input?.res !== 'body') return null;
         const object = input.object ?? null;
         const token = input.token ?? false;
         const types = input.types ?? [];
@@ -316,27 +334,7 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
   return null;
 }
 
-/** Can `produced` pay `cost`? Returns leftover mana or null. */
-export function payMana(produced: ManaProduction, cost: ManaCost): ManaProduction | null {
-  const left = { ...produced };
-  for (const color of COLORS) {
-    let need = cost[color];
-    const fromExact = Math.min(need, left[color]);
-    left[color] -= fromExact;
-    need -= fromExact;
-    const fromAny = Math.min(need, left.any);
-    left.any -= fromAny;
-    need -= fromAny;
-    if (need > 0) return null;
-  }
-  let generic = cost.generic;
-  for (const key of [...COLORS, 'any'] as const) {
-    const used = Math.min(generic, left[key]);
-    left[key] -= used;
-    generic -= used;
-  }
-  return generic > 0 ? null : left;
-}
+export { payMana };
 
 function describeMana(m: ManaProduction): string {
   const parts = COLORS.flatMap((c) => Array<string>(m[c]).fill(`{${c}}`));
@@ -381,7 +379,7 @@ function riderFires(r: Ability, ev: Events): number {
 }
 
 /** A card added to make a loop break even. */
-type Helper =
+export type Helper =
   | { kind: 'rider'; card: string; ability: Ability; fires: number }
   | { kind: 'reducer'; card: string; what: string; amount: number }
   | { kind: 'outlet'; card: string; ability: Ability }
@@ -456,7 +454,11 @@ function evaluate(cycle: Ability[], ctx: Context): EngineCombo | null {
   // Every sacrifice cost must be paid by a permanent the loop provides.
   for (let i = 0; i < k; i++) if (cycle[i]!.cost.sacrifice && inputOf(i).res !== 'body') return null;
   // Recursion only works for cards that died during the loop; casting from hand only for cards returned to hand.
-  const died = new Set(cycle.flatMap((a, i) => (a.cost.sacrifice ? [inputOf(i).object] : [])).filter((o): o is string => Boolean(o)));
+  const died = new Set(
+    [...cycle.flatMap((a, i) => (a.cost.sacrifice ? [inputOf(i).object] : [])), ...bound.filter((b) => b.res === 'death').map((b) => b.object)].filter(
+      (o): o is string => Boolean(o),
+    ),
+  );
   for (const [i, a] of cycle.entries()) {
     if ((a.kind === 'recast' || has(a, 'recur')) && !died.has(a.card)) return null;
     // Instants and sorceries go to the graveyard when cast; permanents must have died first.
@@ -484,6 +486,7 @@ function evaluate(cycle: Ability[], ctx: Context): EngineCombo | null {
     baseLife -= a.cost.life;
     if (a.cost.removeCounter) counters--;
     if (a.cost.sacrifice) events.deaths.push({ object: inputOf(i).object ?? null, token: inputOf(i).token ?? false, types: inputOf(i).types ?? [] });
+    else if (bound[i]!.res === 'death') events.deaths.push({ object: bound[i]!.object ?? null, token: false, types: bound[i]!.types ?? [] });
     if (a.casts) events.casts.push(a.casts);
     const entering = putsBodyOnBattlefield(a) || has(a, 'blink') ? enteringObject(cycle, i, ctx) : null;
     if (entering?.types.includes('creature')) events.etbs.push(entering);
@@ -623,7 +626,8 @@ function evaluate(cycle: Ability[], ctx: Context): EngineCombo | null {
 
   const hasEvents =
     events.deaths.length > 0 || events.etbs.length > 0 || events.casts.length > 0 || events.draws > 0 || events.drains > 0 || events.lifegains > 0 || counters > 0 || tokens > 0;
-  const needsPreventer = cycle.some((a) => a.cost.minusCounter);
+  // -1/-1 counter costs need Vizier of Remedies, unless the creature is meant to die and come back (undying).
+  const needsPreventer = cycle.some((a) => a.cost.minusCounter && !cycle.some((b) => b.card === a.card && /#(undying|persist)$/.test(b.id)));
   const works = (helpers: Helper[]) => {
     if (needsPreventer && !helpers.some((h) => h.kind === 'counterPreventer')) return false;
     const l = ledgerFor(helpers);
@@ -706,20 +710,47 @@ function evaluate(cycle: Ability[], ctx: Context): EngineCombo | null {
   }
 
   const final = ledgerFor(helpers);
-  const surplus = payMana(final.mana, final.cost)!;
-  const produces: string[] = [];
-  if (totalProduction(surplus) > 0) {
-    produces.push(surplus.any > 0 ? 'Infinite mana of any color' : `Infinite ${COLORS.filter((c) => surplus[c] > 0).map((c) => COLOR_NAMES[c]).join(' and ')} mana`);
+  if (!payMana(final.mana, final.cost)) return null;
+
+
+  // Play the loop out on a concrete game state; the resource check above is necessary but not sufficient.
+  const plan: LoopPlan = {
+    cycle,
+    bindings: bound,
+    helpers,
+    hosts: Object.fromEntries(cycle.flatMap((a, i) => (a.host ? [[i, hostOf(cycle, i)]] : []))),
+    exiles: Object.fromEntries(cycle.flatMap((a, i) => {
+      const returned = returnedExiled(a, cycle[(i + 1) % k]!, ctx);
+      return returned ? [[a.card, returned]] : [];
+    })),
+    reanimates: Object.fromEntries(cycle.flatMap((_, i) => {
+      const r = reanimatedObject(cycle, i, ctx);
+      return r ? [[i, r]] : [];
+    })),
+    reducedCard: helpers.some((h) => h.kind === 'activationReducer') ? manaActivated[0]?.card : undefined,
+  };
+  const verification = verifyLoop(plan, ctx);
+  if (!verification.ok) {
+    ctx.rejected.push({ cards: [...loopCards, ...helperCards], reason: verification.reason ?? 'fails when played out' });
+    return null;
   }
-  if (events.deaths.length) produces.push('Infinite death triggers', 'Infinite sacrifice triggers');
+  const exact = verification.perLoop.mana;
+
+  // Describe what the loop makes from the simulator's exact per-loop numbers.
+  const per = verification.perLoop;
+  const produces: string[] = [];
+  if (totalProduction(exact) > 0) {
+    produces.push(exact.any > 0 ? 'Infinite mana of any color' : `Infinite ${COLORS.filter((c) => exact[c] > 0).map((c) => COLOR_NAMES[c]).join(' and ')} mana`);
+  }
+  if (per.deaths) produces.push('Infinite death triggers');
+  if (per.deaths && (cycle.some((a) => a.cost.sacrifice) || helpers.some((h) => h.kind === 'outlet'))) produces.push('Infinite sacrifice triggers');
   if (tokens) produces.push(hasteTokens ? 'Infinite hasty creature tokens' : 'Infinite creature tokens');
-  if (events.etbs.length) produces.push('Infinite creature ETBs');
-  if (events.casts.length) produces.push('Infinite spell casts');
-  if (events.drains) produces.push(damage ? 'Infinite damage' : 'Infinite life loss for opponents');
-  if (events.lifegains) produces.push('Infinite lifegain');
+  if (per.etbs) produces.push('Infinite creature ETBs');
+  if (per.casts) produces.push('Infinite spell casts');
+  if (per.opponentLife < 0) produces.push(damage ? 'Infinite damage' : 'Infinite life loss for opponents');
+  if (per.life > 0) produces.push('Infinite lifegain');
   if (counters > 0) produces.push('Infinite +1/+1 counters');
-  if (events.draws) produces.push('Infinite card draw');
-  if (!events.drains && helpers.some((h) => h.kind === 'rider' && h.ability.outputs.some((o) => o.type === 'drain'))) produces.push('Infinite life loss for opponents');
+  if (per.draws) produces.push('Infinite card draw');
   if (produces.length === 0) return null;
 
   return {
@@ -732,8 +763,23 @@ function evaluate(cycle: Ability[], ctx: Context): EngineCombo | null {
     prerequisites: [...prerequisites],
     payoffs,
     warnings,
-    netMana: describeMana(surplus),
+    netMana: describeMana(exact),
+    verification: { startup: verification.startup, perLoop: verification.perLoop },
   };
+}
+
+/**
+ * A "when ~ dies" trigger (undying, Myr Retriever) after step `v` needs that very card to die there:
+ * either `v` kills itself, or `v` sacrifices a body that the step before it put onto the battlefield.
+ * The full check in `feed` would reject anything else; this just avoids exploring it.
+ */
+function selfDeathPossible(prev: Ability | null, v: Ability, w: Ability): boolean {
+  const t = w.trigger;
+  if (!t || t.type !== 'death' || !t.self) return true;
+  if (!v.cost.sacrifice) return v.card === w.card;
+  if (!prev) return true; // v starts the path; its input comes from the (unknown) last step.
+  if (prev.card === w.card && putsBodyOnBattlefield(prev)) return true;
+  return Boolean(has(prev, 'blink') || has(prev, 'reanimate') || has(prev, 'returnExiled'));
 }
 
 /** Which resources an ability can take as its loop input. */
@@ -772,6 +818,8 @@ function outputsOf(a: Ability, ctx: Context): Resource[] {
   if (has(a, 'blink')) r.add('etb').add('untap').add('reset').add('leave');
   if (has(a, 'draw')) r.add('draw');
   if (a.cost.sacrifice) r.add('death').add('leave');
+  // Pinging itself or piling -1/-1 counters on itself can kill the creature (undying/persist loops).
+  if (isCreature(ctx, a.card) && (a.cost.minusCounter || a.outputs.some((o) => o.type === 'drain' && o.damage))) r.add('death');
   if (has(a, 'untap')) r.add('untap');
   if (has(a, 'toHand')) r.add('hand');
   if (a.casts?.length) r.add('cast');
@@ -787,7 +835,45 @@ function outputsOf(a: Ability, ctx: Context): Resource[] {
   return [...r];
 }
 
-export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> = {}): { combos: EngineCombo[]; exhaustive: boolean } {
+/**
+ * Undying / persist as explicit death triggers: the creature's own keyword, or granted by another card
+ * ("Other non-Human creatures you control get +1/+1 and have undying", Mikaeus). Whether the creature
+ * actually returns (it must die without a +1/+1 / -1/-1 counter) is checked by the simulator.
+ */
+function deathReturnAbilities(card: Card, deck: Card[]): Ability[] {
+  if (!/\bCreature\b/.test(card.typeLine)) return [];
+  const out: Ability[] = [];
+  for (const keyword of ['undying', 'persist'] as const) {
+    const granter = card.keywords.includes(keyword)
+      ? null
+      : deck.find((g) => {
+          if (g === card) return false;
+          const m = new RegExp(`(other )?(?:non-(\\w+) )?creatures you control (?:get [^.]* and )?have ${keyword}`).exec(g.text);
+          return Boolean(m) && !(m![2] && new RegExp(`\\b${m![2]}\\b`, 'i').test(card.typeLine));
+        });
+    if (granter === undefined) continue;
+    out.push({
+      id: `${card.name}#${keyword}`,
+      card: card.name,
+      text: granter ? `${keyword[0]!.toUpperCase()}${keyword.slice(1)} (granted by ${granter.name})` : `${keyword[0]!.toUpperCase()}${keyword.slice(1)}`,
+      kind: 'triggered',
+      trigger: { type: 'death', self: true, another: false, nontoken: true, what: 'creature' },
+      cost: { mana: emptyCost(), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
+      host: false,
+      outputs: keyword === 'undying' ? [{ type: 'recur' }, { type: 'counter', target: 'self', amount: 1 }] : [{ type: 'recur' }],
+      oncePerTurn: false,
+      conditions: [],
+      unmodeledCost: false,
+      with: granter?.name,
+    });
+  }
+  return out;
+}
+
+export function findEngineCombos(
+  cards: Card[],
+  options: Partial<EngineOptions> = {},
+): { combos: EngineCombo[]; exhaustive: boolean; rejected: RejectedLoop[] } {
   const opts = { ...DEFAULT_ENGINE_OPTIONS, ...options };
   const sorted = [...cards].sort((a, b) => a.name.localeCompare(b.name));
   const parsed = sorted.flatMap((c) => parseAbilities(c));
@@ -799,7 +885,8 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
   const casts = sorted
     .filter((c) => !/\bLand\b/.test(c.typeLine) && handTargets.some((t) => matchesTarget(t.spec, c, t.source)))
     .map((c) => castFromHand(c));
-  const deckAbilities = [...parsed, ...imprints, ...casts];
+  const deathReturns = sorted.flatMap((c) => deathReturnAbilities(c, sorted));
+  const deckAbilities = [...parsed, ...imprints, ...casts, ...deathReturns];
 
   const ctx: Context = {
     cardByName,
@@ -809,6 +896,7 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
     copiers: sorted.flatMap((c) => abilityCopier(c) ?? []),
     counterPreventers: sorted.filter(preventsMinusCounter).map((c) => c.name),
     deckAbilities,
+    rejected: [],
   };
 
   // Free sacrifice outlets may be used twice per loop (e.g. sacrificing two artifacts to Krark-Clan Ironworks).
@@ -826,11 +914,24 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
   });
 
   const results = new Map<string, EngineCombo & { size: number; surplus: number }>();
-  let exhaustive = true;
-  // Split the budget evenly across start abilities, so a dense corner of the deck cannot starve the rest.
-  const budgetPerStart = Math.max(2000, Math.floor(opts.searchBudget / Math.max(1, nodes.length)));
+  const into: number[][] = nodes.map(() => []);
+  out.forEach((targets, from) => targets.forEach((to) => into[to]!.push(from)));
 
-  for (let s = 0; s < nodes.length; s++) {
+  /** Enumerate loops whose first ability is `s`, up to `allowance` DFS steps. Returns steps used, or -1 if cut short. */
+  const searchFrom = (s: number, allowance: number): number => {
+    // Steps from each ability back to the start, through abilities after it (each loop is found once, from its first ability).
+    const back = new Map<number, number>([[s, 0]]);
+    const queue = [s];
+    for (let qi = 0; qi < queue.length; qi++) {
+      const v = queue[qi]!;
+      for (const u of into[v]!) {
+        if (u > s && !back.has(u)) {
+          back.set(u, back.get(v)! + 1);
+          queue.push(u);
+        }
+      }
+    }
+    if (!out[s]!.some((w) => w === s || back.has(w))) return 0;
     let steps = 0;
     const path = [s];
     const onPath = new Set([s]);
@@ -845,10 +946,7 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
         continue;
       }
       frame[1]++;
-      if (++steps > budgetPerStart) {
-        exhaustive = false;
-        break;
-      }
+      if (++steps > allowance) return -1;
       const w = out[v]![i]!;
       if (w === s) {
         const combo = evaluate(path.map((p) => nodes[p]!), ctx);
@@ -863,12 +961,39 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
         }
         continue;
       }
-      if (w < s || onPath.has(w) || path.length >= opts.maxLoopAbilities) continue;
+      const d = back.get(w);
+      // Prune paths that cannot get back to the start within the step limit.
+      if (w < s || d === undefined || onPath.has(w) || path.length + d > opts.maxLoopAbilities) continue;
+      if (!selfDeathPossible(path.length >= 2 ? nodes[path[path.length - 2]!]! : null, nodes[v]!, nodes[w]!)) continue;
       path.push(w);
       onPath.add(w);
       frames.push([w, 0]);
     }
+    return steps;
+  };
+
+  // Pass 1: an even share per start. Pass 2: budget the easy starts did not use goes to the ones cut short.
+  // Same total budget, same order, so the result is still deterministic.
+  const share = Math.max(2000, Math.floor(opts.searchBudget / Math.max(1, nodes.length)));
+  let used = 0;
+  const starved: number[] = [];
+  for (let s = 0; s < nodes.length; s++) {
+    const steps = searchFrom(s, share);
+    if (steps < 0) {
+      starved.push(s);
+      used += share;
+    } else used += steps;
   }
+  let leftover = Math.max(0, opts.searchBudget - used);
+  let exhaustive = true;
+  starved.forEach((s, n) => {
+    const allowance = Math.floor(leftover / (starved.length - n));
+    const steps = searchFrom(s, allowance);
+    if (steps < 0) {
+      exhaustive = false;
+      leftover -= allowance;
+    } else leftover -= steps;
+  });
 
   // Keep only minimal combos: drop any that contains a smaller combo, counting a helper's alternatives
   // (a combo using Krark-Clan Ironworks contains one that lists it as an alternative to Ashnod's Altar).
@@ -880,5 +1005,5 @@ export function findEngineCombos(cards: Card[], options: Partial<EngineOptions> 
   const combos = minimal
     .sort((a, b) => a.cards.length - b.cards.length || a.cards.join('|').localeCompare(b.cards.join('|')))
     .map(({ size: _size, surplus: _surplus, ...combo }) => combo);
-  return { combos, exhaustive };
+  return { combos, exhaustive, rejected: ctx.rejected };
 }

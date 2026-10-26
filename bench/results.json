@@ -48,59 +48,19 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 7,
-      "engineCombos": 4,
-      "matched": 4,
-      "recall": 0.571,
+      "engineCombos": 7,
+      "matched": 7,
+      "recall": 1,
       "matchedCombos": [
+        "Devoted Druid + Mikaeus, the Unhallowed",
         "Devoted Druid + Vizier of Remedies",
         "Heliod, Sun-Crowned + Spike Feeder",
         "Heliod, Sun-Crowned + Triskelion",
-        "Heliod, Sun-Crowned + Walking Ballista"
+        "Heliod, Sun-Crowned + Walking Ballista",
+        "Mikaeus, the Unhallowed + Triskelion",
+        "Mikaeus, the Unhallowed + Walking Ballista"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Mikaeus, the Unhallowed",
-            "Devoted Druid"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
-          ],
-          "diagnosis": [
-            "Mikaeus, the Unhallowed: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Mikaeus, the Unhallowed",
-            "Triskelion"
-          ],
-          "produces": [
-            "Infinite damage",
-            "Infinite death triggers",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Mikaeus, the Unhallowed: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Walking Ballista",
-            "Mikaeus, the Unhallowed"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
-          ],
-          "diagnosis": [
-            "Mikaeus, the Unhallowed: no loop abilities parsed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -507,15 +467,11 @@
     "decks": 14,
     "connectivity": 0.991,
     "spellbookCombos": 68,
-    "matched": 59,
-    "recall": 0.868,
+    "matched": 62,
+    "recall": 0.912,
     "engineOnly": 6
   },
   "topUnparsed": [
-    {
-      "card": "Mikaeus, the Unhallowed",
-      "misses": 3
-    },
     {
       "card": "Mystic Forge",
       "misses": 2

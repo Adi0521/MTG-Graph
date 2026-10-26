@@ -70,7 +70,8 @@ export type Output =
   | { type: 'lifegain'; amount: number }
   | { type: 'drain'; amount: number; damage: boolean }
   /** 'host' = the creature an aura or soulbond grants this to. */
-  | { type: 'counter'; target: TargetSpec | 'self' | 'host' }
+  /** each: "on each creature you control" (Archangel of Thune); amount 0 = "that many" (the life gained). */
+  | { type: 'counter'; target: TargetSpec | 'self' | 'host'; each?: boolean; amount?: number }
   | { type: 'draw'; amount: number }
   | { type: 'selfLifeLoss'; amount: number };
 
@@ -267,11 +268,11 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   const selfDamage = /deals? (\d+) damage to you|you lose (\d+) life/.exec(effect);
   if (selfDamage) outputs.push({ type: 'selfLifeLoss', amount: toNumber(selfDamage[1] ?? selfDamage[2]) });
 
-  const counter = /put (?:a|one|two|that many|\w+) \+1\/\+1 counters? on (~|target [^.]*?|each (?:other )?creature you control)(?:\.|,| and|$)/.exec(effect);
+  const counter = /put (a|one|two|three|that many|\w+) \+1\/\+1 counters? on (~|target [^.]*?|each (?:other )?creature you control)(?:\.|,| and|$)/.exec(effect);
   if (counter) {
     // Inside a granted ability, "~" ("this creature") is the host, not the card granting it.
-    const target = counter[1] === '~' ? (host ? 'host' : 'self') : parseTargetSpec(counter[1]!.replace(/^each /, ''));
-    outputs.push({ type: 'counter', target });
+    const target = counter[2] === '~' ? (host ? 'host' : 'self') : parseTargetSpec(counter[2]!.replace(/^each /, ''));
+    outputs.push({ type: 'counter', target, each: counter[2]!.startsWith('each'), amount: counter[1] === 'that many' ? 0 : toNumber(counter[1]) });
   }
 
   const draw = /\bdraws? (a|two|three|x|\d+) cards?/.exec(effect);
@@ -518,6 +519,28 @@ export function castFromHand(card: Card): Ability {
     casts: types,
     id: `${card.name}#cast`,
   });
+}
+
+/** Can `produced` pay `cost`? Returns leftover mana or null. */
+export function payMana(produced: ManaProduction, cost: ManaCost): ManaProduction | null {
+  const left = { ...produced };
+  for (const color of COLORS) {
+    let need = cost[color];
+    const fromExact = Math.min(need, left[color]);
+    left[color] -= fromExact;
+    need -= fromExact;
+    const fromAny = Math.min(need, left.any);
+    left.any -= fromAny;
+    need -= fromAny;
+    if (need > 0) return null;
+  }
+  let generic = cost.generic;
+  for (const key of [...COLORS, 'any'] as const) {
+    const used = Math.min(generic, left[key]);
+    left[key] -= used;
+    generic -= used;
+  }
+  return generic > 0 ? null : left;
 }
 
 /** Cards in the deck that can give another creature lifelink, by name. */

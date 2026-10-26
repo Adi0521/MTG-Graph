@@ -104,7 +104,7 @@ function setStatus(message: string, isError = false) {
   statusEl.classList.toggle('error', isError);
 }
 
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const plural = (n: number, word: string, many = `${word}s`) => `${n} ${n === 1 ? word : many}`;
 const kindLabel = (k: EdgeKind) => EDGE_KIND_META[k].label;
 const kindColor = (k: EdgeKind) => EDGE_KIND_META[k].color;
 const visibleReasons = (edge: SynergyEdge) => edge.reasons.filter((r) => enabledKinds.has(r.kind));
@@ -586,6 +586,21 @@ function comboHighlight(c: DetectedCombo): Highlight {
   };
 }
 
+/** "+{C}{C} mana · 1 death · opponent −2 life" from the simulator's exact numbers. */
+function describePerLoop(e: NonNullable<DetectedCombo['engine']>): string {
+  const p = e.verification.perLoop;
+  const parts: string[] = [];
+  if (e.netMana !== 'none') parts.push(`+${e.netMana} mana`);
+  if (p.deaths) parts.push(plural(p.deaths, 'death'));
+  if (p.etbs) parts.push(plural(p.etbs, 'creature entering', 'creatures entering'));
+  if (p.tokens) parts.push(`+${plural(p.tokens, 'token')}`);
+  if (p.casts) parts.push(plural(p.casts, 'spell cast', 'spells cast'));
+  if (p.draws) parts.push(plural(p.draws, 'card drawn', 'cards drawn'));
+  if (p.life) parts.push(`you ${p.life > 0 ? '+' : ''}${p.life} life`);
+  if (p.opponentLife) parts.push(`opponent ${p.opponentLife} life`);
+  return parts.join(' · ') || 'repeats with no net change';
+}
+
 function comboItem(c: DetectedCombo): HTMLElement {
   const highlightKey = `combo:${c.id}`;
   const active = highlight?.key === highlightKey;
@@ -601,7 +616,8 @@ function comboItem(c: DetectedCombo): HTMLElement {
             h('strong', {}, 'Extra pieces: '),
             e.helpers.map((hp) => (e.helperAlternatives[hp]?.length ? `${hp} (or ${e.helperAlternatives[hp]!.join(', ')})` : hp)).join('; '),
           ),
-        e && h('div', { class: 'combo-section' }, h('strong', {}, 'Mana left over per loop: '), e.netMana),
+        e && e.verification.startup.length > 0 && h('div', { class: 'combo-section' }, h('strong', {}, 'To start: '), e.verification.startup.join(' · ')),
+        e && h('div', { class: 'combo-section' }, h('strong', {}, 'Each loop (simulated): '), describePerLoop(e)),
         e && e.payoffs.length > 0 &&
           h('div', { class: 'combo-section' }, h('strong', {}, 'Payoffs in deck: '), e.payoffs.map((p) => p.card).join(', ')),
         e && e.warnings.length > 0 && h('div', { class: 'combo-section warn' }, ...e.warnings.map((w) => h('div', {}, `⚠ ${w}`))),
