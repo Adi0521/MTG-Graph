@@ -1,0 +1,37 @@
+// Archetype: Temur creature cost reduction (Animar, Soul of Elements)
+Commander
+1 Animar, Soul of Elements
+Deck
+1 Ancestral Statue
+1 Cloudstone Curio
+1 Ornithopter
+1 Shrieking Drake
+1 Kozilek's Predator
+1 Ugin's Conjurant
+1 Hangarback Walker
+1 Walking Ballista
+1 Grim Monolith
+1 Primal Forcemage
+1 Etherium Sculptor
+1 Herald of Kozilek
+1 Rishkar, Peema Renegade
+1 Prime Speaker Zegana
+1 Craterhoof Behemoth
+1 Temur Sabertooth
+1 Eternal Witness
+1 Mulldrifter
+1 Coiling Oracle
+1 Llanowar Elves
+1 Birds of Paradise
+1 Lotus Cobra
+1 Sol Ring
+1 Pemmin's Aura
+1 Zealous Conscripts
+1 Kiki-Jiki, Mirror Breaker
+1 Pestermite
+1 Deceiver Exarch
+1 Ghostly Flicker
+1 Dockside Extortionist
+10 Forest
+10 Island
+10 Mountain

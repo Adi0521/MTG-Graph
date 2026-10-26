@@ -1,0 +1,36 @@
+// Archetype: -1/-1 counters (Hapatra, Vizier of Poisons)
+Commander
+1 Hapatra, Vizier of Poisons
+Deck
+1 Nest of Scarabs
+1 Blowfly Infestation
+1 Black Sun's Zenith
+1 Devoted Druid
+1 Vizier of Remedies
+1 Channeler Initiate
+1 Fertilid
+1 Kitchen Finks
+1 Woodfall Primus
+1 Puppeteer Clique
+1 Carnifex Demon
+1 Grim Affliction
+1 Contagion Engine
+1 The Ozolith
+1 Ochre Jelly
+1 Skullbriar, the Walking Grave
+1 Necroskitter
+1 Flourishing Defenses
+1 Viscera Seer
+1 Ashnod's Altar
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Archfiend of Ifnir
+1 Polukranos, Unchained
+1 Sol Ring
+1 Arcane Signet
+1 Golgari Signet
+1 Midnight Reaper
+1 Grim Haruspex
+1 Evolution Sage
+15 Swamp
+15 Forest

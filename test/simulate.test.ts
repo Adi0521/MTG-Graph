@@ -85,4 +85,62 @@ describe('loop simulator', () => {
       expect(combo.netMana).toBe('{any}');
     });
   });
+
+  describe('equipment and aura untaps, variable mana', () => {
+    it('states how much mana a board-dependent source must make', () => {
+      const combo = only('Staff of Domination', 'Priest of Titania');
+      expect(combo.prerequisites).toContain('Priest of Titania makes at least 5 mana (for each elf on the battlefield)');
+    });
+
+    it('untaps through equipment ({Q}) and auras', () => {
+      expect(only('Umbral Mantle', 'Priest of Titania').prerequisites).toContain('Umbral Mantle is attached to Priest of Titania');
+      const freed = only('Bloom Tender', 'Freed from the Real');
+      expect(freed.prerequisites).toEqual(
+        expect.arrayContaining(['Freed from the Real is attached to Bloom Tender', 'Bloom Tender makes at least 2 mana (one per color among your permanents)']),
+      );
+    });
+
+    it('amplifies mana with Kinnan and High Tide', () => {
+      expect(run('Basalt Monolith').combos).toEqual([]);
+      expect(only('Basalt Monolith', 'Kinnan, Bonder Prodigy').netMana).toBe('{C}');
+      expect(run('Palinchron').combos).toEqual([]); // 7 mana in, {5}{U}{U} + {2}{U}{U} out
+      expect(only('Palinchron', 'High Tide').prerequisites).toContain('High Tide was cast this turn and the lands untapped are Islands');
+    });
+
+    it('recasts Dockside Extortionist with Temur Sabertooth given enough opposing artifacts', () => {
+      expect(only('Dockside Extortionist', 'Temur Sabertooth').prerequisites[0]).toMatch(/^Dockside Extortionist makes at least 4 mana/);
+    });
+  });
+
+  describe('death-return enablers', () => {
+    it('lets persist creatures loop under Solemnity', () => {
+      // Without Solemnity Kitchen Finks returns with a -1/-1 counter and stops.
+      expect(run('Kitchen Finks', 'Viscera Seer').combos).toEqual([]);
+      expect(only('Kitchen Finks', 'Viscera Seer', 'Solemnity').helpers).toEqual(['Solemnity']);
+      // Murderous Redcap kills itself with its own enter trigger.
+      expect(only('Murderous Redcap', 'Solemnity').verification.perLoop.deaths).toBe(1);
+    });
+
+    it('recycles a creature with Nim Deathmantle, paid for by its own tokens', () => {
+      expect(only('Wurmcoil Engine', 'Nim Deathmantle', "Ashnod's Altar").netMana).toBe('{C}{C}');
+      // Four Myr plus Battlesphere: five artifacts for {C}{C} each, minus {4} for Nim Deathmantle.
+      expect(only('Myr Battlesphere', 'Nim Deathmantle', 'Krark-Clan Ironworks').netMana).toBe('{C}{C}{C}{C}{C}{C}');
+    });
+
+    it('alternates persist and Nim Deathmantle', () => {
+      const combo = only('Murderous Redcap', 'Nim Deathmantle', "Ashnod's Altar");
+      expect(combo.verification.perLoop.deaths).toBe(2);
+    });
+
+    it('loops Reveillark and Karmic Guide through a free outlet', () => {
+      const combo = only('Reveillark', 'Karmic Guide', 'Viscera Seer');
+      expect(combo.verification.perLoop.deaths).toBe(2);
+    });
+
+    it('doubles Pitiless Plunderer with Teysa Karlov', () => {
+      expect(run('Reassembling Skeleton', 'Viscera Seer', 'Pitiless Plunderer').combos).toEqual([]);
+      const combo = only('Reassembling Skeleton', 'Viscera Seer', 'Pitiless Plunderer', 'Teysa Karlov');
+      expect(combo.helpers).toEqual(expect.arrayContaining(['Teysa Karlov']));
+    });
+  });
 });

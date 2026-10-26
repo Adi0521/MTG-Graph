@@ -1,0 +1,36 @@
+// Archetype: Undying/persist (Yawgmoth, Thran Physician)
+Commander
+1 Yawgmoth, Thran Physician
+Deck
+1 Young Wolf
+1 Geralf's Messenger
+1 Butcher Ghoul
+1 Strangleroot Geist
+1 Blowfly Infestation
+1 Nest of Scarabs
+1 Grim Haruspex
+1 Carrion Feeder
+1 Viscera Seer
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Mikaeus, the Unhallowed
+1 Rhonas's Monument
+1 Eternal Witness
+1 Sakura-Tribe Elder
+1 Satyr Wayfinder
+1 Fleshbag Marauder
+1 Plaguecrafter
+1 Gravecrawler
+1 Phyrexian Altar
+1 Ashnod's Altar
+1 Pitiless Plunderer
+1 Woe Strider
+1 Fecundity
+1 Ravenous Chupacabra
+1 Bitterblossom
+1 Skullclamp
+1 Black Market Connections
+1 Glissa Sunslayer
+1 Hapatra, Vizier of Poisons
+15 Swamp
+15 Forest

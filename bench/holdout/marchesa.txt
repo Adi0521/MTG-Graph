@@ -1,0 +1,37 @@
+// Archetype: Grixis counters and recursion (Marchesa, the Black Rose)
+Commander
+1 Marchesa, the Black Rose
+Deck
+1 Phyrexian Altar
+1 Ashnod's Altar
+1 Viscera Seer
+1 Carrion Feeder
+1 Murderous Redcap
+1 Puppeteer Clique
+1 Kitchen Finks
+1 Glen Elendra Archmage
+1 Mikaeus, the Unhallowed
+1 Triskelion
+1 Walking Ballista
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Pestermite
+1 Deceiver Exarch
+1 Gravecrawler
+1 Reassembling Skeleton
+1 Pitiless Plunderer
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Mulldrifter
+1 Shriekmaw
+1 Eternal Witness
+1 Dockside Extortionist
+1 Sol Ring
+1 Arcane Signet
+1 Dimir Signet
+1 Rakdos Signet
+1 Animate Dead
+1 Necromancy
+10 Swamp
+10 Island
+10 Mountain

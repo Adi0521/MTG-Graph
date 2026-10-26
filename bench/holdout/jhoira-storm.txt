@@ -1,0 +1,36 @@
+// Archetype: Artifact storm (Jhoira, Weatherlight Captain)
+Commander
+1 Jhoira, Weatherlight Captain
+Deck
+1 Sensei's Divining Top
+1 Mystic Forge
+1 Etherium Sculptor
+1 Foundry Inspector
+1 Cloud Key
+1 Helm of Awakening
+1 Semblance Anvil
+1 Ornithopter
+1 Memnite
+1 Mox Opal
+1 Paradox Engine
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Grim Monolith
+1 Basalt Monolith
+1 Rings of Brighthearth
+1 Power Artifact
+1 Sol Ring
+1 Mana Vault
+1 Mind Stone
+1 Unwinding Clock
+1 Voltaic Key
+1 Krark-Clan Ironworks
+1 Myr Retriever
+1 Scrap Trawler
+1 Sai, Master Thopterist
+1 Aetherflux Reservoir
+1 Kurkesh, Onakke Ancient
+1 Thopter Foundry
+1 Sword of the Meek
+15 Island
+15 Mountain

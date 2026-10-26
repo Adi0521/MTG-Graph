@@ -1,0 +1,36 @@
+// Archetype: Golgari Food and artifacts (Gyome, Master Chef)
+Commander
+1 Gyome, Master Chef
+Deck
+1 Academy Manufactor
+1 Witch's Oven
+1 Cauldron Familiar
+1 Nuka-Cola Vending Machine
+1 Peregrin Took
+1 Tireless Provisioner
+1 Gilded Goose
+1 Savvy Hunter
+1 Trail of Crumbs
+1 Bake into a Pie
+1 Gingerbrute
+1 Feasting Troll King
+1 Ravenous Squirrel
+1 Chatterfang, Squirrel General
+1 Pitiless Plunderer
+1 Ashnod's Altar
+1 Krark-Clan Ironworks
+1 Myr Retriever
+1 Scrap Trawler
+1 Nim Deathmantle
+1 Wurmcoil Engine
+1 Deadly Dispute
+1 Village Rites
+1 Tireless Tracker
+1 Revel in Riches
+1 Mayhem Devil
+1 Korvold, Fae-Cursed King
+1 Sol Ring
+1 Arcane Signet
+1 Golgari Signet
+15 Swamp
+15 Forest

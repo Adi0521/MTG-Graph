@@ -1,0 +1,36 @@
+// Archetype: Golgari elf tokens (Lathril, Blade of the Elves)
+Commander
+1 Lathril, Blade of the Elves
+Deck
+1 Elvish Archdruid
+1 Priest of Titania
+1 Marwyn, the Nurturer
+1 Umbral Mantle
+1 Staff of Domination
+1 Elvish Visionary
+1 Llanowar Elves
+1 Elvish Mystic
+1 Fyndhorn Elves
+1 Wirewood Symbiote
+1 Elvish Harbinger
+1 Dwynen's Elite
+1 Elderfang Ritualist
+1 Elvish Warmaster
+1 Imperious Perfect
+1 Beast Whisperer
+1 Ezuri, Renegade Leader
+1 Craterhoof Behemoth
+1 Pitiless Plunderer
+1 Viscera Seer
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Skullclamp
+1 Sol Ring
+1 Arcane Signet
+1 Golgari Signet
+1 Eternal Witness
+1 Gilded Goose
+15 Forest
+15 Swamp

@@ -1,0 +1,37 @@
+// Archetype: Jeskai spells and spirits (Kykar, Wind's Fury)
+Commander
+1 Kykar, Wind's Fury
+Deck
+1 Jeskai Ascendancy
+1 Sprite Dragon
+1 Young Pyromancer
+1 Talrand, Sky Summoner
+1 Murmuring Mystic
+1 Third Path Iconoclast
+1 Monastery Mentor
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Dualcaster Mage
+1 Twinflame
+1 Ghostly Flicker
+1 Mnemonic Wall
+1 Archaeomancer
+1 Guttersnipe
+1 Firebrand Archer
+1 Electrostatic Field
+1 Niv-Mizzet, Parun
+1 Curiosity
+1 Brainstorm
+1 Ponder
+1 Lightning Bolt
+1 Counterspell
+1 Swords to Plowshares
+1 Sol Ring
+1 Arcane Signet
+1 Talisman of Progress
+1 Talisman of Creativity
+1 Storm-Kiln Artist
+1 Veyran, Voice of Duality
+10 Island
+10 Plains
+10 Mountain

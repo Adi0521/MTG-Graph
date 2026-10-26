@@ -212,8 +212,8 @@ function parseVariableMana(effect: string): Extract<Output, { type: 'mana' }> | 
   if (/for each color among permanents you control, add one mana of that color/.test(effect)) {
     return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: 'one per color among your permanents' };
   }
-  const treasures = /\bcreate (?:a|x) treasure tokens? for each ([^.]+)/.exec(effect);
-  if (treasures) return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: `a Treasure for each ${treasures[1]}` };
+  const treasures = /\bcreate (?:a|x) treasure tokens? for each ([^.]+)|\bcreate x treasure tokens, where x is ([^.]+)/.exec(effect);
+  if (treasures) return { type: 'mana', mana: { ...emptyProduction(), any: 1 }, variable: treasures[1] ? `a Treasure for each ${treasures[1]}` : `X Treasures, X = ${treasures[2]}` };
   return null;
 }
 
@@ -270,7 +270,8 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
       outputs.push({
         type: 'creature',
         token: true,
-        count: toNumber(tokens[1] ?? tokens[3]),
+        // "create a 3/3 ... token with deathtouch and a 3/3 ... token with lifelink" (Wurmcoil Engine) makes two.
+        count: toNumber(tokens[1] ?? tokens[3]) + (/tokens? with [^.]* and a \d+\/\d+ [^.]*tokens?/.test(effect) ? 1 : 0),
         haste: /with haste|gains? haste/.test(effect),
         artifact: /artifact creature tokens?/.test(tokens[0]),
         pt: tokens[2] ?? null,
@@ -294,7 +295,8 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   if (/return the exiled card to the battlefield/.test(effect)) outputs.push({ type: 'returnExiled' });
   const reanimate = /return (?:up to \w+ )?target ([^.]*?creature cards?[^.]*?) from your graveyard to the battlefield/.exec(effect);
   if (reanimate) outputs.push({ type: 'reanimate', target: parseTargetSpec(reanimate[1]!) });
-  if (/return that card to the battlefield/.test(effect)) outputs.push({ type: 'recurDied' });
+  // Nim Deathmantle's "return that card to the battlefield" (not a blink's "exile ..., then return that card").
+  if (/return that card to the battlefield/.test(effect) && !/\bexile\b/.test(effect)) outputs.push({ type: 'recurDied' });
   const landUntap = /untap up to (\w+) lands/.exec(effect);
   if (landUntap) outputs.push({ type: 'mana', mana: { ...emptyProduction(), any: toNumber(landUntap[1]) }, fromLands: true });
 
@@ -327,6 +329,8 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   if (lose) outputs.push({ type: 'drain', amount: lose[1] === 'that much' ? 0 : toNumber(lose[1]), damage: false });
   const damage = /deals? (\d+|x) damage to (?:any target|each opponent|target player|target opponent|any other target)/.exec(effect);
   if (damage) outputs.push({ type: 'drain', amount: toNumber(damage[1]), damage: true });
+  // "deals damage equal to its power to any target" (Murderous Redcap): amount -1 means "its power".
+  else if (/deals? damage equal to (?:its|~'s) power to any target/.test(effect)) outputs.push({ type: 'drain', amount: -1, damage: true });
   const selfDamage = /deals? (\d+) damage to you|you lose (\d+) life/.exec(effect);
   if (selfDamage) outputs.push({ type: 'selfLifeLoss', amount: toNumber(selfDamage[1] ?? selfDamage[2]) });
 
@@ -338,8 +342,8 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   }
 
   if (/put ~ on top of its owner's library/.test(effect)) outputs.push({ type: 'toTop' });
-  const bounce = /return target ((?:spell or )?(?:nonland )?(?:permanent|creature|artifact)) to its owner's hand/.exec(effect);
-  if (bounce) outputs.push({ type: 'bounce', target: parseTargetSpec(bounce[1]!.replace('spell or ', '')) });
+  const bounce = /return (target|another) ((?:spell or )?(?:nonland )?(?:permanent|creature|artifact))(?: you control)? to its owner's hand/.exec(effect);
+  if (bounce) outputs.push({ type: 'bounce', target: parseTargetSpec(bounce[2]!.replace('spell or ', ''), bounce[1] === 'another') });
   else if (/return ~ to its owner's hand/.test(effect)) outputs.push({ type: 'bounce', target: 'self' });
   if (/sacrifices? all creatures they control, then puts? all cards they exiled this way onto the battlefield/.test(effect)) outputs.push({ type: 'massReanimate' });
 
@@ -485,8 +489,10 @@ export function parseAbilities(card: Card): Ability[] {
   const lines = card.text.split('\n');
   const displayLines = card.oracleText.split('\n');
 
-  lines.forEach((line, i) => {
-    const display = (displayLines[i] ?? line).replace(/ ?\([^)]*\)/g, '');
+  lines.forEach((rawLine, i) => {
+    // Ability words ("Vivid —", "Landfall —") are labels, not costs.
+    const line = rawLine.replace(/^[a-z' ]+ — (?=\{|when|whenever|at )/, '');
+    const display = (displayLines[i] ?? rawLine).replace(/ ?\([^)]*\)/g, '');
 
     // Granted abilities: 'Enchanted creature has "{T}: ..."', soulbond's 'each of those creatures has "..."'.
     const granted = /(enchanted creature|equipped creature|each of those creatures) has "([^"]+)"/.exec(line);
@@ -583,7 +589,7 @@ export function landAmplifier(card: Card): boolean {
 
 /** Kinnan, Bonder Prodigy: "whenever you tap a nonland permanent for mana, add one additional mana". */
 export function manaAmplifier(card: Card): boolean {
-  return /whenever you tap a nonland permanent for mana, add one additional mana/.test(card.text);
+  return /whenever you tap a nonland permanent for mana, add one (?:additional )?mana/.test(card.text);
 }
 
 /** Power Artifact: "Enchanted artifact's activated abilities cost {2} less ... can't reduce ... to less than one mana." */

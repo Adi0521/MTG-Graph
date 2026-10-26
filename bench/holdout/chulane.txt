@@ -1,0 +1,37 @@
+// Archetype: Bant bounce (Chulane, Teller of Tales)
+Commander
+1 Chulane, Teller of Tales
+Deck
+1 Aluren
+1 Cloudstone Curio
+1 Shrieking Drake
+1 Temur Sabertooth
+1 Whitemane Lion
+1 Kor Skyfisher
+1 Coiling Oracle
+1 Elvish Visionary
+1 Wall of Omens
+1 Man-o'-War
+1 Mulldrifter
+1 Eternal Witness
+1 Mentor of the Meek
+1 Ancestral Statue
+1 Stonehorn Dignitary
+1 Deadeye Navigator
+1 Great Whale
+1 Peregrine Drake
+1 Ephemerate
+1 Conjurer's Closet
+1 Birds of Paradise
+1 Lotus Cobra
+1 Tatyova, Benthic Druid
+1 Arixmethes, Slumbering Isle
+1 Sol Ring
+1 Arcane Signet
+1 Panharmonicon
+1 Restoration Angel
+1 Felidar Guardian
+1 Glen Elendra Archmage
+10 Forest
+10 Island
+10 Plains

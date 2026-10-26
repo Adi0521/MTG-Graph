@@ -30,6 +30,10 @@ export interface LoopPlan {
   reducedCard?: string;
   /** Other creatures a mass reanimation (Living Death) needs, beyond the loop's cards. */
   extraCreatures?: number;
+  /** Units for board-dependent mana (Priest of Titania's Elves). */
+  variableX?: number;
+  /** Cards the loop also sacrifices each pass (Reveillark's partner), to a free outlet. */
+  extraSacrifices?: string[];
 }
 
 export interface PerLoop {
@@ -170,7 +174,7 @@ class Simulation {
     };
     // "~ enters with three +1/+1 counters on it" (X is 0).
     const counters = /~ enters with (\w+) \+1\/\+1 counters? on it/.exec(c.text);
-    if (counters && !token) p.plus += NUMBER[counters[1]!] ?? (Number(counters[1]) || 0);
+    if (counters && !token && !this.plan.helpers.some((h) => h.kind === 'counterBlocker')) p.plus += NUMBER[counters[1]!] ?? (Number(counters[1]) || 0);
     this.perms.push(p);
     if (p.types.includes('creature')) this.events.push({ type: 'etb', card: token ? null : card, token, types: p.types });
     // Urza: tap each artifact as it arrives for mana, unless the loop needs to tap it itself.
@@ -203,6 +207,8 @@ class Simulation {
   }
 
   private addCounters(p: Perm, plus: number, minus: number) {
+    // Solemnity: counters can't be put on permanents.
+    if (this.plan.helpers.some((h) => h.kind === 'counterBlocker')) return;
     p.plus += plus;
     p.minus += minus;
     // +1/+1 and -1/-1 counters annihilate.
@@ -325,6 +331,9 @@ class Simulation {
       const toOpponent = self.plus - toSelf;
       for (let n = 0; n < toOpponent; n++) this.activate(i, a, input, { res: 'drain' });
       for (let n = 0; n < toSelf; n++) this.activate(i, a, input, output, { damageSelf: true });
+    } else if (a.kind === 'triggered' && a.outputs.some((o) => o.type === 'drain' && o.damage)) {
+      // An enter trigger that deals damage to itself (Murderous Redcap pointing at itself).
+      this.activate(i, a, input, output, { damageSelf: true });
     } else {
       for (let n = 0; n < 40 && this.perms.includes(self); n++) {
         this.activate(i, a, input, output);
@@ -408,6 +417,10 @@ class Simulation {
     if (doubled) {
       for (const o of a.outputs) this.resolve(i, a, o, input, o.type === 'bounce' ? { res: 'hand', object: a.card } : output, opts);
     }
+    // Teysa Karlov: death triggers happen twice (the second copy's mana and life; its targets are the same).
+    if (a.trigger?.type === 'death' && this.plan.helpers.some((h) => h.kind === 'deathDoubler')) {
+      for (const o of a.outputs) if (o.type === 'mana' || o.type === 'lifegain' || o.type === 'drain') this.resolve(i, a, o, input, output, opts);
+    }
     if (a.id.endsWith('#persist')) {
       const back = this.find(a.card);
       if (back) this.addCounters(back, 0, 1);
@@ -457,9 +470,25 @@ class Simulation {
   private resolve(i: number, a: Ability, o: Output, input: Binding, output: Binding, opts: { damageSelf?: boolean }) {
     const host = this.plan.hosts[i];
     switch (o.type) {
-      case 'mana':
-        for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k];
+      case 'mana': {
+        const times = o.variable ? (this.plan.variableX ?? 1) : 1;
+        // High Tide: each Island untapped for mana makes an extra {U}.
+        if (o.fromLands && this.plan.helpers.some((h) => h.kind === 'landAmplifier')) this.pool.U += o.mana.any * times;
+        for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k] * times;
+        // Kinnan: tapping a nonland permanent for mana adds one more.
+        if (a.kind === 'activated' && a.cost.tap && !this.typesOf(a.card).includes('land') && this.plan.helpers.some((h) => h.kind === 'manaAmplifier')) {
+          const key = ([...COLORS, 'any'] as const).find((k) => o.mana[k] > 0);
+          if (key) this.pool[key] += 1;
+        }
         return;
+      }
+      case 'recurDied': {
+        const card = input.res === 'death' ? input.object : null;
+        if (!card) return;
+        if (!this.takeFrom(this.graveyard, card) && this.problem(`${card} starts in your graveyard`)) this.leaveIfPresent(card);
+        this.enter(card, false);
+        return;
+      }
       case 'tokenMana':
         if (output.res !== 'body') {
           for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k];
@@ -523,10 +552,17 @@ class Simulation {
       }
       case 'untap': {
         if (o.all) {
-          for (const p of this.perms) if (!(o.target !== 'self' && o.target.nonland && p.types.includes('land'))) p.tapped = false;
+          for (const p of this.perms) if (!(typeof o.target !== 'string' && o.target.nonland && p.types.includes('land'))) p.tapped = false;
           return;
         }
-        const name = o.target === 'self' ? a.card : output.res === 'untap' || output.res === 'reset' ? output.object! : this.firstTapped(o.target, a.card);
+        const name =
+          o.target === 'self'
+            ? a.card
+            : o.target === 'host'
+              ? (this.plan.hosts[i] ?? output.object ?? null)
+              : output.res === 'untap' || output.res === 'reset'
+                ? output.object!
+                : this.firstTapped(o.target, a.card);
         const p = name ? this.find(name) : undefined;
         if (p) p.tapped = false;
         return;
@@ -546,9 +582,10 @@ class Simulation {
         return;
       }
       case 'drain': {
-        const amount = o.amount === 0 ? (this.lastAmount('lifegain') ?? 1) : o.amount;
+        const self = this.find(a.card);
+        const power = (this.cardOf(a.card).power ?? 0) + (self ? self.plus - self.minus + this.anthem(self) : 0);
+        const amount = o.amount === 0 ? (this.lastAmount('lifegain') ?? 1) : o.amount === -1 ? power : o.amount;
         if (opts.damageSelf) {
-          const self = this.find(a.card);
           if (self) self.damage += amount;
         } else {
           this.opponentLife -= amount;
@@ -613,7 +650,7 @@ class Simulation {
     return [...this.events].reverse().find((e) => e.type === 'lifegain')?.amount;
   }
 
-  private firstTapped(spec: Exclude<Extract<Output, { type: 'untap' }>['target'], 'self'>, source: string): string | null {
+  private firstTapped(spec: Exclude<Extract<Output, { type: 'untap' }>['target'], 'self' | 'host'>, source: string): string | null {
     const p = this.perms.find((x) => x.tapped && !x.token && matchesTarget(spec, this.cardOf(x.card), source));
     return p?.card ?? null;
   }
@@ -623,9 +660,12 @@ class Simulation {
     const riders = this.plan.helpers.filter((h): h is Extract<Helper, { kind: 'rider' }> => h.kind === 'rider');
     if (!riders.length) return;
     const fresh = this.events.slice(from);
+    const deathDoubled = this.plan.helpers.some((h) => h.kind === 'deathDoubler');
     for (const { ability } of riders) {
       for (const e of fresh) {
         if (!riderMatches(ability, e)) continue;
+        const times = e.type === 'death' && deathDoubled ? 2 : 1;
+        for (let n = 0; n < times; n++)
         for (const o of ability.outputs) {
           if (o.type === 'mana') for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k];
           if (o.type === 'lifegain') this.life += o.amount;
@@ -643,6 +683,18 @@ class Simulation {
 
   /** Leftover tokens go to a free sacrifice outlet for mana (Ashnod's Altar, Krark-Clan Ironworks). */
   private sacrificeSpareTokens() {
+    // Cards the loop also has to kill each pass (Reveillark's partner), sacrificed to any free outlet.
+    for (const name of this.plan.extraSacrifices ?? []) {
+      const p = this.find(name);
+      if (!p) continue;
+      const outlet = this.plan.cycle.find((a) => a.kind === 'activated' && a.cost.sacrifice && !a.cost.tap && totalMana(a.cost.mana) === 0);
+      if (!outlet) continue;
+      const before = this.events.length;
+      this.die(p);
+      const mana = has(outlet, 'mana');
+      if (mana) for (const k of [...COLORS, 'any'] as const) this.pool[k] += mana.mana[k];
+      this.fireRiders(before);
+    }
     const outlets = [
       ...this.plan.cycle.filter(isFreeOutlet),
       ...this.plan.helpers.flatMap((h) => (h.kind === 'outlet' ? [h.ability] : [])),
@@ -729,6 +781,8 @@ function riderMatches(r: Ability, e: Event): boolean {
       return e.type === 'drain';
     case 'draw':
       return e.type === 'draw';
+    case 'selfEtb':
+      return e.type === 'etb' && e.card === r.card;
     default:
       return false;
   }

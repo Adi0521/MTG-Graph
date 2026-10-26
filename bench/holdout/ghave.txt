@@ -1,0 +1,37 @@
+// Archetype: Abzan counters and tokens (Ghave, Guru of Spores)
+Commander
+1 Ghave, Guru of Spores
+Deck
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Doubling Season
+1 Cathars' Crusade
+1 Sage of Hours
+1 Hardened Scales
+1 Winding Constrictor
+1 Corpsejack Menace
+1 Cauldron of Souls
+1 Melira, Sylvok Outcast
+1 Kitchen Finks
+1 Murderous Redcap
+1 Lurking Predators
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Carrion Feeder
+1 Viscera Seer
+1 Pitiless Plunderer
+1 Bitterblossom
+1 Sporemound
+1 Thallid Germinator
+1 Mycoloth
+1 Spore Frog
+1 Fertilid
+1 Skullclamp
+1 Anafenza, Kin-Tree Spirit
+1 Mikaeus, the Lunarch
+1 Grim Haruspex
+1 Sol Ring
+1 Arcane Signet
+10 Forest
+10 Plains
+10 Swamp

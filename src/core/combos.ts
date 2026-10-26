@@ -15,6 +15,8 @@ export interface DetectedCombo {
   spellbookUrl?: string;
   /** The engine's own analysis: loop order, helpers, payoffs, warnings, net mana. */
   engine?: EngineCombo;
+  /** Other engine-verified card sets for the same combo (e.g. each persist creature for "a creature with persist"). */
+  variants?: string[][];
 }
 
 export interface SpellbookStatus {
@@ -42,10 +44,13 @@ function engineSteps(e: EngineCombo): string[] {
  * and every Spellbook card must be one of its pieces or an alternative for one of its helpers.
  * (Spellbook often lists a generic role, like "a mana rock", as a prerequisite instead of a card.)
  */
-export function confirms(e: EngineCombo, sbCards: string[]): boolean {
+export function confirms(e: EngineCombo, sbCards: string[], sbPrerequisites: string[] = []): boolean {
   const sb = new Set(sbCards);
   const covered = new Set([...e.cards, ...Object.values(e.helperAlternatives).flat()]);
-  return e.loop.every((c) => sb.has(c)) && sbCards.every((c) => covered.has(c));
+  // Spellbook may name a generic piece ("Requires Creature with Persist or Undying") where the engine names a card.
+  const generic = sbPrerequisites.filter((p) => p.startsWith('Requires ')).length;
+  const unlisted = e.loop.filter((c) => !sb.has(c)).length;
+  return unlisted <= generic && sbCards.every((c) => covered.has(c));
 }
 
 export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean }, spellbook: SpellbookResult | null, status: SpellbookStatus): ComboReport {
@@ -53,12 +58,14 @@ export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean
   const combos: DetectedCombo[] = [];
 
   for (const sb of spellbook?.included ?? []) {
-    // Prefer the engine combo closest in size to the Spellbook one.
-    const match = engine.combos
-      .filter((e) => confirms(e, sb.cards))
-      .sort((a, b) => Math.abs(a.cards.length - sb.cards.length) - Math.abs(b.cards.length - sb.cards.length))[0];
-    if (match) used.add(match);
-    combos.push(fromSpellbook(sb, match));
+    // Every engine combo that confirms it counts; the one closest in size is shown, the rest are variants.
+    const matches = engine.combos
+      .filter((e) => confirms(e, sb.cards, sb.prerequisites))
+      .sort((a, b) => Math.abs(a.cards.length - sb.cards.length) - Math.abs(b.cards.length - sb.cards.length));
+    for (const m of matches) used.add(m);
+    const combo = fromSpellbook(sb, matches[0]);
+    if (matches.length > 1) combo.variants = matches.slice(1).map((m) => m.cards);
+    combos.push(combo);
   }
   for (const e of engine.combos) {
     const key = setKey(e.cards);
