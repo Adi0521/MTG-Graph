@@ -89,6 +89,8 @@ export type Output =
   | { type: 'minusCounter'; target: TargetSpec }
   /** Dualcaster Mage: "copy target instant or sorcery spell". */
   | { type: 'spellCopy' }
+  /** An opponent mills cards (amount 0 = "that many", Mindcrank). */
+  | { type: 'mill'; amount: number }
   /** "After this phase, there is an additional combat phase" (withMain: "followed by an additional main phase"). */
   | { type: 'extraCombat'; withMain: boolean }
   /** 'host' = the creature an aura or soulbond grants this to. */
@@ -119,6 +121,8 @@ export type Trigger =
   | { type: 'attack'; source: 'self' | 'host'; firstTime: boolean; exert?: boolean }
   /** "Whenever ~/equipped creature deals combat damage to a player". */
   | { type: 'combatDamage'; source: 'self' | 'host' }
+  /** "Whenever a card is put into an opponent's graveyard from anywhere" (Bloodchief Ascension, Duskmantle Guildmage). */
+  | { type: 'mill' }
   /** "At the beginning of combat on your turn" (Helm of the Host). */
   | { type: 'beginCombat' }
   /** "At the beginning of each of your postcombat main phases" (Neheb, the Eternal). */
@@ -394,6 +398,8 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   }
 
   if (/put ~ on top of its owner's library/.test(effect)) outputs.push({ type: 'toTop' });
+  const mill = /(?:that player|target player|target opponent|each opponent) mills? (a|one|two|three|four|five|six|seven|eight|nine|ten|\d+|that many) cards?/.exec(effect);
+  if (mill) outputs.push({ type: 'mill', amount: mill[1] === 'that many' ? 0 : toNumber(mill[1]) });
   const minus = /put (?:a|one) -1\/-1 counter on (?:up to one )?(target creature[^.]*?)(?:\.|,| and|$)/.exec(effect);
   if (minus) outputs.push({ type: 'minusCounter', target: parseTargetSpec(minus[1]!) });
   if (/\bcopy target instant or sorcery spell\b/.test(effect)) outputs.push({ type: 'spellCopy' });
@@ -422,6 +428,7 @@ function parseTrigger(condition: string, granted: boolean): Trigger | null {
     return { type: 'death', self: false, another: !artifactDeath[1] && artifactDeath[2] === 'another ', nontoken: Boolean(artifactDeath[3]), what: 'artifact' };
   }
   if (/^at the beginning of combat on your turn/.test(condition)) return { type: 'beginCombat' };
+  if (/^whenever (?:a card is|one or more cards are) put into an opponent's graveyard from anywhere/.test(condition)) return { type: 'mill' };
   if (/^at the beginning of (?:each of )?your postcombat main phases?/.test(condition)) return { type: 'postcombatMain' };
   const combatDamage = /^when(?:ever)? (~|enchanted creature|equipped creature) deals combat damage to (?:a player|an opponent|one or more players)$/.exec(condition);
   if (combatDamage) return { type: 'combatDamage', source: combatDamage[1] === '~' && !granted ? 'self' : 'host' };
@@ -590,6 +597,9 @@ function parseTriggered(card: Card, lineNo: number, display: string, line: strin
   const payment = /you may pay ((?:\{[^}]+\})+)\. if you do, (.*)/.exec(effect);
   if (/you may pay/.test(effect) && !payment) return null;
   if (payment) effect = payment[2]!;
+  // Bloodchief Ascension: "if ~ has three or more quest counters on it" is set up over earlier turns: a prerequisite.
+  const threshold = SELF_THRESHOLD.exec(effect);
+  if (threshold) effect = effect.replace(SELF_THRESHOLD, '');
   // Scourge of the Throne: attacking the player with the most life is a choice the player can usually make.
   const mostLife = /^\s*if it's attacking the player with the most life or tied for most life,/;
   const attacksMostLife = trigger.type === 'attack' && mostLife.test(effect);
@@ -611,9 +621,13 @@ function parseTriggered(card: Card, lineNo: number, display: string, line: strin
   // a flickered creature is a new object), not once per turn.
   if (trigger.type === 'attack' && trigger.firstTime) ability.oncePerTurn = false;
   if (attacksMostLife) ability.conditions.push(`${card.name} attacks the player with the most life`);
+  if (threshold) ability.conditions.push(`${card.name} has ${threshold[1]} or more ${threshold[2]} counters`);
   if (intervening) ability.unmodeledCost = true;
   return ability;
 }
+
+/** "if ~ has three or more quest counters on it," on a counter kind other than +1/+1 or -1/-1. */
+const SELF_THRESHOLD = /^\s*if ~ has (\w+) or more ([a-z]+) counters on it,/;
 
 const parsedCache = new WeakMap<Card, Ability[]>();
 
@@ -680,8 +694,17 @@ function parseAbilitiesUncached(card: Card): Ability[] {
       return;
     }
 
+    // Duskmantle Guildmage: "{1}{U}{B}: Whenever a card is put into an opponent's graveyard from anywhere this turn,
+    // ..." sets up a trigger for the turn: the activation is a prerequisite, then the trigger is the loop step.
+    const forTurn = /^([^:]+): (whenever [^,]*?) this turn, (.*)$/.exec(line);
+    if (forTurn) {
+      const a = guard(parseTriggered(card, i, display, `${forTurn[2]}, ${forTurn[3]}`, false), line);
+      if (a) abilities.push({ ...a, conditions: [...a.conditions, `Activate ${card.name}'s ${forTurn[1]!.replace(/\{(\w)\}/g, (_, c: string) => `{${c.toUpperCase()}}`)} ability this turn first`] });
+      return;
+    }
+
     if (/^when|^whenever|^at the beginning of/.test(line)) {
-      const a = guard(parseTriggered(card, i, display, line, false), line);
+      const a = guard(parseTriggered(card, i, display, line, false), line.replace(/, if ~ has \w+ or more [a-z]+ counters on it,/, ','));
       if (a) abilities.push(a);
       return;
     }

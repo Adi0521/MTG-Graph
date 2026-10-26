@@ -667,115 +667,25 @@
         "Vampiric Tutor"
       ],
       "spellbookCombos": 14,
-      "engineCombos": 2,
-      "matched": 1,
-      "recall": 0.071,
+      "engineCombos": 14,
+      "matched": 13,
+      "recall": 0.929,
       "matchedCombos": [
-        "Exquisite Blood + Sanguine Bond"
+        "Bloodchief Ascension + Mindcrank",
+        "Bruvac the Grandiloquent + Fleet Swallower",
+        "Bruvac the Grandiloquent + Maddening Cacophony",
+        "Bruvac the Grandiloquent + Traumatize",
+        "Consuming Aberration + Fleet Swallower + Phenax, God of Deception",
+        "Consuming Aberration + Maddening Cacophony + Phenax, God of Deception",
+        "Consuming Aberration + Phenax, God of Deception + Traumatize",
+        "Duskmantle Guildmage + Mindcrank",
+        "Exquisite Blood + Sanguine Bond",
+        "Fleet Swallower + Phenax, God of Deception + Sewer Nemesis",
+        "Grindstone + Painter's Servant",
+        "Maddening Cacophony + Phenax, God of Deception + Sewer Nemesis",
+        "Phenax, God of Deception + Sewer Nemesis + Traumatize"
       ],
       "missed": [
-        {
-          "cards": [
-            "Bloodchief Ascension",
-            "Mindcrank"
-          ],
-          "produces": [
-            "Infinite mill",
-            "Near-infinite lifegain",
-            "Near-infinite lifegain triggers"
-          ],
-          "diagnosis": [
-            "Bloodchief Ascension: no loop abilities parsed",
-            "Mindcrank: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Bruvac the Grandiloquent",
-            "Fleet Swallower"
-          ],
-          "produces": [
-            "Infinite mill for target opponent",
-            "Near-infinite self-mill"
-          ],
-          "diagnosis": [
-            "Bruvac the Grandiloquent: no loop abilities parsed",
-            "Fleet Swallower: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Bruvac the Grandiloquent",
-            "Maddening Cacophony"
-          ],
-          "produces": [
-            "Infinite mill"
-          ],
-          "diagnosis": [
-            "Bruvac the Grandiloquent: no loop abilities parsed",
-            "Maddening Cacophony: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Bruvac the Grandiloquent",
-            "Traumatize"
-          ],
-          "produces": [
-            "Infinite mill for target opponent",
-            "Near-infinite self-mill"
-          ],
-          "diagnosis": [
-            "Bruvac the Grandiloquent: no loop abilities parsed",
-            "Traumatize: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Consuming Aberration",
-            "Fleet Swallower"
-          ],
-          "produces": [
-            "Infinite mill for target opponent"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Consuming Aberration: no loop abilities parsed",
-            "Fleet Swallower: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Consuming Aberration",
-            "Maddening Cacophony"
-          ],
-          "produces": [
-            "Infinite mill for target opponent",
-            "Near-infinite mill"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Consuming Aberration: no loop abilities parsed",
-            "Maddening Cacophony: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Consuming Aberration",
-            "Traumatize"
-          ],
-          "produces": [
-            "Infinite mill for target opponent"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Consuming Aberration: no loop abilities parsed",
-            "Traumatize: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Duskmantle Guildmage",
@@ -788,82 +698,6 @@
           ],
           "diagnosis": [
             "Maddening Cacophony: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Duskmantle Guildmage",
-            "Mindcrank"
-          ],
-          "produces": [
-            "Each opponent loses the game",
-            "Infinite mill",
-            "Near-infinite lifeloss"
-          ],
-          "diagnosis": [
-            "Mindcrank: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Sewer Nemesis",
-            "Fleet Swallower"
-          ],
-          "produces": [
-            "Infinite self-mill",
-            "Infinite mill for target opponent"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Sewer Nemesis: no loop abilities parsed",
-            "Fleet Swallower: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Painter's Servant",
-            "Grindstone"
-          ],
-          "produces": [
-            "Infinite self-mill",
-            "Infinite mill for target opponent"
-          ],
-          "diagnosis": [
-            "Painter's Servant: no loop abilities parsed",
-            "Grindstone: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Sewer Nemesis",
-            "Maddening Cacophony"
-          ],
-          "produces": [
-            "Infinite mill for target opponent",
-            "Near-infinite mill"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Sewer Nemesis: no loop abilities parsed",
-            "Maddening Cacophony: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Phenax, God of Deception",
-            "Sewer Nemesis",
-            "Traumatize"
-          ],
-          "produces": [
-            "Infinite self-mill",
-            "Infinite mill for target opponent"
-          ],
-          "diagnosis": [
-            "Phenax, God of Deception: no loop abilities parsed",
-            "Sewer Nemesis: no loop abilities parsed",
-            "Traumatize: no loop abilities parsed"
           ]
         }
       ],
@@ -1274,8 +1108,8 @@
     "decks": 12,
     "connectivity": 0.939,
     "spellbookCombos": 109,
-    "matched": 49,
-    "recall": 0.45,
+    "matched": 61,
+    "recall": 0.56,
     "engineOnly": 8
   },
   "topUnparsed": [
@@ -1296,10 +1130,6 @@
       "misses": 6
     },
     {
-      "card": "Phenax, God of Deception",
-      "misses": 6
-    },
-    {
       "card": "Rooftop Storm",
       "misses": 6
     },
@@ -1312,31 +1142,7 @@
       "misses": 4
     },
     {
-      "card": "Maddening Cacophony",
-      "misses": 4
-    },
-    {
-      "card": "Bruvac the Grandiloquent",
-      "misses": 3
-    },
-    {
-      "card": "Consuming Aberration",
-      "misses": 3
-    },
-    {
-      "card": "Fleet Swallower",
-      "misses": 3
-    },
-    {
       "card": "Hullbreaker Horror",
-      "misses": 3
-    },
-    {
-      "card": "Sewer Nemesis",
-      "misses": 3
-    },
-    {
-      "card": "Traumatize",
       "misses": 3
     },
     {
@@ -1356,10 +1162,6 @@
       "misses": 2
     },
     {
-      "card": "Mindcrank",
-      "misses": 2
-    },
-    {
       "card": "Oracle of Mul Daya",
       "misses": 2
     },
@@ -1368,19 +1170,11 @@
       "misses": 1
     },
     {
-      "card": "Bloodchief Ascension",
-      "misses": 1
-    },
-    {
-      "card": "Grindstone",
+      "card": "Maddening Cacophony",
       "misses": 1
     },
     {
       "card": "Noose Constrictor",
-      "misses": 1
-    },
-    {
-      "card": "Painter's Servant",
       "misses": 1
     },
     {

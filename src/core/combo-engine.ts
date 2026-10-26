@@ -28,6 +28,7 @@ import {
   type ManaProduction,
   type Output,
 } from './abilities.ts';
+import { findMillFinishers } from './finishers.ts';
 import { verifyLoop, type LoopPlan, type PerLoop } from './simulate.ts';
 import type { Card } from './types.ts';
 
@@ -135,7 +136,7 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
 
-export type Resource = 'combat' | 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
+export type Resource = 'mill' | 'combat' | 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
 
 export interface Binding {
   res: Resource;
@@ -413,6 +414,8 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
       }
       case 'minus':
         return has(a, 'minusCounter') ? { res: 'minus' } : null;
+      case 'mill':
+        return has(a, 'mill') ? { res: 'mill' } : null;
       case 'spellCopy':
         return has(a, 'spellCopy') ? { res: 'spellCopy' } : null;
       case 'cast': {
@@ -498,6 +501,8 @@ interface Events {
   combatDamage: string[];
   /** -1/-1 counters put on creatures. */
   minus: number;
+  /** Mill effects (each puts cards into an opponent's graveyard). */
+  mills: number;
   deaths: { object: string | null; token: boolean; types: string[] }[];
   etbs: { object: string | null; token: boolean; types: string[] }[];
   casts: string[][];
@@ -520,6 +525,8 @@ function riderFires(r: Ability, ev: Events): number {
       return ev.casts.filter((c) => (t.what === 'any' ? true : t.what === 'artifact' ? c.includes('artifact') : c.includes('instant') || c.includes('sorcery'))).length;
     case 'minus':
       return ev.minus;
+    case 'mill':
+      return ev.mills;
     // An aura or equipment's trigger is on one attacking creature, assumed to attack in every combat.
     case 'attack':
       return t.source === 'self' ? ev.attacks.filter((c) => c === r.card).length : ev.combats;
@@ -613,6 +620,7 @@ const THEN: Record<Resource, (b: Binding, next: string) => string> = {
   library: (b) => `this puts ${b.object} on top of your library`,
   leave: (b, next) => `${b.object} leaving the battlefield triggers ${next}`,
   cast: (_, next) => `casting the spell triggers ${next}`,
+  mill: (_, next) => `the milled cards going to the graveyard trigger ${next}`,
   combat: (b, next) => (b.object ? `${b.object} attacks in the next combat, triggering ${next}` : `the combat continues, triggering ${next}`),
 };
 
@@ -697,7 +705,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   const amountOf = (i: number, o: { amount: number }) => (o.amount === 0 ? (bound[i]!.amount ?? inputOf(i).amount ?? 1) : o.amount);
 
-  const events: Events = { combats: 0, attacks: [], combatDamage: [], minus: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
+  const events: Events = { combats: 0, attacks: [], combatDamage: [], minus: 0, mills: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
   for (const name of extraSacrifices) events.deaths.push({ object: name, token: false, types: typesOf(ctx, name) });
   const baseMana = emptyProduction();
   let baseLife = 0;
@@ -751,6 +759,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       if (o.type === 'counter') counters++;
       if (o.type === 'draw') events.draws += o.amount;
       if (o.type === 'minusCounter') events.minus++;
+      if (o.type === 'mill') events.mills++;
     }
     // Tokens not passed on as fodder and not sacrificed for their own mana are left over.
     const made = has(a, 'creature');
@@ -1136,9 +1145,15 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   if (per.casts) produces.push('Infinite spell casts');
   if (per.opponentLife < 0) produces.push(damage ? 'Infinite damage' : 'Infinite life loss for opponents');
   if (per.life > 0) produces.push('Infinite lifegain');
-  if (counters > 0) produces.push('Infinite +1/+1 counters');
+  // Solemnity stops the counters (it is what lets undying creatures return).
+  if (counters > 0 && !helpers.some((h) => h.kind === 'counterBlocker')) produces.push('Infinite +1/+1 counters');
   if (per.draws) produces.push('Infinite card draw');
   if (per.combats) produces.push('Infinite combat phases');
+  if (per.milled) {
+    produces.push('Opponents mill their whole library');
+    // A loop that runs on milling (Mindcrank) stops when their library is empty, so its other results are near-infinite.
+    if (bound.some((b) => b.res === 'mill')) for (let n = 0; n < produces.length; n++) produces[n] = produces[n]!.replace(/^Infinite /, 'Near-infinite ');
+  }
   if (produces.length === 0) return null;
 
   return {
@@ -1216,6 +1231,7 @@ export function inputs(a: Ability): Resource[] {
       leave: 'leave',
       minus: 'minus',
       spellCopy: 'spellCopy',
+      mill: 'mill',
       beginCombat: 'combat',
       attack: 'combat',
       combatDamage: 'combat',
@@ -1274,6 +1290,7 @@ export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByNam
     }
   }
   if (has(a, 'counter')) r.add('counter');
+  if (has(a, 'mill')) r.add('mill');
   if (has(a, 'extraCombat') || combatStep(a) !== undefined || has(a, 'copy')?.haste || has(a, 'blink')) r.add('combat');
   return [...r];
 }
@@ -1489,6 +1506,8 @@ export function findEngineCombos(
     o.loop.every((x) => c.cards.includes(x)) &&
     o.helpers.every((h) => c.cards.includes(h) || (o.helperAlternatives[h] ?? []).some((alt) => c.cards.includes(alt)));
   const minimal = found.filter((c) => !found.some((o) => o !== c && o.cards.length < c.cards.length && contains(c, o)));
+  // One-shot mill finishers (not loops), unless a loop already covers the same cards.
+  for (const f of findMillFinishers(sorted)) if (!minimal.some((c) => contains(f, c))) minimal.push({ ...f, size: f.cards.length, surplus: 0 });
   const combos = minimal
     .sort((a, b) => a.cards.length - b.cards.length || a.cards.join('|').localeCompare(b.cards.join('|')))
     .map(({ size: _size, surplus: _surplus, ...combo }) => combo);

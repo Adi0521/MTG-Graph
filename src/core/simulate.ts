@@ -53,6 +53,8 @@ export interface PerLoop {
   tokens: number;
   casts: number;
   combats: number;
+  /** Cards opponents mill per loop (the loop ends when their library does: it is a win, not infinite). */
+  milled: number;
 }
 
 export interface Verification {
@@ -86,7 +88,7 @@ interface Perm {
 type Phase = 'main' | 'combat';
 
 interface Event {
-  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat';
+  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill';
   /** For attacks: the first attack event of its combat (an aura's trigger fires once per combat). */
   first?: boolean;
   card?: string | null;
@@ -116,6 +118,7 @@ class Simulation {
   pool = emptyProduction();
   life = 20;
   opponentLife = 40;
+  opponentMilled = 0;
   setup = true;
   startup = new Set<string>();
   events: Event[] = [];
@@ -802,6 +805,13 @@ class Simulation {
       }
       case 'spellCopy':
         return;
+      case 'mill': {
+        // "that player mills that many cards" (Mindcrank): as many as the life just lost.
+        const amount = o.amount === 0 ? (this.lastAmount('drain') ?? 1) : o.amount;
+        this.opponentMilled += amount;
+        this.events.push({ type: 'mill', amount });
+        return;
+      }
       case 'extraCombat':
         this.addCombat(o.withMain);
         return;
@@ -932,6 +942,7 @@ class Simulation {
       opponentLife: this.opponentLife,
       events: [...this.events],
       combats: this.combatsStarted,
+      milled: this.opponentMilled,
     };
   }
 }
@@ -990,6 +1001,8 @@ function riderMatches(r: Ability, e: Event): boolean {
       return e.type === 'combatDamage' && (t.source === 'self' ? e.card === r.card : true);
     case 'beginCombat':
       return e.type === 'beginCombat';
+    case 'mill':
+      return e.type === 'mill';
     default:
       return false;
   }
@@ -1064,7 +1077,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
   }
   sim.events = [];
 
-  const empty: PerLoop = { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0 };
+  const empty: PerLoop = { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0, milled: 0 };
   try {
     // Two setup passes: some loops need priming before they repeat (Blowfly Infestation needs an Insect from the
     // first pass to kill in the second). Problems found here become startup requirements.
@@ -1102,6 +1115,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
         tokens: last.tokens - prev.tokens,
         casts: ev.filter((e) => e.type === 'cast').length,
         combats: last.combats,
+        milled: last.milled - prev.milled,
       },
     };
   } catch (err) {

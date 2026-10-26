@@ -244,6 +244,19 @@ describe('findEngineCombos', () => {
     expect(combosOf('Bear Umbra', 'Sword of Feast and Famine')).toEqual([]);
   });
 
+  it('finds mill loops (Mindcrank) and one-shot mill finishers', () => {
+    const [guildmage] = combosOf('Duskmantle Guildmage', 'Mindcrank');
+    expect(guildmage!.produces).toEqual(expect.arrayContaining(['Opponents mill their whole library', 'Near-infinite life loss for opponents']));
+    expect(guildmage!.prerequisites).toContain("Activate Duskmantle Guildmage's {1}{U}{B} ability this turn first");
+    expect(combosOf('Bloodchief Ascension', 'Mindcrank')[0]!.prerequisites).toContain('Bloodchief Ascension has three or more quest counters');
+    expect(combosOf('Mindcrank')).toEqual([]);
+    expect(combosOf('Bruvac the Grandiloquent', 'Traumatize')[0]!.prerequisites).toContain('an opponent with an odd number of cards in their library keeps one');
+    expect(combosOf("Painter's Servant", 'Grindstone')[0]!.produces).toEqual(['Opponents mill their whole library']);
+    expect(sets('Phenax, God of Deception', 'Consuming Aberration', 'Fleet Swallower')).toEqual([['Consuming Aberration', 'Fleet Swallower', 'Phenax, God of Deception']]);
+    expect(combosOf('Phenax, God of Deception', 'Consuming Aberration')).toEqual([]);
+    expect(combosOf('Grindstone')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

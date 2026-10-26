@@ -5,13 +5,13 @@ simulator over the whole card pool; "new" means Commander Spellbook's full datab
 cards. **Candidates, not confirmed combos:** each one is only as right as the rules that found it, so check it
 by hand (and against the current Oracle text) before sharing it.
 
-- Card pool: 30897 paper Commander-legal cards (3458 with loop abilities, 2632 usable as helpers)
+- Card pool: 30897 paper Commander-legal cards (3509 with loop abilities, 2633 usable as helpers)
 - Spellbook database: 115954 combos (export from 2026-10-26T19:12:34.650124+00:00)
-- Candidates evaluated: 649 single cards, 408149 pairs, 600 imprint pairs
-- Verified combos: 5817: 919 already in Spellbook, 766 variants of a Spellbook combo (one card swapped or added), **4132 new**
-- Families (same pattern of roles, interchangeable cards): 198: 114 contain a known combo, 81 add one piece to a known engine, **3 are new**
-- Loops rejected by the simulator: 8866
-- Run time: 90.6 s
+- Candidates evaluated: 660 single cards, 410957 pairs, 603 imprint pairs
+- Verified combos: 5823: 925 already in Spellbook, 766 variants of a Spellbook combo (one card swapped or added), **4132 new**
+- Families (same pattern of roles, interchangeable cards): 203: 116 contain a known combo, 84 add one piece to a known engine, **3 are new**
+- Loops rejected by the simulator: 8903
+- Run time: 111.1 s
 
 ## New families (3)
 
@@ -837,7 +837,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Vish Kal, Blood Arbiter + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
 - Warren Soultrader + Words of Wilding + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Words of Wilding instead of Quina, Qu Gourmet
 
-## Already in Spellbook (919)
+## Already in Spellbook (925)
 
 - Aetherflux Reservoir + Bloodthirsty Conqueror → [Spellbook 4740-6191](https://commanderspellbook.com/combo/4740-6191/)
 - Aetherflux Reservoir + Exquisite Blood → [Spellbook 3966-4740](https://commanderspellbook.com/combo/3966-4740/)
@@ -869,6 +869,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Berta, Wise Extrapolator + Intruder Alarm → [Spellbook 1636-7426](https://commanderspellbook.com/combo/1636-7426/)
 - Bighorner Rancher + Staff of Domination → [Spellbook 2645-5614](https://commanderspellbook.com/combo/2645-5614/)
 - Bighorner Rancher + Sword of the Paruns → [Spellbook 5200-5614](https://commanderspellbook.com/combo/5200-5614/)
+- Bloodchief Ascension + Mindcrank → [Spellbook 936-1290](https://commanderspellbook.com/combo/936-1290/)
+- Bloodchief Ascension + The Master of Lake-town → [Spellbook 1290-7848](https://commanderspellbook.com/combo/1290-7848/)
 - Bloodline Keeper // Lord of Lineage + Intruder Alarm → [Spellbook 1636-2380](https://commanderspellbook.com/combo/1636-2380/)
 - Bloodthirsty Conqueror + Cliffhaven Vampire → [Spellbook 4789-6191](https://commanderspellbook.com/combo/4789-6191/)
 - Bloodthirsty Conqueror + Defiant Bloodlord → [Spellbook 2939-6191](https://commanderspellbook.com/combo/2939-6191/)
@@ -880,6 +882,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bloodthirsty Conqueror + South Wind Avatar → [Spellbook 6191-7286](https://commanderspellbook.com/combo/6191-7286/)
 - Bloodthirsty Conqueror + Starscape Cleric → [Spellbook 5867-6191](https://commanderspellbook.com/combo/5867-6191/)
 - Bloodthirsty Conqueror + Vito, Thorn of the Dusk Rose → [Spellbook 314-6191](https://commanderspellbook.com/combo/314-6191/)
+- Bloodthirsty Conqueror + Vizkopa Guildmage → [Spellbook 92-6191](https://commanderspellbook.com/combo/92-6191/)
 - Bloom Tender + Freed from the Real → [Spellbook 4222-5168](https://commanderspellbook.com/combo/4222-5168/)
 - Bloom Tender + High Alert → [Spellbook 4896-5168](https://commanderspellbook.com/combo/4896-5168/)
 - Bloom Tender + Pemmin's Aura → [Spellbook 3525-5168](https://commanderspellbook.com/combo/3525-5168/)
@@ -919,6 +922,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Drogskol Reaver + Queza, Augur of Agonies → [Spellbook 444-1786](https://commanderspellbook.com/combo/444-1786/)
 - Drogskol Reaver + Shabraz, the Skyshark → [Spellbook 444-2275](https://commanderspellbook.com/combo/444-2275/)
 - Drogskol Reaver + Sheoldred, the Apocalypse → [Spellbook 444-2498](https://commanderspellbook.com/combo/444-2498/)
+- Duskmantle Guildmage + Mindcrank → [Spellbook 936-5069](https://commanderspellbook.com/combo/936-5069/)
+- Duskmantle Guildmage + The Master of Lake-town → [Spellbook 5069-7848](https://commanderspellbook.com/combo/5069-7848/)
 - Eldrazi Displacer + Great Whale → [Spellbook 2792-4013](https://commanderspellbook.com/combo/2792-4013/)
 - Eldrazi Displacer + Peregrine Drake → [Spellbook 3821-4013](https://commanderspellbook.com/combo/3821-4013/)
 - Elvish Archdruid + Staff of Domination → [Spellbook 2645-3151](https://commanderspellbook.com/combo/2645-3151/)
@@ -935,6 +940,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Exquisite Blood + South Wind Avatar → [Spellbook 3966-7286](https://commanderspellbook.com/combo/3966-7286/)
 - Exquisite Blood + Starscape Cleric → [Spellbook 3966-5867](https://commanderspellbook.com/combo/3966-5867/)
 - Exquisite Blood + Vito, Thorn of the Dusk Rose → [Spellbook 314-3966](https://commanderspellbook.com/combo/314-3966/)
+- Exquisite Blood + Vizkopa Guildmage → [Spellbook 92-3966](https://commanderspellbook.com/combo/92-3966/)
 - Fanatic of Rhonas + Umbral Mantle → [Spellbook 2816-5711](https://commanderspellbook.com/combo/2816-5711/)
 - Felidar Guardian + Icewind Stalwart → [Spellbook 2781-4200](https://commanderspellbook.com/combo/2781-4200/)
 - Felidar Guardian + Kiki-Jiki, Mirror Breaker → [Spellbook 618-2781](https://commanderspellbook.com/combo/618-2781/)
