@@ -84,6 +84,48 @@ export interface EngineOptions {
   maxLoopAbilities: number;
   /** DFS step cap, so huge decks stay bounded (and deterministic). */
   searchBudget: number;
+  /**
+   * Discovery: extra cards that may fill a helper role (a Treasure per death, a cost reducer...) but are not
+   * loop pieces themselves. With a large pool, set maxHelpers to 1.
+   */
+  helperPool?: Card[];
+  /** Most helpers a combo may add (default 3). */
+  maxHelpers?: number;
+  /** A prebuilt index of `helperPool` (see buildHelperIndex), so a discovery run builds it once. */
+  helperIndex?: HelperIndex;
+}
+
+/** Everything the engine needs from a helper pool, precomputed. */
+export interface HelperIndex {
+  cards: Card[];
+  abilities: Ability[];
+  reducers: CostReducer[];
+  activationReducers: { card: string; amount: number }[];
+  copiers: { card: string; cost: number }[];
+  counterPreventers: string[];
+  etbDoublers: string[];
+  artifactTappers: { card: string; mana: ManaProduction }[];
+  counterBlockers: string[];
+  deathDoublers: string[];
+  landAmplifiers: string[];
+  manaAmplifiers: string[];
+}
+
+export function buildHelperIndex(cards: Card[]): HelperIndex {
+  return {
+    cards,
+    abilities: cards.flatMap((c) => parseAbilities(c)).filter((a) => a.kind === 'triggered'),
+    reducers: cards.flatMap((c) => costReducers(c)),
+    activationReducers: cards.flatMap((c) => activationReducer(c) ?? []),
+    copiers: cards.flatMap((c) => abilityCopier(c) ?? []),
+    counterPreventers: cards.filter(preventsMinusCounter).map((c) => c.name),
+    etbDoublers: cards.filter(etbDoubler).map((c) => c.name),
+    artifactTappers: cards.flatMap((c) => artifactTapper(c) ?? []),
+    counterBlockers: cards.filter(blocksCounters).map((c) => c.name),
+    deathDoublers: cards.filter(deathDoubler).map((c) => c.name),
+    landAmplifiers: cards.filter(landAmplifier).map((c) => c.name),
+    manaAmplifiers: cards.filter(manaAmplifier).map((c) => c.name),
+  };
 }
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
@@ -128,14 +170,17 @@ export interface Context {
   deckAbilities: Ability[];
   /** Loops the simulator rejected (for diagnostics). */
   rejected: RejectedLoop[];
+  /** Cards actually in the deck (helpers may also come from a discovery pool). */
+  deckCards: Set<string>;
+  maxHelpers: number;
 }
 
 const PERMANENT_TYPES = ['artifact', 'creature', 'enchantment', 'planeswalker', 'land'];
 const totalMana = (c: ManaCost) => COLORS.reduce((n, k) => n + c[k], 0) + c.generic;
 const totalProduction = (m: ManaProduction) => COLORS.reduce((n, k) => n + m[k], 0) + m.any;
 const has = <T extends Output['type']>(a: Ability, type: T) => a.outputs.find((o): o is Extract<Output, { type: T }> => o.type === type);
-const typesOf = (ctx: Context, name: string) => (ctx.cardByName.get(name)?.typeLine.toLowerCase() ?? '').split(/[\s—/]+/).filter((t) => PERMANENT_TYPES.includes(t));
-const isCreature = (ctx: Context, name: string) => typesOf(ctx, name).includes('creature');
+const typesOf = (ctx: Pick<Context, 'cardByName'>, name: string) => (ctx.cardByName.get(name)?.typeLine.toLowerCase() ?? '').split(/[\s—/]+/).filter((t) => PERMANENT_TYPES.includes(t));
+const isCreature = (ctx: Pick<Context, 'cardByName'>, name: string) => typesOf(ctx, name).includes('creature');
 const hasHaste = (ctx: Context, name: string) => ctx.cardByName.get(name)?.keywords.includes('haste') ?? false;
 const mv = (ctx: Context, name: string) => ctx.cardByName.get(name)?.cmc ?? 0;
 const castsPermanent = (a: Ability) => a.kind === 'cast' && (a.casts ?? []).some((t) => PERMANENT_TYPES.includes(t));
@@ -833,16 +878,18 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
         if (matchesTarget(spec, ctx.cardByName.get(b.card)!, twoTargetBlink.card)) add({ kind: 'blinkTarget', card: b.card, ability: b });
       }
     }
-    candidates = candidates
-      .sort((x, y) => HELPER_ORDER.indexOf(x.kind) - HELPER_ORDER.indexOf(y.kind) || x.card.localeCompare(y.card))
-      .slice(0, 16);
+    candidates = candidates.sort((x, y) => HELPER_ORDER.indexOf(x.kind) - HELPER_ORDER.indexOf(y.kind) || x.card.localeCompare(y.card));
+    // A deck has few candidates; a discovery pool has thousands, so only single helpers are tried there.
+    if (ctx.maxHelpers > 1) candidates = candidates.slice(0, 16);
 
     // Smallest set of up to three helpers that makes the loop work, in a fixed order.
     const tryWith = (extra: Helper[]) => works([...ownTriggers, ...extra]);
     const found = (() => {
       const n = candidates.length;
       for (let a = 0; a < n; a++) if (tryWith([candidates[a]!])) return [candidates[a]!];
+      if (ctx.maxHelpers < 2) return null;
       for (let a = 0; a < n; a++) for (let b = a + 1; b < n; b++) if (tryWith([candidates[a]!, candidates[b]!])) return [candidates[a]!, candidates[b]!];
+      if (ctx.maxHelpers < 3) return null;
       for (let a = 0; a < n; a++)
         for (let b = a + 1; b < n; b++)
           for (let c = b + 1; c < n; c++) if (tryWith([candidates[a]!, candidates[b]!, candidates[c]!])) return [candidates[a]!, candidates[b]!, candidates[c]!];
@@ -878,6 +925,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const warnings: string[] = [];
   for (const { ability } of riders) {
     if (helpers.some((h) => h.kind === 'rider' && h.ability === ability) || pieces.has(ability.card)) continue;
+    // Payoffs and warnings are about the deck, not the whole discovery pool.
+    if (!ctx.deckCards.has(ability.card)) continue;
     if (ability.outputs.some((o) => o.type === 'selfLifeLoss')) warnings.push(`${ability.card} makes you lose life each loop: ${ability.text}`);
     else payoffs.push({ card: ability.card, effect: ability.text });
   }
@@ -979,7 +1028,7 @@ function selfDeathPossible(prev: Ability | null, v: Ability, w: Ability): boolea
 }
 
 /** Which resources an ability can take as its loop input. */
-function inputs(a: Ability): Resource[] {
+export function inputs(a: Ability): Resource[] {
   if (a.kind === 'triggered') {
     const byTrigger: Record<NonNullable<Ability['trigger']>['type'], Resource> = {
       death: 'death',
@@ -1007,7 +1056,7 @@ function inputs(a: Ability): Resource[] {
 }
 
 /** Which resources an ability can produce for the next step (a superset; `feed` checks the details). */
-function outputsOf(a: Ability, ctx: Context): Resource[] {
+export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByName'>): Resource[] {
   const r = new Set<Resource>(['free']);
   if (has(a, 'mana') || has(a, 'tokenMana')) r.add('mana');
   if (putsBodyOnBattlefield(a)) r.add('body').add('etb');
@@ -1087,8 +1136,15 @@ export function findEngineCombos(
 ): { combos: EngineCombo[]; exhaustive: boolean; rejected: RejectedLoop[] } {
   const opts = { ...DEFAULT_ENGINE_OPTIONS, ...options };
   const sorted = [...cards].sort((a, b) => a.name.localeCompare(b.name));
+  const deckNames = new Set(sorted.map((c) => c.name));
+  // Helpers: the deck's own cards, plus (in discovery) an indexed pool of other cards.
+  const deckIndex = buildHelperIndex(sorted);
+  const poolIndex = opts.helperIndex ?? (opts.helperPool ? buildHelperIndex(opts.helperPool) : undefined);
+  const notDeck = <T extends string | { card: string }>(x: T) => !deckNames.has(typeof x === 'string' ? x : x.card);
+  const merged = <K extends keyof Omit<HelperIndex, 'cards' | 'abilities'>>(key: K): HelperIndex[K] =>
+    [...deckIndex[key], ...((poolIndex?.[key] ?? []) as HelperIndex[K]).filter(notDeck as never)] as HelperIndex[K];
   const parsed = sorted.flatMap((c) => parseAbilities(c));
-  const cardByName = new Map(sorted.map((c) => [c.name, c]));
+  const cardByName = new Map([...(poolIndex?.cards ?? []), ...sorted].map((c) => [c.name, c]));
 
   // Synthetic abilities: Isochron Scepter casting each eligible instant, and casting cards that can be returned to hand.
   const imprints = sorted.flatMap((c) => imprintAbilities(c, sorted));
@@ -1107,27 +1163,32 @@ export function findEngineCombos(
   }
   const deathReturns = sorted.flatMap((c) => deathReturnAbilities(c, sorted));
   const deckAbilities = [...parsed, ...imprints, ...casts, ...deathReturns];
+  // Loop steps come only from the deck; the helper pool only adds triggered helpers and static effects.
+  const loopAbilities = deckAbilities;
+  const helperAbilities = (poolIndex?.abilities ?? []).filter((a) => !deckNames.has(a.card));
 
   const ctx: Context = {
     cardByName,
     granters: lifelinkGranters(sorted),
-    reducers: sorted.flatMap((c) => costReducers(c)),
-    activationReducers: sorted.flatMap((c) => activationReducer(c) ?? []),
-    copiers: sorted.flatMap((c) => abilityCopier(c) ?? []),
-    counterPreventers: sorted.filter(preventsMinusCounter).map((c) => c.name),
-    etbDoublers: sorted.filter(etbDoubler).map((c) => c.name),
-    artifactTappers: sorted.flatMap((c) => artifactTapper(c) ?? []),
-    counterBlockers: sorted.filter(blocksCounters).map((c) => c.name),
-    deathDoublers: sorted.filter(deathDoubler).map((c) => c.name),
-    landAmplifiers: sorted.filter(landAmplifier).map((c) => c.name),
-    manaAmplifiers: sorted.filter(manaAmplifier).map((c) => c.name),
-    deckAbilities,
+    reducers: merged('reducers'),
+    activationReducers: merged('activationReducers'),
+    copiers: merged('copiers'),
+    counterPreventers: merged('counterPreventers'),
+    etbDoublers: merged('etbDoublers'),
+    artifactTappers: merged('artifactTappers'),
+    counterBlockers: merged('counterBlockers'),
+    deathDoublers: merged('deathDoublers'),
+    landAmplifiers: merged('landAmplifiers'),
+    manaAmplifiers: merged('manaAmplifiers'),
+    deckAbilities: [...loopAbilities, ...helperAbilities],
     rejected: [],
+    deckCards: deckNames,
+    maxHelpers: opts.maxHelpers ?? 3,
   };
 
   // Free sacrifice outlets may be used twice per loop (two artifacts to Krark-Clan Ironworks, or a persist
   // creature dying twice to Viscera Seer between Nim Deathmantle returns).
-  const usable = deckAbilities.filter((a) => !a.oncePerTurn && !a.unmodeledCost);
+  const usable = loopAbilities.filter((a) => !a.oncePerTurn && !a.unmodeledCost);
   const freeSacrifice = (a: Ability) => a.kind === 'activated' && Boolean(a.cost.sacrifice) && !a.cost.tap && totalMana(a.cost.mana) === 0 && a.cost.life === 0;
   const nodes = usable.flatMap((a) => (freeSacrifice(a) ? [a, { ...a, id: `${a.id}~2` }] : [a]));
 

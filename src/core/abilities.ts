@@ -401,6 +401,36 @@ function costSplit(line: string): number {
   return -1;
 }
 
+/** Wordings that limit an ability to once per turn. */
+const ONCE_PER_TURN =
+  /only once each turn|activate only once|for the first time (?:during )?each (?:of your )?turns?|activate only during your turn and only once|no more than once each turn|the (?:first|second|third) time this ability has resolved this turn/;
+
+/**
+ * Conditions the engine cannot track. An ability whose text has one of these is never used as a loop
+ * step: ignoring the condition would invent combos (the discovery audit found each of these).
+ */
+const UNTRACKED_CONDITIONS: [RegExp, string][] = [
+  [/\b(?:you may )?sacrifice (?:this enchantment|this artifact|~)\. if you do\b/, 'sacrifices itself (one-shot)'],
+  // A delayed *return* (Avacyn, Angel of Horror). Delayed cleanup ("sacrifice it at the beginning of the next end
+  // step" on Kiki-Jiki's token) is fine.
+  [/return[^.]*at the beginning of (?:the )?next (?:end step|upkeep|turn)|at the beginning of (?:the )?next (?:end step|upkeep)[^.]*return/, 'delayed until a later step'],
+  [/\bif (?:it|~) was (?:kicked|cast|bargained)|\bif you cast it\b|\bif it entered from your hand\b|\bif ~ entered\b/, 'needs it to have been cast'],
+  [/\bif there are (?:\w+) or more\b|\b(?:\w+) or more [a-z]+ counters on\b/, 'needs a counter threshold'],
+  [/target card (?:from|in) a graveyard|target [a-z ]*card from an opponent's graveyard/, 'uses up cards in graveyards'],
+  [/\battacking creature\b|\bblocking creature\b|\bduring combat\b/, 'only in combat'],
+  [/\bremove (?:that many|\w+) [a-z]+ counters from (?:this creature|this artifact|this enchantment|~)/, 'uses up its own counters'],
+  [/\bif it had a [+-]1\/[+-]1 counter on it\b/, 'needs a counter on the dying creature'],
+  [/\bif (?:a|an) [a-z]+ was sacrificed this way\b/, 'depends on what was sacrificed'],
+  // ("~" is not a word character, so these end with (?!\w) rather than \b.)
+  [/\b(?:convert|transform) (?:it|~|this creature)(?!\w)/, 'transforms after one use'],
+  [/\bexiled with (?:this artifact|this creature|this enchantment|~)(?!\w)/, 'uses up cards it exiled'],
+];
+
+export function untrackedCondition(text: string): string | null {
+  for (const [re, why] of UNTRACKED_CONDITIONS) if (re.test(text)) return why;
+  return null;
+}
+
 function makeAbility(card: Card, line: number, text: string, partial: Partial<Ability> & Pick<Ability, 'kind' | 'outputs'>): Ability {
   return {
     id: `${card.name}#${line}`,
@@ -408,11 +438,17 @@ function makeAbility(card: Card, line: number, text: string, partial: Partial<Ab
     text,
     cost: { mana: emptyCost(), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
     host: false,
-    oncePerTurn: /only once each turn|activate only once/.test(text.toLowerCase()),
+    oncePerTurn: ONCE_PER_TURN.test(text.toLowerCase()),
     unmodeledCost: false,
     conditions: conditionsOf(text.toLowerCase()),
     ...partial,
   };
+}
+
+/** Mark abilities whose text has a condition the engine can't track as unusable in loops. */
+function guard(ability: Ability | null, lineText: string): Ability | null {
+  if (ability && untrackedCondition(lineText)) ability.unmodeledCost = true;
+  return ability;
 }
 
 function parseActivated(card: Card, lineNo: number, display: string, line: string, host: boolean): Ability | null {
@@ -483,8 +519,18 @@ function parseTriggered(card: Card, lineNo: number, display: string, line: strin
   return ability;
 }
 
-/** Parse the loop-relevant abilities of a card. Ability ids are "<card>#<oracle line>". */
+const parsedCache = new WeakMap<Card, Ability[]>();
+
+/** Parse the loop-relevant abilities of a card. Ability ids are "<card>#<oracle line>". Cached per card object. */
 export function parseAbilities(card: Card): Ability[] {
+  const cached = parsedCache.get(card);
+  if (cached) return cached;
+  const result = parseAbilitiesUncached(card);
+  parsedCache.set(card, result);
+  return result;
+}
+
+function parseAbilitiesUncached(card: Card): Ability[] {
   const abilities: Ability[] = [];
   const lines = card.text.split('\n');
   const displayLines = card.oracleText.split('\n');
@@ -499,7 +545,7 @@ export function parseAbilities(card: Card): Ability[] {
     if (granted) {
       const hostVia = granted[1] === 'each of those creatures' ? 'paired' : 'attached';
       const inner = granted[2]!;
-      const a = /^when/.test(inner) ? parseTriggered(card, i, display, inner, true) : parseActivated(card, i, display, inner, true);
+      const a = guard(/^when/.test(inner) ? parseTriggered(card, i, display, inner, true) : parseActivated(card, i, display, inner, true), inner);
       // The pairing/attachment itself is reported from hostVia, so drop "as long as ~ is paired ..." here.
       const conditions = conditionsOf(line.slice(0, granted.index)).filter((c) => !/paired|attached|enchant/.test(c));
       if (a) abilities.push({ ...a, hostVia, conditions });
@@ -519,12 +565,12 @@ export function parseAbilities(card: Card): Ability[] {
     }
 
     if (/^when|^whenever/.test(line)) {
-      const a = parseTriggered(card, i, display, line, false);
+      const a = guard(parseTriggered(card, i, display, line, false), line);
       if (a) abilities.push(a);
       return;
     }
 
-    const activated = parseActivated(card, i, display, line, false);
+    const activated = guard(parseActivated(card, i, display, line, false), line);
     if (activated) abilities.push(activated);
   });
   return abilities;

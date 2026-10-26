@@ -140,6 +140,26 @@ report in `bench/report-holdout.md`). Its numbers show how the rules generalize.
 once a held-out deck has informed a rule change, it is no longer held out, so move it to `bench/decks/` and add
 fresh decks to `bench/holdout/`.
 
+## Combo discovery
+
+`npm run discover` searches **every** paper, Commander-legal card (about 31,000, from Scryfall's bulk data)
+for combos that Commander Spellbook's full database (about 116,000 combos) does not have:
+
+1. Profile every card with the engine's resource model and link cards that can feed each other (only
+   "specific" links are indexed; generic mana and return-to-hand links are checked on demand).
+2. Candidates: every card that loops on itself, every pair that loops, and Isochron Scepter with each instant.
+3. Each candidate runs through the full engine and simulator, which may add **one helper from the whole
+   pool** (a Treasure per death, a cost reducer, Panharmonicon...).
+4. Results are matched against Spellbook (exact, one-card variant), then grouped into **families**: the
+   same pattern of roles with interchangeable cards. A family is new only if no member is known and it is
+   not a known engine plus one extra piece.
+
+It takes about a minute and writes `discovery/report.md`. Downloads are cached in `.cache/discovery/`
+(`--refresh` re-downloads). Results are **candidates**: auditing them found false positives from wordings
+the parser did not understand (once-per-turn variants, delayed returns, one-shot sacrifices, counter
+thresholds...); each is now refused as an untracked condition (`UNTRACKED_CONDITIONS` in
+`src/core/abilities.ts`), but check any new combo by hand before sharing it.
+
 ## Extending the rules
 
 Add a matcher to a theme in `src/core/rules.ts`, or add a new theme. To check rules against real cards:
