@@ -89,6 +89,8 @@ export type Output =
   | { type: 'minusCounter'; target: TargetSpec }
   /** Dualcaster Mage: "copy target instant or sorcery spell". */
   | { type: 'spellCopy' }
+  /** Dredge (replacing a draw): this card returns from your graveyard to your hand, and you mill `amount`. */
+  | { type: 'dredge'; amount: number }
   /** An opponent mills cards (amount 0 = "that many", Mindcrank). */
   | { type: 'mill'; amount: number }
   /** "After this phase, there is an additional combat phase" (withMain: "followed by an additional main phase"). */
@@ -121,6 +123,8 @@ export type Trigger =
   | { type: 'attack'; source: 'self' | 'host'; firstTime: boolean; exert?: boolean }
   /** "Whenever ~/equipped creature deals combat damage to a player". */
   | { type: 'combatDamage'; source: 'self' | 'host' }
+  /** "Whenever one or more land cards are put into your graveyard from anywhere" (The Gitrog Monster). */
+  | { type: 'landToGraveyard' }
   /** "Whenever a card is put into an opponent's graveyard from anywhere" (Bloodchief Ascension, Duskmantle Guildmage). */
   | { type: 'mill' }
   /** "At the beginning of combat on your turn" (Helm of the Host). */
@@ -152,6 +156,8 @@ export interface Ability {
     loyalty: boolean;
     /** "Put a -1/-1 counter on ~" (Devoted Druid): only repeatable if something prevents the counter. */
     minusCounter?: boolean;
+    /** "Discard a card" (Noose Constrictor): the loop must return a card to hand to discard. */
+    discard?: boolean;
   };
   /**
    * The ability acts through another creature (its "host"): an aura's enchanted creature,
@@ -173,6 +179,9 @@ export interface Ability {
   unmodeledCost: boolean;
   /** "Activate only as a sorcery": only in a main phase. */
   sorcery?: boolean;
+  /** A recast that is a real cast ("you may cast ~ from your graveyard"), so cost reducers apply; an activated
+   * return (Dread Wanderer) is not. */
+  isCast?: boolean;
 }
 
 /** Triggers that happen in combat, in the order of the combat steps (the postcombat main phase follows combat). */
@@ -221,7 +230,7 @@ function parseManaProduction(effect: string): ManaProduction | null {
     if (/\badd \{[wubrgc]\}(?:, \{[wubrgc]\})*,? or \{[wubrgc]\}/.test(effect)) return { ...emptyProduction(), any: 1 };
     return prod;
   }
-  const anyColor = /\badd (one|two|three) mana of any (?:one )?color/.exec(effect);
+  const anyColor = /\badd (one|two|three) mana of any (?:one )?(?:color|type that a land you control could produce)/.exec(effect);
   if (anyColor) return { ...prod, any: toNumber(anyColor[1]) };
   const treasure = /\bcreate (a|an|one|two|three|\d+) treasure tokens?(?! for each)/.exec(effect);
   if (treasure) return { ...prod, any: toNumber(treasure[1]) };
@@ -281,8 +290,9 @@ export function matchesTarget(spec: TargetSpec, target: Card, source: string): b
 }
 
 function parseOutputs(rawEffect: string, host: boolean): Output[] {
-  // Quoted text is an ability granted to something else (e.g. a token's "Sacrifice this token: Add {C}").
-  const effect = rawEffect.replace(/"[^"]*"/g, '');
+  // Quoted text is an ability granted to something else (e.g. a token's "Sacrifice this token: Add {C}"). A bonus
+  // for spending the mana a certain way (Scaled Nurturer: "When you spend this mana to cast a Dragon ...") is not.
+  const effect = rawEffect.replace(/"[^"]*"/g, '').replace(/when you spend this mana[^.]*\.[^.]*\./g, '');
   const outputs: Output[] = [];
   // Self-references were normalized, so "Sacrifice this token" reads "sacrifice ~".
   const tokenMana = /creature tokens?[^"]*"sacrifice (?:~|this (?:token|creature)): (add [^"]*)"/.exec(rawEffect);
@@ -429,6 +439,7 @@ function parseTrigger(condition: string, granted: boolean): Trigger | null {
   }
   if (/^at the beginning of combat on your turn/.test(condition)) return { type: 'beginCombat' };
   if (/^whenever (?:a card is|one or more cards are) put into an opponent's graveyard from anywhere/.test(condition)) return { type: 'mill' };
+  if (/^whenever (?:a land card is|one or more land cards are) put into your graveyard from anywhere/.test(condition)) return { type: 'landToGraveyard' };
   if (/^at the beginning of (?:each of )?your postcombat main phases?/.test(condition)) return { type: 'postcombatMain' };
   const combatDamage = /^when(?:ever)? (~|enchanted creature|equipped creature) deals combat damage to (?:a player|an opponent|one or more players)$/.exec(condition);
   if (combatDamage) return { type: 'combatDamage', source: combatDamage[1] === '~' && !granted ? 'self' : 'host' };
@@ -488,7 +499,7 @@ const UNTRACKED_CONDITIONS: [RegExp, string][] = [
   [/return[^.]*at the beginning of (?:the )?next (?:end step|upkeep|turn)|at the beginning of (?:the )?next (?:end step|upkeep)[^.]*return/, 'delayed until a later step'],
   [/\bif (?:it|~) was (?:kicked|cast|bargained)|\bif you cast it\b|\bif it entered from your hand\b|\bif ~ entered\b/, 'needs it to have been cast'],
   [/\bif there are (?:\w+) or more\b|\b(?:\w+) or more [a-z]+ counters on\b/, 'needs a counter threshold'],
-  [/target card (?:from|in) a graveyard|target [a-z ]*card from an opponent's graveyard/, 'uses up cards in graveyards'],
+  [/target (?:[a-z]+ )?card (?:from|in) a graveyard|target [a-z ]*card from an opponent's graveyard/, 'uses up cards in graveyards'],
   [/\battacking creature\b|\bblocking creature\b|\bduring combat\b/, 'only in combat'],
   [/\bremove (?:that many|\w+) [a-z]+ counters from (?:this creature|this artifact|this enchantment|~)/, 'uses up its own counters'],
   [/\bif it had a \+1\/\+1 counter on it\b/, 'needs a counter on the dying creature'],
@@ -499,6 +510,10 @@ const UNTRACKED_CONDITIONS: [RegExp, string][] = [
   [/\bsacrifice it and attach\b/, 'sacrifices the creature it is attached to'],
   [/\byou may sacrifice (?:another|a|an) [a-z]+\. if you do\b/, 'sacrifices another permanent each time'],
   [/\bonly land creatures can attack\b/, 'restricts who attacks in the extra combat'],
+  [/\bfor each card of the chosen (?:color|type|name) exiled this way\b/, 'depends on random cards'],
+  [/\bspend this mana only\b/, 'restricted mana'],
+  [/\bactivate only during your (?:upkeep|end step)\b/, 'only in one step'],
+  [/\bwhen ~ dies, (?:you may )?exile it\b/, 'exiles itself'],
   [/\b(?:target|another target) [a-z ]*?(?:creature|permanent) that has an? [a-z]+ counter on it\b/, 'needs a counter on its target'],
 ];
 
@@ -547,6 +562,7 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     .replace(/remove (?:a|one) \+1\/\+1 counter from (?:~|a creature you control)/, '')
     .replace(/^[+\-−]?\d+$/, '')
     .replace(/put a -1\/-1 counter on ~/, '')
+    .replace(/discard a card/, '')
     .replace(/[,\s]|\band\b/g, '');
   const ability = makeAbility(card, lineNo, display, {
     kind: /return ~ from your graveyard to the battlefield/.test(effect) ? 'recast' : 'activated',
@@ -561,6 +577,7 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
       removeCounterFromAny: /remove (?:a|one) \+1\/\+1 counter from a creature you control/.test(costText),
       loyalty,
       minusCounter: /put a -1\/-1 counter on ~/.test(costText),
+      discard: /discard a card/.test(costText),
     },
     sorcery: /activate only as a sorcery/.test(effect),
   });
@@ -578,7 +595,15 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     ability.outputs = ability.outputs.filter((o) => o.type !== 'recur');
     return ability;
   }
-  return ability.outputs.length || ability.cost.sacrifice ? ability : null;
+  // Incubation Druid: "If ~ has a +1/+1 counter on it, add three mana of that type instead" (a condition).
+  const more = /if ~ has a \+1\/\+1 counter on it, add (\w+) mana of that type instead/.exec(effect);
+  const mana = ability.outputs.find((o) => o.type === 'mana');
+  if (more && mana?.type === 'mana' && mana.mana.any) {
+    mana.mana = { ...mana.mana, any: toNumber(more[1]) };
+    ability.conditions.push(`${card.name} has a +1/+1 counter`);
+  }
+  // A discard outlet does something with the discarded card even if its own effect is irrelevant (Noose Constrictor).
+  return ability.outputs.length || ability.cost.sacrifice || ability.cost.discard ? ability : null;
 }
 
 function parseTriggered(card: Card, lineNo: number, display: string, line: string, granted: boolean): Ability | null {
@@ -674,15 +699,28 @@ function parseAbilitiesUncached(card: Card): Ability[] {
       return;
     }
 
-    const recast = /you may cast ~ from your graveyard/.exec(line);
+    // Only an unconditional permission (Gravecrawler's "as long as you control a Zombie" is a condition shown on the
+    // combo): not with an extra cost or condition (Risen Executioner, Undead Sprinter, Scourge of Nel Toth), an
+    // additional exile cost (Skaab Ruinator), or a finality counter that exiles it next time (Hundred-Battle Veteran).
+    const recast = /you may cast ~ from your graveyard(?! (?:if|by|rather|using|this turn))/.exec(line);
+    const blocked = /as an additional cost to cast (?:this spell|~), exile|finality counter|if you do, exile it|exile it instead/.test(card.text);
+    if (recast && blocked) return;
     if (recast) {
       abilities.push(
         makeAbility(card, i, display, {
           kind: 'recast',
+          isCast: true,
           outputs: [],
           cost: { mana: parseManaCost(card.manaCost), tap: false, sacrifice: null, life: 0, removeCounter: false, loyalty: false },
         }),
       );
+      return;
+    }
+
+    // Dredge replaces a draw: modeled as reacting to the draw, returning this card from the graveyard to hand.
+    const dredge = /^dredge (\d+)$/.exec(line);
+    if (dredge) {
+      abilities.push(makeAbility(card, i, display, { kind: 'triggered', trigger: { type: 'draw' }, outputs: [{ type: 'dredge', amount: Number(dredge[1]) }], id: `${card.name}#dredge` }));
       return;
     }
 
@@ -725,6 +763,8 @@ export interface CostReducer {
   variable?: string;
   /** Aluren: only spells with this mana value or less (and then they are free). */
   maxMv?: number;
+  /** Rooftop Storm: only creature spells of this type ("zombie"). */
+  creatureType?: string;
 }
 
 export function costReducers(card: Card): CostReducer[] {
@@ -739,6 +779,9 @@ export function costReducers(card: Card): CostReducer[] {
   // Animar: "{1} less to cast for each +1/+1 counter on ~": scales with the board, like variable mana.
   const perCounter = /(creature )?spells you cast cost \{1\} less to cast for each \+1\/\+1 counter on ~/.exec(card.text);
   if (perCounter) out.push({ card: card.name, what: perCounter[1] ? 'creature' : 'any', amount: 0, variable: `${card.name} has at least X +1/+1 counters` });
+  // Rooftop Storm: "you may pay {0} rather than pay the mana cost for zombie creature spells you cast".
+  const typeFree = /you may pay \{0\} rather than pay the mana cost for (\w+) creature spells you cast/.exec(card.text);
+  if (typeFree) out.push({ card: card.name, what: 'creature', amount: 99, maxMv: 99, creatureType: typeFree[1]! });
   // Aluren: "cast creature spells with mana value 3 or less without paying their mana cost".
   const free = /cast creature spells with mana value (\d+) or less without paying their mana cost/.exec(card.text);
   if (free) out.push({ card: card.name, what: 'creature', amount: 99, maxMv: Number(free[1]) });
@@ -797,9 +840,17 @@ export function manaAmplifier(card: Card): boolean {
 }
 
 /** Power Artifact: "Enchanted artifact's activated abilities cost {2} less ... can't reduce ... to less than one mana." */
-export function activationReducer(card: Card): { card: string; amount: number } | null {
+export function activationReducer(card: Card): { card: string; amount: number; global?: boolean } | null {
   const m = /enchanted artifact's activated abilities cost \{(\d+)\} less to activate/.exec(card.text);
-  return m ? { card: card.name, amount: Number(m[1]) } : null;
+  if (m) return { card: card.name, amount: Number(m[1]) };
+  // Zirda: "Abilities you activate that aren't mana abilities cost {2} less to activate" (never below one mana).
+  const all = /abilities you activate that aren't mana abilities cost \{(\d+)\} less to activate/.exec(card.text);
+  return all ? { card: card.name, amount: Number(all[1]), global: true } : null;
+}
+
+/** Helm of the Host, Spark Double: a copy that isn't legendary, so Kiki-Jiki's copy can copy itself. */
+export function nonlegendaryCopier(card: Card): boolean {
+  return /\bcopy of [^.]*?\bexcept\b[^.]*?\b(?:the token|it) (?:isn't|is not) legendary/.test(card.text);
 }
 
 /** Rings of Brighthearth: "Whenever you activate an ability, if it isn't a mana ability, you may pay {2}. If you do, copy that ability." */

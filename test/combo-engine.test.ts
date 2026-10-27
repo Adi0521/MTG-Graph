@@ -257,6 +257,35 @@ describe('findEngineCombos', () => {
     expect(combosOf('Grindstone')).toEqual([]);
   });
 
+  it('casts zombies free from the graveyard with Rooftop Storm, but not activated returns', () => {
+    expect(combosOf('Gravecrawler', 'Rooftop Storm', 'Viscera Seer')[0]!.helpers).toEqual(['Rooftop Storm']);
+    expect(combosOf('Gravecrawler', 'Viscera Seer')).toEqual([]);
+    expect(combosOf('Dread Wanderer', 'Rooftop Storm', 'Viscera Seer')).toEqual([]);
+  });
+
+  it('reads Incubation Druid, Faeburrow Elder and Zirda', () => {
+    expect(combosOf('Incubation Druid', 'Freed from the Real')[0]!.conditions).toEqual(['Incubation Druid has a +1/+1 counter']);
+    expect(combosOf('Faeburrow Elder', 'Freed from the Real')).toHaveLength(1);
+    expect(combosOf('Basalt Monolith', 'Zirda, the Dawnwaker')[0]!.netMana).toBe('{C}{C}');
+    expect(combosOf('Basalt Monolith')).toEqual([]);
+  });
+
+  it('lets a nonlegendary copy of Kiki-Jiki copy itself', () => {
+    expect(combosOf('Kiki-Jiki, Mirror Breaker', 'Helm of the Host')[0]!.helpers).toEqual(['Helm of the Host']);
+    expect(combosOf('Kiki-Jiki, Mirror Breaker', 'Spark Double')[0]!.helpers).toEqual(['Spark Double']);
+    expect(combosOf('Kiki-Jiki, Mirror Breaker')).toEqual([]);
+  });
+
+  it('loops dredge through a discard outlet and The Gitrog Monster', () => {
+    const [gitrog] = combosOf('The Gitrog Monster', 'Dakmor Salvage', 'Noose Constrictor');
+    expect(gitrog!.produces).toEqual(['Mills your whole library', 'Near-infinite discard triggers']);
+    expect(combosOf('The Gitrog Monster', 'Noose Constrictor')).toEqual([]);
+  });
+
+  it('does not count random exiles as guaranteed (Oona)', () => {
+    expect(combosOf('Oona, Queen of the Fae', 'Phyrexian Altar')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

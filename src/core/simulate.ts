@@ -53,6 +53,8 @@ export interface PerLoop {
   tokens: number;
   casts: number;
   combats: number;
+  /** Cards you mill from your own library per loop (dredge). */
+  selfMilled: number;
   /** Cards opponents mill per loop (the loop ends when their library does: it is a win, not infinite). */
   milled: number;
 }
@@ -88,7 +90,7 @@ interface Perm {
 type Phase = 'main' | 'combat';
 
 interface Event {
-  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill';
+  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill' | 'discard';
   /** For attacks: the first attack event of its combat (an aura's trigger fires once per combat). */
   first?: boolean;
   card?: string | null;
@@ -119,6 +121,7 @@ class Simulation {
   life = 20;
   opponentLife = 40;
   opponentMilled = 0;
+  selfMilled = 0;
   setup = true;
   startup = new Set<string>();
   events: Event[] = [];
@@ -263,7 +266,9 @@ class Simulation {
   }
 
   private toughness(p: Perm): number {
-    return (p.baseToughness ?? this.cardOf(p.card).toughness ?? 0) + p.plus - p.minus + this.anthem(p);
+    // "~ gets +1/+1 for each color among permanents you control" (Faeburrow Elder, a 0/0): at least one.
+    const self = /~ gets \+(\d+)\/\+(\d+) for each\b/.exec(this.cardOf(p.card).text);
+    return (p.baseToughness ?? this.cardOf(p.card).toughness ?? 0) + p.plus - p.minus + this.anthem(p) + (self ? Number(self[2]) : 0);
   }
 
   /** State-based actions: creatures with 0 toughness or lethal damage die. */
@@ -310,9 +315,10 @@ class Simulation {
 
   private costWithReductions(a: Ability): ManaCost {
     const c = { ...a.cost.mana };
-    if (a.kind === 'cast') {
+    if (a.kind === 'cast' || (a.kind === 'recast' && a.isCast)) {
       for (const h of this.plan.helpers) {
-        if (h.kind !== 'reducer' || !reducerApplies(h.what, a.casts ?? [])) continue;
+        if (h.kind !== 'reducer' || !reducerApplies(h.what, a.casts ?? this.typesOf(a.card))) continue;
+        if (h.creatureType && !new RegExp(`\\b${h.creatureType}\\b`, 'i').test(this.cardOf(a.card).typeLine)) continue;
         if (h.maxMv !== undefined) {
           if (this.cardOf(a.card).cmc <= h.maxMv) for (const key of [...COLORS, 'generic'] as const) c[key] = 0;
           continue;
@@ -321,7 +327,7 @@ class Simulation {
       }
     }
     const act = this.plan.helpers.find((h): h is Extract<Helper, { kind: 'activationReducer' }> => h.kind === 'activationReducer');
-    if (act && a.kind === 'activated' && a.card === this.plan.reducedCard && totalMana(c) > 0) {
+    if (act && a.kind === 'activated' && totalMana(c) > 0 && (act.global ? !has(a, 'mana') : a.card === this.plan.reducedCard)) {
       c.generic = Math.max(0, c.generic - Math.min(act.amount, totalMana(c) - 1));
     }
     return c;
@@ -516,7 +522,10 @@ class Simulation {
     }
     if (a.cost.tap) {
       const name = host ?? a.card;
-      const p = this.require(name, 'to tap it');
+      // A token copy of the card has the same ability (Kiki-Jiki's hasty copies), so an untapped one can be used.
+      const copy = this.perms.filter((x) => x.card === name && x.token && !x.tapped && (!x.sick || x.haste)).sort((x, y) => y.id - x.id)[0];
+      const original = this.find(name);
+      const p = original && !original.tapped ? original : (copy ?? this.require(name, 'to tap it'));
       if (p.tapped && this.problem(`${name} must start untapped`)) p.tapped = false;
       if (p.sick && !p.haste && p.types.includes('creature') && this.problem(`${name} must not be summoning sick`)) p.sick = false;
       p.tapped = true;
@@ -540,6 +549,12 @@ class Simulation {
       const p = this.require(a.card, 'to put a -1/-1 counter on it');
       const prevented = this.plan.helpers.some((h) => h.kind === 'counterPreventer');
       if (!prevented) this.addCounters(p, 0, 1);
+    }
+    if (a.cost.discard) {
+      const card = input.res === 'hand' && input.object ? input.object : this.hand[0];
+      if (!card || (!this.takeFrom(this.hand, card) && this.problem(`${card} starts in your hand`))) this.leaveIfPresent(card ?? '');
+      if (card) this.graveyard.push(card);
+      this.events.push({ type: 'discard', card });
     }
     if (a.kind === 'recast') {
       if (!this.takeFrom(this.graveyard, a.card) && this.problem(`${a.card} starts in your graveyard`)) this.leaveIfPresent(a.card);
@@ -665,7 +680,10 @@ class Simulation {
       case 'copy': {
         const target = o.target === 'host' ? (host ?? output.object ?? a.card) : (output.object ?? a.card);
         // Only a legal target: Mishra copying "target noncreature artifact" cannot copy the creature that attacks next.
-        if (o.target !== 'host' && !matchesTarget(o.target, this.cardOf(target), a.card)) throw new LoopFails(`${a.card} cannot copy ${target}`);
+        // (With Helm of the Host the copies are not legendary, so Kiki-Jiki's token can target itself.)
+        const nonlegendary = this.plan.helpers.some((h) => h.kind === 'nonlegendary');
+        const spec = o.target !== 'host' && nonlegendary ? { ...o.target, nonlegendary: false } : o.target;
+        if (spec !== 'host' && !matchesTarget(spec, this.cardOf(target), a.card)) throw new LoopFails(`${a.card} cannot copy ${target}`);
         if (!this.find(target) && this.problem(`${target} must be on the battlefield to be copied`)) this.enter(target, false, { sick: false });
         const t = this.enter(target, true, { sick: !o.haste, haste: o.haste, types: this.typesOf(target) });
         this.lastTokens.push(t.id);
@@ -812,6 +830,12 @@ class Simulation {
         this.events.push({ type: 'mill', amount });
         return;
       }
+      case 'dredge':
+        // Replaces the draw: the card comes back from the graveyard, and you mill instead.
+        if (!this.takeFrom(this.graveyard, a.card) && this.problem(`${a.card} starts in your graveyard`)) this.leaveIfPresent(a.card);
+        this.hand.push(a.card);
+        this.selfMilled += o.amount;
+        return;
       case 'extraCombat':
         this.addCombat(o.withMain);
         return;
@@ -833,9 +857,12 @@ class Simulation {
         if (p) this.addCounters(p, amount, 0);
         return;
       }
-      case 'draw':
-        this.events.push({ type: 'draw', amount: o.amount });
+      case 'draw': {
+        // A draw that the next step replaces with dredge is not a draw.
+        const next = this.plan.cycle[(i + 1) % this.plan.cycle.length]!;
+        if (!(output.res === 'draw' && has(next, 'dredge'))) this.events.push({ type: 'draw', amount: o.amount });
         return;
+      }
       default:
         return;
     }
@@ -943,6 +970,7 @@ class Simulation {
       events: [...this.events],
       combats: this.combatsStarted,
       milled: this.opponentMilled,
+      selfMilled: this.selfMilled,
     };
   }
 }
@@ -1077,7 +1105,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
   }
   sim.events = [];
 
-  const empty: PerLoop = { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0, milled: 0 };
+  const empty: PerLoop = { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0, milled: 0, selfMilled: 0 };
   try {
     // Two setup passes: some loops need priming before they repeat (Blowfly Infestation needs an Insect from the
     // first pass to kill in the second). Problems found here become startup requirements.
@@ -1116,6 +1144,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
         casts: ev.filter((e) => e.type === 'cast').length,
         combats: last.combats,
         milled: last.milled - prev.milled,
+        selfMilled: last.selfMilled - prev.selfMilled,
       },
     };
   } catch (err) {

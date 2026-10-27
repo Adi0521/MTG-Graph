@@ -5,13 +5,13 @@ simulator over the whole card pool; "new" means Commander Spellbook's full datab
 cards. **Candidates, not confirmed combos:** each one is only as right as the rules that found it, so check it
 by hand (and against the current Oracle text) before sharing it.
 
-- Card pool: 30897 paper Commander-legal cards (3509 with loop abilities, 2633 usable as helpers)
+- Card pool: 30897 paper Commander-legal cards (3637 with loop abilities, 2581 usable as helpers)
 - Spellbook database: 115954 combos (export from 2026-10-26T19:12:34.650124+00:00)
-- Candidates evaluated: 660 single cards, 410957 pairs, 603 imprint pairs
-- Verified combos: 5823: 925 already in Spellbook, 766 variants of a Spellbook combo (one card swapped or added), **4132 new**
-- Families (same pattern of roles, interchangeable cards): 203: 116 contain a known combo, 84 add one piece to a known engine, **3 are new**
-- Loops rejected by the simulator: 8903
-- Run time: 111.1 s
+- Candidates evaluated: 659 single cards, 403525 pairs, 603 imprint pairs
+- Verified combos: 5976: 948 already in Spellbook, 914 variants of a Spellbook combo (one card swapped or added), **4114 new**
+- Families (same pattern of roles, interchangeable cards): 240: 138 contain a known combo, 99 add one piece to a known engine, **3 are new**
+- Loops rejected by the simulator: 8490
+- Run time: 92.3 s
 
 ## New families (3)
 
@@ -66,16 +66,16 @@ Each family is one idea: the roles below, with any of the listed cards in each r
 2. Deadeye Navigator: As long as Deadeye Navigator is paired with another creature, each of those creatures has "{1}{U}: Exile this creature, then return it to the battlefield under your control." → Chittering Dispatcher leaving the battlefield triggers Chittering Dispatcher.
 3. Repeat.
 
-## Variants of Spellbook combos (766)
+## Variants of Spellbook combos (914)
 
 Same idea as a known combo with one interchangeable card changed (another sacrifice outlet, another Treasure maker...).
 
-- Aggravated Assault + Klauth, Unrivaled Ancient: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Klauth, Unrivaled Ancient instead of Loot, the Nexus
 - Aggravated Assault + Orcrist, Goblin-cleaver: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Orcrist, Goblin-cleaver instead of Loot, the Nexus
 - Aggravated Assault + Tesak, Judith's Hellhound: like [Spellbook 3750-8190](https://commanderspellbook.com/combo/3750-8190/) with Tesak, Judith's Hellhound instead of Loot, the Nexus
 - Alena, Kessig Trapper + Voltaic Construct: like [Spellbook 1978-4747-5776](https://commanderspellbook.com/combo/1978-4747-5776/) with nothing instead of Ygra, Eater of All
+- Altar of Dementia + Narfi, Betrayer King: like [Spellbook 5256-7841--5](https://commanderspellbook.com/combo/5256-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Arc Reactor + Voltaic Construct: like [Spellbook 1978-7170-7685](https://commanderspellbook.com/combo/1978-7170-7685/) with nothing instead of Living Brain, Mechanical Marvel
-- Ashnod's Altar + Necrogenesis: like [Spellbook 2034-7841--5](https://commanderspellbook.com/combo/2034-7841--5/) with Necrogenesis instead of Darksteel Angel
+- Ashnod's Altar + Narfi, Betrayer King: like [Spellbook 2034-7841--5](https://commanderspellbook.com/combo/2034-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Ashnod's Altar + Words of Wilding: like [Spellbook 2034-4616-4963](https://commanderspellbook.com/combo/2034-4616-4963/) with nothing instead of Moldervine Reclamation
 - Avid Reclaimer + Freed from the Real: like [Spellbook 175-3028-4222](https://commanderspellbook.com/combo/175-3028-4222/) with nothing instead of Nissa, Vital Force
 - Avid Reclaimer + Pemmin's Aura: like [Spellbook 175-3028-3525](https://commanderspellbook.com/combo/175-3028-3525/) with nothing instead of Nissa, Vital Force
@@ -91,9 +91,11 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bighorner Rancher + Umbral Mantle: like [Spellbook 5614-7500](https://commanderspellbook.com/combo/5614-7500/) with Umbral Mantle instead of Ringing Strike Mastery
 - Bighorner Rancher + Voltaic Construct: like [Spellbook 1978-5614-5776](https://commanderspellbook.com/combo/1978-5614-5776/) with nothing instead of Ygra, Eater of All
 - Biomechan Engineer + Mana Echoes: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Biomechan Engineer instead of Ingris Stingerquill
+- Bloodflow Connoisseur + Narfi, Betrayer King: like [Spellbook 2511-7841--5](https://commanderspellbook.com/combo/2511-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Bloodthirster + Helm of the Host: like [Spellbook 3057-7074](https://commanderspellbook.com/combo/3057-7074/) with Helm of the Host instead of Koh, the Face Stealer
 - Bloodthirster + Kiki-Jiki, Mirror Breaker: like [Spellbook 82-618-3057](https://commanderspellbook.com/combo/82-618-3057/) with nothing instead of Sting, the Glinting Dagger
 - Bloodthirster + Splinter Twin: like [Spellbook 3057-7074](https://commanderspellbook.com/combo/3057-7074/) with Splinter Twin instead of Koh, the Face Stealer
+- Bloodthrone Vampire + Narfi, Betrayer King: like [Spellbook 4247-7841--5](https://commanderspellbook.com/combo/4247-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Bloom Tender + Companion of the Trials: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Companion of the Trials instead of Sword of the Paruns
 - Bloom Tender + Crab Umbra: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Crab Umbra instead of Sword of the Paruns
 - Bloom Tender + Hapatra, the Desert Frost: like [Spellbook 5168-5200](https://commanderspellbook.com/combo/5168-5200/) with Hapatra, the Desert Frost instead of Sword of the Paruns
@@ -106,26 +108,23 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Cabal Stronghold + Silvanus's Invoker: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Cabal Stronghold instead of Nykthos, Shrine to Nyx
 - Camera Launcher + Mana Echoes: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Camera Launcher instead of Ingris Stingerquill
 - Canopy Tactician + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Canopy Tactician instead of Cradle Clearcutter
+- Carrion Feeder + Narfi, Betrayer King: like [Spellbook 2438-7841--5](https://commanderspellbook.com/combo/2438-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Chandra, Flameshaper + Felidar Guardian: like [Spellbook 2781-7936](https://commanderspellbook.com/combo/2781-7936/) with Chandra, Flameshaper instead of Dominion Saboteur
 - Chromatic Orrery + Voltaic Construct: like [Spellbook 1283-1978-7329](https://commanderspellbook.com/combo/1283-1978-7329/) with nothing instead of Mind Transfer Protocol
 - Circle of Dreams Druid + Voltaic Construct: like [Spellbook 1526-1978-5776](https://commanderspellbook.com/combo/1526-1978-5776/) with nothing instead of Ygra, Eater of All
 - Circle of Elders + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Circle of Elders instead of Cradle Clearcutter
 - Cloudpost + Silvanus's Invoker: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Cloudpost instead of Nykthos, Shrine to Nyx
+- Companion of the Trials + Faeburrow Elder: like [Spellbook 570-5200](https://commanderspellbook.com/combo/570-5200/) with Companion of the Trials instead of Sword of the Paruns
+- Companion of the Trials + Incubation Druid: like [Spellbook 2816-3990](https://commanderspellbook.com/combo/2816-3990/) with Companion of the Trials instead of Umbral Mantle
 - Companion of the Trials + Jegantha, the Wellspring: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Companion of the Trials instead of Pemmin's Aura
 - Companion of the Trials + Selvala, Heart of the Wilds: like [Spellbook 527-7500](https://commanderspellbook.com/combo/527-7500/) with Companion of the Trials instead of Ringing Strike Mastery
-- Cormela, Glamour Thief + Deadeye Navigator: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Deadeye Navigator instead of Doppelgang
-- Cormela, Glamour Thief + Freed from the Real: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Freed from the Real instead of Doppelgang
-- Cormela, Glamour Thief + Pemmin's Aura: like [Spellbook 4867-5352](https://commanderspellbook.com/combo/4867-5352/) with Pemmin's Aura instead of Doppelgang
 - Coveted Jewel + Voltaic Construct: like [Spellbook 1978-3941-7329](https://commanderspellbook.com/combo/1978-3941-7329/) with nothing instead of Mind Transfer Protocol
-- Crab Umbra + Immortus, Master of Eternity: like [Spellbook 1268-8190](https://commanderspellbook.com/combo/1268-8190/) with Immortus, Master of Eternity instead of Loot, the Nexus
+- Crab Umbra + Faeburrow Elder: like [Spellbook 1268-8190](https://commanderspellbook.com/combo/1268-8190/) with Faeburrow Elder instead of Loot, the Nexus
 - Crab Umbra + Jegantha, the Wellspring: like [Spellbook 1268-8190](https://commanderspellbook.com/combo/1268-8190/) with Jegantha, the Wellspring instead of Loot, the Nexus
-- Crab Umbra + Nardole, Resourceful Cyborg: like [Spellbook 1268-8190](https://commanderspellbook.com/combo/1268-8190/) with Nardole, Resourceful Cyborg instead of Loot, the Nexus
 - Crypt of Agadeem + Silvanus's Invoker: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Crypt of Agadeem instead of Nykthos, Shrine to Nyx
 - Divining Duelist + Kiki-Jiki, Mirror Breaker: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Divining Duelist instead of Little Bear
 - Dowsing Dagger // Lost Vale + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Dowsing Dagger // Lost Vale instead of Cradle Clearcutter
 - Dreamstone Hedron + Voltaic Construct: like [Spellbook 290-1978-7329](https://commanderspellbook.com/combo/290-1978-7329/) with nothing instead of Mind Transfer Protocol
-- Duskwielder + Lord of the Forsaken: like [Spellbook 1745-4567](https://commanderspellbook.com/combo/1745-4567/) with Duskwielder instead of Greven, Predator Captain
-- Elementalist's Palette + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Elementalist's Palette instead of Cradle Clearcutter
 - Elvish Aberration + Voltaic Construct: like [Spellbook 1978-4667-5776](https://commanderspellbook.com/combo/1978-4667-5776/) with nothing instead of Ygra, Eater of All
 - Elvish Archdruid + Voltaic Construct: like [Spellbook 1978-3151-5776](https://commanderspellbook.com/combo/1978-3151-5776/) with nothing instead of Ygra, Eater of All
 - Emiel the Blessed + Valki, God of Lies // Tibalt, Cosmic Impostor: like [Spellbook 2033-4499--85--92](https://commanderspellbook.com/combo/2033-4499--85--92/) with Valki, God of Lies // Tibalt, Cosmic Impostor instead of Citanul Hierophants
@@ -138,6 +137,11 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Faceless Devourer + Icewind Stalwart: like [Spellbook 618-4200](https://commanderspellbook.com/combo/618-4200/) with Faceless Devourer instead of Kiki-Jiki, Mirror Breaker
 - Faceless Devourer + Restoration Angel: like [Spellbook 1090-6473](https://commanderspellbook.com/combo/1090-6473/) with Faceless Devourer instead of Mardu Siegebreaker
 - Faceless Devourer + Wispweaver Angel: like [Spellbook 1621-7936](https://commanderspellbook.com/combo/1621-7936/) with Faceless Devourer instead of Dominion Saboteur
+- Faeburrow Elder + Hapatra, the Desert Frost: like [Spellbook 570-5200](https://commanderspellbook.com/combo/570-5200/) with Hapatra, the Desert Frost instead of Sword of the Paruns
+- Faeburrow Elder + Seedcradle Witch: like [Spellbook 449-570-2024](https://commanderspellbook.com/combo/449-570-2024/) with nothing instead of Prismatic Lace
+- Faeburrow Elder + Thassa's Ire: like [Spellbook 570-5200](https://commanderspellbook.com/combo/570-5200/) with Thassa's Ire instead of Sword of the Paruns
+- Faeburrow Elder + Umbral Mantle: like [Spellbook 570-5200](https://commanderspellbook.com/combo/570-5200/) with Umbral Mantle instead of Sword of the Paruns
+- Faeburrow Elder + Voltaic Construct: like [Spellbook 570-1978-5776](https://commanderspellbook.com/combo/570-1978-5776/) with nothing instead of Ygra, Eater of All
 - Fanatic of Rhonas + Sword of the Paruns: like [Spellbook 2816-5711](https://commanderspellbook.com/combo/2816-5711/) with Sword of the Paruns instead of Umbral Mantle
 - Fanatic of Rhonas + Voltaic Construct: like [Spellbook 1978-5711-5776](https://commanderspellbook.com/combo/1978-5711-5776/) with nothing instead of Ygra, Eater of All
 - Felidar Guardian + Fiend Hunter: like [Spellbook 372-1734-2781](https://commanderspellbook.com/combo/372-1734-2781/) with nothing instead of Abdel Adrian, Gorion's Ward
@@ -145,45 +149,28 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Fiend Hunter + Icewind Stalwart: like [Spellbook 372-1734-4200](https://commanderspellbook.com/combo/372-1734-4200/) with nothing instead of Abdel Adrian, Gorion's Ward
 - Fiend Hunter + Restoration Angel: like [Spellbook 372-1090-1734](https://commanderspellbook.com/combo/372-1090-1734/) with nothing instead of Abdel Adrian, Gorion's Ward
 - Fiend Hunter + Wispweaver Angel: like [Spellbook 372-1621-1734](https://commanderspellbook.com/combo/372-1621-1734/) with nothing instead of Abdel Adrian, Gorion's Ward
-- Filigree Sages + Nardole, Resourceful Cyborg: like [Spellbook 2544-6893](https://commanderspellbook.com/combo/2544-6893/) with Nardole, Resourceful Cyborg instead of The Eternity Elevator
 - Firbolg Flutist + Kiki-Jiki, Mirror Breaker: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Firbolg Flutist instead of Little Bear
 - Five Hundred Year Diary + Voltaic Construct: like [Spellbook 1978-5527-7329](https://commanderspellbook.com/combo/1978-5527-7329/) with nothing instead of Mind Transfer Protocol
 - Freed from the Real + Golden Guardian // Gold-Forge Garrison: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Golden Guardian // Gold-Forge Garrison instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Immortus, Master of Eternity: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Immortus, Master of Eternity instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Intrepid Stablemaster: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Intrepid Stablemaster instead of Kinnan, Bonder Prodigy
 - Freed from the Real + Loot, the Pathfinder: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Loot, the Pathfinder instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Nardole, Resourceful Cyborg: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Nardole, Resourceful Cyborg instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Overgrown Zealot: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Overgrown Zealot instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Rootcoil Creeper: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Rootcoil Creeper instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Shang-Chi, Master of Kung Fu: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Shang-Chi, Master of Kung Fu instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Somberwald Sage: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Somberwald Sage instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Steelswarm Operator: like [Spellbook 486-4222-6784](https://commanderspellbook.com/combo/486-4222-6784/) with nothing instead of Liquimetal Torque
 - Freed from the Real + Transdimensional Bovine: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Transdimensional Bovine instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Troyan, Gutsy Explorer: like [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/) with Troyan, Gutsy Explorer instead of Kinnan, Bonder Prodigy
-- Freed from the Real + Vedalken Engineer: like [Spellbook 1379-3576-4222](https://commanderspellbook.com/combo/1379-3576-4222/) with nothing instead of Encroaching Mycosynth
 - Giant-Sized Flying Ant + Splinter Twin: like [Spellbook 5470-7747](https://commanderspellbook.com/combo/5470-7747/) with Splinter Twin instead of Ghired, Mirror of the Wilds
 - Gilded Lotus + Voltaic Construct: like [Spellbook 1978-5116-7329](https://commanderspellbook.com/combo/1978-5116-7329/) with nothing instead of Mind Transfer Protocol
 - Glistening Sphere + Voltaic Construct: like [Spellbook 1437-6962](https://commanderspellbook.com/combo/1437-6962/) with Voltaic Construct instead of Myojin of Cryptic Dreams
 - Goatnapper + Kiki-Jiki, Mirror Breaker: like [Spellbook 618-719-3320](https://commanderspellbook.com/combo/618-719-3320/) with nothing instead of Xenograft
 - Goatnapper + Splinter Twin: like [Spellbook 4702-7895](https://commanderspellbook.com/combo/4702-7895/) with Goatnapper instead of Little Bear
+- Goblin Bombardment + Narfi, Betrayer King: like [Spellbook 5147-7841--5](https://commanderspellbook.com/combo/5147-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Golden Guardian // Gold-Forge Garrison + Pemmin's Aura: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Golden Guardian // Gold-Forge Garrison instead of Kinnan, Bonder Prodigy
-- Great Whale + Improvised Arsenal: like [Spellbook 2792-5900](https://commanderspellbook.com/combo/2792-5900/) with Improvised Arsenal instead of Lilysplash Mentor
+- Greater Good + Narfi, Betrayer King: like [Spellbook 445-3304](https://commanderspellbook.com/combo/445-3304/) with Narfi, Betrayer King instead of Ominous Seas
 - Grim Monolith + Voltaic Construct: like [Spellbook 1978-2585-7329](https://commanderspellbook.com/combo/1978-2585-7329/) with nothing instead of Mind Transfer Protocol
+- Grimgrin, Corpse-Born + Narfi, Betrayer King: like [Spellbook 728-7841--5](https://commanderspellbook.com/combo/728-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Gyre Sage + Voltaic Construct: like [Spellbook 1597-1978-5776](https://commanderspellbook.com/combo/1597-1978-5776/) with nothing instead of Ygra, Eater of All
 - Hapatra, the Desert Frost + Jegantha, the Wellspring: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Hapatra, the Desert Frost instead of Pemmin's Aura
 - Hapatra, the Desert Frost + Selvala, Heart of the Wilds: like [Spellbook 527-7500](https://commanderspellbook.com/combo/527-7500/) with Hapatra, the Desert Frost instead of Ringing Strike Mastery
 - High Alert + Jegantha, the Wellspring: like [Spellbook 339-2713-4896](https://commanderspellbook.com/combo/339-2713-4896/) with nothing instead of Zirda, the Dawnwaker
 - Howlsquad Heavy + Voltaic Construct: like [Spellbook 1978-5776-6410](https://commanderspellbook.com/combo/1978-5776-6410/) with nothing instead of Ygra, Eater of All
 - Icewind Stalwart + Slithery Stalker: like [Spellbook 618-4200](https://commanderspellbook.com/combo/618-4200/) with Slithery Stalker instead of Kiki-Jiki, Mirror Breaker
-- Immortus, Master of Eternity + Pemmin's Aura: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Immortus, Master of Eternity instead of Kinnan, Bonder Prodigy
-- Immortus, Master of Eternity + Staff of Domination: like [Spellbook 2645-8190](https://commanderspellbook.com/combo/2645-8190/) with Immortus, Master of Eternity instead of Loot, the Nexus
-- Immortus, Master of Eternity + Sword of the Paruns: like [Spellbook 5200-8190](https://commanderspellbook.com/combo/5200-8190/) with Immortus, Master of Eternity instead of Loot, the Nexus
-- Immortus, Master of Eternity + Thassa's Ire: like [Spellbook 403-1355](https://commanderspellbook.com/combo/403-1355/) with Immortus, Master of Eternity instead of Sanctum Weaver
-- Immortus, Master of Eternity + Umbral Mantle: like [Spellbook 2816-8190](https://commanderspellbook.com/combo/2816-8190/) with Immortus, Master of Eternity instead of Loot, the Nexus
-- Immortus, Master of Eternity + Vigean Graftmage: like [Spellbook 81-4019](https://commanderspellbook.com/combo/81-4019/) with Immortus, Master of Eternity instead of Kami of Whispered Hopes
-- Immortus, Master of Eternity + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Immortus, Master of Eternity instead of Cradle Clearcutter
-- Improvised Arsenal + Peregrine Drake: like [Spellbook 3821-5900](https://commanderspellbook.com/combo/3821-5900/) with Improvised Arsenal instead of Lilysplash Mentor
-- Intrepid Stablemaster + Pemmin's Aura: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Intrepid Stablemaster instead of Kinnan, Bonder Prodigy
+- Incubation Druid + Voltaic Construct: like [Spellbook 1978-3990-5776](https://commanderspellbook.com/combo/1978-3990-5776/) with nothing instead of Ygra, Eater of All
 - Jegantha, the Wellspring + Seedcradle Witch: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Seedcradle Witch instead of Pemmin's Aura
 - Jegantha, the Wellspring + Staff of Domination: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Staff of Domination instead of Pemmin's Aura
 - Jegantha, the Wellspring + Sword of the Paruns: like [Spellbook 339-3525](https://commanderspellbook.com/combo/339-3525/) with Sword of the Paruns instead of Pemmin's Aura
@@ -195,41 +182,35 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + The Watcher in the Water: like [Spellbook 2351-4639--81](https://commanderspellbook.com/combo/2351-4639--81/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Unctus, Grand Metatect
 - Karametra's Acolyte + Voltaic Construct: like [Spellbook 1978-3291-5776](https://commanderspellbook.com/combo/1978-3291-5776/) with nothing instead of Ygra, Eater of All
 - Kiki-Jiki, Mirror Breaker + Reptilian Recruiter: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Reptilian Recruiter instead of Little Bear
+- Kiki-Jiki, Mirror Breaker + Shuri, Wakandan Inventor: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Shuri, Wakandan Inventor instead of Little Bear
 - Kydele, Chosen of Kruphix + Umbral Mantle: like [Spellbook 427-7500](https://commanderspellbook.com/combo/427-7500/) with Umbral Mantle instead of Ringing Strike Mastery
 - Kydele, Chosen of Kruphix + Voltaic Construct: like [Spellbook 427-1978-5776](https://commanderspellbook.com/combo/427-1978-5776/) with nothing instead of Ygra, Eater of All
 - Leafkin Avenger + Umbral Mantle: like [Spellbook 5704-7500](https://commanderspellbook.com/combo/5704-7500/) with Umbral Mantle instead of Ringing Strike Mastery
 - Leafkin Avenger + Voltaic Construct: like [Spellbook 1978-5704-5776](https://commanderspellbook.com/combo/1978-5704-5776/) with nothing instead of Ygra, Eater of All
 - Llanowar Tribe + Voltaic Construct: like [Spellbook 305-1978-5776](https://commanderspellbook.com/combo/305-1978-5776/) with nothing instead of Ygra, Eater of All
 - Loot, the Pathfinder + Pemmin's Aura: like [Spellbook 1409-6253](https://commanderspellbook.com/combo/1409-6253/) with Pemmin's Aura instead of Deadeye Navigator
-- Lord of the Forsaken + Words of Worship: like [Spellbook 1745-4567](https://commanderspellbook.com/combo/1745-4567/) with Words of Worship instead of Greven, Predator Captain
 - Loyal Fire Sage + Mana Echoes: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Loyal Fire Sage instead of Ingris Stingerquill
 - Magus of the Coffers + Umbral Mantle: like [Spellbook 2479-2645](https://commanderspellbook.com/combo/2479-2645/) with Umbral Mantle instead of Staff of Domination
 - Magus of the Coffers + Voltaic Construct: like [Spellbook 2479-2645](https://commanderspellbook.com/combo/2479-2645/) with Voltaic Construct instead of Staff of Domination
-- Mana Echoes + Necrogenesis: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Necrogenesis instead of Ingris Stingerquill
 - Mana Echoes + Sun Warriors: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with Sun Warriors instead of Ingris Stingerquill
 - Mana Echoes + The Legend of Roku // Avatar Roku: like [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/) with The Legend of Roku // Avatar Roku instead of Ingris Stingerquill
 - Mana Echoes + Words of Wilding: like [Spellbook 769-2440-4963](https://commanderspellbook.com/combo/769-2440-4963/) with nothing instead of Mentor of the Meek
 - Mana Vault + Voltaic Construct: like [Spellbook 1978-2364-7329](https://commanderspellbook.com/combo/1978-2364-7329/) with nothing instead of Mind Transfer Protocol
 - Marwyn, the Nurturer + Voltaic Construct: like [Spellbook 1978-2436-5776](https://commanderspellbook.com/combo/1978-2436-5776/) with nothing instead of Ygra, Eater of All
-- Nardole, Resourceful Cyborg + Pemmin's Aura: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Nardole, Resourceful Cyborg instead of Kinnan, Bonder Prodigy
-- Nardole, Resourceful Cyborg + Staff of Domination: like [Spellbook 2645-8190](https://commanderspellbook.com/combo/2645-8190/) with Nardole, Resourceful Cyborg instead of Loot, the Nexus
-- Nardole, Resourceful Cyborg + Sword of the Paruns: like [Spellbook 5200-8190](https://commanderspellbook.com/combo/5200-8190/) with Nardole, Resourceful Cyborg instead of Loot, the Nexus
-- Nardole, Resourceful Cyborg + Thassa's Ire: like [Spellbook 403-1355](https://commanderspellbook.com/combo/403-1355/) with Nardole, Resourceful Cyborg instead of Sanctum Weaver
-- Nardole, Resourceful Cyborg + Umbral Mantle: like [Spellbook 2816-8190](https://commanderspellbook.com/combo/2816-8190/) with Nardole, Resourceful Cyborg instead of Loot, the Nexus
-- Nardole, Resourceful Cyborg + Vigean Graftmage: like [Spellbook 81-4019](https://commanderspellbook.com/combo/81-4019/) with Nardole, Resourceful Cyborg instead of Kami of Whispered Hopes
-- Nardole, Resourceful Cyborg + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Nardole, Resourceful Cyborg instead of Cradle Clearcutter
+- Narfi, Betrayer King + Phyrexian Altar: like [Spellbook 4050-7841--5](https://commanderspellbook.com/combo/4050-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Prossh, Skyraider of Kher: like [Spellbook 1864-3519](https://commanderspellbook.com/combo/1864-3519/) with Narfi, Betrayer King instead of Food Chain
+- Narfi, Betrayer King + Sadistic Hypnotist: like [Spellbook 28-3611](https://commanderspellbook.com/combo/28-3611/) with Narfi, Betrayer King instead of Nath of the Gilt-Leaf
+- Narfi, Betrayer King + Scarland Thrinax: like [Spellbook 7841-8250--5](https://commanderspellbook.com/combo/7841-8250--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Shilgengar, Sire of Famine: like [Spellbook 5686-7841--5](https://commanderspellbook.com/combo/5686-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Thermopod: like [Spellbook 849-1422-5231](https://commanderspellbook.com/combo/849-1422-5231/) with nothing instead of Anax, Hardened in the Forge
+- Narfi, Betrayer King + Viscera Seer: like [Spellbook 2292-7841--5](https://commanderspellbook.com/combo/2292-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Vish Kal, Blood Arbiter: like [Spellbook 574-7841--5](https://commanderspellbook.com/combo/574-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Woe Strider: like [Spellbook 997-7841--5](https://commanderspellbook.com/combo/997-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
+- Narfi, Betrayer King + Yahenni, Undying Partisan: like [Spellbook 3967-7841--5](https://commanderspellbook.com/combo/3967-7841--5/) with Narfi, Betrayer King instead of Darksteel Angel
 - Niv-Mizzet, Parun + Valgavoth, Harrower of Souls: like [Spellbook 2353-6574](https://commanderspellbook.com/combo/2353-6574/) with Valgavoth, Harrower of Souls instead of Kefka, Court Mage // Kefka, Ruler of Ruin
 - Niv-Mizzet, the Firemind + Valgavoth, Harrower of Souls: like [Spellbook 2178-4971](https://commanderspellbook.com/combo/2178-4971/) with Valgavoth, Harrower of Souls instead of Thornbite Staff
-- Oona, Queen of the Fae + Phyrexian Altar: like [Spellbook 4050-7841--5](https://commanderspellbook.com/combo/4050-7841--5/) with Oona, Queen of the Fae instead of Darksteel Angel
 - Overgrown Battlement + Voltaic Construct: like [Spellbook 850-1978-5776](https://commanderspellbook.com/combo/850-1978-5776/) with nothing instead of Ygra, Eater of All
-- Overgrown Zealot + Pemmin's Aura: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Overgrown Zealot instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Rootcoil Creeper: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Rootcoil Creeper instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Shang-Chi, Master of Kung Fu: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Shang-Chi, Master of Kung Fu instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Somberwald Sage: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Somberwald Sage instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Steelswarm Operator: like [Spellbook 486-3525-6784](https://commanderspellbook.com/combo/486-3525-6784/) with nothing instead of Liquimetal Torque
 - Pemmin's Aura + Transdimensional Bovine: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Transdimensional Bovine instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Troyan, Gutsy Explorer: like [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/) with Troyan, Gutsy Explorer instead of Kinnan, Bonder Prodigy
-- Pemmin's Aura + Vedalken Engineer: like [Spellbook 1379-3525-3576](https://commanderspellbook.com/combo/1379-3525-3576/) with nothing instead of Encroaching Mycosynth
 - Phyrexian Altar + Words of Wilding: like [Spellbook 4050-4616-4963](https://commanderspellbook.com/combo/4050-4616-4963/) with nothing instead of Moldervine Reclamation
 - Powerstone Shard + Voltaic Construct: like [Spellbook 4295-7282](https://commanderspellbook.com/combo/4295-7282/) with Voltaic Construct instead of Chrome Dome
 - Priest of Titania + Voltaic Construct: like [Spellbook 1376-1978-5776](https://commanderspellbook.com/combo/1376-1978-5776/) with nothing instead of Ygra, Eater of All
@@ -239,9 +220,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Rainveil Rejuvenator + Umbral Mantle: like [Spellbook 6479-7500](https://commanderspellbook.com/combo/6479-7500/) with Umbral Mantle instead of Ringing Strike Mastery
 - Rainveil Rejuvenator + Voltaic Construct: like [Spellbook 1978-5776-6479](https://commanderspellbook.com/combo/1978-5776-6479/) with nothing instead of Ygra, Eater of All
 - Restoration Angel + Slithery Stalker: like [Spellbook 1090-6473](https://commanderspellbook.com/combo/1090-6473/) with Slithery Stalker instead of Mardu Siegebreaker
-- Rosheen Meanderer + Sword of the Paruns: like [Spellbook 5200-8190](https://commanderspellbook.com/combo/5200-8190/) with Rosheen Meanderer instead of Loot, the Nexus
-- Rosheen Meanderer + Umbral Mantle: like [Spellbook 2816-8190](https://commanderspellbook.com/combo/2816-8190/) with Rosheen Meanderer instead of Loot, the Nexus
-- Rosheen Meanderer + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Rosheen Meanderer instead of Cradle Clearcutter
 - Rotating Fireplace + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Rotating Fireplace instead of Cradle Clearcutter
 - Sacellum Godspeaker + Staff of Domination: like [Spellbook 2645-8190](https://commanderspellbook.com/combo/2645-8190/) with Sacellum Godspeaker instead of Loot, the Nexus
 - Sacellum Godspeaker + Sword of the Paruns: like [Spellbook 5200-8190](https://commanderspellbook.com/combo/5200-8190/) with Sacellum Godspeaker instead of Loot, the Nexus
@@ -256,8 +234,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Silvanus's Invoker + Urza's Workshop: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Urza's Workshop instead of Nykthos, Shrine to Nyx
 - Silvanus's Invoker + Welcome to . . . // Jurassic Park: like [Spellbook 4249-4954](https://commanderspellbook.com/combo/4249-4954/) with Welcome to . . . // Jurassic Park instead of Nykthos, Shrine to Nyx
 - Slithery Stalker + Wispweaver Angel: like [Spellbook 1621-7936](https://commanderspellbook.com/combo/1621-7936/) with Slithery Stalker instead of Dominion Saboteur
-- Somberwald Sage + Vigean Graftmage: like [Spellbook 81-4019](https://commanderspellbook.com/combo/81-4019/) with Somberwald Sage instead of Kami of Whispered Hopes
-- Somberwald Sage + Voltaic Construct: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Somberwald Sage instead of Cradle Clearcutter
 - Sword of the Paruns + Witch Engine: like [Spellbook 5200-8190](https://commanderspellbook.com/combo/5200-8190/) with Witch Engine instead of Loot, the Nexus
 - The Eternity Elevator + Voltaic Construct: like [Spellbook 1978-6893-7329](https://commanderspellbook.com/combo/1978-6893-7329/) with nothing instead of Mind Transfer Protocol
 - The Great Henge + Voltaic Construct: like [Spellbook 1978-3139-5793](https://commanderspellbook.com/combo/1978-3139-5793/) with nothing instead of Bello, Bard of the Brambles
@@ -274,50 +250,54 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Viridian Joiner + Voltaic Construct: like [Spellbook 1978-3717-5776](https://commanderspellbook.com/combo/1978-3717-5776/) with nothing instead of Ygra, Eater of All
 - Voltaic Construct + Witch Engine: like [Spellbook 1978-4734](https://commanderspellbook.com/combo/1978-4734/) with Witch Engine instead of Cradle Clearcutter
 - Wakeroot Elemental + Welcome to . . . // Jurassic Park: like [Spellbook 192-1836](https://commanderspellbook.com/combo/192-1836/) with Welcome to . . . // Jurassic Park instead of Sasaya, Orochi Ascendant // Sasaya's Essence
+- Akki Rockspeaker + Emiel the Blessed + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Akki Rockspeaker instead of Meticulous Artisan
+- Altar of the Pantheon + Filigree Sages + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Altar of the Pantheon instead of Gilded Lotus
+- Altar of the Pantheon + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Altar of the Pantheon instead of Millikin
 - Ant Queen + Ashnod's Altar + Pitiless Plunderer: like [Spellbook 1245-2457-4871](https://commanderspellbook.com/combo/1245-2457-4871/) with Ashnod's Altar instead of Tooth and Claw
 - Ant Queen + Phyrexian Altar + Mana Echoes: like [Spellbook 2092-2457-4050](https://commanderspellbook.com/combo/2092-2457-4050/) with Mana Echoes instead of Agatha of the Vile Cauldron
 - Ant Queen + Thermopod + Pitiless Plunderer: like [Spellbook 1245-2457-4871](https://commanderspellbook.com/combo/1245-2457-4871/) with Thermopod instead of Tooth and Claw
 - Arcbound Ravager + Lesser Masticore + Solemnity: like [Spellbook 1429-2829-3545](https://commanderspellbook.com/combo/1429-2829-3545/) with Solemnity instead of Sigil Captain
 - Arcbound Ravager + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-2829-5570](https://commanderspellbook.com/combo/2018-2829-5570/) with Solemnity instead of Luminous Broodmoth
 - Ardent Electromancer + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Ardent Electromancer
-- Arixmethes, Slumbering Isle + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Arixmethes, Slumbering Isle instead of Omen Hawker
+- Arixmethes, Slumbering Isle + Crab Umbra + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Arixmethes, Slumbering Isle instead of Omen Hawker
+- Arixmethes, Slumbering Isle + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Arixmethes, Slumbering Isle instead of Careful Cultivation
+- Arixmethes, Slumbering Isle + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 1912-2816-3201](https://commanderspellbook.com/combo/1912-2816-3201/) with Zirda, the Dawnwaker instead of Biomancer's Familiar
+- Arixmethes, Slumbering Isle + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Arixmethes, Slumbering Isle instead of Codie, Vociferous Codex
+- Arixmethes, Slumbering Isle + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Arixmethes, Slumbering Isle instead of Millikin
 - Ashnod's Altar + Blaring Recruiter + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Blaring Recruiter instead of Draconic Visitor
 - Ashnod's Altar + Camera Launcher + Krenko, Baron of Tin Street: like [Spellbook 2034-4871-5433](https://commanderspellbook.com/combo/2034-4871-5433/) with Camera Launcher instead of Pitiless Plunderer
 - Ashnod's Altar + Chronosavant + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Chronosavant instead of Draconic Visitor
-- Ashnod's Altar + Detective's Phoenix + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Detective's Phoenix instead of Draconic Visitor
 - Ashnod's Altar + Dread Wanderer + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Dread Wanderer instead of Draconic Visitor
 - Ashnod's Altar + Fearless Liberator + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Fearless Liberator instead of Draconic Visitor
-- Ashnod's Altar + Kuldotha Phoenix + Abzan Ascendancy: like [Spellbook 2034-2301-7084](https://commanderspellbook.com/combo/2034-2301-7084/) with Kuldotha Phoenix instead of Beifong's Bounty Hunters
+- Ashnod's Altar + Ingris Stingerquill + Zirda, the Dawnwaker: like [Spellbook 2034-2713-4144](https://commanderspellbook.com/combo/2034-2713-4144/) with Ingris Stingerquill instead of Kuldotha Phoenix
 - Ashnod's Altar + Mobilization + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Mobilization instead of Draconic Visitor
 - Ashnod's Altar + Nemata, Grove Guardian + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Nemata, Grove Guardian instead of Draconic Visitor
 - Ashnod's Altar + Nemesis Phoenix + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Nemesis Phoenix instead of Draconic Visitor
-- Ashnod's Altar + Oathsworn Vampire + Pitiless Plunderer: like [Spellbook 1385-2034-3054-4871](https://commanderspellbook.com/combo/1385-2034-3054-4871/) with nothing instead of Zulaport Cutthroat
-- Ashnod's Altar + Oona, Queen of the Fae + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Oona, Queen of the Fae instead of Draconic Visitor
 - Ashnod's Altar + Patrol Signaler + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Patrol Signaler instead of Draconic Visitor
 - Ashnod's Altar + Persistent Specimen + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Persistent Specimen instead of Draconic Visitor
+- Ashnod's Altar + Retrofitter Foundry + Zirda, the Dawnwaker: like [Spellbook 2034-2797-4853](https://commanderspellbook.com/combo/2034-2797-4853/) with Zirda, the Dawnwaker instead of Dross Scorpion
 - Ashnod's Altar + Sacred Mesa + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Sacred Mesa instead of Draconic Visitor
 - Ashnod's Altar + Sorcerer's Broom + Mana Echoes: like [Spellbook 2034-5320-7824](https://commanderspellbook.com/combo/2034-5320-7824/) with Mana Echoes instead of Bard, King of Dale
-- Ashnod's Altar + Squee, Dubious Monarch + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Squee, Dubious Monarch instead of Draconic Visitor
 - Ashnod's Altar + Super-Skrull + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Super-Skrull instead of Draconic Visitor
-- Ashnod's Altar + Tenacious Underdog + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Tenacious Underdog instead of Draconic Visitor
 - Ashnod's Altar + Usher of the Fallen + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Usher of the Fallen instead of Draconic Visitor
 - Ashnod's Altar + Wren's Run Packmaster + Pitiless Plunderer: like [Spellbook 2034-4871-8168](https://commanderspellbook.com/combo/2034-4871-8168/) with Wren's Run Packmaster instead of Draconic Visitor
-- Avid Reclaimer + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Avid Reclaimer instead of Omen Hawker
-- Beastcaller Savant + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-2440-3263](https://commanderspellbook.com/combo/1409-2440-3263/) with Beastcaller Savant instead of Mycosynth Lattice
+- Attrition + Narfi, Betrayer King + Pitiless Plunderer: like [Spellbook 4871-5539-6993](https://commanderspellbook.com/combo/4871-5539-6993/) with Narfi, Betrayer King instead of Lucius the Eternal
+- Avid Reclaimer + Crab Umbra + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Avid Reclaimer instead of Omen Hawker
+- Avid Reclaimer + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Avid Reclaimer instead of Careful Cultivation
+- Avid Reclaimer + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Avid Reclaimer instead of Zhur-Taa Druid
+- Avid Reclaimer + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Avid Reclaimer instead of Codie, Vociferous Codex
+- Avid Reclaimer + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Avid Reclaimer instead of Millikin
 - Beck // Call + Nadir Kraken + Mana Echoes: like [Spellbook 350-1722-2034](https://commanderspellbook.com/combo/350-1722-2034/) with Mana Echoes instead of Ashnod's Altar
 - Beza, the Bounding Spring + Deadeye Navigator + Carnival of Souls: like [Spellbook 1409-4050-5790](https://commanderspellbook.com/combo/1409-4050-5790/) with Carnival of Souls instead of Phyrexian Altar
 - Beza, the Bounding Spring + Eldrazi Displacer + Carnival of Souls: like [Spellbook 2034-4013-5790](https://commanderspellbook.com/combo/2034-4013-5790/) with Carnival of Souls instead of Ashnod's Altar
 - Beza, the Bounding Spring + Emiel the Blessed + Carnival of Souls: like [Spellbook 2034-4499-5790](https://commanderspellbook.com/combo/2034-4499-5790/) with Carnival of Souls instead of Ashnod's Altar
 - Birthing Hulk + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Birthing Hulk
 - Birthing Hulk + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Birthing Hulk
-- Black Carriage + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Black Carriage instead of Swans of Bryn Argoll
-- Black Carriage + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Black Carriage instead of Kykar, Wind's Fury
-- Black Carriage + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Black Carriage instead of Kykar, Wind's Fury
-- Black Carriage + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Black Carriage instead of Kykar, Wind's Fury
-- Black Carriage + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Black Carriage instead of Spawning Pit
-- Black Carriage + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Black Carriage instead of Kykar, Wind's Fury
-- Black Carriage + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Black Carriage instead of Kykar, Wind's Fury
+- Black Tom Cassidy + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Black Tom Cassidy instead of Careful Cultivation
+- Black Tom Cassidy + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Black Tom Cassidy instead of Zhur-Taa Druid
+- Black Tom Cassidy + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Black Tom Cassidy instead of Millikin
 - Blood Bairn + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Blood Bairn instead of Swans of Bryn Argoll
+- Blood Bairn + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Blood Bairn instead of Hammerhead, Maggia Boss
 - Blood Bairn + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Blood Bairn instead of Kykar, Wind's Fury
 - Blood Bairn + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Blood Bairn instead of Kykar, Wind's Fury
 - Blood Bairn + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Blood Bairn instead of Kykar, Wind's Fury
@@ -325,6 +305,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Blood Bairn + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Blood Bairn instead of Kykar, Wind's Fury
 - Blood Bairn + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Blood Bairn instead of Kykar, Wind's Fury
 - Bloodroot Apothecary + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-2440-3263](https://commanderspellbook.com/combo/1409-2440-3263/) with Bloodroot Apothecary instead of Mycosynth Lattice
+- Bloodroot Apothecary + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Bloodroot Apothecary instead of Cloud of Faeries
+- Bloodroot Apothecary + Emiel the Blessed + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Bloodroot Apothecary instead of Meticulous Artisan
 - Bloodsoaked Champion + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 1263-4050-7422](https://commanderspellbook.com/combo/1263-4050-7422/) with Abzan Ascendancy instead of Garrison Excavator
 - Bloodthrone Vampire + Aerie Ouphes + Solemnity: like [Spellbook 4053-4247-7134--145](https://commanderspellbook.com/combo/4053-4247-7134--145/) with Aerie Ouphes instead of Thunderbolts Conspiracy
 - Bloodthrone Vampire + Butcher Ghoul + Solemnity: like [Spellbook 4053-4247-7134--145](https://commanderspellbook.com/combo/4053-4247-7134--145/) with Butcher Ghoul instead of Thunderbolts Conspiracy
@@ -372,6 +354,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bloodthrone Vampire + Woodfall Primus + Solemnity: like [Spellbook 4053-4247-7134--145](https://commanderspellbook.com/combo/4053-4247-7134--145/) with Woodfall Primus instead of Thunderbolts Conspiracy
 - Bloodthrone Vampire + Young Wolf + Solemnity: like [Spellbook 4053-4247-7134--145](https://commanderspellbook.com/combo/4053-4247-7134--145/) with Young Wolf instead of Thunderbolts Conspiracy
 - Bogardan Dragonheart + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Bogardan Dragonheart instead of Swans of Bryn Argoll
+- Bogardan Dragonheart + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Bogardan Dragonheart instead of Hammerhead, Maggia Boss
 - Bogardan Dragonheart + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Bogardan Dragonheart instead of Kykar, Wind's Fury
 - Bogardan Dragonheart + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Bogardan Dragonheart instead of Kykar, Wind's Fury
 - Bogardan Dragonheart + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Bogardan Dragonheart instead of Kykar, Wind's Fury
@@ -379,21 +362,28 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bogardan Dragonheart + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Bogardan Dragonheart instead of Kykar, Wind's Fury
 - Bogardan Dragonheart + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Bogardan Dragonheart instead of Kykar, Wind's Fury
 - Brazen Freebooter + Deadeye Navigator + Mana Echoes: like [Spellbook 582-1409-7824](https://commanderspellbook.com/combo/582-1409-7824/) with Mana Echoes instead of Bard, King of Dale
+- Brazen Freebooter + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 582-2713-4499](https://commanderspellbook.com/combo/582-2713-4499/) with Eldrazi Displacer instead of Emiel the Blessed
 - Brood Butcher + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Brood Butcher
 - Brood Butcher + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Brood Butcher
 - Burdened Aerialist + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-1780-7824](https://commanderspellbook.com/combo/1409-1780-7824/) with Mana Echoes instead of Bard, King of Dale
+- Burdened Aerialist + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 1780-2713-4499](https://commanderspellbook.com/combo/1780-2713-4499/) with Eldrazi Displacer instead of Emiel the Blessed
 - Burning-Tree Emissary + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Burning-Tree Emissary
 - Burning-Tree Emissary + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Burning-Tree Emissary
 - Butcher of the Horde + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Butcher of the Horde instead of Swans of Bryn Argoll
+- Butcher of the Horde + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Butcher of the Horde instead of Hammerhead, Maggia Boss
 - Butcher of the Horde + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Butcher of the Horde instead of Kykar, Wind's Fury
 - Butcher of the Horde + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Butcher of the Horde instead of Kykar, Wind's Fury
 - Butcher of the Horde + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Butcher of the Horde instead of Kykar, Wind's Fury
 - Butcher of the Horde + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Butcher of the Horde instead of Spawning Pit
 - Butcher of the Horde + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Butcher of the Horde instead of Kykar, Wind's Fury
 - Butcher of the Horde + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Butcher of the Horde instead of Kykar, Wind's Fury
-- Canopy Tactician + Umbral Mantle + Kinnan, Bonder Prodigy: like [Spellbook 129-2661-2816](https://commanderspellbook.com/combo/129-2661-2816/) with Canopy Tactician instead of Gwenna, Eyes of Gaea
+- Camera Launcher + Phyrexian Altar + Zirda, the Dawnwaker: like [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/) with Camera Launcher instead of Super-Skrull
+- Camera Launcher + Thermopod + Zirda, the Dawnwaker: like [Spellbook 2713-4385-5231](https://commanderspellbook.com/combo/2713-4385-5231/) with Camera Launcher instead of Sliver Queen
+- Canopy Tactician + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Canopy Tactician instead of Careful Cultivation
+- Canopy Tactician + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Canopy Tactician instead of Zhur-Taa Druid
 - Carnival of Souls + Words of Wilding + Ajani's Welcome: like [Spellbook 1874-1957-2530--203](https://commanderspellbook.com/combo/1874-1957-2530--203/) with Words of Wilding instead of Veinwitch Coven
 - Cartel Aristocrat + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Cartel Aristocrat instead of Swans of Bryn Argoll
+- Cartel Aristocrat + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Cartel Aristocrat instead of Hammerhead, Maggia Boss
 - Cartel Aristocrat + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Cartel Aristocrat instead of Kykar, Wind's Fury
 - Cartel Aristocrat + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Cartel Aristocrat instead of Kykar, Wind's Fury
 - Cartel Aristocrat + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Cartel Aristocrat instead of Kykar, Wind's Fury
@@ -403,6 +393,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Catacomb Sifter + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Catacomb Sifter
 - Catacomb Sifter + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Catacomb Sifter
 - Cateran Overlord + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Cateran Overlord instead of Swans of Bryn Argoll
+- Cateran Overlord + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Cateran Overlord instead of Hammerhead, Maggia Boss
 - Cateran Overlord + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Cateran Overlord instead of Kykar, Wind's Fury
 - Cateran Overlord + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Cateran Overlord instead of Kykar, Wind's Fury
 - Cateran Overlord + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Cateran Overlord instead of Kykar, Wind's Fury
@@ -411,20 +402,23 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Cateran Overlord + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Cateran Overlord instead of Kykar, Wind's Fury
 - Cathars' Crusade + Ghave, Guru of Spores + Mana Echoes: like [Spellbook 2440-5189](https://commanderspellbook.com/combo/2440-5189/) plus Cathars' Crusade
 - Cathars' Crusade + Pentavus + Mana Echoes: like [Spellbook 1183-2440](https://commanderspellbook.com/combo/1183-2440/) plus Cathars' Crusade
+- Chained Brute + Narfi, Betrayer King + Mana Echoes: like [Spellbook 262-812-2440](https://commanderspellbook.com/combo/262-812-2440/) with Narfi, Betrayer King instead of Elemental Mastery
 - Charming Scoundrel + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-2208-7824](https://commanderspellbook.com/combo/1409-2208-7824/) with Mana Echoes instead of Bard, King of Dale
+- Charming Scoundrel + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 2208-2713-4499](https://commanderspellbook.com/combo/2208-2713-4499/) with Eldrazi Displacer instead of Emiel the Blessed
 - Chittering Dispatcher + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Chittering Dispatcher
 - Chittering Dispatcher + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Chittering Dispatcher
 - Chronosavant + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 308-3578-4050](https://commanderspellbook.com/combo/308-3578-4050/) with Abzan Ascendancy instead of Embalmer's Tools
 - Chronosavant + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Chronosavant instead of Draconic Visitor
-- Circle of Elders + Umbral Mantle + Kinnan, Bonder Prodigy: like [Spellbook 129-2661-2816](https://commanderspellbook.com/combo/129-2661-2816/) with Circle of Elders instead of Gwenna, Eyes of Gaea
+- Circle of Elders + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Circle of Elders instead of Careful Cultivation
+- Circle of Elders + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Circle of Elders instead of Zhur-Taa Druid
 - Cloud of Faeries + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Cloud of Faeries
 - Cloud of Faeries + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Cloud of Faeries
 - Cloud of Faeries + Lilysplash Mentor + Mana Echoes: like [Spellbook 1741-2713-5900](https://commanderspellbook.com/combo/1741-2713-5900/) with Mana Echoes instead of Zirda, the Dawnwaker
 - Contract Hero + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-2440-3263](https://commanderspellbook.com/combo/1409-2440-3263/) with Contract Hero instead of Mycosynth Lattice
-- Cormela, Glamour Thief + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Cormela, Glamour Thief
-- Cormela, Glamour Thief + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Cormela, Glamour Thief
-- Cormela, Glamour Thief + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Cormela, Glamour Thief instead of Omen Hawker
+- Contract Hero + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Contract Hero instead of Cloud of Faeries
+- Contract Hero + Emiel the Blessed + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Contract Hero instead of Meticulous Artisan
 - Corpse Blockade + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Corpse Blockade instead of Swans of Bryn Argoll
+- Corpse Blockade + Gravecrawler + Pitiless Plunderer: like [Spellbook 2452-2577-3623](https://commanderspellbook.com/combo/2452-2577-3623/) with Pitiless Plunderer instead of Rooftop Storm
 - Corpse Blockade + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Corpse Blockade instead of Kykar, Wind's Fury
 - Corpse Blockade + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Corpse Blockade instead of Kykar, Wind's Fury
 - Corpse Blockade + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Corpse Blockade instead of Kykar, Wind's Fury
@@ -432,9 +426,18 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Corpse Blockade + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Corpse Blockade instead of Kykar, Wind's Fury
 - Corpse Blockade + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Corpse Blockade instead of Kykar, Wind's Fury
 - Corsair Captain + Deadeye Navigator + Mana Echoes: like [Spellbook 1409-2307-7824](https://commanderspellbook.com/combo/1409-2307-7824/) with Mana Echoes instead of Bard, King of Dale
-- Coveted Jewel + Filigree Sages + Kinnan, Bonder Prodigy: like [Spellbook 129-2544-5116](https://commanderspellbook.com/combo/129-2544-5116/) with Coveted Jewel instead of Gilded Lotus
+- Corsair Captain + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 2307-2713-4499](https://commanderspellbook.com/combo/2307-2713-4499/) with Eldrazi Displacer instead of Emiel the Blessed
+- Coveted Jewel + Filigree Sages + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Coveted Jewel instead of Gilded Lotus
+- Crab Umbra + Golden Guardian // Gold-Forge Garrison + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Golden Guardian // Gold-Forge Garrison instead of Omen Hawker
+- Crab Umbra + Gyre Engineer + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Gyre Engineer instead of Omen Hawker
+- Crab Umbra + Incubation Druid + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Incubation Druid instead of Omen Hawker
+- Crab Umbra + Loot, the Pathfinder + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Loot, the Pathfinder instead of Omen Hawker
+- Crab Umbra + Transdimensional Bovine + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Transdimensional Bovine instead of Omen Hawker
+- Crab Umbra + Weaver of Blossoms // Blossom-Clad Werewolf + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Weaver of Blossoms // Blossom-Clad Werewolf instead of Omen Hawker
+- Crab Umbra + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 1268-2713-3772](https://commanderspellbook.com/combo/1268-2713-3772/) with Zaxara, the Exemplary instead of Omen Hawker
 - Cult Conscript + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 2946-4050-7422](https://commanderspellbook.com/combo/2946-4050-7422/) with Abzan Ascendancy instead of Garrison Excavator
 - Dark Privilege + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Dark Privilege instead of Swans of Bryn Argoll
+- Dark Privilege + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Dark Privilege instead of Hammerhead, Maggia Boss
 - Dark Privilege + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Dark Privilege instead of Kykar, Wind's Fury
 - Dark Privilege + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Dark Privilege instead of Kykar, Wind's Fury
 - Dark Privilege + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Dark Privilege instead of Kykar, Wind's Fury
@@ -469,6 +472,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Deadeye Navigator + Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar + Mana Echoes: like [Spellbook 1409-2440-3263](https://commanderspellbook.com/combo/1409-2440-3263/) with Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar instead of Mycosynth Lattice
 - Deadeye Navigator + Wily Goblin + Mana Echoes: like [Spellbook 1409-3671-7824](https://commanderspellbook.com/combo/1409-3671-7824/) with Mana Echoes instead of Bard, King of Dale
 - Devouring Strossus + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Devouring Strossus instead of Swans of Bryn Argoll
+- Devouring Strossus + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Devouring Strossus instead of Hammerhead, Maggia Boss
 - Devouring Strossus + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Devouring Strossus instead of Kykar, Wind's Fury
 - Devouring Strossus + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Devouring Strossus instead of Kykar, Wind's Fury
 - Devouring Strossus + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Devouring Strossus instead of Kykar, Wind's Fury
@@ -476,6 +480,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Devouring Strossus + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Devouring Strossus instead of Kykar, Wind's Fury
 - Devouring Strossus + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Devouring Strossus instead of Kykar, Wind's Fury
 - Devouring Swarm + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Devouring Swarm instead of Swans of Bryn Argoll
+- Devouring Swarm + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Devouring Swarm instead of Hammerhead, Maggia Boss
 - Devouring Swarm + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Devouring Swarm instead of Kykar, Wind's Fury
 - Devouring Swarm + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Devouring Swarm instead of Kykar, Wind's Fury
 - Devouring Swarm + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Devouring Swarm instead of Kykar, Wind's Fury
@@ -492,6 +497,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Dimir House Guard + Geralf's Mindcrusher + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Geralf's Mindcrusher instead of Luminous Broodmoth
 - Dimir House Guard + Gleeful Arsonist + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Gleeful Arsonist instead of Luminous Broodmoth
 - Dimir House Guard + Glen Elendra Archmage + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Glen Elendra Archmage instead of Luminous Broodmoth
+- Dimir House Guard + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Dimir House Guard instead of Hammerhead, Maggia Boss
 - Dimir House Guard + Gravelgill Axeshark + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Gravelgill Axeshark instead of Luminous Broodmoth
 - Dimir House Guard + Grazing Kelpie + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Grazing Kelpie instead of Luminous Broodmoth
 - Dimir House Guard + Hancock, Ghoulish Mayor + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Hancock, Ghoulish Mayor instead of Luminous Broodmoth
@@ -527,9 +533,14 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Dimir House Guard + Witch-king, Sky Scourge + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Witch-king, Sky Scourge instead of Luminous Broodmoth
 - Dimir House Guard + Woodfall Primus + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Woodfall Primus instead of Luminous Broodmoth
 - Dimir House Guard + Young Wolf + Solemnity: like [Spellbook 2018-4053-4448](https://commanderspellbook.com/combo/2018-4053-4448/) with Young Wolf instead of Luminous Broodmoth
+- Disciple of Griselbrand + Narfi, Betrayer King + Mana Echoes: like [Spellbook 2308-2440-5306](https://commanderspellbook.com/combo/2308-2440-5306/) with Narfi, Betrayer King instead of Trudge Garden
+- Dori, Bearer of Friends + Eldrazi Displacer + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Dori, Bearer of Friends instead of Cloud of Faeries
+- Dori, Bearer of Friends + Emiel the Blessed + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Dori, Bearer of Friends instead of Meticulous Artisan
+- Dowsing Dagger // Lost Vale + Filigree Sages + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Dowsing Dagger // Lost Vale instead of Gilded Lotus
 - Dread Drone + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Dread Drone
 - Dread Drone + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Dread Drone
 - Dross Hopper + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Dross Hopper instead of Swans of Bryn Argoll
+- Dross Hopper + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Dross Hopper instead of Hammerhead, Maggia Boss
 - Dross Hopper + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Dross Hopper instead of Kykar, Wind's Fury
 - Dross Hopper + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Dross Hopper instead of Kykar, Wind's Fury
 - Dross Hopper + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Dross Hopper instead of Kykar, Wind's Fury
@@ -541,31 +552,69 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Drowner of Hope + Eldrazi Displacer + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Drowner of Hope
 - Drowner of Hope + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Drowner of Hope
 - Eldrazi Displacer + Eldrazi Skyspawner + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Eldrazi Skyspawner
+- Eldrazi Displacer + Exhibition Magician + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Exhibition Magician instead of Cloud of Faeries
 - Eldrazi Displacer + Eyeless Watcher + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Eyeless Watcher
-- Eldrazi Displacer + Fíli and Kíli, Joyous + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Fíli and Kíli, Joyous
+- Eldrazi Displacer + Flamekin Gildweaver + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Flamekin Gildweaver instead of Cloud of Faeries
+- Eldrazi Displacer + Galadriel, Gift-Giver + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Galadriel, Gift-Giver instead of Cloud of Faeries
+- Eldrazi Displacer + Galazeth Prismari + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Galazeth Prismari instead of Cloud of Faeries
 - Eldrazi Displacer + Incubator Drone + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Incubator Drone
+- Eldrazi Displacer + Jewel Thief + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Jewel Thief instead of Cloud of Faeries
+- Eldrazi Displacer + Kalain, Reclusive Painter + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Kalain, Reclusive Painter instead of Cloud of Faeries
 - Eldrazi Displacer + Kozilek's Predator + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Kozilek's Predator
 - Eldrazi Displacer + Loot, the Pathfinder + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Loot, the Pathfinder
+- Eldrazi Displacer + Meticulous Artisan + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Meticulous Artisan instead of Cloud of Faeries
 - Eldrazi Displacer + Nest Invader + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Nest Invader
+- Eldrazi Displacer + Noggle Robber + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Noggle Robber instead of Cloud of Faeries
 - Eldrazi Displacer + Old Rutstein + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Old Rutstein
+- Eldrazi Displacer + Outcaster Trailblazer + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Outcaster Trailblazer instead of Cloud of Faeries
+- Eldrazi Displacer + Patient Naturalist + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Patient Naturalist instead of Cloud of Faeries
+- Eldrazi Displacer + Patron of the Arts + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Patron of the Arts instead of Cloud of Faeries
+- Eldrazi Displacer + Plundering Barbarian + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Plundering Barbarian instead of Cloud of Faeries
+- Eldrazi Displacer + Plundering Pirate + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Plundering Pirate instead of Cloud of Faeries
 - Eldrazi Displacer + Priest of Gix + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Priest of Gix
 - Eldrazi Displacer + Priest of Urabrask + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Priest of Urabrask
+- Eldrazi Displacer + Professional Wrestler + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Professional Wrestler instead of Cloud of Faeries
+- Eldrazi Displacer + Prosperous Innkeeper + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Prosperous Innkeeper instead of Cloud of Faeries
 - Eldrazi Displacer + Prosperous Pirates + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Prosperous Pirates
+- Eldrazi Displacer + Quirion Sentinel + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Quirion Sentinel instead of Cloud of Faeries
 - Eldrazi Displacer + Rapacious Dragon + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Rapacious Dragon
+- Eldrazi Displacer + Redcap Thief + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Redcap Thief instead of Cloud of Faeries
+- Eldrazi Displacer + Ruby, Daring Tracker + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Ruby, Daring Tracker instead of Cloud of Faeries
+- Eldrazi Displacer + Sailor of Means + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Sailor of Means instead of Cloud of Faeries
+- Eldrazi Displacer + Sarkhan, Dragon Ascendant + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Sarkhan, Dragon Ascendant instead of Cloud of Faeries
 - Eldrazi Displacer + Scion Summoner + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Scion Summoner
+- Eldrazi Displacer + Skullport Merchant + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Skullport Merchant instead of Cloud of Faeries
+- Eldrazi Displacer + Swashbuckler Extraordinaire + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Swashbuckler Extraordinaire instead of Cloud of Faeries
+- Eldrazi Displacer + Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar instead of Cloud of Faeries
+- Eldrazi Displacer + Tivit, Seller of Secrets + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Tivit, Seller of Secrets instead of Cloud of Faeries
 - Eldrazi Displacer + Valki, God of Lies // Tibalt, Cosmic Impostor + Mana Echoes: like [Spellbook 2440-4013](https://commanderspellbook.com/combo/2440-4013/) plus Valki, God of Lies // Tibalt, Cosmic Impostor
+- Eldrazi Displacer + Wily Goblin + Zirda, the Dawnwaker: like [Spellbook 1741-2713-4013](https://commanderspellbook.com/combo/1741-2713-4013/) with Wily Goblin instead of Cloud of Faeries
 - Eldrazi Skyspawner + Emiel the Blessed + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Eldrazi Skyspawner
-- Elvish Aberration + Sword of the Paruns + Kinnan, Bonder Prodigy: like [Spellbook 4667-5149-5200](https://commanderspellbook.com/combo/4667-5149-5200/) with Kinnan, Bonder Prodigy instead of Power Artifact
+- Elvish Aberration + Staff of Domination + Zirda, the Dawnwaker: like [Spellbook 2645-4667-5640](https://commanderspellbook.com/combo/2645-4667-5640/) with Zirda, the Dawnwaker instead of Ertha Jo, Frontier Mentor
+- Elvish Aberration + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 4667-5149-5200](https://commanderspellbook.com/combo/4667-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
 - Emiel the Blessed + Eyeless Watcher + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Eyeless Watcher
-- Emiel the Blessed + Fíli and Kíli, Joyous + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Fíli and Kíli, Joyous
+- Emiel the Blessed + Flamekin Gildweaver + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Flamekin Gildweaver instead of Meticulous Artisan
+- Emiel the Blessed + Galadriel, Gift-Giver + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Galadriel, Gift-Giver instead of Meticulous Artisan
 - Emiel the Blessed + Incubator Drone + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Incubator Drone
 - Emiel the Blessed + Kozilek's Predator + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Kozilek's Predator
 - Emiel the Blessed + Loot, the Pathfinder + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Loot, the Pathfinder
 - Emiel the Blessed + Nest Invader + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Nest Invader
+- Emiel the Blessed + Noggle Robber + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Noggle Robber instead of Meticulous Artisan
 - Emiel the Blessed + Old Rutstein + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Old Rutstein
+- Emiel the Blessed + Outcaster Trailblazer + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Outcaster Trailblazer instead of Meticulous Artisan
+- Emiel the Blessed + Patient Naturalist + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Patient Naturalist instead of Meticulous Artisan
+- Emiel the Blessed + Professional Wrestler + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Professional Wrestler instead of Meticulous Artisan
 - Emiel the Blessed + Prosperous Pirates + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Prosperous Pirates
+- Emiel the Blessed + Quirion Sentinel + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Quirion Sentinel instead of Meticulous Artisan
 - Emiel the Blessed + Rapacious Dragon + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Rapacious Dragon
+- Emiel the Blessed + Ruby, Daring Tracker + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Ruby, Daring Tracker instead of Meticulous Artisan
+- Emiel the Blessed + Sarkhan, Dragon Ascendant + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Sarkhan, Dragon Ascendant instead of Meticulous Artisan
 - Emiel the Blessed + Scion Summoner + Mana Echoes: like [Spellbook 2440-4499](https://commanderspellbook.com/combo/2440-4499/) plus Scion Summoner
+- Emiel the Blessed + Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar + Zirda, the Dawnwaker: like [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/) with Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar instead of Meticulous Artisan
+- Emiel the Blessed + Tivit, Seller of Secrets + Zirda, the Dawnwaker: like [Spellbook 1977-4499-7824](https://commanderspellbook.com/combo/1977-4499-7824/) with Zirda, the Dawnwaker instead of Bard, King of Dale
+- Endrider Catalyzer + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-6274](https://commanderspellbook.com/combo/5149-5200-6274/) with Zirda, the Dawnwaker instead of Power Artifact
+- Endrider Catalyzer + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Endrider Catalyzer instead of Zhur-Taa Druid
+- Endrider Catalyzer + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Endrider Catalyzer instead of Millikin
 - Evershrike + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Evershrike instead of Beifong's Bounty Hunters
 - Extruder + Lesser Masticore + Solemnity: like [Spellbook 1429-1477-4981](https://commanderspellbook.com/combo/1429-1477-4981/) with Solemnity instead of Serra Redeemer
 - Extruder + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 1477-2018-4053](https://commanderspellbook.com/combo/1477-2018-4053/) with Nardole, Resourceful Cyborg instead of Luminous Broodmoth
@@ -573,6 +622,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Extruder + Pentavus + Mana Echoes: like [Spellbook 1183-2440](https://commanderspellbook.com/combo/1183-2440/) plus Extruder
 - Extruder + Triskelavus + Mana Echoes: like [Spellbook 2440-4120-5086](https://commanderspellbook.com/combo/2440-4120-5086/) with Extruder instead of Vigor
 - Falkenrath Aristocrat + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Falkenrath Aristocrat instead of Swans of Bryn Argoll
+- Falkenrath Aristocrat + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Falkenrath Aristocrat instead of Hammerhead, Maggia Boss
 - Falkenrath Aristocrat + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Falkenrath Aristocrat instead of Kykar, Wind's Fury
 - Falkenrath Aristocrat + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Falkenrath Aristocrat instead of Kykar, Wind's Fury
 - Falkenrath Aristocrat + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Falkenrath Aristocrat instead of Kykar, Wind's Fury
@@ -580,6 +630,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Falkenrath Aristocrat + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Falkenrath Aristocrat instead of Kykar, Wind's Fury
 - Falkenrath Aristocrat + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Falkenrath Aristocrat instead of Kykar, Wind's Fury
 - Falkenrath Torturer + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Falkenrath Torturer instead of Swans of Bryn Argoll
+- Falkenrath Torturer + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Falkenrath Torturer instead of Hammerhead, Maggia Boss
 - Falkenrath Torturer + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Falkenrath Torturer instead of Kykar, Wind's Fury
 - Falkenrath Torturer + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Falkenrath Torturer instead of Kykar, Wind's Fury
 - Falkenrath Torturer + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Falkenrath Torturer instead of Kykar, Wind's Fury
@@ -587,6 +638,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Falkenrath Torturer + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Falkenrath Torturer instead of Kykar, Wind's Fury
 - Falkenrath Torturer + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Falkenrath Torturer instead of Kykar, Wind's Fury
 - Fallen Angel + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Fallen Angel instead of Swans of Bryn Argoll
+- Fallen Angel + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Fallen Angel instead of Hammerhead, Maggia Boss
 - Fallen Angel + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Fallen Angel instead of Kykar, Wind's Fury
 - Fallen Angel + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Fallen Angel instead of Kykar, Wind's Fury
 - Fallen Angel + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Fallen Angel instead of Kykar, Wind's Fury
@@ -594,16 +646,48 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Fallen Angel + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Fallen Angel instead of Kykar, Wind's Fury
 - Fallen Angel + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Fallen Angel instead of Kykar, Wind's Fury
 - Fanatical Devotion + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Fanatical Devotion instead of Swans of Bryn Argoll
+- Fanatical Devotion + Gravecrawler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Fanatical Devotion instead of Hammerhead, Maggia Boss
 - Fanatical Devotion + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Fanatical Devotion instead of Kykar, Wind's Fury
 - Fanatical Devotion + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Fanatical Devotion instead of Kykar, Wind's Fury
 - Fanatical Devotion + Restless Apparition + Solemnity: like [Spellbook 241-3581-4053](https://commanderspellbook.com/combo/241-3581-4053/) with Fanatical Devotion instead of Kykar, Wind's Fury
 - Fanatical Devotion + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Fanatical Devotion instead of Spawning Pit
 - Fanatical Devotion + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Fanatical Devotion instead of Kykar, Wind's Fury
 - Fanatical Devotion + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Fanatical Devotion instead of Kykar, Wind's Fury
-- Filigree Sages + Glistening Sphere + Kinnan, Bonder Prodigy: like [Spellbook 129-2544-5116](https://commanderspellbook.com/combo/129-2544-5116/) with Glistening Sphere instead of Gilded Lotus
-- Filigree Sages + Sceptre of Eternal Glory + Kinnan, Bonder Prodigy: like [Spellbook 129-2544-5116](https://commanderspellbook.com/combo/129-2544-5116/) with Sceptre of Eternal Glory instead of Gilded Lotus
+- Fearless Liberator + Phyrexian Altar + Zirda, the Dawnwaker: like [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/) with Fearless Liberator instead of Super-Skrull
+- Fearless Liberator + Thermopod + Zirda, the Dawnwaker: like [Spellbook 2713-4385-5231](https://commanderspellbook.com/combo/2713-4385-5231/) with Fearless Liberator instead of Sliver Queen
+- Filigree Sages + Glistening Sphere + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Glistening Sphere instead of Gilded Lotus
+- Filigree Sages + Golden Guardian // Gold-Forge Garrison + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Golden Guardian // Gold-Forge Garrison instead of Gilded Lotus
+- Filigree Sages + Khalni Gem + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Khalni Gem instead of Gilded Lotus
+- Filigree Sages + Sceptre of Eternal Glory + Zirda, the Dawnwaker: like [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/) with Sceptre of Eternal Glory instead of Gilded Lotus
 - Flourishing Defenses + Yawgmoth, Thran Physician + Ajani's Welcome: like [Spellbook 1084-4279-8175](https://commanderspellbook.com/combo/1084-4279-8175/) with Ajani's Welcome instead of Edgar, Ancient Bloodlord
+- Fyndhorn Elder + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5821](https://commanderspellbook.com/combo/5149-5200-5821/) with Zirda, the Dawnwaker instead of Power Artifact
+- Fyndhorn Elder + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Fyndhorn Elder instead of Zhur-Taa Druid
+- Fyndhorn Elder + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Fyndhorn Elder instead of Millikin
 - Ghave, Guru of Spores + Mighty Mutanimals + Mana Echoes: like [Spellbook 2440-5189](https://commanderspellbook.com/combo/2440-5189/) plus Mighty Mutanimals
+- Ghave, Guru of Spores + Narfi, Betrayer King + Mana Echoes: like [Spellbook 2440-5189](https://commanderspellbook.com/combo/2440-5189/) plus Narfi, Betrayer King
+- Gilanra, Caller of Wirewood + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Gilanra, Caller of Wirewood instead of Careful Cultivation
+- Gilanra, Caller of Wirewood + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Gilanra, Caller of Wirewood instead of Zhur-Taa Druid
+- Gilanra, Caller of Wirewood + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Gilanra, Caller of Wirewood instead of Millikin
+- Golden Guardian // Gold-Forge Garrison + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Golden Guardian // Gold-Forge Garrison instead of Careful Cultivation
+- Golden Guardian // Gold-Forge Garrison + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Golden Guardian // Gold-Forge Garrison instead of Zhur-Taa Druid
+- Golden Guardian // Gold-Forge Garrison + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Golden Guardian // Gold-Forge Garrison instead of Codie, Vociferous Codex
+- Golden Guardian // Gold-Forge Garrison + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Golden Guardian // Gold-Forge Garrison instead of Millikin
+- Gravecrawler + Greater Good + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Greater Good instead of Hammerhead, Maggia Boss
+- Gravecrawler + Immersturm Predator + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Immersturm Predator instead of Hammerhead, Maggia Boss
+- Gravecrawler + Jerren, Corrupted Bishop // Ormendahl, the Corrupter + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Hammerhead, Maggia Boss
+- Gravecrawler + Jinxed Ring + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Jinxed Ring instead of Hammerhead, Maggia Boss
+- Gravecrawler + Martyr's Cause + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Martyr's Cause instead of Hammerhead, Maggia Boss
+- Gravecrawler + Maw of the Obzedat + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Maw of the Obzedat instead of Hammerhead, Maggia Boss
+- Gravecrawler + Nantuko Husk + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Nantuko Husk instead of Hammerhead, Maggia Boss
+- Gravecrawler + Nim Shambler + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Nim Shambler instead of Hammerhead, Maggia Boss
+- Gravecrawler + Phyrexian Plaguelord + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Phyrexian Plaguelord instead of Hammerhead, Maggia Boss
+- Gravecrawler + Prossh, Skyraider of Kher + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Prossh, Skyraider of Kher instead of Hammerhead, Maggia Boss
+- Gravecrawler + Sadistic Hypnotist + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Sadistic Hypnotist instead of Hammerhead, Maggia Boss
+- Gravecrawler + Scarland Thrinax + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Scarland Thrinax instead of Hammerhead, Maggia Boss
+- Gravecrawler + Vampire Aristocrat + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Vampire Aristocrat instead of Hammerhead, Maggia Boss
+- Gravecrawler + Vampire Warlord + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Vampire Warlord instead of Hammerhead, Maggia Boss
+- Gravecrawler + Varolz, the Scar-Striped + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Varolz, the Scar-Striped instead of Hammerhead, Maggia Boss
+- Gravecrawler + Vish Kal, Blood Arbiter + Pitiless Plunderer: like [Spellbook 2577-4871-8095](https://commanderspellbook.com/combo/2577-4871-8095/) with Vish Kal, Blood Arbiter instead of Hammerhead, Maggia Boss
 - Greater Good + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Greater Good instead of Swans of Bryn Argoll
 - Greater Good + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Greater Good instead of Kykar, Wind's Fury
 - Greater Good + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Greater Good instead of Kykar, Wind's Fury
@@ -611,6 +695,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Greater Good + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Greater Good instead of Spawning Pit
 - Greater Good + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Greater Good instead of Kykar, Wind's Fury
 - Greater Good + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Greater Good instead of Kykar, Wind's Fury
+- Greenweaver Druid + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 4360-5149-5200](https://commanderspellbook.com/combo/4360-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Greenweaver Druid + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4360](https://commanderspellbook.com/combo/2713-2816-4360/) with Voltaic Construct instead of Umbral Mantle
 - Grim Repriser + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Grim Repriser instead of Beifong's Bounty Hunters
 - Grim Repriser + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Grim Repriser instead of Draconic Visitor
 - Grimgrin, Corpse-Born + Aerie Ouphes + Solemnity: like [Spellbook 728-4053-7134--145](https://commanderspellbook.com/combo/728-4053-7134--145/) with Aerie Ouphes instead of Thunderbolts Conspiracy
@@ -658,9 +744,14 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Grimgrin, Corpse-Born + Witch-king, Sky Scourge + Solemnity: like [Spellbook 728-6972-7511](https://commanderspellbook.com/combo/728-6972-7511/) with Solemnity instead of Eirdu, Carrier of Dawn // Isilu, Carrier of Twilight
 - Grimgrin, Corpse-Born + Woodfall Primus + Solemnity: like [Spellbook 728-4053-7134--145](https://commanderspellbook.com/combo/728-4053-7134--145/) with Woodfall Primus instead of Thunderbolts Conspiracy
 - Grimgrin, Corpse-Born + Young Wolf + Solemnity: like [Spellbook 728-4053-7134--145](https://commanderspellbook.com/combo/728-4053-7134--145/) with Young Wolf instead of Thunderbolts Conspiracy
-- Gyre Engineer + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Gyre Engineer instead of Omen Hawker
+- Gyre Engineer + Hapatra, the Desert Frost + Zirda, the Dawnwaker: like [Spellbook 1253-2713-2816](https://commanderspellbook.com/combo/1253-2713-2816/) with Hapatra, the Desert Frost instead of Umbral Mantle
+- Gyre Engineer + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 1253-5149-5200](https://commanderspellbook.com/combo/1253-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Gyre Engineer + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 1253-2713-2816](https://commanderspellbook.com/combo/1253-2713-2816/) with Vigean Graftmage instead of Umbral Mantle
+- Gyre Engineer + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1253-2713-2816](https://commanderspellbook.com/combo/1253-2713-2816/) with Voltaic Construct instead of Umbral Mantle
 - Hapatra, Vizier of Poisons + Yawgmoth, Thran Physician + Ajani's Welcome: like [Spellbook 883-2228-4279](https://commanderspellbook.com/combo/883-2228-4279/) with Ajani's Welcome instead of Ashes of the Abhorrent
-- Hedron Archive + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 129-270-1978-5793](https://commanderspellbook.com/combo/129-270-1978-5793/) with nothing instead of Bello, Bard of the Brambles
+- Hedron Archive + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Hedron Archive instead of Millikin
+- High Alert + Incubation Druid + Zirda, the Dawnwaker: like [Spellbook 339-2713-4896](https://commanderspellbook.com/combo/339-2713-4896/) with Incubation Druid instead of Jegantha, the Wellspring
+- Ichor Elixir + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Ichor Elixir instead of Millikin
 - Immersturm Predator + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Immersturm Predator instead of Swans of Bryn Argoll
 - Immersturm Predator + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Immersturm Predator instead of Kykar, Wind's Fury
 - Immersturm Predator + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Immersturm Predator instead of Kykar, Wind's Fury
@@ -668,8 +759,9 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Immersturm Predator + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Immersturm Predator instead of Spawning Pit
 - Immersturm Predator + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Immersturm Predator instead of Kykar, Wind's Fury
 - Immersturm Predator + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Immersturm Predator instead of Kykar, Wind's Fury
-- Improvised Arsenal + Priest of Urabrask + Panharmonicon: like [Spellbook 232-2397-4790](https://commanderspellbook.com/combo/232-2397-4790/) with Improvised Arsenal instead of Dino DNA
-- Intrepid Stablemaster + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Intrepid Stablemaster instead of Omen Hawker
+- Incubation Druid + Staff of Domination + Zirda, the Dawnwaker: like [Spellbook 2645-3990-5640](https://commanderspellbook.com/combo/2645-3990-5640/) with Zirda, the Dawnwaker instead of Ertha Jo, Frontier Mentor
+- Incubation Druid + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Incubation Druid instead of Careful Cultivation
+- Jade Mage + Phyrexian Altar + Zirda, the Dawnwaker: like [Spellbook 1256-2092-4050](https://commanderspellbook.com/combo/1256-2092-4050/) with Zirda, the Dawnwaker instead of Agatha of the Vile Cauldron
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Swans of Bryn Argoll
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Kykar, Wind's Fury
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Kykar, Wind's Fury
@@ -685,16 +777,39 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Jinxed Ring + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Jinxed Ring instead of Spawning Pit
 - Jinxed Ring + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Jinxed Ring instead of Kykar, Wind's Fury
 - Jinxed Ring + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Jinxed Ring instead of Kykar, Wind's Fury
-- Khalni Gem + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 45-129-1978-5793](https://commanderspellbook.com/combo/45-129-1978-5793/) with nothing instead of Bello, Bard of the Brambles
+- Joraga Treespeaker + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5832](https://commanderspellbook.com/combo/5149-5200-5832/) with Zirda, the Dawnwaker instead of Power Artifact
+- Joraga Treespeaker + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Joraga Treespeaker instead of Zhur-Taa Druid
+- Joraga Treespeaker + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Joraga Treespeaker instead of Millikin
+- Khalni Gem + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Khalni Gem instead of Millikin
+- Knotvine Mystic + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Knotvine Mystic instead of Careful Cultivation
+- Knotvine Mystic + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 1194-2816-3430](https://commanderspellbook.com/combo/1194-2816-3430/) with Zirda, the Dawnwaker instead of Nyxbloom Ancient
+- Knotvine Mystic + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Knotvine Mystic instead of Millikin
+- Kozilek's Channeler + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 4171-5149-5200](https://commanderspellbook.com/combo/4171-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Kozilek's Channeler + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Kozilek's Channeler instead of Zhur-Taa Druid
+- Kozilek's Channeler + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Kozilek's Channeler instead of Millikin
 - Krark-Clan Grunt + Lesser Masticore + Solemnity: like [Spellbook 620-1429-4779](https://commanderspellbook.com/combo/620-1429-4779/) with Solemnity instead of Yotian Dissident
 - Krark-Clan Grunt + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-4779-5570](https://commanderspellbook.com/combo/2018-4779-5570/) with Solemnity instead of Luminous Broodmoth
 - Krark-Clan Ironworks + Lesser Masticore + Solemnity: like [Spellbook 620-1429-4659](https://commanderspellbook.com/combo/620-1429-4659/) with Solemnity instead of Yotian Dissident
 - Krark-Clan Ironworks + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-4659-5570](https://commanderspellbook.com/combo/2018-4659-5570/) with Solemnity instead of Luminous Broodmoth
-- Lavabrink Floodgates + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 129-1978-4087-5793](https://commanderspellbook.com/combo/129-1978-4087-5793/) with nothing instead of Bello, Bard of the Brambles
+- Krark-Clan Ironworks + Retrofitter Foundry + Zirda, the Dawnwaker: like [Spellbook 2797-4659-4853](https://commanderspellbook.com/combo/2797-4659-4853/) with Zirda, the Dawnwaker instead of Dross Scorpion
+- Lavabrink Floodgates + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Lavabrink Floodgates instead of Millikin
+- Lavinia, Foil to Conspiracy + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Lavinia, Foil to Conspiracy instead of Careful Cultivation
+- Lavinia, Foil to Conspiracy + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Lavinia, Foil to Conspiracy instead of Zhur-Taa Druid
+- Lavinia, Foil to Conspiracy + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Lavinia, Foil to Conspiracy instead of Millikin
 - Lithatog + Lesser Masticore + Solemnity: like [Spellbook 1429-3545-5226](https://commanderspellbook.com/combo/1429-3545-5226/) with Solemnity instead of Sigil Captain
 - Lithatog + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-5226-5570](https://commanderspellbook.com/combo/2018-5226-5570/) with Solemnity instead of Luminous Broodmoth
-- Llanowar Tribe + Sword of the Paruns + Kinnan, Bonder Prodigy: like [Spellbook 305-5149-5200](https://commanderspellbook.com/combo/305-5149-5200/) with Kinnan, Bonder Prodigy instead of Power Artifact
-- Loot, the Pathfinder + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Loot, the Pathfinder instead of Omen Hawker
+- Llanowar Tribe + Staff of Domination + Zirda, the Dawnwaker: like [Spellbook 305-2645-5640](https://commanderspellbook.com/combo/305-2645-5640/) with Zirda, the Dawnwaker instead of Ertha Jo, Frontier Mentor
+- Llanowar Tribe + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 305-5149-5200](https://commanderspellbook.com/combo/305-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Loot, the Pathfinder + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Loot, the Pathfinder instead of Careful Cultivation
+- Loot, the Pathfinder + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Loot, the Pathfinder instead of Zhur-Taa Druid
+- Loot, the Pathfinder + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Loot, the Pathfinder instead of Codie, Vociferous Codex
+- Loot, the Pathfinder + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Loot, the Pathfinder instead of Millikin
+- Lys Alana Dignitary + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-7221](https://commanderspellbook.com/combo/5149-5200-7221/) with Zirda, the Dawnwaker instead of Power Artifact
+- Lys Alana Dignitary + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Lys Alana Dignitary instead of Zhur-Taa Druid
+- Lys Alana Dignitary + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Lys Alana Dignitary instead of Millikin
+- Magus Lucea Kane + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Magus Lucea Kane instead of Careful Cultivation
+- Magus Lucea Kane + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2816-3430-3586](https://commanderspellbook.com/combo/2816-3430-3586/) with Zirda, the Dawnwaker instead of Nyxbloom Ancient
+- Magus Lucea Kane + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Magus Lucea Kane instead of Millikin
 - Mana Echoes + Propagator Drone + Pitiless Plunderer: like [Spellbook 913-2440-5685](https://commanderspellbook.com/combo/913-2440-5685/) with Pitiless Plunderer instead of Signpost Scarecrow
 - Martyr's Cause + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Martyr's Cause instead of Swans of Bryn Argoll
 - Martyr's Cause + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Martyr's Cause instead of Kykar, Wind's Fury
@@ -715,8 +830,12 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Mighty Mutanimals + Pentavus + Mana Echoes: like [Spellbook 1183-2440](https://commanderspellbook.com/combo/1183-2440/) plus Mighty Mutanimals
 - Mighty Mutanimals + Triskelavus + Mana Echoes: like [Spellbook 2440-4120-5086](https://commanderspellbook.com/combo/2440-4120-5086/) with Mighty Mutanimals instead of Vigor
 - Mighty Mutanimals + Ulasht, the Hate Seed + Mana Echoes: like [Spellbook 2440-2744-3192](https://commanderspellbook.com/combo/2440-2744-3192/) with Mighty Mutanimals instead of Cathars' Crusade
+- Mobilization + Phyrexian Altar + Zirda, the Dawnwaker: like [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/) with Mobilization instead of Super-Skrull
 - Nadir Kraken + Selvala, Heart of the Wilds + Mana Echoes: like [Spellbook 1722-2089-2440](https://commanderspellbook.com/combo/1722-2089-2440/) with Selvala, Heart of the Wilds instead of Symmetry Matrix
 - Nadir Kraken + Tribute to the World Tree + Mana Echoes: like [Spellbook 1722-2089-2440](https://commanderspellbook.com/combo/1722-2089-2440/) with Tribute to the World Tree instead of Symmetry Matrix
+- Nantuko Elder + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5840](https://commanderspellbook.com/combo/5149-5200-5840/) with Zirda, the Dawnwaker instead of Power Artifact
+- Nantuko Elder + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Nantuko Elder instead of Zhur-Taa Druid
+- Nantuko Elder + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Nantuko Elder instead of Millikin
 - Nantuko Husk + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Nantuko Husk instead of Swans of Bryn Argoll
 - Nantuko Husk + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Nantuko Husk instead of Kykar, Wind's Fury
 - Nantuko Husk + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Nantuko Husk instead of Kykar, Wind's Fury
@@ -724,8 +843,10 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Nantuko Husk + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Nantuko Husk instead of Spawning Pit
 - Nantuko Husk + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Nantuko Husk instead of Kykar, Wind's Fury
 - Nantuko Husk + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Nantuko Husk instead of Kykar, Wind's Fury
+- Narfi, Betrayer King + Warren Soultrader + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Narfi, Betrayer King instead of Quina, Qu Gourmet
+- Narfi, Betrayer King + Yawgmoth, Thran Physician + Ajani's Welcome: like [Spellbook 1339-1874-4279](https://commanderspellbook.com/combo/1339-1874-4279/) with Narfi, Betrayer King instead of The Locust God
+- Nemata, Grove Guardian + Phyrexian Altar + Zirda, the Dawnwaker: like [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/) with Nemata, Grove Guardian instead of Super-Skrull
 - Nest of Scarabs + Yawgmoth, Thran Physician + Ajani's Welcome: like [Spellbook 2760-3845-4279](https://commanderspellbook.com/combo/2760-3845-4279/) with Ajani's Welcome instead of Panicked Bystander // Cackling Culprit
-- Nim Devourer + Phyrexian Altar + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Nim Devourer instead of Beifong's Bounty Hunters
 - Nim Shambler + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Nim Shambler instead of Swans of Bryn Argoll
 - Nim Shambler + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Nim Shambler instead of Kykar, Wind's Fury
 - Nim Shambler + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Nim Shambler instead of Kykar, Wind's Fury
@@ -733,22 +854,15 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Nim Shambler + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Nim Shambler instead of Spawning Pit
 - Nim Shambler + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Nim Shambler instead of Kykar, Wind's Fury
 - Nim Shambler + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Nim Shambler instead of Kykar, Wind's Fury
-- Oathsworn Vampire + Thermopod + Pitiless Plunderer: like [Spellbook 3054-4050-4871](https://commanderspellbook.com/combo/3054-4050-4871/) with Thermopod instead of Phyrexian Altar
-- Omen Hawker + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 1978-3772-4639](https://commanderspellbook.com/combo/1978-3772-4639/) with Kinnan, Bonder Prodigy instead of Unctus, Grand Metatect
-- Oona, Queen of the Fae + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Oona, Queen of the Fae instead of Draconic Visitor
-- Oona, Queen of the Fae + Warren Soultrader + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Oona, Queen of the Fae instead of Quina, Qu Gourmet
-- Overgrown Zealot + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Overgrown Zealot instead of Omen Hawker
-- Palladium Myr + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 890-1912-1978](https://commanderspellbook.com/combo/890-1912-1978/) with Kinnan, Bonder Prodigy instead of Biomancer's Familiar
 - Patrol Signaler + Phyrexian Altar + Mana Echoes: like [Spellbook 2316-2440-4050](https://commanderspellbook.com/combo/2316-2440-4050/) with Patrol Signaler instead of Goblin Warrens
 - Patrol Signaler + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Patrol Signaler instead of Draconic Visitor
 - Phyrexian Altar + Proctor of Potential + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Proctor of Potential instead of Beifong's Bounty Hunters
 - Phyrexian Altar + Reassembling Skeleton + Abzan Ascendancy: like [Spellbook 1580-4050-7422](https://commanderspellbook.com/combo/1580-4050-7422/) with Abzan Ascendancy instead of Garrison Excavator
 - Phyrexian Altar + Sacred Mesa + Mana Echoes: like [Spellbook 2316-2440-4050](https://commanderspellbook.com/combo/2316-2440-4050/) with Sacred Mesa instead of Goblin Warrens
+- Phyrexian Altar + Spawnsire of Ulamog + Zirda, the Dawnwaker: like [Spellbook 2143-2713](https://commanderspellbook.com/combo/2143-2713/) plus Phyrexian Altar
 - Phyrexian Altar + Teacher's Pest + Abzan Ascendancy: like [Spellbook 4050-4871-7773](https://commanderspellbook.com/combo/4050-4871-7773/) with Abzan Ascendancy instead of Pitiless Plunderer
-- Phyrexian Altar + Tenacious Underdog + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Tenacious Underdog instead of Beifong's Bounty Hunters
-- Phyrexian Altar + Timeline Culler + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Timeline Culler instead of Beifong's Bounty Hunters
-- Phyrexian Altar + Undead Sprinter + Abzan Ascendancy: like [Spellbook 2301-4050-7084](https://commanderspellbook.com/combo/2301-4050-7084/) with Undead Sprinter instead of Beifong's Bounty Hunters
 - Phyrexian Altar + Usher of the Fallen + Mana Echoes: like [Spellbook 2316-2440-4050](https://commanderspellbook.com/combo/2316-2440-4050/) with Usher of the Fallen instead of Goblin Warrens
+- Phyrexian Altar + Wren's Run Packmaster + Zirda, the Dawnwaker: like [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/) with Wren's Run Packmaster instead of Super-Skrull
 - Phyrexian Ghoul + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Phyrexian Ghoul instead of Swans of Bryn Argoll
 - Phyrexian Ghoul + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Phyrexian Ghoul instead of Kykar, Wind's Fury
 - Phyrexian Ghoul + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Phyrexian Ghoul instead of Kykar, Wind's Fury
@@ -763,6 +877,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Phyrexian Plaguelord + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Phyrexian Plaguelord instead of Spawning Pit
 - Phyrexian Plaguelord + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Phyrexian Plaguelord instead of Kykar, Wind's Fury
 - Phyrexian Plaguelord + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Phyrexian Plaguelord instead of Kykar, Wind's Fury
+- Pristine Talisman + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Pristine Talisman instead of Millikin
 - Prossh, Skyraider of Kher + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Prossh, Skyraider of Kher instead of Swans of Bryn Argoll
 - Prossh, Skyraider of Kher + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Prossh, Skyraider of Kher instead of Kykar, Wind's Fury
 - Prossh, Skyraider of Kher + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Prossh, Skyraider of Kher instead of Kykar, Wind's Fury
@@ -773,7 +888,10 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Rakdos Riteknife + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Rakdos Riteknife instead of Kykar, Wind's Fury
 - Ravenous Intruder + Lesser Masticore + Solemnity: like [Spellbook 620-1429-5315](https://commanderspellbook.com/combo/620-1429-5315/) with Solemnity instead of Yotian Dissident
 - Ravenous Intruder + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-5315-5570](https://commanderspellbook.com/combo/2018-5315-5570/) with Solemnity instead of Luminous Broodmoth
-- Rootcoil Creeper + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Rootcoil Creeper instead of Omen Hawker
+- Red Death, Shipwrecker + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Red Death, Shipwrecker instead of Careful Cultivation
+- Red Death, Shipwrecker + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Red Death, Shipwrecker instead of Zhur-Taa Druid
+- Red Death, Shipwrecker + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Red Death, Shipwrecker instead of Millikin
+- Ring of the Lucii + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Ring of the Lucii instead of Millikin
 - Sacred Mesa + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Sacred Mesa instead of Draconic Visitor
 - Sadistic Hypnotist + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Sadistic Hypnotist instead of Swans of Bryn Argoll
 - Sadistic Hypnotist + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Sadistic Hypnotist instead of Kykar, Wind's Fury
@@ -784,6 +902,9 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Sadistic Hypnotist + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Sadistic Hypnotist instead of Kykar, Wind's Fury
 - Sarcatog + Lesser Masticore + Solemnity: like [Spellbook 620-1429-2099](https://commanderspellbook.com/combo/620-1429-2099/) with Solemnity instead of Yotian Dissident
 - Sarcatog + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-2099-5570](https://commanderspellbook.com/combo/2018-2099-5570/) with Solemnity instead of Luminous Broodmoth
+- Scaled Nurturer + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Scaled Nurturer instead of Careful Cultivation
+- Scaled Nurturer + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Scaled Nurturer instead of Zhur-Taa Druid
+- Scaled Nurturer + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Scaled Nurturer instead of Millikin
 - Scarland Thrinax + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Scarland Thrinax instead of Swans of Bryn Argoll
 - Scarland Thrinax + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Scarland Thrinax instead of Kykar, Wind's Fury
 - Scarland Thrinax + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Scarland Thrinax instead of Kykar, Wind's Fury
@@ -791,19 +912,42 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Scarland Thrinax + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Scarland Thrinax instead of Spawning Pit
 - Scarland Thrinax + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Scarland Thrinax instead of Kykar, Wind's Fury
 - Scarland Thrinax + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Scarland Thrinax instead of Kykar, Wind's Fury
-- Shang-Chi, Master of Kung Fu + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Shang-Chi, Master of Kung Fu instead of Omen Hawker
-- Sisay's Ring + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 129-1978-3980-5793](https://commanderspellbook.com/combo/129-1978-3980-5793/) with nothing instead of Bello, Bard of the Brambles
-- Somberwald Sage + Umbral Mantle + Kinnan, Bonder Prodigy: like [Spellbook 129-2661-2816](https://commanderspellbook.com/combo/129-2661-2816/) with Somberwald Sage instead of Gwenna, Eyes of Gaea
-- Steelswarm Operator + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Steelswarm Operator instead of Omen Hawker
-- Stonespeaker Crystal + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 129-1632-1978-5793](https://commanderspellbook.com/combo/129-1632-1978-5793/) with nothing instead of Bello, Bard of the Brambles
-- Tenacious Underdog + Thermopod + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Tenacious Underdog instead of Draconic Visitor
+- Scorned Villager // Moonscarred Werewolf + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5984](https://commanderspellbook.com/combo/5149-5200-5984/) with Zirda, the Dawnwaker instead of Power Artifact
+- Scorned Villager // Moonscarred Werewolf + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Scorned Villager // Moonscarred Werewolf instead of Zhur-Taa Druid
+- Scorned Villager // Moonscarred Werewolf + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Scorned Villager // Moonscarred Werewolf instead of Millikin
+- Selvala, Explorer Returned + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Selvala, Explorer Returned instead of Careful Cultivation
+- Selvala, Explorer Returned + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Selvala, Explorer Returned instead of Zhur-Taa Druid
+- Selvala, Explorer Returned + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Selvala, Explorer Returned instead of Millikin
+- Sisay's Ring + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Sisay's Ring instead of Millikin
+- Snapping Voidcraw + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5983](https://commanderspellbook.com/combo/5149-5200-5983/) with Zirda, the Dawnwaker instead of Power Artifact
+- Snapping Voidcraw + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Snapping Voidcraw instead of Zhur-Taa Druid
+- Snapping Voidcraw + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Snapping Voidcraw instead of Millikin
+- Sol Ring + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Sol Ring instead of Millikin
+- Sol Talisman + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Sol Talisman instead of Millikin
+- Spawnsire of Ulamog + Thermopod + Zirda, the Dawnwaker: like [Spellbook 2143-2713](https://commanderspellbook.com/combo/2143-2713/) plus Thermopod
+- Stonespeaker Crystal + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Stonespeaker Crystal instead of Millikin
+- Sword of the Paruns + Transdimensional Bovine + Zirda, the Dawnwaker: like [Spellbook 5149-5200-7287](https://commanderspellbook.com/combo/5149-5200-7287/) with Zirda, the Dawnwaker instead of Power Artifact
+- Sword of the Paruns + Ulvenwald Captive // Ulvenwald Abomination + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5985](https://commanderspellbook.com/combo/5149-5200-5985/) with Zirda, the Dawnwaker instead of Power Artifact
+- Sword of the Paruns + Undermountain Adventurer + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Undermountain Adventurer instead of Careful Cultivation
+- Sword of the Paruns + Weaver of Blossoms // Blossom-Clad Werewolf + Zirda, the Dawnwaker: like [Spellbook 4137-5149-5200](https://commanderspellbook.com/combo/4137-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Sword of the Paruns + Weaver of Currents + Zirda, the Dawnwaker: like [Spellbook 4880-5149-5200](https://commanderspellbook.com/combo/4880-5149-5200/) with Zirda, the Dawnwaker instead of Power Artifact
+- Sword of the Paruns + Whisperer of the Wilds + Zirda, the Dawnwaker: like [Spellbook 5149-5200-5986](https://commanderspellbook.com/combo/5149-5200-5986/) with Zirda, the Dawnwaker instead of Power Artifact
+- Sword of the Paruns + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Zaxara, the Exemplary instead of Careful Cultivation
+- The Mightstone and Weakstone + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with The Mightstone and Weakstone instead of Millikin
 - The Watcher in the Water + Yawgmoth, Thran Physician + Ajani's Welcome: like [Spellbook 1339-1874-4279](https://commanderspellbook.com/combo/1339-1874-4279/) with The Watcher in the Water instead of The Locust God
-- Thermopod + Undead Butler + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Undead Butler instead of Draconic Visitor
 - Thermopod + Usher of the Fallen + Pitiless Plunderer: like [Spellbook 4871-5231-8168](https://commanderspellbook.com/combo/4871-5231-8168/) with Usher of the Fallen instead of Draconic Visitor
-- Transdimensional Bovine + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Transdimensional Bovine instead of Omen Hawker
-- Troyan, Gutsy Explorer + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Troyan, Gutsy Explorer instead of Omen Hawker
-- Undermountain Adventurer + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 625-1008-1978](https://commanderspellbook.com/combo/625-1008-1978/) with Kinnan, Bonder Prodigy instead of Ashnod's Transmogrant
-- Ur-Golem's Eye + Voltaic Construct + Kinnan, Bonder Prodigy: like [Spellbook 129-1978-4045-5793](https://commanderspellbook.com/combo/129-1978-4045-5793/) with nothing instead of Bello, Bard of the Brambles
+- Transdimensional Bovine + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Transdimensional Bovine instead of Zhur-Taa Druid
+- Transdimensional Bovine + Vigean Graftmage + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Transdimensional Bovine instead of Codie, Vociferous Codex
+- Transdimensional Bovine + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Transdimensional Bovine instead of Millikin
+- Ulvenwald Captive // Ulvenwald Abomination + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Ulvenwald Captive // Ulvenwald Abomination instead of Zhur-Taa Druid
+- Ulvenwald Captive // Ulvenwald Abomination + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Ulvenwald Captive // Ulvenwald Abomination instead of Millikin
+- Umbral Mantle + Undermountain Adventurer + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Undermountain Adventurer instead of Zhur-Taa Druid
+- Umbral Mantle + Weaver of Blossoms // Blossom-Clad Werewolf + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Weaver of Blossoms // Blossom-Clad Werewolf instead of Zhur-Taa Druid
+- Umbral Mantle + Weaver of Currents + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Weaver of Currents instead of Zhur-Taa Druid
+- Umbral Mantle + Whisperer of the Wilds + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Whisperer of the Wilds instead of Zhur-Taa Druid
+- Umbral Mantle + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Zaxara, the Exemplary instead of Zhur-Taa Druid
+- Undermountain Adventurer + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 625-1008-1978](https://commanderspellbook.com/combo/625-1008-1978/) with Zirda, the Dawnwaker instead of Ashnod's Transmogrant
+- Ur-Golem's Eye + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Ur-Golem's Eye instead of Millikin
 - Vampire Aristocrat + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Vampire Aristocrat instead of Swans of Bryn Argoll
 - Vampire Aristocrat + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Vampire Aristocrat instead of Kykar, Wind's Fury
 - Vampire Aristocrat + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Vampire Aristocrat instead of Kykar, Wind's Fury
@@ -825,9 +969,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Varolz, the Scar-Striped + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Varolz, the Scar-Striped instead of Spawning Pit
 - Varolz, the Scar-Striped + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Varolz, the Scar-Striped instead of Kykar, Wind's Fury
 - Varolz, the Scar-Striped + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Varolz, the Scar-Striped instead of Kykar, Wind's Fury
-- Vedalken Engineer + Vigean Graftmage + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Vedalken Engineer instead of Omen Hawker
-- Vigean Graftmage + Weaver of Blossoms // Blossom-Clad Werewolf + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Weaver of Blossoms // Blossom-Clad Werewolf instead of Omen Hawker
-- Vigean Graftmage + Zaxara, the Exemplary + Kinnan, Bonder Prodigy: like [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/) with Zaxara, the Exemplary instead of Omen Hawker
+- Vigean Graftmage + Weaver of Blossoms // Blossom-Clad Werewolf + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Weaver of Blossoms // Blossom-Clad Werewolf instead of Codie, Vociferous Codex
+- Vigean Graftmage + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 2713-3371-4019](https://commanderspellbook.com/combo/2713-3371-4019/) with Zaxara, the Exemplary instead of Codie, Vociferous Codex
 - Vish Kal, Blood Arbiter + Aerie Ouphes + Solemnity: like [Spellbook 760-3575-4053](https://commanderspellbook.com/combo/760-3575-4053/) with Vish Kal, Blood Arbiter instead of Swans of Bryn Argoll
 - Vish Kal, Blood Arbiter + Howlgeist + Solemnity: like [Spellbook 2185-3581-4053](https://commanderspellbook.com/combo/2185-3581-4053/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
 - Vish Kal, Blood Arbiter + Lingering Tormentor + Solemnity: like [Spellbook 3581-4053-5154](https://commanderspellbook.com/combo/3581-4053-5154/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
@@ -835,9 +978,14 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Vish Kal, Blood Arbiter + River Kelpie + Solemnity: like [Spellbook 3607-3899-4053](https://commanderspellbook.com/combo/3607-3899-4053/) with Vish Kal, Blood Arbiter instead of Spawning Pit
 - Vish Kal, Blood Arbiter + Stormbound Geist + Solemnity: like [Spellbook 1833-3581-4053](https://commanderspellbook.com/combo/1833-3581-4053/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
 - Vish Kal, Blood Arbiter + Strangleroot Geist + Solemnity: like [Spellbook 2012-3581-4053](https://commanderspellbook.com/combo/2012-3581-4053/) with Vish Kal, Blood Arbiter instead of Kykar, Wind's Fury
+- Voltaic Construct + Weaver of Blossoms // Blossom-Clad Werewolf + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Weaver of Blossoms // Blossom-Clad Werewolf instead of Millikin
+- Voltaic Construct + Weaver of Currents + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Weaver of Currents instead of Millikin
+- Voltaic Construct + Whisperer of the Wilds + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Whisperer of the Wilds instead of Millikin
+- Voltaic Construct + Worn Powerstone + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Worn Powerstone instead of Millikin
+- Voltaic Construct + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Zaxara, the Exemplary instead of Millikin
 - Warren Soultrader + Words of Wilding + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Words of Wilding instead of Quina, Qu Gourmet
 
-## Already in Spellbook (925)
+## Already in Spellbook (948)
 
 - Aetherflux Reservoir + Bloodthirsty Conqueror → [Spellbook 4740-6191](https://commanderspellbook.com/combo/4740-6191/)
 - Aetherflux Reservoir + Exquisite Blood → [Spellbook 3966-4740](https://commanderspellbook.com/combo/3966-4740/)
@@ -864,7 +1012,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Axebane Guardian + Staff of Domination → [Spellbook 2645-3043](https://commanderspellbook.com/combo/2645-3043/)
 - Axebane Guardian + Sword of the Paruns → [Spellbook 3043-5200](https://commanderspellbook.com/combo/3043-5200/)
 - Axebane Guardian + Umbral Mantle → [Spellbook 2816-3043](https://commanderspellbook.com/combo/2816-3043/)
-- Basalt Monolith + Rings of Brighthearth → [Spellbook 4131-4235](https://commanderspellbook.com/combo/4131-4235/)
+- Basalt Monolith + Zirda, the Dawnwaker → [Spellbook 2713-4131](https://commanderspellbook.com/combo/2713-4131/)
 - Beck // Call + The Locust God → [Spellbook 350-1339](https://commanderspellbook.com/combo/350-1339/)
 - Berta, Wise Extrapolator + Intruder Alarm → [Spellbook 1636-7426](https://commanderspellbook.com/combo/1636-7426/)
 - Bighorner Rancher + Staff of Domination → [Spellbook 2645-5614](https://commanderspellbook.com/combo/2645-5614/)
@@ -941,6 +1089,12 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Exquisite Blood + Starscape Cleric → [Spellbook 3966-5867](https://commanderspellbook.com/combo/3966-5867/)
 - Exquisite Blood + Vito, Thorn of the Dusk Rose → [Spellbook 314-3966](https://commanderspellbook.com/combo/314-3966/)
 - Exquisite Blood + Vizkopa Guildmage → [Spellbook 92-3966](https://commanderspellbook.com/combo/92-3966/)
+- Faeburrow Elder + Freed from the Real → [Spellbook 570-4222](https://commanderspellbook.com/combo/570-4222/)
+- Faeburrow Elder + High Alert → [Spellbook 570-4896](https://commanderspellbook.com/combo/570-4896/)
+- Faeburrow Elder + Pemmin's Aura → [Spellbook 570-3525](https://commanderspellbook.com/combo/570-3525/)
+- Faeburrow Elder + Staff of Domination → [Spellbook 570-2645](https://commanderspellbook.com/combo/570-2645/)
+- Faeburrow Elder + Sword of the Paruns → [Spellbook 570-5200](https://commanderspellbook.com/combo/570-5200/)
+- Faeburrow Elder + Vigean Graftmage → [Spellbook 570-4019](https://commanderspellbook.com/combo/570-4019/)
 - Fanatic of Rhonas + Umbral Mantle → [Spellbook 2816-5711](https://commanderspellbook.com/combo/2816-5711/)
 - Felidar Guardian + Icewind Stalwart → [Spellbook 2781-4200](https://commanderspellbook.com/combo/2781-4200/)
 - Felidar Guardian + Kiki-Jiki, Mirror Breaker → [Spellbook 618-2781](https://commanderspellbook.com/combo/618-2781/)
@@ -952,8 +1106,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Filigree Sages + Timeless Lotus → [Spellbook 2544-4851](https://commanderspellbook.com/combo/2544-4851/)
 - Fire Nation Archers + Mana Echoes → [Spellbook 2440-6873](https://commanderspellbook.com/combo/2440-6873/)
 - Freed from the Real + Gyre Engineer → [Spellbook 1253-4222](https://commanderspellbook.com/combo/1253-4222/)
+- Freed from the Real + Incubation Druid → [Spellbook 3990-4222](https://commanderspellbook.com/combo/3990-4222/)
 - Freed from the Real + Jegantha, the Wellspring → [Spellbook 339-4222](https://commanderspellbook.com/combo/339-4222/)
-- Freed from the Real + Omen Hawker → [Spellbook 3772-4222](https://commanderspellbook.com/combo/3772-4222/)
 - Freed from the Real + Selvala, Heart of the Wilds → [Spellbook 527-4222](https://commanderspellbook.com/combo/527-4222/)
 - Freed from the Real + Weaver of Blossoms // Blossom-Clad Werewolf → [Spellbook 4137-4222](https://commanderspellbook.com/combo/4137-4222/)
 - Freed from the Real + Zaxara, the Exemplary → [Spellbook 1835-4222](https://commanderspellbook.com/combo/1835-4222/)
@@ -965,6 +1119,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Godsire + Intruder Alarm → [Spellbook 1420-1636](https://commanderspellbook.com/combo/1420-1636/)
 - Gravecrawler + Phyrexian Altar → [Spellbook 2577-4050](https://commanderspellbook.com/combo/2577-4050/)
 - Great Whale + Lilysplash Mentor → [Spellbook 2792-5900](https://commanderspellbook.com/combo/2792-5900/)
+- Grim Monolith + Zirda, the Dawnwaker → [Spellbook 2585-2713](https://commanderspellbook.com/combo/2585-2713/)
 - Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun + Silvanus's Invoker → [Spellbook 4915-4954](https://commanderspellbook.com/combo/4915-4954/)
 - Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun + Wakeroot Elemental → [Spellbook 192-4915](https://commanderspellbook.com/combo/192-4915/)
 - Gyre Engineer + Pemmin's Aura → [Spellbook 1253-3525](https://commanderspellbook.com/combo/1253-3525/)
@@ -982,6 +1137,8 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Icewind Stalwart + Kiki-Jiki, Mirror Breaker → [Spellbook 618-4200](https://commanderspellbook.com/combo/618-4200/)
 - Icewind Stalwart + Restoration Angel → [Spellbook 1090-4200](https://commanderspellbook.com/combo/1090-4200/)
 - Icewind Stalwart + Wispweaver Angel → [Spellbook 1621-4200](https://commanderspellbook.com/combo/1621-4200/)
+- Incubation Druid + Pemmin's Aura → [Spellbook 3525-3990](https://commanderspellbook.com/combo/3525-3990/)
+- Incubation Druid + Vigean Graftmage → [Spellbook 3990-4019](https://commanderspellbook.com/combo/3990-4019/)
 - Ingris Stingerquill + Mana Echoes → [Spellbook 2440-8159](https://commanderspellbook.com/combo/2440-8159/)
 - Intruder Alarm + Kazandu Tuskcaller → [Spellbook 1636-1716](https://commanderspellbook.com/combo/1636-1716/)
 - Intruder Alarm + Speaker of the Heavens → [Spellbook 1636-1951](https://commanderspellbook.com/combo/1636-1951/)
@@ -1026,7 +1183,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Niv-Mizzet, the Firemind + Ophidian Eye → [Spellbook 2396-4971](https://commanderspellbook.com/combo/2396-4971/)
 - Niv-Mizzet, the Firemind + Snake Umbra → [Spellbook 3311-4971](https://commanderspellbook.com/combo/3311-4971/)
 - Niv-Mizzet, the Firemind + Tandem Lookout → [Spellbook 406-4971](https://commanderspellbook.com/combo/406-4971/)
-- Omen Hawker + Pemmin's Aura → [Spellbook 3525-3772](https://commanderspellbook.com/combo/3525-3772/)
 - Overgrown Battlement + Staff of Domination → [Spellbook 850-2645](https://commanderspellbook.com/combo/850-2645/)
 - Overgrown Battlement + Sword of the Paruns → [Spellbook 850-5200](https://commanderspellbook.com/combo/850-5200/)
 - Overgrown Battlement + Umbral Mantle → [Spellbook 850-2816](https://commanderspellbook.com/combo/850-2816/)
@@ -1060,8 +1216,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Umbral Mantle + Viridian Joiner → [Spellbook 2816-3717](https://commanderspellbook.com/combo/2816-3717/)
 - Accomplished Alchemist + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 4188-4222](https://commanderspellbook.com/combo/4188-4222/)
 - Accomplished Alchemist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 3525-4188](https://commanderspellbook.com/combo/3525-4188/)
-- Adarkar Unicorn + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Adarkar Unicorn + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Alloy Myr + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Alloy Myr + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Altar of Dementia + Aerie Ouphes + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
@@ -1074,6 +1228,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Altar of Dementia + Geralf's Mindcrusher + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
 - Altar of Dementia + Gleeful Arsonist + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
 - Altar of Dementia + Glen Elendra Archmage + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
+- Altar of Dementia + Gravecrawler + Pitiless Plunderer → [Spellbook 2577-4871-5256](https://commanderspellbook.com/combo/2577-4871-5256/)
 - Altar of Dementia + Gravelgill Axeshark + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
 - Altar of Dementia + Grazing Kelpie + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
 - Altar of Dementia + Hancock, Ghoulish Mayor + Solemnity → [Spellbook 4053-5256--73](https://commanderspellbook.com/combo/4053-5256--73/)
@@ -1141,6 +1296,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Ashnod's Altar + Lesser Masticore + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Lingering Tormentor + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Marang River Prowler + Pitiless Plunderer → [Spellbook 938-2034-4871](https://commanderspellbook.com/combo/938-2034-4871/)
+- Ashnod's Altar + Marneus Calgar + Zirda, the Dawnwaker → [Spellbook 245-2034-2713](https://commanderspellbook.com/combo/245-2034-2713/)
 - Ashnod's Altar + Nardole, Resourceful Cyborg + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Nearheath Stalker + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Obstinate Gargoyle + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
@@ -1156,6 +1312,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Ashnod's Altar + Safehold Elite + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Scuzzback Marauders + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Sightless Ghoul + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
+- Ashnod's Altar + Slimefoot, the Stowaway + Zirda, the Dawnwaker → [Spellbook 2034-2713-2775](https://commanderspellbook.com/combo/2034-2713-2775/)
 - Ashnod's Altar + Stormbound Geist + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Strangleroot Geist + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Ashnod's Altar + Thunderblust + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
@@ -1169,14 +1326,13 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Ashnod's Altar + Young Wolf + Solemnity → [Spellbook 2034-4053--73](https://commanderspellbook.com/combo/2034-4053--73/)
 - Atzocan Seer + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Atzocan Seer + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Beastcaller Savant + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Beastcaller Savant + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Biophagus + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Biophagus + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Birds of Paradise + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Birds of Paradise + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Black Market Tycoon + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Black Market Tycoon + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Blaring Recruiter + Phyrexian Altar + Zirda, the Dawnwaker → [Spellbook 2713-3552-4050](https://commanderspellbook.com/combo/2713-3552-4050/)
 - Bloodflow Connoisseur + Aerie Ouphes + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Butcher Ghoul + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Demonlord of Ashmouth + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
@@ -1187,6 +1343,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bloodflow Connoisseur + Geralf's Mindcrusher + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Gleeful Arsonist + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Glen Elendra Archmage + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
+- Bloodflow Connoisseur + Gravecrawler + Pitiless Plunderer → [Spellbook 2511-2577-4871](https://commanderspellbook.com/combo/2511-2577-4871/)
 - Bloodflow Connoisseur + Gravelgill Axeshark + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Grazing Kelpie + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Hancock, Ghoulish Mayor + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
@@ -1223,12 +1380,15 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bloodflow Connoisseur + Woodfall Primus + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodflow Connoisseur + Young Wolf + Solemnity → [Spellbook 2511-4053--73](https://commanderspellbook.com/combo/2511-4053--73/)
 - Bloodsoaked Champion + Thermopod + Pitiless Plunderer → [Spellbook 1263-4871-5231](https://commanderspellbook.com/combo/1263-4871-5231/)
+- Bloodthrone Vampire + Gravecrawler + Pitiless Plunderer → [Spellbook 2577-4247-4871](https://commanderspellbook.com/combo/2577-4247-4871/)
+- Brazen Freebooter + Emiel the Blessed + Zirda, the Dawnwaker → [Spellbook 582-2713-4499](https://commanderspellbook.com/combo/582-2713-4499/)
 - Bronze Walrus + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Bronze Walrus + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Brood Monitor + Eldrazi Displacer + Mana Echoes → [Spellbook 1996-4013](https://commanderspellbook.com/combo/1996-4013/)
 - Brood Monitor + Emiel the Blessed + Mana Echoes → [Spellbook 1996-4499](https://commanderspellbook.com/combo/1996-4499/)
 - Bugenhagen, Wise Elder + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Bugenhagen, Wise Elder + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Burdened Aerialist + Emiel the Blessed + Zirda, the Dawnwaker → [Spellbook 1780-2713-4499](https://commanderspellbook.com/combo/1780-2713-4499/)
 - Carrion Feeder + Aerie Ouphes + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Butcher Ghoul + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Demonlord of Ashmouth + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
@@ -1239,6 +1399,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Carrion Feeder + Geralf's Mindcrusher + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Gleeful Arsonist + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Glen Elendra Archmage + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
+- Carrion Feeder + Gravecrawler + Pitiless Plunderer → [Spellbook 2438-2577-4871](https://commanderspellbook.com/combo/2438-2577-4871/)
 - Carrion Feeder + Gravelgill Axeshark + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Grazing Kelpie + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
 - Carrion Feeder + Hancock, Ghoulish Mayor + Solemnity → [Spellbook 2438-4053--73](https://commanderspellbook.com/combo/2438-4053--73/)
@@ -1278,10 +1439,10 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Cathars' Crusade + Ulasht, the Hate Seed + Mana Echoes → [Spellbook 2440-2744-3192](https://commanderspellbook.com/combo/2440-2744-3192/)
 - Centaur Nurturer + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Centaur Nurturer + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Charming Scoundrel + Emiel the Blessed + Zirda, the Dawnwaker → [Spellbook 2208-2713-4499](https://commanderspellbook.com/combo/2208-2713-4499/)
 - Codie, Vociferous Codex + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Codie, Vociferous Codex + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Creeping Peeper + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Creeping Peeper + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Corsair Captain + Emiel the Blessed + Zirda, the Dawnwaker → [Spellbook 2307-2713-4499](https://commanderspellbook.com/combo/2307-2713-4499/)
 - Crystal, Inhuman Princess + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Crystal, Inhuman Princess + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Cult Conscript + Thermopod + Pitiless Plunderer → [Spellbook 2946-4871-5231](https://commanderspellbook.com/combo/2946-4871-5231/)
@@ -1292,10 +1453,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Deathbloom Gardener + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Deathcap Cultivator + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Deathcap Cultivator + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Deathrite Shaman + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Deathrite Shaman + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Delighted Halfling + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222-5814](https://commanderspellbook.com/combo/129-4222-5814/)
-- Delighted Halfling + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525-5814](https://commanderspellbook.com/combo/129-3525-5814/)
 - Draconic Disciple + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Draconic Disciple + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Drover of the Mighty + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
@@ -1303,53 +1460,63 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Druid of the Anima + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Druid of the Anima + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Eldrazi Displacer + Emrakul's Hatcher + Mana Echoes → [Spellbook 2550-4013](https://commanderspellbook.com/combo/2550-4013/)
-- Elvish Aberration + Umbral Mantle + Kinnan, Bonder Prodigy → [Spellbook 2816-4667](https://commanderspellbook.com/combo/2816-4667/)
+- Elvish Aberration + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 2816-4667](https://commanderspellbook.com/combo/2816-4667/)
 - Elvish Harbinger + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Elvish Harbinger + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Emiel the Blessed + Emrakul's Hatcher + Mana Echoes → [Spellbook 2550-4499](https://commanderspellbook.com/combo/2550-4499/)
+- Emiel the Blessed + Exhibition Magician + Zirda, the Dawnwaker → [Spellbook 2713-4499-5418](https://commanderspellbook.com/combo/2713-4499-5418/)
+- Emiel the Blessed + Galazeth Prismari + Zirda, the Dawnwaker → [Spellbook 773-2713-4499](https://commanderspellbook.com/combo/773-2713-4499/)
+- Emiel the Blessed + Jewel Thief + Zirda, the Dawnwaker → [Spellbook 775-2713-4499](https://commanderspellbook.com/combo/775-2713-4499/)
+- Emiel the Blessed + Kalain, Reclusive Painter + Zirda, the Dawnwaker → [Spellbook 2713-4499-5419](https://commanderspellbook.com/combo/2713-4499-5419/)
+- Emiel the Blessed + Meticulous Artisan + Zirda, the Dawnwaker → [Spellbook 2713-4499-6463](https://commanderspellbook.com/combo/2713-4499-6463/)
+- Emiel the Blessed + Patron of the Arts + Zirda, the Dawnwaker → [Spellbook 1652-2713-4499](https://commanderspellbook.com/combo/1652-2713-4499/)
+- Emiel the Blessed + Plundering Barbarian + Zirda, the Dawnwaker → [Spellbook 1449-2713-4499](https://commanderspellbook.com/combo/1449-2713-4499/)
+- Emiel the Blessed + Plundering Pirate + Zirda, the Dawnwaker → [Spellbook 2713-4499-5420](https://commanderspellbook.com/combo/2713-4499-5420/)
+- Emiel the Blessed + Prosperous Innkeeper + Zirda, the Dawnwaker → [Spellbook 2713-4499-4716](https://commanderspellbook.com/combo/2713-4499-4716/)
+- Emiel the Blessed + Redcap Thief + Zirda, the Dawnwaker → [Spellbook 2713-4499-5421](https://commanderspellbook.com/combo/2713-4499-5421/)
+- Emiel the Blessed + Sailor of Means + Zirda, the Dawnwaker → [Spellbook 2713-4499-5424](https://commanderspellbook.com/combo/2713-4499-5424/)
+- Emiel the Blessed + Skullport Merchant + Zirda, the Dawnwaker → [Spellbook 2713-3128-4499](https://commanderspellbook.com/combo/2713-3128-4499/)
+- Emiel the Blessed + Swashbuckler Extraordinaire + Zirda, the Dawnwaker → [Spellbook 2713-4499-5423](https://commanderspellbook.com/combo/2713-4499-5423/)
+- Emiel the Blessed + Wily Goblin + Zirda, the Dawnwaker → [Spellbook 2713-3671-4499](https://commanderspellbook.com/combo/2713-3671-4499/)
 - Esika, God of the Tree // The Prismatic Bridge + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Esika, God of the Tree // The Prismatic Bridge + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Filigree Sages + Gilded Lotus + Kinnan, Bonder Prodigy → [Spellbook 129-2544-5116](https://commanderspellbook.com/combo/129-2544-5116/)
+- Filigree Sages + Gilded Lotus + Zirda, the Dawnwaker → [Spellbook 2544-2713-5116](https://commanderspellbook.com/combo/2544-2713-5116/)
 - Flamewright + Intruder Alarm + Mana Echoes → [Spellbook 1636-2487](https://commanderspellbook.com/combo/1636-2487/)
 - Foreboding Statue // Forsaken Thresher + Freed from the Real + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Foreboding Statue // Forsaken Thresher + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Freed from the Real + Frog Butler + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Glittermonger + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Great Forest Druid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Guidelight Optimizer + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Guy in the Chair + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Hardbristle Bandit + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Harvester Druid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Hermitic Herbalist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Humble Naturalist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Hydraulic Helper + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Hydro-Channeler + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Ignoble Hierarch + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Ilysian Caryatid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Intrepid Paleontologist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Ixalli's Lorekeeper + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Karfell Harbinger + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Leyline Prowler + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Lifespring Druid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Llanowar Loamspeaker + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Lotus Guardian + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Lullmage's Familiar + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Maraleaf Pixie + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
+- Freed from the Real + Naga Vitalist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Nightshade Dryad + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Noble Hierarch + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Oaken Siren + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Oasis Gardener + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Oasis Ritualist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Opaline Unicorn + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Ornithopter of Paradise + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
+- Freed from the Real + Overgrown Zealot + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Paradise Druid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Pelargir Survivor + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Poison Dart Frog + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Prize Pig + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Quirion Explorer + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Rattleclaw Mystic + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Reclusive Taxidermist + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Rift Sower + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
+- Freed from the Real + Rootcoil Creeper + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Rosethorn Acolyte // Seasonal Ritual + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Ruby, Daring Tracker + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Sanar, Unfinished Genius // Wild Idea + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
@@ -1360,19 +1527,16 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Freed from the Real + Sylvan Caryatid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Sylvok Explorer + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Tender Wildguide + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + The Emperor of Palamecia // The Lord Master of Hell + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + The Lion-Turtle + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Three Tree Rootweaver + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Torgal, A Fine Hound + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Trailtracker Scout + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Twitching Doll + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Unblinking Observer + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Undercellar Myconid + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Undercity Scrounger + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Undercover Skrull + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Urborg Elf + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Utopia Tree + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
-- Freed from the Real + Volshe Tideturner + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Wandertale Mentor + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Wose Pathfinder + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
 - Freed from the Real + Yuna, Grand Summoner + Kinnan, Bonder Prodigy → [Spellbook 129-4222--140](https://commanderspellbook.com/combo/129-4222--140/)
@@ -1388,6 +1552,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Goblin Bombardment + Geralf's Mindcrusher + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Gleeful Arsonist + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Glen Elendra Archmage + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
+- Goblin Bombardment + Gravecrawler + Pitiless Plunderer → [Spellbook 2577-4871-5147](https://commanderspellbook.com/combo/2577-4871-5147/)
 - Goblin Bombardment + Gravelgill Axeshark + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Grazing Kelpie + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Hancock, Ghoulish Mayor + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
@@ -1423,47 +1588,56 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Goblin Bombardment + Witch-king, Sky Scourge + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Woodfall Primus + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
 - Goblin Bombardment + Young Wolf + Solemnity → [Spellbook 4053-5147--73](https://commanderspellbook.com/combo/4053-5147--73/)
+- Gravecrawler + Grimgrin, Corpse-Born + Pitiless Plunderer → [Spellbook 728-2577-4871](https://commanderspellbook.com/combo/728-2577-4871/)
+- Gravecrawler + Phyrexian Ghoul + Pitiless Plunderer → [Spellbook 924-2577-4871](https://commanderspellbook.com/combo/924-2577-4871/)
+- Gravecrawler + Shilgengar, Sire of Famine + Pitiless Plunderer → [Spellbook 2577-4871-5686](https://commanderspellbook.com/combo/2577-4871-5686/)
 - Gravecrawler + Thermopod + Pitiless Plunderer → [Spellbook 2577-4871-5231](https://commanderspellbook.com/combo/2577-4871-5231/)
+- Gravecrawler + Viscera Seer + Pitiless Plunderer → [Spellbook 2292-2577-4871](https://commanderspellbook.com/combo/2292-2577-4871/)
 - Gravecrawler + Warren Soultrader + Ajani's Welcome → [Spellbook 1874-2577-5670](https://commanderspellbook.com/combo/1874-2577-5670/)
+- Gravecrawler + Woe Strider + Pitiless Plunderer → [Spellbook 997-2577-4871](https://commanderspellbook.com/combo/997-2577-4871/)
+- Gravecrawler + Yahenni, Undying Partisan + Pitiless Plunderer → [Spellbook 2577-3967-4871](https://commanderspellbook.com/combo/2577-3967-4871/)
 - Great Forest Druid + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Guidelight Optimizer + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Greenweaver Druid + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 2713-2816-4360](https://commanderspellbook.com/combo/2713-2816-4360/)
 - Guy in the Chair + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Gyre Engineer + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 1253-2713-2816](https://commanderspellbook.com/combo/1253-2713-2816/)
 - Hardbristle Bandit + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Harvester Druid + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Hermitic Herbalist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Humble Naturalist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Hydraulic Helper + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Hydro-Channeler + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Ignoble Hierarch + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Ilysian Caryatid + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Incubation Druid + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 2816-3990](https://commanderspellbook.com/combo/2816-3990/)
 - Intrepid Paleontologist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Ixalli's Lorekeeper + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Karfell Harbinger + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Leyline Prowler + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Lifespring Druid + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Llanowar Loamspeaker + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Llanowar Tribe + Umbral Mantle + Kinnan, Bonder Prodigy → [Spellbook 305-2816](https://commanderspellbook.com/combo/305-2816/)
+- Llanowar Tribe + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 305-2816](https://commanderspellbook.com/combo/305-2816/)
 - Lotus Guardian + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Lullmage's Familiar + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Maraleaf Pixie + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Metalworker + Voltaic Construct + Kinnan, Bonder Prodigy → [Spellbook 578-1978](https://commanderspellbook.com/combo/578-1978/)
+- Marang River Prowler + Phyrexian Altar + Animar, Soul of Elements → [Spellbook 938-3771-4050](https://commanderspellbook.com/combo/938-3771-4050/)
+- Metalworker + Sword of the Paruns + Zirda, the Dawnwaker → [Spellbook 578-5200](https://commanderspellbook.com/combo/578-5200/)
+- Metalworker + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 578-2816](https://commanderspellbook.com/combo/578-2816/)
+- Metalworker + Voltaic Construct + Zirda, the Dawnwaker → [Spellbook 578-1978](https://commanderspellbook.com/combo/578-1978/)
+- Naga Vitalist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Nightshade Dryad + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Noble Hierarch + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Oaken Siren + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Oasis Gardener + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Oasis Ritualist + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 3525-3762](https://commanderspellbook.com/combo/3525-3762/)
-- Oathsworn Vampire + Phyrexian Altar + Abzan Ascendancy → [Spellbook 2301-3054-4050](https://commanderspellbook.com/combo/2301-3054-4050/)
-- Omen Hawker + Vigean Graftmage + Kinnan, Bonder Prodigy → [Spellbook 129-3772-4019](https://commanderspellbook.com/combo/129-3772-4019/)
 - Opaline Unicorn + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Ornithopter of Paradise + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Overgrown Zealot + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Palladium Myr + Sword of the Paruns + Zirda, the Dawnwaker → [Spellbook 890-2713-5200](https://commanderspellbook.com/combo/890-2713-5200/)
+- Palladium Myr + Umbral Mantle + Zirda, the Dawnwaker → [Spellbook 890-2713-2816](https://commanderspellbook.com/combo/890-2713-2816/)
+- Palladium Myr + Voltaic Construct + Zirda, the Dawnwaker → [Spellbook 890-1978-2713](https://commanderspellbook.com/combo/890-1978-2713/)
 - Paradise Druid + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Pelargir Survivor + Pemmin's Aura + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Poison Dart Frog + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Prize Pig + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Quirion Explorer + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Rattleclaw Mystic + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Reclusive Taxidermist + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Rift Sower + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
+- Pemmin's Aura + Rootcoil Creeper + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Rosethorn Acolyte // Seasonal Ritual + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Ruby, Daring Tracker + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Sanar, Unfinished Genius // Wild Idea + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
@@ -1474,19 +1648,16 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Pemmin's Aura + Sylvan Caryatid + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Sylvok Explorer + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Tender Wildguide + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Pemmin's Aura + The Emperor of Palamecia // The Lord Master of Hell + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + The Lion-Turtle + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Three Tree Rootweaver + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Torgal, A Fine Hound + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Trailtracker Scout + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Twitching Doll + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Pemmin's Aura + Unblinking Observer + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Undercellar Myconid + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Undercity Scrounger + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Undercover Skrull + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Urborg Elf + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Utopia Tree + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
-- Pemmin's Aura + Volshe Tideturner + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Wandertale Mentor + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Wose Pathfinder + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
 - Pemmin's Aura + Yuna, Grand Summoner + Kinnan, Bonder Prodigy → [Spellbook 129-3525--140](https://commanderspellbook.com/combo/129-3525--140/)
@@ -1526,6 +1697,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Phyrexian Altar + Sightless Ghoul + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
 - Phyrexian Altar + Stormbound Geist + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
 - Phyrexian Altar + Strangleroot Geist + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
+- Phyrexian Altar + Super-Skrull + Zirda, the Dawnwaker → [Spellbook 2713-4050-7132](https://commanderspellbook.com/combo/2713-4050-7132/)
 - Phyrexian Altar + Thunderblust + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
 - Phyrexian Altar + Trapjaw Kelpie + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
 - Phyrexian Altar + Treacherous Pit-Dweller + Solemnity → [Spellbook 4050-4053--73](https://commanderspellbook.com/combo/4050-4053--73/)
@@ -1623,7 +1795,6 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Thermopod + Trapjaw Kelpie + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)
 - Thermopod + Treacherous Pit-Dweller + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)
 - Thermopod + Twilight Shepherd + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)
-- Thermopod + Undead Sprinter + Pitiless Plunderer → [Spellbook 4871-5231-5920](https://commanderspellbook.com/combo/4871-5231-5920/)
 - Thermopod + Vengeful Vampire + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)
 - Thermopod + Vorapede + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)
 - Thermopod + Witch-king, Sky Scourge + Solemnity → [Spellbook 4053-5231--73](https://commanderspellbook.com/combo/4053-5231--73/)

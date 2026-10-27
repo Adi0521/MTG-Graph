@@ -45,9 +45,9 @@
         "Swiftfoot Boots"
       ],
       "spellbookCombos": 21,
-      "engineCombos": 18,
-      "matched": 17,
-      "recall": 0.81,
+      "engineCombos": 19,
+      "matched": 18,
+      "recall": 0.857,
       "matchedCombos": [
         "Aggravated Assault + Bear Umbra",
         "Aggravated Assault + Dockside Extortionist + Helm of the Host",
@@ -62,6 +62,7 @@
         "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
         "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
         "Hellkite Charger + Sword of Feast and Famine",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
         "Helm of the Host + Port Razer",
         "Helm of the Host + Scourge of the Throne",
         "Kiki-Jiki, Mirror Breaker + Port Razer",
@@ -110,20 +111,6 @@
           "diagnosis": [
             "all abilities parsed, but the loop was not closed"
           ]
-        },
-        {
-          "cards": [
-            "Kiki-Jiki, Mirror Breaker",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
-          ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
-          ]
         }
       ],
       "engineOnly": [
@@ -160,10 +147,13 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 12,
-      "engineCombos": 0,
-      "matched": 0,
-      "recall": 0,
-      "matchedCombos": [],
+      "engineCombos": 2,
+      "matched": 2,
+      "recall": 0.167,
+      "matchedCombos": [
+        "Dakmor Salvage + Noose Constrictor + The Gitrog Monster",
+        "Dakmor Salvage + Putrid Imp + The Gitrog Monster"
+      ],
       "missed": [
         {
           "cards": [
@@ -193,8 +183,7 @@
           ],
           "diagnosis": [
             "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Glacial Chasm: no loop abilities parsed",
-            "Life from the Loam: no loop abilities parsed"
+            "Glacial Chasm: no loop abilities parsed"
           ]
         },
         {
@@ -241,7 +230,6 @@
           ],
           "diagnosis": [
             "Glacial Chasm: no loop abilities parsed",
-            "The Gitrog Monster: no loop abilities parsed",
             "Crucible of Worlds: no loop abilities parsed"
           ]
         },
@@ -264,37 +252,6 @@
         {
           "cards": [
             "The Gitrog Monster",
-            "Dakmor Salvage",
-            "Noose Constrictor"
-          ],
-          "produces": [
-            "Infinite self-mill",
-            "Near-infinitely large creature until end of turn",
-            "Near-infinite self-discard triggers"
-          ],
-          "diagnosis": [
-            "The Gitrog Monster: no loop abilities parsed",
-            "Noose Constrictor: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "The Gitrog Monster",
-            "Dakmor Salvage",
-            "Putrid Imp"
-          ],
-          "produces": [
-            "Infinite self-mill",
-            "Near-infinite self-discard triggers"
-          ],
-          "diagnosis": [
-            "The Gitrog Monster: no loop abilities parsed",
-            "Putrid Imp: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "The Gitrog Monster",
             "Dakmor Salvage"
           ],
           "produces": [
@@ -302,7 +259,7 @@
             "Near-infinite self-discard triggers"
           ],
           "diagnosis": [
-            "The Gitrog Monster: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
         },
         {
@@ -333,7 +290,6 @@
           ],
           "diagnosis": [
             "Glacial Chasm: no loop abilities parsed",
-            "The Gitrog Monster: no loop abilities parsed",
             "Ramunap Excavator: no loop abilities parsed"
           ]
         },
@@ -367,15 +323,16 @@
         "Treasure Nabber"
       ],
       "spellbookCombos": 9,
-      "engineCombos": 7,
-      "matched": 6,
-      "recall": 0.667,
+      "engineCombos": 8,
+      "matched": 7,
+      "recall": 0.778,
       "matchedCombos": [
         "Aggravated Assault + Dockside Extortionist + Helm of the Host",
         "Aggravated Assault + Sword of Feast and Famine",
         "Combat Celebrant + Helm of the Host",
         "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
         "Godo, Bandit Warlord + Helm of the Host",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
         "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
       ],
       "missed": [
@@ -405,20 +362,6 @@
           ],
           "diagnosis": [
             "Breath of Fury: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Kiki-Jiki, Mirror Breaker",
-            "Helm of the Host"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
-          ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
           ]
         }
       ],
@@ -451,9 +394,9 @@
         "Wild Growth"
       ],
       "spellbookCombos": 19,
-      "engineCombos": 14,
-      "matched": 12,
-      "recall": 0.632,
+      "engineCombos": 18,
+      "matched": 16,
+      "recall": 0.842,
       "matchedCombos": [
         "Basalt Monolith + Kinnan, Bonder Prodigy",
         "Basalt Monolith + Power Artifact",
@@ -462,51 +405,17 @@
         "Bloom Tender + Pemmin's Aura",
         "Devoted Druid + Vizier of Remedies",
         "Dramatic Reversal + Isochron Scepter",
+        "Faeburrow Elder + Freed from the Real",
+        "Faeburrow Elder + Pemmin's Aura",
         "Freed from the Real + Gilded Lotus + Kiora's Follower",
+        "Freed from the Real + Incubation Druid",
         "Freed from the Real + Kinnan, Bonder Prodigy",
         "Gilded Lotus + Kiora's Follower + Pemmin's Aura",
         "Grim Monolith + Power Artifact",
+        "Incubation Druid + Pemmin's Aura",
         "Kinnan, Bonder Prodigy + Pemmin's Aura"
       ],
       "missed": [
-        {
-          "cards": [
-            "Faeburrow Elder",
-            "Freed from the Real"
-          ],
-          "produces": [
-            "Infinite non-blue mana of colors among permanents you control",
-            "Infinite mana of colors among permanents you control"
-          ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
-          ]
-        },
-        {
-          "cards": [
-            "Faeburrow Elder",
-            "Pemmin's Aura"
-          ],
-          "produces": [
-            "Infinite non-blue mana of colors among permanents you control",
-            "Infinite mana of colors among permanents you control"
-          ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
-          ]
-        },
-        {
-          "cards": [
-            "Incubation Druid",
-            "Freed from the Real"
-          ],
-          "produces": [
-            "Infinite mana lands you control can produce"
-          ],
-          "diagnosis": [
-            "Incubation Druid: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Hullbreaker Horror"
@@ -547,18 +456,6 @@
           "diagnosis": [
             "Hullbreaker Horror: no loop abilities parsed",
             "needs generic pieces: Requires Permanent Castable for {C}"
-          ]
-        },
-        {
-          "cards": [
-            "Incubation Druid",
-            "Pemmin's Aura"
-          ],
-          "produces": [
-            "Infinite mana lands you control can produce"
-          ],
-          "diagnosis": [
-            "Incubation Druid: no loop abilities parsed"
           ]
         }
       ],
@@ -667,7 +564,7 @@
         "Vampiric Tutor"
       ],
       "spellbookCombos": 14,
-      "engineCombos": 14,
+      "engineCombos": 13,
       "matched": 13,
       "recall": 0.929,
       "matchedCombos": [
@@ -701,19 +598,7 @@
           ]
         }
       ],
-      "engineOnly": [
-        {
-          "cards": [
-            "Oona, Queen of the Fae",
-            "Phyrexian Altar"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite sacrifice triggers",
-            "Infinite creature tokens"
-          ]
-        }
-      ]
+      "engineOnly": []
     },
     {
       "slug": "sliver-overlord",
@@ -793,8 +678,7 @@
           ],
           "diagnosis": [
             "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Glacial Chasm: no loop abilities parsed",
-            "Life from the Loam: no loop abilities parsed"
+            "Glacial Chasm: no loop abilities parsed"
           ]
         },
         {
@@ -923,43 +807,17 @@
         "Necrotic Ooze"
       ],
       "spellbookCombos": 7,
-      "engineCombos": 1,
-      "matched": 1,
-      "recall": 0.143,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 0.714,
       "matchedCombos": [
-        "Gravecrawler + Phyrexian Altar"
+        "Altar of Dementia + Gravecrawler + Rooftop Storm",
+        "Ashnod's Altar + Gravecrawler + Rooftop Storm",
+        "Carrion Feeder + Gravecrawler + Rooftop Storm",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Rooftop Storm + Viscera Seer"
       ],
       "missed": [
-        {
-          "cards": [
-            "Gravecrawler",
-            "Rooftop Storm",
-            "Altar of Dementia"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite self-mill",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Rooftop Storm: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Gravecrawler",
-            "Rooftop Storm",
-            "Ashnod's Altar"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite colorless mana",
-            "Infinite creature ETB"
-          ],
-          "diagnosis": [
-            "Rooftop Storm: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Havengul Lich",
@@ -975,36 +833,6 @@
             "Havengul Lich: no loop abilities parsed",
             "Rooftop Storm: no loop abilities parsed",
             "needs generic pieces: Requires Zombie Creature"
-          ]
-        },
-        {
-          "cards": [
-            "Gravecrawler",
-            "Rooftop Storm",
-            "Carrion Feeder"
-          ],
-          "produces": [
-            "Infinite +1/+1 counters on a creature",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
-          ],
-          "diagnosis": [
-            "Rooftop Storm: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Gravecrawler",
-            "Rooftop Storm",
-            "Viscera Seer"
-          ],
-          "produces": [
-            "Infinite creature ETB",
-            "Infinite creature LTB",
-            "Infinite creature sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Rooftop Storm: no loop abilities parsed"
           ]
         },
         {
@@ -1035,27 +863,18 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 7,
-      "engineCombos": 3,
-      "matched": 3,
-      "recall": 0.429,
+      "engineCombos": 7,
+      "matched": 6,
+      "recall": 0.857,
       "matchedCombos": [
         "Basalt Monolith + Rings of Brighthearth",
+        "Basalt Monolith + Zirda, the Dawnwaker",
         "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
+        "Grim Monolith + Zirda, the Dawnwaker",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
         "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
       ],
       "missed": [
-        {
-          "cards": [
-            "Zirda, the Dawnwaker",
-            "Basalt Monolith"
-          ],
-          "produces": [
-            "Infinite colorless mana"
-          ],
-          "diagnosis": [
-            "Zirda, the Dawnwaker: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "Retrofitter Foundry",
@@ -1073,44 +892,43 @@
             "Clock of Omens: cost not modeled",
             "Zirda, the Dawnwaker: no loop abilities parsed"
           ]
-        },
+        }
+      ],
+      "engineOnly": [
         {
           "cards": [
-            "Zirda, the Dawnwaker",
-            "Grim Monolith"
-          ],
-          "produces": [
-            "Infinite colorless mana"
-          ],
-          "diagnosis": [
-            "Zirda, the Dawnwaker: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Kiki-Jiki, Mirror Breaker",
-            "Helm of the Host"
+            "Ashnod's Altar",
+            "Retrofitter Foundry",
+            "Zirda, the Dawnwaker"
           ],
           "produces": [
             "Infinite death triggers",
-            "Infinite creature ETB",
-            "Infinite creature LTB"
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Krark-Clan Ironworks",
+            "Retrofitter Foundry",
+            "Zirda, the Dawnwaker"
           ],
-          "diagnosis": [
-            "all abilities parsed, but the loop was not closed"
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
           ]
         }
-      ],
-      "engineOnly": []
+      ]
     }
   ],
   "totals": {
     "decks": 12,
     "connectivity": 0.939,
     "spellbookCombos": 109,
-    "matched": 61,
-    "recall": 0.56,
-    "engineOnly": 8
+    "matched": 76,
+    "recall": 0.697,
+    "engineOnly": 9
   },
   "topUnparsed": [
     {
@@ -1130,14 +948,6 @@
       "misses": 6
     },
     {
-      "card": "Rooftop Storm",
-      "misses": 6
-    },
-    {
-      "card": "The Gitrog Monster",
-      "misses": 5
-    },
-    {
       "card": "Exploration",
       "misses": 4
     },
@@ -1146,23 +956,15 @@
       "misses": 3
     },
     {
-      "card": "Zirda, the Dawnwaker",
-      "misses": 3
-    },
-    {
       "card": "Havengul Lich",
       "misses": 2
     },
     {
-      "card": "Incubation Druid",
-      "misses": 2
-    },
-    {
-      "card": "Life from the Loam",
-      "misses": 2
-    },
-    {
       "card": "Oracle of Mul Daya",
+      "misses": 2
+    },
+    {
+      "card": "Rooftop Storm",
       "misses": 2
     },
     {
@@ -1174,19 +976,15 @@
       "misses": 1
     },
     {
-      "card": "Noose Constrictor",
-      "misses": 1
-    },
-    {
-      "card": "Putrid Imp",
-      "misses": 1
-    },
-    {
       "card": "Teferi, Temporal Archmage",
       "misses": 1
     },
     {
       "card": "The Chain Veil",
+      "misses": 1
+    },
+    {
+      "card": "Zirda, the Dawnwaker",
       "misses": 1
     }
   ]

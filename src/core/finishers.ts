@@ -172,7 +172,7 @@ export function findMillFinishers(cards: Card[]): EngineCombo[] {
       netMana: 'none',
       verification: {
         startup: [],
-        perLoop: { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0, milled: MAX_LIBRARY },
+        perLoop: { mana: emptyProduction(), life: 0, opponentLife: 0, deaths: 0, etbs: 0, draws: 0, tokens: 0, casts: 0, combats: 0, milled: MAX_LIBRARY, selfMilled: 0 },
       },
     });
   }

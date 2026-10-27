@@ -1073,8 +1073,8 @@
           "cards": [
             "Gravecrawler",
             "Yawgmoth, Thran Physician",
-            "Pitiless Plunderer",
-            "Bastion of Remembrance"
+            "Bastion of Remembrance",
+            "Pitiless Plunderer"
           ],
           "produces": [
             "Infinite death triggers",
@@ -1197,7 +1197,7 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 15,
-      "engineCombos": 28,
+      "engineCombos": 30,
       "matched": 15,
       "recall": 1,
       "matchedCombos": [
@@ -1896,8 +1896,8 @@
         {
           "cards": [
             "Cartel Aristocrat",
-            "Pitiless Plunderer",
             "Reassembling Skeleton",
+            "Pitiless Plunderer",
             "Teysa Karlov"
           ],
           "produces": [
@@ -2169,8 +2169,8 @@
           "cards": [
             "Gravecrawler",
             "Yawgmoth, Thran Physician",
-            "Pitiless Plunderer",
-            "Blood Artist"
+            "Blood Artist",
+            "Pitiless Plunderer"
           ],
           "produces": [
             "Infinite death triggers",
