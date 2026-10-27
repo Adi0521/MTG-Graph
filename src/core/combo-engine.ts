@@ -30,6 +30,7 @@ import {
   type Output,
 } from './abilities.ts';
 import { findMillFinishers } from './finishers.ts';
+import { findLocks } from './locks.ts';
 import { verifyLoop, type LoopPlan, type PerLoop } from './simulate.ts';
 import type { Card } from './types.ts';
 
@@ -1593,6 +1594,8 @@ export function findEngineCombos(
   const minimal = found.filter((c) => !found.some((o) => o !== c && o.cards.length < c.cards.length && contains(c, o)));
   // One-shot mill finishers (not loops), unless a loop already covers the same cards.
   for (const f of findMillFinishers(sorted)) if (!minimal.some((c) => contains(f, c))) minimal.push({ ...f, size: f.cards.length, surplus: 0 });
+  // Turn-by-turn locks (Glacial Chasm kept on the battlefield every turn).
+  for (const l of findLocks(sorted)) if (!minimal.some((c) => contains(l, c))) minimal.push({ ...l, size: l.cards.length, surplus: 0 });
   const combos = minimal
     .sort((a, b) => a.cards.length - b.cards.length || a.cards.join('|').localeCompare(b.cards.join('|')))
     .map(({ size: _size, surplus: _surplus, ...combo }) => combo);

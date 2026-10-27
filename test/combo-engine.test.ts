@@ -286,6 +286,17 @@ describe('findEngineCombos', () => {
     expect(combosOf('Oona, Queen of the Fae', 'Phyrexian Altar')).toEqual([]);
   });
 
+  it('finds turn-by-turn locks (Glacial Chasm) and only with every piece', () => {
+    const lock = (...names: string[]) => combosOf(...names).filter((c) => c.produces.includes('Lock'));
+    expect(lock('Glacial Chasm', 'Crucible of Worlds', 'Azusa, Lost but Seeking')[0]!.produces).toEqual(['Prevent all damage that would be dealt to you', 'Lock']);
+    expect(lock('Glacial Chasm', 'The Gitrog Monster', 'Ramunap Excavator')).toHaveLength(1);
+    expect(lock('Glacial Chasm', 'Zuran Orb', 'Crucible of Worlds')[0]!.prerequisites).toContain('Your life total is above 2');
+    expect(lock('Glacial Chasm', 'Life from the Loam', 'Azusa, Lost but Seeking')).toHaveLength(1);
+    // One land drop cannot replace the land Glacial Chasm sacrifices; nothing to play it from the graveyard.
+    expect(lock('Glacial Chasm', 'Crucible of Worlds')).toEqual([]);
+    expect(lock('Glacial Chasm', 'Azusa, Lost but Seeking')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

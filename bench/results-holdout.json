@@ -147,108 +147,23 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 12,
-      "engineCombos": 2,
-      "matched": 2,
-      "recall": 0.167,
+      "engineCombos": 18,
+      "matched": 11,
+      "recall": 0.917,
       "matchedCombos": [
+        "Azusa, Lost but Seeking + Crucible of Worlds + Glacial Chasm",
+        "Azusa, Lost but Seeking + Glacial Chasm + Life from the Loam",
+        "Azusa, Lost but Seeking + Glacial Chasm + Ramunap Excavator",
+        "Crucible of Worlds + Exploration + Glacial Chasm",
+        "Crucible of Worlds + Glacial Chasm + The Gitrog Monster",
+        "Crucible of Worlds + Glacial Chasm + Zuran Orb",
         "Dakmor Salvage + Noose Constrictor + The Gitrog Monster",
-        "Dakmor Salvage + Putrid Imp + The Gitrog Monster"
+        "Dakmor Salvage + Putrid Imp + The Gitrog Monster",
+        "Exploration + Glacial Chasm + Ramunap Excavator",
+        "Glacial Chasm + Ramunap Excavator + The Gitrog Monster",
+        "Glacial Chasm + Ramunap Excavator + Zuran Orb"
       ],
       "missed": [
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Crucible of Worlds",
-            "Azusa, Lost but Seeking"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed",
-            "Azusa, Lost but Seeking: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Azusa, Lost but Seeking",
-            "Glacial Chasm",
-            "Life from the Loam"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Glacial Chasm: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Azusa, Lost but Seeking",
-            "Ramunap Excavator"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Crucible of Worlds",
-            "Exploration"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed",
-            "Exploration: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "The Gitrog Monster",
-            "Crucible of Worlds"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Zuran Orb",
-            "Crucible of Worlds"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Zuran Orb: cost not modeled",
-            "Crucible of Worlds: no loop abilities parsed"
-          ]
-        },
         {
           "cards": [
             "The Gitrog Monster",
@@ -261,56 +176,87 @@
           "diagnosis": [
             "all abilities parsed, but the loop was not closed"
           ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Ramunap Excavator",
-            "Exploration"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed",
-            "Exploration: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "The Gitrog Monster",
-            "Ramunap Excavator"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Zuran Orb",
-            "Ramunap Excavator"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Zuran Orb: cost not modeled",
-            "Ramunap Excavator: no loop abilities parsed"
-          ]
         }
       ],
-      "engineOnly": []
+      "engineOnly": [
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Azusa, Lost but Seeking",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Exploration",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "The Gitrog Monster"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Exploration",
+            "Glacial Chasm",
+            "Life from the Loam"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "The Gitrog Monster"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        }
+      ]
     },
     {
       "slug": "godo-equipment",
@@ -645,156 +591,100 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 9,
-      "engineCombos": 0,
-      "matched": 0,
-      "recall": 0,
-      "matchedCombos": [],
-      "missed": [
+      "engineCombos": 16,
+      "matched": 9,
+      "recall": 1,
+      "matchedCombos": [
+        "Azusa, Lost but Seeking + Crucible of Worlds + Glacial Chasm",
+        "Azusa, Lost but Seeking + Glacial Chasm + Life from the Loam",
+        "Azusa, Lost but Seeking + Glacial Chasm + Ramunap Excavator",
+        "Crucible of Worlds + Exploration + Glacial Chasm",
+        "Crucible of Worlds + Glacial Chasm + Oracle of Mul Daya",
+        "Crucible of Worlds + Glacial Chasm + Zuran Orb",
+        "Exploration + Glacial Chasm + Ramunap Excavator",
+        "Glacial Chasm + Oracle of Mul Daya + Ramunap Excavator",
+        "Glacial Chasm + Ramunap Excavator + Zuran Orb"
+      ],
+      "missed": [],
+      "engineOnly": [
         {
           "cards": [
-            "Glacial Chasm",
-            "Crucible of Worlds",
-            "Azusa, Lost but Seeking"
+            "Ancient Greenwarden",
+            "Azusa, Lost but Seeking",
+            "Glacial Chasm"
           ],
           "produces": [
             "Prevent all damage that would be dealt to you",
             "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed",
-            "Azusa, Lost but Seeking: no loop abilities parsed"
           ]
         },
         {
           "cards": [
-            "Azusa, Lost but Seeking",
+            "Ancient Greenwarden",
+            "Exploration",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Oracle of Mul Daya"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Exploration",
             "Glacial Chasm",
             "Life from the Loam"
           ],
           "produces": [
             "Prevent all damage that would be dealt to you",
             "Lock"
-          ],
-          "diagnosis": [
-            "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Glacial Chasm: no loop abilities parsed"
           ]
         },
         {
           "cards": [
             "Glacial Chasm",
-            "Azusa, Lost but Seeking",
-            "Ramunap Excavator"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Azusa, Lost but Seeking: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Crucible of Worlds",
-            "Exploration"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed",
-            "Exploration: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Crucible of Worlds",
+            "Life from the Loam",
             "Oracle of Mul Daya"
           ],
           "produces": [
             "Prevent all damage that would be dealt to you",
             "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Crucible of Worlds: no loop abilities parsed",
-            "Oracle of Mul Daya: no loop abilities parsed"
           ]
         },
         {
           "cards": [
             "Glacial Chasm",
-            "Zuran Orb",
-            "Crucible of Worlds"
+            "Life from the Loam",
+            "Zuran Orb"
           ],
           "produces": [
             "Prevent all damage that would be dealt to you",
             "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Zuran Orb: cost not modeled",
-            "Crucible of Worlds: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Ramunap Excavator",
-            "Exploration"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed",
-            "Exploration: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Ramunap Excavator",
-            "Oracle of Mul Daya"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Ramunap Excavator: no loop abilities parsed",
-            "Oracle of Mul Daya: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Glacial Chasm",
-            "Zuran Orb",
-            "Ramunap Excavator"
-          ],
-          "produces": [
-            "Prevent all damage that would be dealt to you",
-            "Lock"
-          ],
-          "diagnosis": [
-            "Glacial Chasm: no loop abilities parsed",
-            "Zuran Orb: cost not modeled",
-            "Ramunap Excavator: no loop abilities parsed"
           ]
         }
-      ],
-      "engineOnly": []
+      ]
     },
     {
       "slug": "wilhelt-zombies",
@@ -926,41 +816,17 @@
     "decks": 12,
     "connectivity": 0.939,
     "spellbookCombos": 109,
-    "matched": 76,
-    "recall": 0.697,
-    "engineOnly": 9
+    "matched": 94,
+    "recall": 0.862,
+    "engineOnly": 23
   },
   "topUnparsed": [
-    {
-      "card": "Glacial Chasm",
-      "misses": 18
-    },
-    {
-      "card": "Crucible of Worlds",
-      "misses": 8
-    },
-    {
-      "card": "Ramunap Excavator",
-      "misses": 8
-    },
-    {
-      "card": "Azusa, Lost but Seeking",
-      "misses": 6
-    },
-    {
-      "card": "Exploration",
-      "misses": 4
-    },
     {
       "card": "Hullbreaker Horror",
       "misses": 3
     },
     {
       "card": "Havengul Lich",
-      "misses": 2
-    },
-    {
-      "card": "Oracle of Mul Daya",
       "misses": 2
     },
     {

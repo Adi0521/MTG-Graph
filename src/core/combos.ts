@@ -41,7 +41,8 @@ export interface ComboReport {
 const setKey = (cards: string[]) => [...new Set(cards)].sort().join('|');
 
 function engineSteps(e: EngineCombo): string[] {
-  return [...e.steps.map((s) => `${s.card}: ${s.ability} → ${s.then}.`), 'Repeat.'];
+  // Lock steps are turn actions with no "feeds the next step" link.
+  return [...e.steps.map((s) => (s.then ? `${s.card}: ${s.ability} → ${s.then}.` : `${s.card}: ${s.ability}.`)), e.produces.includes('Lock') ? 'Repeat every turn.' : 'Repeat.'];
 }
 
 /**

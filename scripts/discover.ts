@@ -69,7 +69,7 @@ function describe(c: Discovered): string[] {
   if (alternatives.length) lines.push(`**Helper:** ${alternatives.join('; ')}  `);
   if (c.prerequisites.length) lines.push(`**Needs:** ${c.prerequisites.join(' · ')}  `);
   if (c.verification.startup.length) lines.push(`**To start:** ${c.verification.startup.join(' · ')}  `);
-  lines.push('', ...c.steps.map((s, i) => `${i + 1}. ${s.card}: ${s.ability} → ${s.then}.`), `${c.steps.length + 1}. Repeat.`, '');
+  lines.push('', ...c.steps.map((s, i) => `${i + 1}. ${s.card}: ${s.ability}${s.then ? ` → ${s.then}` : ''}.`), `${c.steps.length + 1}. Repeat.`, '');
   return lines;
 }
 
