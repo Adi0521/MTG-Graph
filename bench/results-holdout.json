@@ -82,214 +82,94 @@
         "Demonic Tutor"
       ],
       "spellbookCombos": 12,
-      "engineCombos": 0,
-      "matched": 0,
-      "recall": 0,
-      "matchedCombos": [],
-      "missed": [
+      "engineCombos": 10,
+      "matched": 12,
+      "recall": 1,
+      "matchedCombos": [
+        "Academy Manufactor + Ashnod's Altar + Cauldron Familiar + Pitiless Plunderer",
+        "Academy Manufactor + Camellia, the Seedmiser + Doubling Season + Peregrin Took",
+        "Academy Manufactor + Camellia, the Seedmiser + Parallel Lives + Peregrin Took",
+        "Academy Manufactor + Carrion Feeder + Cauldron Familiar + Pitiless Plunderer",
+        "Academy Manufactor + Cauldron Familiar + Pitiless Plunderer + Viscera Seer",
+        "Academy Manufactor + Cauldron Familiar + Pitiless Plunderer + Woe Strider",
+        "Ashnod's Altar + Camellia, the Seedmiser + Peregrin Took",
+        "Ashnod's Altar + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
+        "Carrion Feeder + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
+        "Cauldron Familiar + Peregrin Took + Pitiless Plunderer + Viscera Seer",
+        "Chatterfang, Squirrel General + Pitiless Plunderer",
+        "Earthcraft + Squirrel Nest"
+      ],
+      "missed": [],
+      "engineOnly": [
         {
           "cards": [
-            "Academy Manufactor",
+            "Ashnod's Altar",
             "Pitiless Plunderer",
-            "Cauldron Familiar",
-            "Ashnod's Altar"
+            "Camellia, the Seedmiser",
+            "Academy Manufactor"
           ],
           "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Cauldron Familiar",
+            "Woe Strider",
+            "Camellia, the Seedmiser",
+            "Peregrin Took"
           ],
-          "diagnosis": [
-            "Academy Manufactor: no loop abilities parsed",
-            "Cauldron Familiar: cost not modeled"
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
           ]
         },
         {
           "cards": [
             "Camellia, the Seedmiser",
-            "Peregrin Took",
+            "Carrion Feeder",
+            "Pitiless Plunderer",
             "Academy Manufactor",
             "Doubling Season"
           ],
           "produces": [
-            "Infinite artifact tokens",
-            "Infinite creature ETB",
-            "Infinite lifegain triggers"
-          ],
-          "diagnosis": [
-            "Camellia, the Seedmiser: no loop abilities parsed",
-            "Peregrin Took: cost not modeled",
-            "Academy Manufactor: no loop abilities parsed",
-            "Doubling Season: no loop abilities parsed"
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
           ]
         },
         {
           "cards": [
             "Camellia, the Seedmiser",
-            "Peregrin Took",
-            "Academy Manufactor",
-            "Parallel Lives"
-          ],
-          "produces": [
-            "Infinite artifact tokens",
-            "Infinite creature ETB",
-            "Infinite lifegain triggers"
-          ],
-          "diagnosis": [
-            "Camellia, the Seedmiser: no loop abilities parsed",
-            "Peregrin Took: cost not modeled",
-            "Academy Manufactor: no loop abilities parsed",
-            "Parallel Lives: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Academy Manufactor",
+            "Viscera Seer",
             "Pitiless Plunderer",
-            "Cauldron Familiar",
-            "Carrion Feeder"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Academy Manufactor: no loop abilities parsed",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
             "Academy Manufactor",
-            "Pitiless Plunderer",
-            "Cauldron Familiar",
-            "Viscera Seer"
+            "Doubling Season"
           ],
           "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Academy Manufactor: no loop abilities parsed",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Academy Manufactor",
-            "Pitiless Plunderer",
-            "Cauldron Familiar",
-            "Woe Strider"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Academy Manufactor: no loop abilities parsed",
-            "Cauldron Familiar: cost not modeled"
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
           ]
         },
         {
           "cards": [
             "Camellia, the Seedmiser",
-            "Peregrin Took",
-            "Ashnod's Altar"
-          ],
-          "produces": [
-            "Infinite creature LTB",
-            "Infinite creature ETB",
-            "Infinite creature sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Camellia, the Seedmiser: no loop abilities parsed",
-            "Peregrin Took: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Peregrin Took",
-            "Cauldron Familiar",
+            "Woe Strider",
             "Pitiless Plunderer",
-            "Ashnod's Altar"
+            "Academy Manufactor",
+            "Doubling Season"
           ],
           "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Peregrin Took: cost not modeled",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Peregrin Took",
-            "Cauldron Familiar",
-            "Pitiless Plunderer",
-            "Carrion Feeder"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Peregrin Took: cost not modeled",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Peregrin Took",
-            "Cauldron Familiar",
-            "Pitiless Plunderer",
-            "Viscera Seer"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Peregrin Took: cost not modeled",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Chatterfang, Squirrel General",
-            "Pitiless Plunderer"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Chatterfang, Squirrel General: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Earthcraft",
-            "Squirrel Nest"
-          ],
-          "produces": [
-            "Infinite creature ETB",
-            "Infinite tapped creature tokens"
-          ],
-          "diagnosis": [
-            "Earthcraft: cost not modeled",
-            "Squirrel Nest: no loop abilities parsed"
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
           ]
         }
-      ],
-      "engineOnly": []
+      ]
     },
     {
       "slug": "kalamax-instants",
@@ -895,8 +775,7 @@
             "Near-infinite artifact sacrifice triggers"
           ],
           "diagnosis": [
-            "Najeela, the Blade-Blossom: cost not modeled",
-            "Grim Hireling: no loop abilities parsed"
+            "Najeela, the Blade-Blossom: cost not modeled"
           ]
         },
         {
@@ -1323,19 +1202,11 @@
     "decks": 12,
     "connectivity": 0.893,
     "spellbookCombos": 126,
-    "matched": 74,
-    "recall": 0.587,
-    "engineOnly": 18
+    "matched": 86,
+    "recall": 0.683,
+    "engineOnly": 23
   },
   "topUnparsed": [
-    {
-      "card": "Academy Manufactor",
-      "misses": 6
-    },
-    {
-      "card": "Camellia, the Seedmiser",
-      "misses": 3
-    },
     {
       "card": "Frenetic Efreet",
       "misses": 3
@@ -1381,14 +1252,6 @@
       "misses": 1
     },
     {
-      "card": "Chatterfang, Squirrel General",
-      "misses": 1
-    },
-    {
-      "card": "Doubling Season",
-      "misses": 1
-    },
-    {
       "card": "Eternal Scourge",
       "misses": 1
     },
@@ -1398,10 +1261,6 @@
     },
     {
       "card": "Fork",
-      "misses": 1
-    },
-    {
-      "card": "Grim Hireling",
       "misses": 1
     },
     {
@@ -1425,10 +1284,6 @@
       "misses": 1
     },
     {
-      "card": "Parallel Lives",
-      "misses": 1
-    },
-    {
       "card": "Rest in Peace",
       "misses": 1
     },
@@ -1438,10 +1293,6 @@
     },
     {
       "card": "Snap",
-      "misses": 1
-    },
-    {
-      "card": "Squirrel Nest",
       "misses": 1
     },
     {

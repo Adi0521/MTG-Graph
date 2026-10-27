@@ -1,5 +1,5 @@
-import { COLORS, COMBAT_STEP, emptyProduction, matchesTarget, payMana, type Ability, type ManaCost, type ManaProduction, type Output } from './abilities.ts';
-import { ANY_CREATURE, type Binding, type Context, type Helper } from './combo-engine.ts';
+import { COLORS, COMBAT_STEP, applyTokenMods, emptyProduction, type TokenCounts, type TokenMod, matchesTarget, payMana, type Ability, type ManaCost, type ManaProduction, type Output } from './abilities.ts';
+import { ANY_CREATURE, ANY_LAND, type Binding, type Context, type Helper } from './combo-engine.ts';
 import type { Card } from './types.ts';
 
 /**
@@ -41,6 +41,8 @@ export interface LoopPlan {
   variableX?: number;
   /** Cards the loop also sacrifices each pass (Reveillark's partner), to a free outlet. */
   extraSacrifices?: string[];
+  /** Replacement effects on token creation (Academy Manufactor, Peregrin Took, Chatterfang, doublers). */
+  tokenMods?: TokenMod[];
 }
 
 export interface PerLoop {
@@ -90,7 +92,7 @@ interface Perm {
 type Phase = 'main' | 'combat';
 
 interface Event {
-  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill' | 'discard';
+  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill' | 'discard' | 'foodSacrificed';
   /** For attacks: the first attack event of its combat (an aura's trigger fires once per combat). */
   first?: boolean;
   card?: string | null;
@@ -121,6 +123,8 @@ class Simulation {
   life = 20;
   opponentLife = 40;
   opponentMilled = 0;
+  /** Food tokens you control. */
+  foods = 0;
   selfMilled = 0;
   setup = true;
   startup = new Set<string>();
@@ -227,6 +231,21 @@ class Simulation {
       } else this.problem(`${exiled} must be on the battlefield for ${card} to exile`);
     }
     return p;
+  }
+
+  /**
+   * A token creation event after replacement effects: the base Treasures and creatures are made by the caller;
+   * this adds the extra ones (as spare 1/1 tokens and Treasure mana) and all the Food.
+   */
+  private created(base: TokenCounts, source: string) {
+    const made = applyTokenMods(base, this.plan.tokenMods ?? []);
+    this.foods += made.foods;
+    this.pool.any += made.treasures - base.treasures;
+    for (let n = 0; n < made.creatures - base.creatures; n++) {
+      const t = this.enter(source, true, { types: ['creature'], pt: '1/1' });
+      this.lastTokens.push(t.id);
+      this.spareTokens.add(t.id);
+    }
   }
 
   /** Remove a permanent from the battlefield without dying (blink, exile). */
@@ -406,7 +425,7 @@ class Simulation {
       const card = this.cardOf(a.card);
       const sorcerySpeed =
         a.sorcery ||
-        ((a.kind === 'cast' || a.kind === 'recast') && !/Instant/.test(card.typeLine) && !card.keywords.includes('flash'));
+        ((a.kind === 'cast' || (a.kind === 'recast' && a.isCast)) && !/\bInstant\b/.test(card.typeLine) && !card.keywords.includes('flash'));
       if (sorcerySpeed) this.advanceTo('main', true);
       return;
     }
@@ -550,6 +569,19 @@ class Simulation {
       const prevented = this.plan.helpers.some((h) => h.kind === 'counterPreventer');
       if (!prevented) this.addCounters(p, 0, 1);
     }
+    if (a.cost.food) {
+      this.foods -= a.cost.food;
+      if (this.foods < 0 && this.problem(`needs ${a.cost.food} Food to start`)) this.foods = 0;
+      this.events.push({ type: 'foodSacrificed' });
+    }
+    if (a.cost.tapCreature) {
+      // Earthcraft taps the creature this loop just made (summoning sickness does not matter for this cost).
+      const p = this.lastTokens.map((id) => this.perms.find((x) => x.id === id)).find((x): x is Perm => Boolean(x && !x.tapped && x.types.includes('creature')));
+      if (p) {
+        p.tapped = true;
+        this.spareTokens.delete(p.id);
+      } else this.problem(`needs an untapped creature to tap for ${a.card}`);
+    }
     if (a.cost.discard) {
       const card = input.res === 'hand' && input.object ? input.object : this.hand[0];
       if (!card || (!this.takeFrom(this.hand, card) && this.problem(`${card} starts in your hand`))) this.leaveIfPresent(card ?? '');
@@ -649,6 +681,7 @@ class Simulation {
         // High Tide: each Island untapped for mana makes an extra {U}.
         if (o.fromLands && this.plan.helpers.some((h) => h.kind === 'landAmplifier')) this.pool.U += o.mana.any * times;
         for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k] * times;
+        if (o.treasure) this.created({ creatures: 0, treasures: o.mana.any * times, foods: 0, clues: 0 }, a.card);
         // Kinnan: tapping a nonland permanent for mana adds one more.
         if (a.kind === 'activated' && a.cost.tap && !this.typesOf(a.card).includes('land') && this.plan.helpers.some((h) => h.kind === 'manaAmplifier')) {
           const key = ([...COLORS, 'any'] as const).find((k) => o.mana[k] > 0);
@@ -669,13 +702,18 @@ class Simulation {
           this.events.push({ type: 'death', card: null, token: true, types: ['creature'] });
         }
         return;
+      case 'food':
+        this.created({ creatures: 0, treasures: 0, foods: o.count, clues: 0 }, a.card);
+        return;
       case 'creature':
+        this.lastTokens = [];
         for (let n = 0; n < o.count; n++) {
           const t = this.enter(a.card, true, { sick: !o.haste, haste: o.haste, types: o.artifact ? ['artifact', 'creature'] : ['creature'], pt: o.pt });
           this.lastTokens.push(t.id);
           // The first token is passed on as fodder when the next step sacrifices it; the rest are spare.
           if (!(n === 0 && output.res === 'body')) this.spareTokens.add(t.id);
         }
+        this.created({ creatures: o.count, treasures: 0, foods: 0, clues: 0 }, a.card);
         return;
       case 'copy': {
         const target = o.target === 'host' ? (host ?? output.object ?? a.card) : (output.object ?? a.card);
@@ -897,6 +935,8 @@ class Simulation {
         for (let n = 0; n < times; n++)
         for (const o of ability.outputs) {
           if (o.type === 'mana') for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k] * (o.variable && o.fromLands ? (this.plan.variableX ?? 1) : 1);
+          if (o.type === 'mana' && o.treasure) this.created({ creatures: 0, treasures: o.mana.any, foods: 0, clues: 0 }, ability.card);
+          if (o.type === 'food') this.created({ creatures: 0, treasures: 0, foods: o.count, clues: 0 }, ability.card);
           if (o.type === 'lifegain') this.life += o.amount;
           if (o.type === 'selfLifeLoss') this.life -= o.amount;
           if (o.type === 'drain') this.opponentLife -= o.amount;
@@ -910,6 +950,7 @@ class Simulation {
             for (let n = 0; n < o.count; n++) {
               this.spareTokens.add(this.enter(ability.card, true, { types: o.artifact ? ['artifact', 'creature'] : ['creature'], pt: o.pt }).id);
             }
+            this.created({ creatures: o.count, treasures: 0, foods: 0, clues: 0 }, ability.card);
           }
         }
       }
@@ -970,6 +1011,7 @@ class Simulation {
       events: [...this.events],
       combats: this.combatsStarted,
       milled: this.opponentMilled,
+      foods: this.foods,
       selfMilled: this.selfMilled,
     };
   }
@@ -980,7 +1022,7 @@ function fillerCard(name: string): Card {
   return {
     name,
     quantity: 1,
-    typeLine: 'Creature',
+    typeLine: name === ANY_LAND ? 'Basic Land' : 'Creature',
     oracleText: '',
     text: '',
     keywords: [],
@@ -1031,6 +1073,8 @@ function riderMatches(r: Ability, e: Event): boolean {
       return e.type === 'beginCombat';
     case 'mill':
       return e.type === 'mill';
+    case 'foodSacrificed':
+      return e.type === 'foodSacrificed';
     default:
       return false;
   }
@@ -1079,7 +1123,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
   const cards = new Set([
     ...plan.cycle.flatMap((a) => (a.with ? [a.card, a.with] : [a.card])),
     ...plan.helpers.map((h) => h.card),
-    ...Object.values(plan.hosts).filter((h) => h === ANY_CREATURE),
+    ...Object.values(plan.hosts).filter((h) => h === ANY_CREATURE || h === ANY_LAND),
   ]);
   // Everything starts where it usually is: permanents on the battlefield (not summoning sick), spells in hand.
   for (const name of [...cards].sort()) {
@@ -1121,6 +1165,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
     if (last.state !== prev.state) return { ok: false, reason: 'the board does not return to the same state each loop', startup: [...sim.startup], perLoop: empty };
     if (last.plus.some((n, i) => n < prev.plus[i]!)) return { ok: false, reason: '+1/+1 counters run out', startup: [...sim.startup], perLoop: empty };
     if (last.tokens < prev.tokens) return { ok: false, reason: 'tokens run out', startup: [...sim.startup], perLoop: empty };
+    if (last.foods < prev.foods) return { ok: false, reason: 'runs out of Food', startup: [...sim.startup], perLoop: empty };
     const mana = emptyProduction();
     for (const key of [...COLORS, 'any'] as const) {
       mana[key] = last.pool[key] - prev.pool[key];

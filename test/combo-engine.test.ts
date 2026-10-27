@@ -297,6 +297,22 @@ describe('findEngineCombos', () => {
     expect(lock('Glacial Chasm', 'Azusa, Lost but Seeking')).toEqual([]);
   });
 
+  it('tracks Food and token replacement effects', () => {
+    expect(combosOf('Cauldron Familiar', 'Pitiless Plunderer', 'Ashnod\'s Altar', 'Academy Manufactor')[0]!.helpers).toEqual(['Pitiless Plunderer', 'Academy Manufactor']);
+    expect(combosOf('Cauldron Familiar', 'Pitiless Plunderer', 'Viscera Seer', 'Peregrin Took')[0]!.helpers).toEqual(['Pitiless Plunderer', 'Peregrin Took']);
+    expect(combosOf('Cauldron Familiar', 'Pitiless Plunderer', 'Viscera Seer')).toEqual([]);
+    expect(combosOf('Camellia, the Seedmiser', 'Peregrin Took', 'Ashnod\'s Altar')).toHaveLength(1);
+    expect(combosOf('Camellia, the Seedmiser', 'Ashnod\'s Altar')).toEqual([]);
+    expect(sets('Chatterfang, Squirrel General', 'Pitiless Plunderer')).toEqual([['Chatterfang, Squirrel General', 'Pitiless Plunderer']]);
+    expect(combosOf('Chatterfang, Squirrel General')).toEqual([]);
+    expect(combosOf('Cauldron Familiar', "Witch's Oven")).toEqual([]);
+  });
+
+  it('taps a creature for a cost and uses an aura on a land (Earthcraft + Squirrel Nest)', () => {
+    expect(combosOf('Squirrel Nest', 'Earthcraft')[0]!.prerequisites).toEqual(['Squirrel Nest is attached to a basic land you control']);
+    expect(combosOf('Squirrel Nest')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));

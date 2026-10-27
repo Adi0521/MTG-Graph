@@ -5,15 +5,15 @@ simulator over the whole card pool; "new" means Commander Spellbook's full datab
 cards. **Candidates, not confirmed combos:** each one is only as right as the rules that found it, so check it
 by hand (and against the current Oracle text) before sharing it.
 
-- Card pool: 30897 paper Commander-legal cards (3637 with loop abilities, 2581 usable as helpers)
+- Card pool: 30897 paper Commander-legal cards (3788 with loop abilities, 2597 usable as helpers)
 - Spellbook database: 115954 combos (export from 2026-10-26T19:12:34.650124+00:00)
-- Candidates evaluated: 659 single cards, 403525 pairs, 603 imprint pairs
-- Verified combos: 5976: 948 already in Spellbook, 914 variants of a Spellbook combo (one card swapped or added), **4114 new**
-- Families (same pattern of roles, interchangeable cards): 240: 138 contain a known combo, 99 add one piece to a known engine, **3 are new**
-- Loops rejected by the simulator: 8490
-- Run time: 92.3 s
+- Candidates evaluated: 676 single cards, 545805 pairs, 609 imprint pairs
+- Verified combos: 6033: 950 already in Spellbook, 916 variants of a Spellbook combo (one card swapped or added), **4167 new**
+- Families (same pattern of roles, interchangeable cards): 248: 142 contain a known combo, 102 add one piece to a known engine, **4 are new**
+- Loops rejected by the simulator: 11355
+- Run time: 115.5 s
 
-## New families (3)
+## New families (4)
 
 Each family is one idea: the roles below, with any of the listed cards in each role. One representative is shown.
 
@@ -31,6 +31,22 @@ Each family is one idea: the roles below, with any of the listed cards in each r
 
 1. Birthing Hulk: When this creature enters, create two 1/1 colorless Eldrazi Scion creature tokens. They have "Sacrifice this token: Add {C}." → its mana pays for Deadeye Navigator.
 2. Deadeye Navigator: As long as Deadeye Navigator is paired with another creature, each of those creatures has "{1}{U}: Exile this creature, then return it to the battlefield under your control." → Birthing Hulk enters, triggering its ability.
+3. Repeat.
+
+### 8 combos: Aura of Dominion + [8 options] + Mana Echoes
+
+- *activated [mana] → untap*: Aura of Dominion
+- *activated [tap] → creature*: Berta, Wise Extrapolator, Bloodline Keeper // Lord of Lineage, Godsire, Kazandu Tuskcaller, Speaker of the Heavens, Thraben Doomsayer, Ulamog's Dreadsire, Xerex Strobe-Knight
+- *helper: on etb → mana*: Mana Echoes
+
+#### Example: Aura of Dominion + Berta, Wise Extrapolator + Mana Echoes
+
+**Produces:** Infinite creature tokens, Infinite creature ETBs  
+**Each loop (simulated):** 1 creatures entering · +1 tokens  
+**Needs:** Aura of Dominion is attached to Berta, Wise Extrapolator  
+
+1. Aura of Dominion: {1}, Tap an untapped creature you control: Untap enchanted creature. → this untaps Berta, Wise Extrapolator.
+2. Berta, Wise Extrapolator: {X}, {T}: Create a 0/0 green and blue Fractal creature token and put X +1/+1 counters on it. → the token is tapped for Aura of Dominion.
 3. Repeat.
 
 ### 2 combos: [2 options] + Bear Umbra + Aurelia, the Warleader
@@ -66,7 +82,7 @@ Each family is one idea: the roles below, with any of the listed cards in each r
 2. Deadeye Navigator: As long as Deadeye Navigator is paired with another creature, each of those creatures has "{1}{U}: Exile this creature, then return it to the battlefield under your control." → Chittering Dispatcher leaving the battlefield triggers Chittering Dispatcher.
 3. Repeat.
 
-## Variants of Spellbook combos (914)
+## Variants of Spellbook combos (916)
 
 Same idea as a known combo with one interchangeable card changed (another sacrifice outlet, another Treasure maker...).
 
@@ -181,6 +197,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + The Locust God: like [Spellbook 1339-7687](https://commanderspellbook.com/combo/1339-7687/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Mister Fantastic, Reed Richards
 - Jerren, Corrupted Bishop // Ormendahl, the Corrupter + The Watcher in the Water: like [Spellbook 2351-4639--81](https://commanderspellbook.com/combo/2351-4639--81/) with Jerren, Corrupted Bishop // Ormendahl, the Corrupter instead of Unctus, Grand Metatect
 - Karametra's Acolyte + Voltaic Construct: like [Spellbook 1978-3291-5776](https://commanderspellbook.com/combo/1978-3291-5776/) with nothing instead of Ygra, Eater of All
+- Kiki-Jiki, Mirror Breaker + Living Laser: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Living Laser instead of Little Bear
 - Kiki-Jiki, Mirror Breaker + Reptilian Recruiter: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Reptilian Recruiter instead of Little Bear
 - Kiki-Jiki, Mirror Breaker + Shuri, Wakandan Inventor: like [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/) with Shuri, Wakandan Inventor instead of Little Bear
 - Kydele, Chosen of Kruphix + Umbral Mantle: like [Spellbook 427-7500](https://commanderspellbook.com/combo/427-7500/) with Umbral Mantle instead of Ringing Strike Mastery
@@ -792,6 +809,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Krark-Clan Ironworks + Lesser Masticore + Solemnity: like [Spellbook 620-1429-4659](https://commanderspellbook.com/combo/620-1429-4659/) with Solemnity instead of Yotian Dissident
 - Krark-Clan Ironworks + Nardole, Resourceful Cyborg + Solemnity: like [Spellbook 2018-4659-5570](https://commanderspellbook.com/combo/2018-4659-5570/) with Solemnity instead of Luminous Broodmoth
 - Krark-Clan Ironworks + Retrofitter Foundry + Zirda, the Dawnwaker: like [Spellbook 2797-4659-4853](https://commanderspellbook.com/combo/2797-4659-4853/) with Zirda, the Dawnwaker instead of Dross Scorpion
+- Krav, the Unredeemed + Narfi, Betrayer King + Pitiless Plunderer: like [Spellbook 2354-3862-4871](https://commanderspellbook.com/combo/2354-3862-4871/) with Narfi, Betrayer King instead of Orcish Bowmasters
 - Lavabrink Floodgates + Voltaic Construct + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Lavabrink Floodgates instead of Millikin
 - Lavinia, Foil to Conspiracy + Sword of the Paruns + Zirda, the Dawnwaker: like [Spellbook 2713-4315-5200](https://commanderspellbook.com/combo/2713-4315-5200/) with Lavinia, Foil to Conspiracy instead of Careful Cultivation
 - Lavinia, Foil to Conspiracy + Umbral Mantle + Zirda, the Dawnwaker: like [Spellbook 2713-2816-4028](https://commanderspellbook.com/combo/2713-2816-4028/) with Lavinia, Foil to Conspiracy instead of Zhur-Taa Druid
@@ -985,7 +1003,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Voltaic Construct + Zaxara, the Exemplary + Zirda, the Dawnwaker: like [Spellbook 1978-2713-3660](https://commanderspellbook.com/combo/1978-2713-3660/) with Zaxara, the Exemplary instead of Millikin
 - Warren Soultrader + Words of Wilding + Ajani's Welcome: like [Spellbook 1874-5670-6705](https://commanderspellbook.com/combo/1874-5670-6705/) with Words of Wilding instead of Quina, Qu Gourmet
 
-## Already in Spellbook (948)
+## Already in Spellbook (950)
 
 - Aetherflux Reservoir + Bloodthirsty Conqueror → [Spellbook 4740-6191](https://commanderspellbook.com/combo/4740-6191/)
 - Aetherflux Reservoir + Exquisite Blood → [Spellbook 3966-4740](https://commanderspellbook.com/combo/3966-4740/)
@@ -1039,6 +1057,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Bloom Tender + Vigean Graftmage → [Spellbook 4019-5168](https://commanderspellbook.com/combo/4019-5168/)
 - Bounding Krasis + Kiki-Jiki, Mirror Breaker → [Spellbook 618-2423](https://commanderspellbook.com/combo/618-2423/)
 - Breaching Hippocamp + Kiki-Jiki, Mirror Breaker → [Spellbook 618-4894](https://commanderspellbook.com/combo/618-4894/)
+- Chatterfang, Squirrel General + Pitiless Plunderer → [Spellbook 3000-4871](https://commanderspellbook.com/combo/3000-4871/)
 - Circle of Dreams Druid + Staff of Domination → [Spellbook 1526-2645](https://commanderspellbook.com/combo/1526-2645/)
 - Circle of Dreams Druid + Sword of the Paruns → [Spellbook 1526-5200](https://commanderspellbook.com/combo/1526-5200/)
 - Circle of Dreams Druid + Umbral Mantle → [Spellbook 1526-2816](https://commanderspellbook.com/combo/1526-2816/)
@@ -1151,6 +1170,7 @@ Same idea as a known combo with one interchangeable card changed (another sacrif
 - Karametra's Acolyte + Umbral Mantle → [Spellbook 2816-3291](https://commanderspellbook.com/combo/2816-3291/)
 - Keen Sense + Niv-Mizzet, Parun → [Spellbook 148-2353](https://commanderspellbook.com/combo/148-2353/)
 - Keen Sense + Niv-Mizzet, the Firemind → [Spellbook 148-4971](https://commanderspellbook.com/combo/148-4971/)
+- Kiki-Jiki, Mirror Breaker + Helm of the Host → [Spellbook 618-1692](https://commanderspellbook.com/combo/618-1692/)
 - Kiki-Jiki, Mirror Breaker + Little Bear → [Spellbook 618-7895](https://commanderspellbook.com/combo/618-7895/)
 - Kiki-Jiki, Mirror Breaker + Pestermite → [Spellbook 618-2905](https://commanderspellbook.com/combo/618-2905/)
 - Kiki-Jiki, Mirror Breaker + Port Razer → [Spellbook 618-1548](https://commanderspellbook.com/combo/618-1548/)

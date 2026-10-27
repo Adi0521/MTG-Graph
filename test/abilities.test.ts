@@ -28,8 +28,12 @@ describe('parseAbilities', () => {
   });
 
   it('marks costs it does not understand instead of treating them as free', () => {
+    // "Sacrifice a Food" is modeled now (paid from the Food a loop makes); an unknown cost is not.
     const familiar = abilities('Cauldron Familiar').find((a) => a.kind === 'recast')!;
-    expect(familiar.unmodeledCost).toBe(true);
+    expect(familiar.cost.food).toBe(1);
+    expect(familiar.unmodeledCost).toBe(false);
+    const odd = toCard({ ...FIXTURES['Blood Artist']!, name: 'Test Clue', oracle_text: 'Sacrifice a Clue: Return this card from your graveyard to the battlefield.' });
+    expect(parseAbilities(odd)[0]!.unmodeledCost).toBe(true);
   });
 
   it('parses copy, untap and blink effects with their targets', () => {
@@ -50,7 +54,7 @@ describe('parseAbilities', () => {
     // Pawn's Eldrazi Spawn can sacrifice itself for {C}; that is not mana Pawn makes directly.
     expect(abilities('Pawn of Ulamog')[0]!.outputs).toEqual([
       { type: 'tokenMana', mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1, any: 0 } },
-      { type: 'creature', token: true, count: 1, haste: false, artifact: false, pt: '0/1' },
+      { type: 'creature', token: true, count: 1, haste: false, artifact: false, pt: '0/1', subtype: 'spawn' },
     ]);
   });
 

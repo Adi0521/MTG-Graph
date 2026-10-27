@@ -662,7 +662,7 @@
         "Cauldron of Souls"
       ],
       "spellbookCombos": 14,
-      "engineCombos": 8,
+      "engineCombos": 9,
       "matched": 11,
       "recall": 0.786,
       "matchedCombos": [
@@ -731,6 +731,18 @@
             "Carrion Feeder",
             "Ghave, Guru of Spores",
             "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Ghave, Guru of Spores",
+            "Pitiless Plunderer",
+            "Doubling Season"
           ],
           "produces": [
             "Infinite death triggers",
@@ -1045,28 +1057,14 @@
         "Parallel Lives"
       ],
       "spellbookCombos": 2,
-      "engineCombos": 1,
-      "matched": 1,
-      "recall": 0.5,
+      "engineCombos": 2,
+      "matched": 2,
+      "recall": 1,
       "matchedCombos": [
+        "Earthcraft + Squirrel Nest",
         "Midnight Guard + Presence of Gond"
       ],
-      "missed": [
-        {
-          "cards": [
-            "Earthcraft",
-            "Squirrel Nest"
-          ],
-          "produces": [
-            "Infinite creature ETB",
-            "Infinite tapped creature tokens"
-          ],
-          "diagnosis": [
-            "Earthcraft: cost not modeled",
-            "Squirrel Nest: no loop abilities parsed"
-          ]
-        }
-      ],
+      "missed": [],
       "engineOnly": []
     },
     {
@@ -1077,31 +1075,17 @@
       "connectivity": 1,
       "isolated": [],
       "spellbookCombos": 7,
-      "engineCombos": 6,
-      "matched": 2,
-      "recall": 0.286,
+      "engineCombos": 10,
+      "matched": 5,
+      "recall": 0.714,
       "matchedCombos": [
+        "Academy Manufactor + Ashnod's Altar + Cauldron Familiar + Pitiless Plunderer",
+        "Ashnod's Altar + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
         "Ashnod's Altar + Nim Deathmantle + Wurmcoil Engine",
+        "Chatterfang, Squirrel General + Pitiless Plunderer",
         "Krark-Clan Ironworks + Nim Deathmantle + Wurmcoil Engine"
       ],
       "missed": [
-        {
-          "cards": [
-            "Academy Manufactor",
-            "Pitiless Plunderer",
-            "Cauldron Familiar",
-            "Ashnod's Altar"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Academy Manufactor: no loop abilities parsed",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
         {
           "cards": [
             "Nuka-Cola Vending Machine",
@@ -1114,39 +1098,7 @@
             "Infinite colorless mana"
           ],
           "diagnosis": [
-            "Nuka-Cola Vending Machine: no loop abilities parsed",
             "Academy Manufactor: no loop abilities parsed"
-          ]
-        },
-        {
-          "cards": [
-            "Peregrin Took",
-            "Cauldron Familiar",
-            "Pitiless Plunderer",
-            "Ashnod's Altar"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Peregrin Took: cost not modeled",
-            "Cauldron Familiar: cost not modeled"
-          ]
-        },
-        {
-          "cards": [
-            "Chatterfang, Squirrel General",
-            "Pitiless Plunderer"
-          ],
-          "produces": [
-            "Infinite artifact ETB",
-            "Infinite artifact LTB",
-            "Infinite artifact sacrifice triggers"
-          ],
-          "diagnosis": [
-            "Chatterfang, Squirrel General: no loop abilities parsed"
           ]
         },
         {
@@ -1160,8 +1112,7 @@
             "Near-infinite tapped Treasure tokens"
           ],
           "diagnosis": [
-            "Peregrin Took: cost not modeled",
-            "Nuka-Cola Vending Machine: no loop abilities parsed"
+            "all abilities parsed, but the loop was not closed"
           ]
         }
       ],
@@ -1169,6 +1120,19 @@
         {
           "cards": [
             "Ashnod's Altar",
+            "Nim Deathmantle",
+            "Gilded Goose",
+            "Chatterfang, Squirrel General"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Ashnod's Altar",
             "Myr Retriever",
             "Scrap Trawler",
             "Pitiless Plunderer"
@@ -1216,6 +1180,21 @@
             "Infinite death triggers",
             "Infinite sacrifice triggers",
             "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Feasting Troll King",
+            "Nim Deathmantle",
+            "Pitiless Plunderer",
+            "Academy Manufactor",
+            "Peregrin Took"
+          ],
+          "produces": [
+            "Infinite mana of any color",
+            "Infinite death triggers",
+            "Infinite sacrifice triggers"
           ]
         }
       ]
@@ -2996,9 +2975,9 @@
     "decks": 50,
     "connectivity": 0.972,
     "spellbookCombos": 399,
-    "matched": 349,
-    "recall": 0.875,
-    "engineOnly": 82
+    "matched": 353,
+    "recall": 0.885,
+    "engineOnly": 85
   },
   "topUnparsed": [
     {
@@ -3008,10 +2987,6 @@
     {
       "card": "Hullbreaker Horror",
       "misses": 3
-    },
-    {
-      "card": "Academy Manufactor",
-      "misses": 2
     },
     {
       "card": "Cloudstone Curio",
@@ -3042,10 +3017,6 @@
       "misses": 2
     },
     {
-      "card": "Nuka-Cola Vending Machine",
-      "misses": 2
-    },
-    {
       "card": "Rooftop Storm",
       "misses": 2
     },
@@ -3066,6 +3037,10 @@
       "misses": 2
     },
     {
+      "card": "Academy Manufactor",
+      "misses": 1
+    },
+    {
       "card": "Aluren",
       "misses": 1
     },
@@ -3075,10 +3050,6 @@
     },
     {
       "card": "Brain Freeze",
-      "misses": 1
-    },
-    {
-      "card": "Chatterfang, Squirrel General",
       "misses": 1
     },
     {
@@ -3099,10 +3070,6 @@
     },
     {
       "card": "Sculpting Steel",
-      "misses": 1
-    },
-    {
-      "card": "Squirrel Nest",
       "misses": 1
     },
     {

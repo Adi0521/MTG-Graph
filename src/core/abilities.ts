@@ -47,6 +47,8 @@ export interface TargetSpec {
   nonland?: boolean;
   /** "with power 2 or less" (Reveillark). */
   maxPower?: number;
+  /** "target basic land" (Earthcraft). */
+  basic?: boolean;
 }
 
 export type Output =
@@ -55,10 +57,13 @@ export type Output =
    * `variable`: the mana is per unit of something on the board ("for each Elf on the battlefield", Priest of
    * Titania); the engine finds how many units the loop needs and states it as a prerequisite.
    */
-  | { type: 'mana'; mana: ManaProduction; fromLands?: boolean; variable?: string }
+  /** treasure: the mana comes from Treasure tokens (token modifiers like Academy Manufactor apply). */
+  | { type: 'mana'; mana: ManaProduction; fromLands?: boolean; variable?: string; treasure?: boolean }
+  /** "create a Food token" */
+  | { type: 'food'; count: number }
   /** Mana from a created token sacrificing itself (Eldrazi Spawn). Only usable if the token is not also sacrificed elsewhere. */
   | { type: 'tokenMana'; mana: ManaProduction }
-  | { type: 'creature'; token: boolean; count: number; haste: boolean; artifact: boolean; pt: string | null }
+  | { type: 'creature'; token: boolean; count: number; haste: boolean; artifact: boolean; pt: string | null; subtype?: string }
   | { type: 'copy'; target: TargetSpec | 'host'; haste: boolean }
   | { type: 'recur' }
   /** Exile and return right away. 'self'/'host' = "exile ~, then return it" (Deadeye Navigator). */
@@ -127,6 +132,8 @@ export type Trigger =
   | { type: 'landToGraveyard' }
   /** "Whenever a card is put into an opponent's graveyard from anywhere" (Bloodchief Ascension, Duskmantle Guildmage). */
   | { type: 'mill' }
+  /** "Whenever you sacrifice one or more Foods" (Camellia, the Seedmiser). */
+  | { type: 'foodSacrificed' }
   /** "At the beginning of combat on your turn" (Helm of the Host). */
   | { type: 'beginCombat' }
   /** "At the beginning of each of your postcombat main phases" (Neheb, the Eternal). */
@@ -147,7 +154,11 @@ export interface Ability {
     mana: ManaCost;
     tap: boolean;
     /** Sacrifice a permanent as a cost. "another" excludes this card. */
-    sacrifice: null | { another: boolean; what: 'creature' | 'artifact' | 'permanent'; nontoken: boolean };
+    sacrifice: null | { another: boolean; what: 'creature' | 'artifact' | 'permanent'; nontoken: boolean; subtype?: string };
+    /** Foods to sacrifice ("Sacrifice a Food", forage): paid from the Food the loop makes. */
+    food?: number;
+    /** Earthcraft: "Tap an untapped creature you control" (summoning sickness does not matter). */
+    tapCreature?: boolean;
     life: number;
     removeCounter: boolean;
     /** Ghave: "remove a +1/+1 counter from a creature you control" (any creature, not just itself). */
@@ -165,6 +176,8 @@ export interface Ability {
    */
   host: boolean;
   hostVia?: 'attached' | 'paired';
+  /** The host is a land (Squirrel Nest's "enchanted land has ..."), not a creature. */
+  hostLand?: boolean;
   /** Spell types this ability casts (a cast-from-hand ability, or Isochron Scepter casting its imprint). */
   casts?: string[];
   /** Another card this ability needs, e.g. the instant imprinted on Isochron Scepter. */
@@ -237,6 +250,13 @@ function parseManaProduction(effect: string): ManaProduction | null {
   return null;
 }
 
+const TREASURE = /\bcreate (?:a|an|one|two|three|\d+) treasure tokens?/;
+/** Food made: "create a Food token", "create two Food tokens". */
+function parseFood(effect: string): number {
+  const m = /\bcreate (a|an|one|two|three|\d+) food tokens?/.exec(effect);
+  return m ? toNumber(m[1]) : 0;
+}
+
 /** Mana that scales with the board: Priest of Titania, Marwyn, Selvala, Bloom Tender, Dockside Extortionist. */
 function parseVariableMana(effect: string): Extract<Output, { type: 'mana' }> | null {
   const one = (sym: string) => {
@@ -269,6 +289,7 @@ function parseTargetSpec(phrase: string, another = false): TargetSpec {
     nonlegendary: /\bnonlegendary\b/.test(phrase),
     excluded: [...phrase.matchAll(/\bnon-(\w+)/g)].map((m) => m[1]!),
     another: another || /\banother\b/.test(phrase),
+    ...(/\bbasic\b/.test(phrase) ? { basic: true } : {}),
   };
 }
 
@@ -278,6 +299,7 @@ export function matchesTarget(spec: TargetSpec, target: Card, source: string): b
   if (spec.another && target.name === source) return false;
   if (spec.nonlegendary && /\bLegendary\b/.test(target.typeLine)) return false;
   if (spec.nonland && /\bLand\b/.test(target.typeLine)) return false;
+  if (spec.basic && !/\bBasic\b/.test(target.typeLine)) return false;
   if (spec.maxPower !== undefined && (target.power ?? 0) > spec.maxPower) return false;
   for (const ex of spec.excluded) if (new RegExp(`\\b${CAPITALIZE(ex)}\\b`).test(target.typeLine)) return false;
   return spec.types.some((t) =>
@@ -301,7 +323,9 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
   const variable = parseVariableMana(effect);
   const mana = variable ? null : parseManaProduction(effect);
   if (variable) outputs.push(variable);
-  if (mana) outputs.push({ type: 'mana', mana });
+  if (mana) outputs.push(TREASURE.test(effect) ? { type: 'mana', mana, treasure: true } : { type: 'mana', mana });
+  const food = parseFood(effect);
+  if (food) outputs.push({ type: 'food', count: food });
 
   const copy =
     /create a token that's a copy of (target [^,.]*?creature[^,.]*?|~|equipped creature|enchanted creature)(?:,|\.|$)/.exec(effect) ??
@@ -321,6 +345,7 @@ function parseOutputs(rawEffect: string, host: boolean): Output[] {
         haste: /with haste|gains? haste/.test(effect),
         artifact: /artifact creature tokens?/.test(tokens[0]),
         pt: tokens[2] ?? null,
+        subtype: /\b([a-z]+) creature tokens?/.exec(tokens[0])?.[1],
       });
     }
   }
@@ -440,6 +465,7 @@ function parseTrigger(condition: string, granted: boolean): Trigger | null {
   if (/^at the beginning of combat on your turn/.test(condition)) return { type: 'beginCombat' };
   if (/^whenever (?:a card is|one or more cards are) put into an opponent's graveyard from anywhere/.test(condition)) return { type: 'mill' };
   if (/^whenever (?:a land card is|one or more land cards are) put into your graveyard from anywhere/.test(condition)) return { type: 'landToGraveyard' };
+  if (/^whenever you sacrifice (?:one or more foods|a food)/.test(condition)) return { type: 'foodSacrificed' };
   if (/^at the beginning of (?:each of )?your postcombat main phases?/.test(condition)) return { type: 'postcombatMain' };
   const combatDamage = /^when(?:ever)? (~|enchanted creature|equipped creature) deals combat damage to (?:a player|an opponent|one or more players)$/.exec(condition);
   if (combatDamage) return { type: 'combatDamage', source: combatDamage[1] === '~' && !granted ? 'self' : 'host' };
@@ -554,6 +580,11 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
   if (/^\[/.test(costText.trim())) return null;
   const outputs = parseOutputs(effect, host);
   const sac = /sacrifice (another|a|an) (nontoken )?(creature|artifact|permanent)\b/.exec(costText);
+  // Chatterfang: "Sacrifice X Squirrels" (at least one, of that creature type).
+  const sacType = /sacrifice x ([a-z]+?)s\b/.exec(costText);
+  // "Sacrifice a Food", "Sacrifice three Foods", forage ("exile three cards from your graveyard or sacrifice a Food").
+  const foodCost = /sacrifice (a|one|two|three) foods?\b/.exec(costText);
+  const forage = /\bforage\b/.test(costText);
   // Whatever is left after removing the cost parts we understand must be empty.
   const leftover = costText
     .replace(/\{[^}]+\}/g, '')
@@ -563,6 +594,10 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     .replace(/^[+\-−]?\d+$/, '')
     .replace(/put a -1\/-1 counter on ~/, '')
     .replace(/discard a card/, '')
+    .replace(/sacrifice x [a-z]+s\b/, '')
+    .replace(/sacrifice (?:a|one|two|three) foods?\b/, '')
+    .replace(/\bforage\b/, '')
+    .replace(/tap an untapped creature you control/, '')
     .replace(/[,\s]|\band\b/g, '');
   const ability = makeAbility(card, lineNo, display, {
     kind: /return ~ from your graveyard to the battlefield/.test(effect) ? 'recast' : 'activated',
@@ -571,7 +606,13 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     cost: {
       mana: parseManaCost(costText),
       tap: /\{t\}/.test(costText),
-      sacrifice: sac ? { another: sac[1] === 'another', what: sac[3] as 'creature' | 'artifact' | 'permanent', nontoken: Boolean(sac[2]) } : null,
+      sacrifice: sac
+        ? { another: sac[1] === 'another', what: sac[3] as 'creature' | 'artifact' | 'permanent', nontoken: Boolean(sac[2]) }
+        : sacType
+          ? { another: false, what: 'creature', nontoken: false, subtype: sacType[1] }
+          : null,
+      food: foodCost ? toNumber(foodCost[1]) : forage ? 1 : 0,
+      tapCreature: /tap an untapped creature you control/.test(costText),
       life: toNumber(/pay (\d+) life/.exec(costText)?.[1], 0),
       removeCounter: /remove (?:a|one) \+1\/\+1 counter from (?:~|a creature you control)/.test(costText),
       removeCounterFromAny: /remove (?:a|one) \+1\/\+1 counter from a creature you control/.test(costText),
@@ -603,7 +644,7 @@ function parseActivated(card: Card, lineNo: number, display: string, line: strin
     ability.conditions.push(`${card.name} has a +1/+1 counter`);
   }
   // A discard outlet does something with the discarded card even if its own effect is irrelevant (Noose Constrictor).
-  return ability.outputs.length || ability.cost.sacrifice || ability.cost.discard ? ability : null;
+  return ability.outputs.length || ability.cost.sacrifice || ability.cost.discard || ability.cost.food ? ability : null;
 }
 
 function parseTriggered(card: Card, lineNo: number, display: string, line: string, granted: boolean): Ability | null {
@@ -688,14 +729,15 @@ function parseAbilitiesUncached(card: Card): Ability[] {
     const display = (displayLines[i] ?? rawLine).replace(/ ?\([^)]*\)/g, '');
 
     // Granted abilities: 'Enchanted creature has "{T}: ..."', soulbond's 'each of those creatures has "..."'.
-    const granted = /(enchanted creature|equipped creature|each of those creatures) (?:gets [^".]*? and )?has "([^"]+)"/.exec(line);
+    const granted = /(enchanted creature|equipped creature|each of those creatures|enchanted land) (?:gets [^".]*? and )?has "([^"]+)"/.exec(line);
     if (granted) {
       const hostVia = granted[1] === 'each of those creatures' ? 'paired' : 'attached';
+      const hostLand = granted[1] === 'enchanted land';
       const inner = granted[2]!;
       const a = guard(/^when/.test(inner) ? parseTriggered(card, i, display, inner, true) : parseActivated(card, i, display, inner, true), inner);
       // The pairing/attachment itself is reported from hostVia, so drop "as long as ~ is paired ..." here.
       const conditions = conditionsOf(line.slice(0, granted.index)).filter((c) => !/paired|attached|enchant/.test(c));
-      if (a) abilities.push({ ...a, hostVia, conditions });
+      if (a) abilities.push({ ...a, hostVia, conditions, ...(hostLand ? { hostLand: true } : {}) });
       return;
     }
 
@@ -846,6 +888,49 @@ export function activationReducer(card: Card): { card: string; amount: number; g
   // Zirda: "Abilities you activate that aren't mana abilities cost {2} less to activate" (never below one mana).
   const all = /abilities you activate that aren't mana abilities cost \{(\d+)\} less to activate/.exec(card.text);
   return all ? { card: card.name, amount: Number(all[1]), global: true } : null;
+}
+
+/** Replacement effects on token creation. */
+export type TokenMod = 'food' | 'oneOfEach' | 'squirrels' | 'double' | 'doubleCreatures';
+
+export function tokenModifier(card: Card): TokenMod | null {
+  const t = card.text;
+  if (/those tokens plus an additional food token are created instead/.test(t)) return 'food'; // Peregrin Took
+  if (/if you would create a clue, food, or treasure token, instead create one of each/.test(t)) return 'oneOfEach'; // Academy Manufactor
+  if (/those tokens plus that many 1\/1 green squirrel creature tokens are created instead/.test(t)) return 'squirrels'; // Chatterfang
+  if (/if an effect would create one or more tokens under your control, it creates twice that many of those tokens instead/.test(t)) return 'double';
+  if (/if an effect would create one or more creature tokens under your control, it creates twice that many of those tokens instead/.test(t)) return 'doubleCreatures';
+  return null;
+}
+
+/** Tokens made by one creation event. */
+export interface TokenCounts {
+  creatures: number;
+  treasures: number;
+  foods: number;
+  clues: number;
+}
+
+/**
+ * Apply token replacement effects to one creation event. You choose the order of replacement effects; this uses
+ * the order that makes the most: Peregrin Took's Food, then Academy Manufactor, then Chatterfang's Squirrels, then
+ * doublers (so they double everything before them).
+ */
+export function applyTokenMods(base: TokenCounts, mods: TokenMod[]): TokenCounts {
+  const total = (c: TokenCounts) => c.creatures + c.treasures + c.foods + c.clues;
+  let c = { ...base };
+  if (total(c) === 0) return c;
+  if (mods.includes('food')) c.foods++;
+  if (mods.includes('oneOfEach')) {
+    const n = c.treasures + c.foods + c.clues;
+    c = { creatures: c.creatures, treasures: n, foods: n, clues: n };
+  }
+  if (mods.includes('squirrels')) c.creatures += total(c);
+  for (const m of mods) {
+    if (m === 'double') c = { creatures: c.creatures * 2, treasures: c.treasures * 2, foods: c.foods * 2, clues: c.clues * 2 };
+    if (m === 'doubleCreatures') c.creatures *= 2;
+  }
+  return c;
 }
 
 /** Helm of the Host, Spark Double: a copy that isn't legendary, so Kiki-Jiki's copy can copy itself. */

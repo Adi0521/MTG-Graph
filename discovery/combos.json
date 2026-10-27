@@ -1,17 +1,17 @@
 {
  "stats": {
   "poolCards": 30897,
-  "loopCards": 3637,
-  "helperCards": 2581,
+  "loopCards": 3788,
+  "helperCards": 2597,
   "candidates": {
-   "single": 659,
-   "pairs": 403525,
-   "imprint": 603
+   "single": 676,
+   "pairs": 545805,
+   "imprint": 609
   },
-  "combos": 5976,
-  "novel": 4114,
-  "rejectedBySimulator": 8490,
-  "ms": 92256
+  "combos": 6033,
+  "novel": 4167,
+  "rejectedBySimulator": 11355,
+  "ms": 115512
  },
  "spellbook": "2026-10-26T19:12:34.650124+00:00",
  "combos": [
@@ -1826,6 +1826,519 @@
      "etbs": 0,
      "draws": 0,
      "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Berta, Wise Extrapolator",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Berta, Wise Extrapolator"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Berta, Wise Extrapolator"
+    },
+    {
+     "card": "Berta, Wise Extrapolator",
+     "ability": "{X}, {T}: Create a 0/0 green and blue Fractal creature token and put X +1/+1 counters on it.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Berta, Wise Extrapolator"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Bloodline Keeper // Lord of Lineage",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Bloodline Keeper // Lord of Lineage"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Bloodline Keeper // Lord of Lineage"
+    },
+    {
+     "card": "Bloodline Keeper // Lord of Lineage",
+     "ability": "{T}: Create a 2/2 black Vampire creature token with flying.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Bloodline Keeper // Lord of Lineage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Godsire",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Godsire"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Godsire"
+    },
+    {
+     "card": "Godsire",
+     "ability": "{T}: Create an 8/8 Beast creature token that's red, green, and white.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Godsire"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Kazandu Tuskcaller",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Kazandu Tuskcaller"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Kazandu Tuskcaller"
+    },
+    {
+     "card": "Kazandu Tuskcaller",
+     "ability": "{T}: Create two 3/3 green Elephant creature tokens.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite colorless mana",
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Kazandu Tuskcaller"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{C}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 1,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 2,
+     "draws": 0,
+     "tokens": 2,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Speaker of the Heavens",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Speaker of the Heavens"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Speaker of the Heavens"
+    },
+    {
+     "card": "Speaker of the Heavens",
+     "ability": "{T}: Create a 4/4 white Angel creature token with flying. Activate only if you have at least 7 life more than your starting life total and only as a sorcery.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Speaker of the Heavens"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Thraben Doomsayer",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Thraben Doomsayer"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Thraben Doomsayer"
+    },
+    {
+     "card": "Thraben Doomsayer",
+     "ability": "{T}: Create a 1/1 white Human creature token.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Thraben Doomsayer"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Ulamog's Dreadsire",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Ulamog's Dreadsire"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Ulamog's Dreadsire"
+    },
+    {
+     "card": "Ulamog's Dreadsire",
+     "ability": "{T}: Create a 10/10 colorless Eldrazi creature token.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Ulamog's Dreadsire"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aura of Dominion",
+    "Xerex Strobe-Knight",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Aura of Dominion",
+    "Xerex Strobe-Knight"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aura of Dominion",
+     "ability": "{1}, Tap an untapped creature you control: Untap enchanted creature.",
+     "then": "this untaps Xerex Strobe-Knight"
+    },
+    {
+     "card": "Xerex Strobe-Knight",
+     "ability": "{T}: Create a 2/2 white and blue Knight creature token with vigilance. Activate only if you've cast two or more spells this turn.",
+     "then": "the token is tapped for Aura of Dominion"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Aura of Dominion is attached to Xerex Strobe-Knight"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
      "casts": 0,
      "combats": 0,
      "milled": 0,
@@ -187779,6 +188292,3119 @@
   },
   {
    "cards": [
+    "Krav, the Unredeemed",
+    "Aerie Ouphes",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Aerie Ouphes"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Aerie Ouphes dying triggers Aerie Ouphes"
+    },
+    {
+     "card": "Aerie Ouphes",
+     "ability": "Persist",
+     "then": "Aerie Ouphes is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Butcher Ghoul",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Butcher Ghoul"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Butcher Ghoul dying triggers Butcher Ghoul"
+    },
+    {
+     "card": "Butcher Ghoul",
+     "ability": "Undying",
+     "then": "Butcher Ghoul is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Demonlord of Ashmouth",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Demonlord of Ashmouth"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Demonlord of Ashmouth dying triggers Demonlord of Ashmouth"
+    },
+    {
+     "card": "Demonlord of Ashmouth",
+     "ability": "Undying",
+     "then": "Demonlord of Ashmouth is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Evernight Shade",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Evernight Shade"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Evernight Shade dying triggers Evernight Shade"
+    },
+    {
+     "card": "Evernight Shade",
+     "ability": "Undying",
+     "then": "Evernight Shade is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Flayer of the Hatebound",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Flayer of the Hatebound"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Flayer of the Hatebound dying triggers Flayer of the Hatebound"
+    },
+    {
+     "card": "Flayer of the Hatebound",
+     "ability": "Undying",
+     "then": "Flayer of the Hatebound is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Furystoke Giant",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Furystoke Giant"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Furystoke Giant dying triggers Furystoke Giant"
+    },
+    {
+     "card": "Furystoke Giant",
+     "ability": "Persist",
+     "then": "Furystoke Giant is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Geralf's Messenger",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Geralf's Messenger"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Geralf's Messenger dying triggers Geralf's Messenger"
+    },
+    {
+     "card": "Geralf's Messenger",
+     "ability": "Undying",
+     "then": "Geralf's Messenger is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs",
+    "Infinite life loss for opponents"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": -2,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Geralf's Mindcrusher",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Geralf's Mindcrusher"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Geralf's Mindcrusher dying triggers Geralf's Mindcrusher"
+    },
+    {
+     "card": "Geralf's Mindcrusher",
+     "ability": "Undying",
+     "then": "Geralf's Mindcrusher is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Gleeful Arsonist",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Gleeful Arsonist"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Gleeful Arsonist dying triggers Gleeful Arsonist"
+    },
+    {
+     "card": "Gleeful Arsonist",
+     "ability": "Undying",
+     "then": "Gleeful Arsonist is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Glen Elendra Archmage",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Glen Elendra Archmage"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Glen Elendra Archmage dying triggers Glen Elendra Archmage"
+    },
+    {
+     "card": "Glen Elendra Archmage",
+     "ability": "Persist",
+     "then": "Glen Elendra Archmage is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Gravelgill Axeshark",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Gravelgill Axeshark"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Gravelgill Axeshark dying triggers Gravelgill Axeshark"
+    },
+    {
+     "card": "Gravelgill Axeshark",
+     "ability": "Persist",
+     "then": "Gravelgill Axeshark is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Grazing Kelpie",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Grazing Kelpie"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Grazing Kelpie dying triggers Grazing Kelpie"
+    },
+    {
+     "card": "Grazing Kelpie",
+     "ability": "Persist",
+     "then": "Grazing Kelpie is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Hancock, Ghoulish Mayor",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Hancock, Ghoulish Mayor"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Hancock, Ghoulish Mayor dying triggers Hancock, Ghoulish Mayor"
+    },
+    {
+     "card": "Hancock, Ghoulish Mayor",
+     "ability": "Undying",
+     "then": "Hancock, Ghoulish Mayor is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Heartmender",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Heartmender"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Heartmender dying triggers Heartmender"
+    },
+    {
+     "card": "Heartmender",
+     "ability": "Persist",
+     "then": "Heartmender is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Hound of Griselbrand",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Hound of Griselbrand"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Hound of Griselbrand dying triggers Hound of Griselbrand"
+    },
+    {
+     "card": "Hound of Griselbrand",
+     "ability": "Undying",
+     "then": "Hound of Griselbrand is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Howlgeist",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Howlgeist"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Howlgeist dying triggers Howlgeist"
+    },
+    {
+     "card": "Howlgeist",
+     "ability": "Undying",
+     "then": "Howlgeist is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Kitchen Finks",
+    "Carnival of Souls",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Kitchen Finks"
+   ],
+   "helpers": [
+    "Carnival of Souls",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Carnival of Souls": [
+     "Life Insurance",
+     "Pitiless Plunderer"
+    ],
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Kitchen Finks dying triggers Kitchen Finks"
+    },
+    {
+     "card": "Kitchen Finks",
+     "ability": "Persist",
+     "then": "Kitchen Finks is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs",
+    "Infinite lifegain"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 1,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Kithkin Spellduster",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Kithkin Spellduster"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Kithkin Spellduster dying triggers Kithkin Spellduster"
+    },
+    {
+     "card": "Kithkin Spellduster",
+     "ability": "Persist",
+     "then": "Kithkin Spellduster is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Lesser Masticore",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Lesser Masticore"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Lesser Masticore dying triggers Lesser Masticore"
+    },
+    {
+     "card": "Lesser Masticore",
+     "ability": "Persist",
+     "then": "Lesser Masticore is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Lingering Tormentor",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Lingering Tormentor"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Lingering Tormentor dying triggers Lingering Tormentor"
+    },
+    {
+     "card": "Lingering Tormentor",
+     "ability": "Persist",
+     "then": "Lingering Tormentor is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Nardole, Resourceful Cyborg",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Nardole, Resourceful Cyborg"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Nardole, Resourceful Cyborg dying triggers Nardole, Resourceful Cyborg"
+    },
+    {
+     "card": "Nardole, Resourceful Cyborg",
+     "ability": "Undying",
+     "then": "Nardole, Resourceful Cyborg is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Nearheath Stalker",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Nearheath Stalker"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Nearheath Stalker dying triggers Nearheath Stalker"
+    },
+    {
+     "card": "Nearheath Stalker",
+     "ability": "Undying",
+     "then": "Nearheath Stalker is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Obstinate Gargoyle",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Obstinate Gargoyle"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Obstinate Gargoyle dying triggers Obstinate Gargoyle"
+    },
+    {
+     "card": "Obstinate Gargoyle",
+     "ability": "Persist",
+     "then": "Obstinate Gargoyle is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Persistent Constrictor",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Persistent Constrictor"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Persistent Constrictor dying triggers Persistent Constrictor"
+    },
+    {
+     "card": "Persistent Constrictor",
+     "ability": "Persist",
+     "then": "Persistent Constrictor is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Puppeteer Clique",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Puppeteer Clique"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Puppeteer Clique dying triggers Puppeteer Clique"
+    },
+    {
+     "card": "Puppeteer Clique",
+     "ability": "Persist",
+     "then": "Puppeteer Clique is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Putrid Goblin",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Putrid Goblin"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Putrid Goblin dying triggers Putrid Goblin"
+    },
+    {
+     "card": "Putrid Goblin",
+     "ability": "Persist",
+     "then": "Putrid Goblin is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Pyreheart Wolf",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Pyreheart Wolf"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Pyreheart Wolf dying triggers Pyreheart Wolf"
+    },
+    {
+     "card": "Pyreheart Wolf",
+     "ability": "Undying",
+     "then": "Pyreheart Wolf is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Relentless Skaabs",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Relentless Skaabs"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Relentless Skaabs dying triggers Relentless Skaabs"
+    },
+    {
+     "card": "Relentless Skaabs",
+     "ability": "Undying",
+     "then": "Relentless Skaabs is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Rendclaw Trow",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Rendclaw Trow"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Rendclaw Trow dying triggers Rendclaw Trow"
+    },
+    {
+     "card": "Rendclaw Trow",
+     "ability": "Persist",
+     "then": "Rendclaw Trow is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Restless Apparition",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Restless Apparition"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Restless Apparition dying triggers Restless Apparition"
+    },
+    {
+     "card": "Restless Apparition",
+     "ability": "Persist",
+     "then": "Restless Apparition is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "River Kelpie",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "River Kelpie"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "River Kelpie dying triggers River Kelpie"
+    },
+    {
+     "card": "River Kelpie",
+     "ability": "Persist",
+     "then": "River Kelpie is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Safehold Elite",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Safehold Elite"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Safehold Elite dying triggers Safehold Elite"
+    },
+    {
+     "card": "Safehold Elite",
+     "ability": "Persist",
+     "then": "Safehold Elite is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Scuzzback Marauders",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Scuzzback Marauders"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Scuzzback Marauders dying triggers Scuzzback Marauders"
+    },
+    {
+     "card": "Scuzzback Marauders",
+     "ability": "Persist",
+     "then": "Scuzzback Marauders is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Sightless Ghoul",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Sightless Ghoul"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Sightless Ghoul dying triggers Sightless Ghoul"
+    },
+    {
+     "card": "Sightless Ghoul",
+     "ability": "Undying",
+     "then": "Sightless Ghoul is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Stormbound Geist",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Stormbound Geist"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Stormbound Geist dying triggers Stormbound Geist"
+    },
+    {
+     "card": "Stormbound Geist",
+     "ability": "Undying",
+     "then": "Stormbound Geist is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Strangleroot Geist",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Strangleroot Geist"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Strangleroot Geist dying triggers Strangleroot Geist"
+    },
+    {
+     "card": "Strangleroot Geist",
+     "ability": "Undying",
+     "then": "Strangleroot Geist is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Thunderblust",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Thunderblust"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Thunderblust dying triggers Thunderblust"
+    },
+    {
+     "card": "Thunderblust",
+     "ability": "Persist",
+     "then": "Thunderblust is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Trapjaw Kelpie",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Trapjaw Kelpie"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Trapjaw Kelpie dying triggers Trapjaw Kelpie"
+    },
+    {
+     "card": "Trapjaw Kelpie",
+     "ability": "Persist",
+     "then": "Trapjaw Kelpie is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Treacherous Pit-Dweller",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Treacherous Pit-Dweller"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Treacherous Pit-Dweller dying triggers Treacherous Pit-Dweller"
+    },
+    {
+     "card": "Treacherous Pit-Dweller",
+     "ability": "Undying",
+     "then": "Treacherous Pit-Dweller is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Twilight Shepherd",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Twilight Shepherd"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Twilight Shepherd dying triggers Twilight Shepherd"
+    },
+    {
+     "card": "Twilight Shepherd",
+     "ability": "Persist",
+     "then": "Twilight Shepherd is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Vengeful Vampire",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Vengeful Vampire"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Vengeful Vampire dying triggers Vengeful Vampire"
+    },
+    {
+     "card": "Vengeful Vampire",
+     "ability": "Undying",
+     "then": "Vengeful Vampire is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Vorapede",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Vorapede"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Vorapede dying triggers Vorapede"
+    },
+    {
+     "card": "Vorapede",
+     "ability": "Undying",
+     "then": "Vorapede is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Witch-king, Sky Scourge",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Witch-king, Sky Scourge"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Witch-king, Sky Scourge dying triggers Witch-king, Sky Scourge"
+    },
+    {
+     "card": "Witch-king, Sky Scourge",
+     "ability": "Undying",
+     "then": "Witch-king, Sky Scourge is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Woodfall Primus",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Woodfall Primus"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {
+    "Solemnity": [
+     "Vizier of Remedies"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Woodfall Primus dying triggers Woodfall Primus"
+    },
+    {
+     "card": "Woodfall Primus",
+     "ability": "Persist",
+     "then": "Woodfall Primus is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Krav, the Unredeemed",
+    "Young Wolf",
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Young Wolf"
+   ],
+   "helpers": [
+    "Pitiless Plunderer",
+    "Solemnity"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Young Wolf dying triggers Young Wolf"
+    },
+    {
+     "card": "Young Wolf",
+     "ability": "Undying",
+     "then": "Young Wolf is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
     "Lampad of Death's Vigil",
     "Aerie Ouphes",
     "Carnival of Souls",
@@ -299119,6 +302745,82 @@
   {
    "cards": [
     "Kiki-Jiki, Mirror Breaker",
+    "Living Laser"
+   ],
+   "loop": [
+    "Kiki-Jiki, Mirror Breaker"
+   ],
+   "helpers": [
+    "Living Laser"
+   ],
+   "helperAlternatives": {
+    "Living Laser": [
+     "Shuri, Wakandan Inventor"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Kiki-Jiki, Mirror Breaker",
+     "ability": "{T}: Create a token that's a copy of target nonlegendary creature you control, except it has haste. Sacrifice it at the beginning of the next end step.",
+     "then": "the new token copy of Kiki-Jiki, Mirror Breaker has haste, so it can use the ability again"
+    }
+   ],
+   "produces": [
+    "Infinite hasty creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Living Laser makes a copy of Kiki-Jiki, Mirror Breaker that isn't legendary; that copy copies itself"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "618-7895",
+     "cards": [
+      "Kiki-Jiki, Mirror Breaker",
+      "Little Bear"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Living Laser"
+    ],
+    "theirs": [
+     "Little Bear"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Kiki-Jiki, Mirror Breaker",
     "Reptilian Recruiter"
    ],
    "loop": [
@@ -348812,6 +352514,88 @@
   },
   {
    "cards": [
+    "Krav, the Unredeemed",
+    "Narfi, Betrayer King",
+    "Pitiless Plunderer"
+   ],
+   "loop": [
+    "Krav, the Unredeemed",
+    "Narfi, Betrayer King"
+   ],
+   "helpers": [
+    "Pitiless Plunderer"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Krav, the Unredeemed",
+     "ability": "{B}, Sacrifice X creatures: Target player draws X cards and gains X life. Put X +1/+1 counters on Krav.",
+     "then": "Narfi, Betrayer King dying triggers Narfi, Betrayer King"
+    },
+    {
+     "card": "Narfi, Betrayer King",
+     "ability": "{S}{S}{S}: Return this card from your graveyard to the battlefield tapped.",
+     "then": "Narfi, Betrayer King is sacrificed to Krav, the Unredeemed"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs",
+    "Infinite +1/+1 counters"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {B} available to start (for Krav, the Unredeemed)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2354-3862-4871",
+     "cards": [
+      "Krav, the Unredeemed",
+      "Orcish Bowmasters",
+      "Pitiless Plunderer"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Narfi, Betrayer King"
+    ],
+    "theirs": [
+     "Orcish Bowmasters"
+    ]
+   }
+  },
+  {
+   "cards": [
     "Lavabrink Floodgates",
     "Voltaic Construct",
     "Zirda, the Dawnwaker"
@@ -368288,6 +372072,73 @@
   },
   {
    "cards": [
+    "Chatterfang, Squirrel General",
+    "Pitiless Plunderer"
+   ],
+   "loop": [
+    "Chatterfang, Squirrel General",
+    "Pitiless Plunderer"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Chatterfang, Squirrel General",
+     "ability": "{B}, Sacrifice X Squirrels: Target creature gets +X/-X until end of turn.",
+     "then": "the token dying triggers Pitiless Plunderer"
+    },
+    {
+     "card": "Pitiless Plunderer",
+     "ability": "Whenever another creature you control dies, create a Treasure token.",
+     "then": "the extra Squirrel is sacrificed to Chatterfang, Squirrel General"
+    }
+   ],
+   "produces": [
+    "Infinite death triggers",
+    "Infinite sacrifice triggers",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 1,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3000-4871",
+    "cards": [
+     "Chatterfang, Squirrel General",
+     "Pitiless Plunderer"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
     "Circle of Dreams Druid",
     "Staff of Domination"
    ],
@@ -375928,6 +379779,74 @@
     "cards": [
      "Niv-Mizzet, the Firemind",
      "Keen Sense"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Kiki-Jiki, Mirror Breaker",
+    "Helm of the Host"
+   ],
+   "loop": [
+    "Kiki-Jiki, Mirror Breaker"
+   ],
+   "helpers": [
+    "Helm of the Host"
+   ],
+   "helperAlternatives": {
+    "Helm of the Host": [
+     "Shuri, Wakandan Inventor"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Kiki-Jiki, Mirror Breaker",
+     "ability": "{T}: Create a token that's a copy of target nonlegendary creature you control, except it has haste. Sacrifice it at the beginning of the next end step.",
+     "then": "the new token copy of Kiki-Jiki, Mirror Breaker has haste, so it can use the ability again"
+    }
+   ],
+   "produces": [
+    "Infinite hasty creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [
+    "Helm of the Host makes a copy of Kiki-Jiki, Mirror Breaker that isn't legendary; that copy copies itself"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "618-1692",
+    "cards": [
+     "Kiki-Jiki, Mirror Breaker",
+     "Helm of the Host"
     ],
     "requires": 0
    },

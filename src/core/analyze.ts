@@ -153,5 +153,10 @@ async function detectCombos(
       status = { status: 'unavailable', error: err instanceof Error ? err.message : String(err) };
     }
   }
-  return mergeCombos(engine, spellbook, status);
+  const verify = (names: string[]) => {
+    const wanted = new Set(names);
+    const cards = deckCards.filter((c) => wanted.has(c.name));
+    return cards.length === wanted.size ? findEngineCombos(cards).combos : [];
+  };
+  return mergeCombos(engine, spellbook, status, verify);
 }

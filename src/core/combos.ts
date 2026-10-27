@@ -59,15 +59,27 @@ export function confirms(e: EngineCombo, sbCards: string[], sbPrerequisites: str
   return unlisted <= generic && sbCards.every((c) => covered.has(c));
 }
 
-export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean }, spellbook: SpellbookResult | null, status: SpellbookStatus): ComboReport {
+/**
+ * `verify`: when no engine combo from the deck search confirms a Spellbook combo, run the engine on exactly that
+ * combo's cards. The deck search reports one set of helpers per loop, so a Spellbook combo that uses a different
+ * pair of helpers (Academy Manufactor + Pitiless Plunderer where the search picked Camellia + Peregrin Took) can
+ * still be one the engine verifies.
+ */
+export function mergeCombos(
+  engine: { combos: EngineCombo[]; exhaustive: boolean },
+  spellbook: SpellbookResult | null,
+  status: SpellbookStatus,
+  verify?: (cards: string[]) => EngineCombo[],
+): ComboReport {
   const used = new Set<EngineCombo>();
   const combos: DetectedCombo[] = [];
 
   for (const sb of spellbook?.included ?? []) {
     // Every engine combo that confirms it counts; the one closest in size is shown, the rest are variants.
-    const matches = engine.combos
+    let matches = engine.combos
       .filter((e) => confirms(e, sb.cards, sb.prerequisites))
       .sort((a, b) => Math.abs(a.cards.length - sb.cards.length) - Math.abs(b.cards.length - sb.cards.length));
+    if (!matches.length && verify) matches = verify(sb.cards).filter((e) => confirms(e, sb.cards, sb.prerequisites)).slice(0, 1);
     for (const m of matches) used.add(m);
     const combo = fromSpellbook(sb, matches[0]);
     if (matches.length > 1) combo.variants = matches.slice(1).map((m) => m.cards);

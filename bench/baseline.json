@@ -198,13 +198,17 @@
   "gw-tokens": {
     "connectivity": 0.882,
     "matchedCombos": [
+      "Earthcraft + Squirrel Nest",
       "Midnight Guard + Presence of Gond"
     ]
   },
   "gyome-food": {
     "connectivity": 1,
     "matchedCombos": [
+      "Academy Manufactor + Ashnod's Altar + Cauldron Familiar + Pitiless Plunderer",
+      "Ashnod's Altar + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
       "Ashnod's Altar + Nim Deathmantle + Wurmcoil Engine",
+      "Chatterfang, Squirrel General + Pitiless Plunderer",
       "Krark-Clan Ironworks + Nim Deathmantle + Wurmcoil Engine"
     ]
   },
