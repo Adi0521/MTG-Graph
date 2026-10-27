@@ -1,0 +1,40 @@
+// Archetype: Izzet coin flips and copies (Krark, the Thumbless and Sakashima of a Thousand Faces)
+Commander
+1 Krark, the Thumbless
+1 Sakashima of a Thousand Faces
+Deck
+1 Krark's Thumb
+1 Tavern Scoundrel
+1 Stitch in Time
+1 Chance Encounter
+1 Frenetic Efreet
+1 Dramatic Reversal
+1 Isochron Scepter
+1 Thousand-Year Storm
+1 Veyran, Voice of Duality
+1 Birgi, God of Storytelling
+1 Storm-Kiln Artist
+1 Archmage Emeritus
+1 Ral, Storm Conduit
+1 Twinflame
+1 Dualcaster Mage
+1 Kiki-Jiki, Mirror Breaker
+1 Pestermite
+1 Deceiver Exarch
+1 Splinter Twin
+1 Sol Ring
+1 Arcane Signet
+1 Izzet Signet
+1 Basalt Monolith
+1 Rings of Brighthearth
+1 Brainstorm
+1 Ponder
+1 Counterspell
+1 Gamble
+1 Mystical Tutor
+1 Fiery Gambit
+1 Mana Clash
+1 Ral Zarek
+1 Okaun, Eye of Chaos
+1 Zndrsplt, Eye of Wisdom
+1 Yusri, Fortune's Flame

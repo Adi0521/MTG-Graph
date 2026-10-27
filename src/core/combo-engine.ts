@@ -334,8 +334,10 @@ function untapReaches(abilities: Ability[], i: number, target: string, ctx: Cont
     if (untap.target === 'host' && hostOf(abilities, i) === target && isCreature(ctx, target)) return true;
     if (typeof untap.target !== 'string' && matchesTarget(untap.target, ctx.cardByName.get(target)!, a.card)) return true;
   }
-  // A blinked creature returns untapped but summoning sick, so it needs haste to tap again.
-  return blinkHits(abilities, i, target, ctx) && (!isCreature(ctx, target) || hasHaste(ctx, target));
+  // A blinked creature returns untapped but summoning sick, so it needs haste to tap again. A blinked Isochron Scepter
+  // returns with nothing imprinted, so its ability is gone.
+  const imprint = /\bimprint\b|\bthe exiled card\b/.test(ctx.cardByName.get(target)?.text ?? '');
+  return blinkHits(abilities, i, target, ctx) && !imprint && (!isCreature(ctx, target) || hasHaste(ctx, target));
 }
 
 /** How ability `a` (which received `input`) can feed `next`, or null if it cannot. */

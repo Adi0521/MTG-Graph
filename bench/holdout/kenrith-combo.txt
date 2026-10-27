@@ -1,0 +1,39 @@
+// Archetype: Five-color combo (Kenrith, the Returned King)
+Commander
+1 Kenrith, the Returned King
+Deck
+1 Dramatic Reversal
+1 Isochron Scepter
+1 Deadeye Navigator
+1 Peregrine Drake
+1 Ashnod's Altar
+1 Nim Deathmantle
+1 Basalt Monolith
+1 Rings of Brighthearth
+1 Power Artifact
+1 Grim Monolith
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Felidar Guardian
+1 Saheeli Rai
+1 Splinter Twin
+1 Pestermite
+1 Deceiver Exarch
+1 Bloom Tender
+1 Freed from the Real
+1 Thousand-Year Elixir
+1 Walking Ballista
+1 Heliod, Sun-Crowned
+1 Sanguine Bond
+1 Exquisite Blood
+1 Food Chain
+1 Eternal Scourge
+1 Sol Ring
+1 Mana Crypt
+1 Chromatic Lantern
+1 Demonic Tutor
+1 Vampiric Tutor
+1 Worldly Tutor
+1 Devoted Druid
+1 Vizier of Remedies
+1 Sakura-Tribe Elder

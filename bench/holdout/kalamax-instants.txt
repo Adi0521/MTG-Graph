@@ -1,0 +1,39 @@
+// Archetype: Temur instants and copies (Kalamax, the Stormsire)
+Commander
+1 Kalamax, the Stormsire
+Deck
+1 Dramatic Reversal
+1 Isochron Scepter
+1 Ghostly Flicker
+1 Twinflame
+1 Molten Duplication
+1 Thousand-Year Storm
+1 Reverberate
+1 Fork
+1 Swan Song
+1 Counterspell
+1 Seedborn Muse
+1 Paradox Engine
+1 Sol Ring
+1 Basalt Monolith
+1 Grim Monolith
+1 Mana Vault
+1 Archmage Emeritus
+1 Birgi, God of Storytelling
+1 Leyline of Anticipation
+1 Frantic Search
+1 Snap
+1 Peregrine Drake
+1 Deadeye Navigator
+1 Dualcaster Mage
+1 Arcane Signet
+1 Simic Signet
+1 Izzet Signet
+1 Mind Stone
+1 Brainstorm
+1 Mystical Tutor
+1 Worldly Tutor
+1 Veyran, Voice of Duality
+1 Lightning Bolt
+1 Cyclonic Rift
+1 Pongify

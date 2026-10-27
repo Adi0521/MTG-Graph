@@ -1,0 +1,39 @@
+// Archetype: Mono-white historic recursion (Teshar, Ancestor's Apostle)
+Commander
+1 Teshar, Ancestor's Apostle
+Deck
+1 Sanctum Gargoyle
+1 Myr Retriever
+1 Junk Diver
+1 Ornithopter
+1 Memnite
+1 Phyrexian Walker
+1 Shield Sphere
+1 Hope of Ghirapur
+1 Gingerbrute
+1 Kor Skyfisher
+1 Whitemane Lion
+1 Karmic Guide
+1 Reveillark
+1 Sun Titan
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Krark-Clan Ironworks
+1 Cathars' Crusade
+1 Skullclamp
+1 Sol Ring
+1 Mind Stone
+1 Arcane Signet
+1 Thran Dynamo
+1 Swords to Plowshares
+1 Enlightened Tutor
+1 Sensei's Divining Top
+1 Cloud Key
+1 Clock of Omens
+1 Mox Amber
+1 Weathered Wayfarer
+1 Emeria Shepherd
+1 Restoration Angel
+1 Felidar Guardian
+1 Angel of the Ruins
+1 Retrofitter Foundry

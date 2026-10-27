@@ -1,0 +1,38 @@
+// Archetype: Five-color warriors and extra combats (Najeela, the Blade-Blossom)
+Commander
+1 Najeela, the Blade-Blossom
+Deck
+1 Nature's Will
+1 Derevi, Empyrial Tactician
+1 Druids' Repository
+1 Bear Umbra
+1 Sword of Feast and Famine
+1 Grand Warlord Radha
+1 Combat Celebrant
+1 Kiki-Jiki, Mirror Breaker
+1 Helm of the Host
+1 Hellkite Charger
+1 Aggravated Assault
+1 Seedborn Muse
+1 Bloodsworn Steward
+1 Fervent Charge
+1 Raging Ravine
+1 Bloodline Pretender
+1 Chief of the Edge
+1 Chief of the Scale
+1 Lovisa Coldeyes
+1 Kaalia of the Vast
+1 Iroas, God of Victory
+1 Sol Ring
+1 Arcane Signet
+1 Chromatic Lantern
+1 Birds of Paradise
+1 Swords to Plowshares
+1 Path to Exile
+1 Demonic Tutor
+1 Enlightened Tutor
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Sigarda's Aid
+1 Teferi's Protection
+1 Grim Hireling

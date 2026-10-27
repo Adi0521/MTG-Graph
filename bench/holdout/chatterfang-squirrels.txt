@@ -1,0 +1,39 @@
+// Archetype: Golgari squirrels and Food (Chatterfang, Squirrel General)
+Commander
+1 Chatterfang, Squirrel General
+Deck
+1 Pitiless Plunderer
+1 Ashnod's Altar
+1 Viscera Seer
+1 Nested Shambler
+1 Deranged Hermit
+1 Squirrel Nest
+1 Earthcraft
+1 Scurry Oak
+1 Chitterspitter
+1 Skullclamp
+1 Zulaport Cutthroat
+1 Blood Artist
+1 Poison-Tip Archer
+1 Bastion of Remembrance
+1 Second Harvest
+1 Parallel Lives
+1 Doubling Season
+1 Tireless Provisioner
+1 Gilded Goose
+1 Witch's Oven
+1 Cauldron Familiar
+1 Savvy Hunter
+1 Tend the Pests
+1 Swarmyard
+1 Sol Ring
+1 Arcane Signet
+1 Golgari Signet
+1 Llanowar Elves
+1 Demonic Tutor
+1 Academy Manufactor
+1 Toski, Bearer of Secrets
+1 Peregrin Took
+1 Camellia, the Seedmiser
+1 Woe Strider
+1 Carrion Feeder

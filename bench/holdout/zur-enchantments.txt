@@ -1,0 +1,39 @@
+// Archetype: Esper enchantments (Zur the Enchanter)
+Commander
+1 Zur the Enchanter
+Deck
+1 Rest in Peace
+1 Helm of Obedience
+1 Sanguine Bond
+1 Exquisite Blood
+1 Solitary Confinement
+1 Necropotence
+1 Animate Dead
+1 Dance of the Dead
+1 Rhystic Study
+1 Mystic Remora
+1 Smothering Tithe
+1 Sigil of the Empty Throne
+1 Ghostly Flicker
+1 Oblivion Ring
+1 Detention Sphere
+1 Copy Enchantment
+1 Estrid's Invocation
+1 Phyrexian Arena
+1 Opalescence
+1 Parallax Wave
+1 Starfield of Nyx
+1 Sphere of Safety
+1 Sun Titan
+1 Arcane Signet
+1 Sol Ring
+1 Talisman of Dominance
+1 Talisman of Hierarchy
+1 Swords to Plowshares
+1 Counterspell
+1 Demonic Tutor
+1 Enlightened Tutor
+1 Mirrormade
+1 Ethereal Haze
+1 Leyline of the Void
+1 Narset's Reversal

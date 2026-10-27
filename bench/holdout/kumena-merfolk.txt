@@ -1,0 +1,39 @@
+// Archetype: Simic merfolk (Kumena, Tyrant of Orazca)
+Commander
+1 Kumena, Tyrant of Orazca
+Deck
+1 Merrow Reejerey
+1 Intruder Alarm
+1 Lord of Atlantis
+1 Master of the Pearl Trident
+1 Earthcraft
+1 Kiora's Follower
+1 Seedborn Muse
+1 Thousand-Year Elixir
+1 Freed from the Real
+1 Lullmage Mentor
+1 Summon the School
+1 Harbinger of the Tides
+1 Merfolk Mistbinder
+1 Silvergill Adept
+1 Merfolk Trickster
+1 Herald of Secret Streams
+1 Deeproot Elite
+1 Vodalian Hexcatcher
+1 Emperor Mihail II
+1 Sygg, River Cutthroat
+1 Benthic Biomancer
+1 Wake Thrasher
+1 Kopala, Warden of Waves
+1 Svyelun of Sea and Sky
+1 Sol Ring
+1 Arcane Signet
+1 Simic Signet
+1 Cultivate
+1 Counterspell
+1 Rhystic Study
+1 Cyclonic Rift
+1 Wanderwine Prophets
+1 Galvanic Alchemist
+1 Tishana's Tidebinder
+1 Hullbreaker Horror

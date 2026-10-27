@@ -1,0 +1,39 @@
+// Archetype: Rakdos exile and Treasure (Prosper, Tome-Bound)
+Commander
+1 Prosper, Tome-Bound
+Deck
+1 Pitiless Plunderer
+1 Mayhem Devil
+1 Revel in Riches
+1 Gravecrawler
+1 Phyrexian Altar
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Goblin Bombardment
+1 Professional Face-Breaker
+1 Grim Hireling
+1 Ancient Copper Dragon
+1 Underworld Breach
+1 Lion's Eye Diamond
+1 Brain Freeze
+1 Bloodthirsty Conqueror
+1 Sanguine Bond
+1 Exquisite Blood
+1 Viscera Seer
+1 Carrion Feeder
+1 Reassembling Skeleton
+1 Bloodghast
+1 Ashnod's Altar
+1 Sol Ring
+1 Arcane Signet
+1 Rakdos Signet
+1 Demonic Tutor
+1 Vampiric Tutor
+1 Gamble
+1 Light Up the Stage
+1 Outpost Siege
+1 Valakut Exploration
+1 Laelia, the Blade Reforged
+1 Stolen Strategy
+1 Hellkite Charger
+1 Bitter Ordeal

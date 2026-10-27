@@ -1,0 +1,39 @@
+// Archetype: Bant defenders (Arcades, the Strategist)
+Commander
+1 Arcades, the Strategist
+Deck
+1 Axebane Guardian
+1 Overgrown Battlement
+1 Wall of Roots
+1 Sylvan Caryatid
+1 Wall of Omens
+1 Wall of Blossoms
+1 Drift of Phantasms
+1 Tree of Redemption
+1 Tree of Perdition
+1 Hover Barrier
+1 Fog Bank
+1 Wakestone Gargoyle
+1 Saruli Caretaker
+1 Freed from the Real
+1 Pemmin's Aura
+1 Umbral Mantle
+1 Sword of the Paruns
+1 High Alert
+1 Assault Formation
+1 Rolling Stones
+1 Duskwatch Recruiter
+1 Staff of Domination
+1 Thousand-Year Elixir
+1 Sol Ring
+1 Arcane Signet
+1 Birds of Paradise
+1 Swords to Plowshares
+1 Rhystic Study
+1 Cyclonic Rift
+1 Shield Sphere
+1 Doorkeeper
+1 Krark-Clan Shaman
+1 Overgrown Estate
+1 Steady Progress
+1 Galvanic Alchemist

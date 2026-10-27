@@ -1,0 +1,39 @@
+// Archetype: Five-color dragons (The Ur-Dragon)
+Commander
+1 The Ur-Dragon
+Deck
+1 Miirym, Sentinel Wyrm
+1 Terror of the Peaks
+1 Dragon Tempest
+1 Scourge of Valkas
+1 Old Gnawbone
+1 Hellkite Charger
+1 Savage Ventmaw
+1 Bear Umbra
+1 Kiki-Jiki, Mirror Breaker
+1 Spark Double
+1 Lathliss, Dragon Queen
+1 Utvara Hellkite
+1 Ancient Copper Dragon
+1 Goldspan Dragon
+1 Klauth, Unrivaled Ancient
+1 Dragonlord Dromoka
+1 Atarka, World Render
+1 Dragonspeaker Shaman
+1 Herald's Horn
+1 Urza's Incubator
+1 Sarkhan's Unsealing
+1 Crucible of Fire
+1 Sol Ring
+1 Arcane Signet
+1 Chromatic Lantern
+1 Birds of Paradise
+1 Cultivate
+1 Kodama's Reach
+1 Demonic Tutor
+1 Swords to Plowshares
+1 Cyclonic Rift
+1 Moltensteel Dragon
+1 Hellkite Tyrant
+1 Sword of Feast and Famine
+1 Aggravated Assault

@@ -39,6 +39,145 @@
       "engineOnly": []
     },
     {
+      "slug": "atraxa-superfriends",
+      "archetype": "Four-color planeswalkers and proliferate (Atraxa, Praetors' Voice)",
+      "uniqueCards": 38,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 1,
+      "engineCombos": 0,
+      "matched": 0,
+      "recall": 0,
+      "matchedCombos": [],
+      "missed": [
+        {
+          "cards": [
+            "Teferi, Temporal Archmage",
+            "The Chain Veil"
+          ],
+          "produces": [
+            "Infinite card draw",
+            "Infinite colored mana",
+            "Infinite colorless mana"
+          ],
+          "diagnosis": [
+            "Teferi, Temporal Archmage: no loop abilities parsed",
+            "The Chain Veil: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
+      "slug": "aurelia-combat",
+      "archetype": "Boros extra combats (Aurelia, the Warleader)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 0.857,
+      "isolated": [
+        "Enlightened Tutor",
+        "Grand Abolisher",
+        "Lightning Greaves",
+        "Ruby Medallion",
+        "Swiftfoot Boots"
+      ],
+      "spellbookCombos": 21,
+      "engineCombos": 19,
+      "matched": 18,
+      "recall": 0.857,
+      "matchedCombos": [
+        "Aggravated Assault + Bear Umbra",
+        "Aggravated Assault + Dockside Extortionist + Helm of the Host",
+        "Aggravated Assault + Dockside Extortionist + Sword of Hearth and Home",
+        "Aggravated Assault + Neheb, the Eternal",
+        "Aggravated Assault + Savage Ventmaw",
+        "Aggravated Assault + Sword of Feast and Famine",
+        "Aurelia, the Warleader + Helm of the Host",
+        "Aurelia, the Warleader + Sword of Hearth and Home",
+        "Bear Umbra + Hellkite Charger",
+        "Combat Celebrant + Helm of the Host",
+        "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
+        "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
+        "Hellkite Charger + Sword of Feast and Famine",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
+        "Helm of the Host + Port Razer",
+        "Helm of the Host + Scourge of the Throne",
+        "Kiki-Jiki, Mirror Breaker + Port Razer",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Breath of Fury",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Breath of Fury: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Kiki-Jiki, Mirror Breaker",
+            "Breath of Fury"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Breath of Fury: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Dockside Extortionist",
+            "Hellkite Charger",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite artifact ETB",
+            "Infinite artifact LTB",
+            "Infinite artifact sacrifice triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Aggravated Assault",
+            "Kiki-Jiki, Mirror Breaker",
+            "Dockside Extortionist"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
+          ]
+        },
+        {
+          "cards": [
+            "Kiki-Jiki, Mirror Breaker",
+            "Scourge of the Throne",
+            "Sword of Hearth and Home"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs",
+            "Infinite combat phases"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "bant-landfall",
       "archetype": "Bant landfall (60 cards)",
       "uniqueCards": 18,
@@ -615,6 +754,125 @@
       ]
     },
     {
+      "slug": "gitrog-dredge",
+      "archetype": "Golgari dredge and land discard (The Gitrog Monster)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 12,
+      "engineCombos": 18,
+      "matched": 11,
+      "recall": 0.917,
+      "matchedCombos": [
+        "Azusa, Lost but Seeking + Crucible of Worlds + Glacial Chasm",
+        "Azusa, Lost but Seeking + Glacial Chasm + Life from the Loam",
+        "Azusa, Lost but Seeking + Glacial Chasm + Ramunap Excavator",
+        "Crucible of Worlds + Exploration + Glacial Chasm",
+        "Crucible of Worlds + Glacial Chasm + The Gitrog Monster",
+        "Crucible of Worlds + Glacial Chasm + Zuran Orb",
+        "Dakmor Salvage + Noose Constrictor + The Gitrog Monster",
+        "Dakmor Salvage + Putrid Imp + The Gitrog Monster",
+        "Exploration + Glacial Chasm + Ramunap Excavator",
+        "Glacial Chasm + Ramunap Excavator + The Gitrog Monster",
+        "Glacial Chasm + Ramunap Excavator + Zuran Orb"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "The Gitrog Monster",
+            "Dakmor Salvage"
+          ],
+          "produces": [
+            "Infinite self-mill",
+            "Near-infinite self-discard triggers"
+          ],
+          "diagnosis": [
+            "all abilities parsed, but the loop was not closed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Azusa, Lost but Seeking",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Exploration",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "The Gitrog Monster"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Exploration",
+            "Glacial Chasm",
+            "Life from the Loam"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "The Gitrog Monster"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "goblins",
       "archetype": "Goblin tribal (Krenko, Mob Boss)",
       "uniqueCards": 32,
@@ -693,6 +951,73 @@
         }
       ],
       "engineOnly": []
+    },
+    {
+      "slug": "godo-equipment",
+      "archetype": "Mono-red equipment and combat (Godo, Bandit Warlord)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 0.941,
+      "isolated": [
+        "Gamble",
+        "Treasure Nabber"
+      ],
+      "spellbookCombos": 9,
+      "engineCombos": 8,
+      "matched": 7,
+      "recall": 0.778,
+      "matchedCombos": [
+        "Aggravated Assault + Dockside Extortionist + Helm of the Host",
+        "Aggravated Assault + Sword of Feast and Famine",
+        "Combat Celebrant + Helm of the Host",
+        "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
+        "Godo, Bandit Warlord + Helm of the Host",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Breath of Fury",
+            "Helm of the Host"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Breath of Fury: cost not modeled"
+          ]
+        },
+        {
+          "cards": [
+            "Kiki-Jiki, Mirror Breaker",
+            "Breath of Fury"
+          ],
+          "produces": [
+            "Infinite combat damage",
+            "Infinite combat phases",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Breath of Fury: cost not modeled"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Aggravated Assault",
+            "Kiki-Jiki, Mirror Breaker",
+            "Dockside Extortionist"
+          ],
+          "produces": [
+            "Infinite hasty creature tokens",
+            "Infinite creature ETBs"
+          ]
+        }
+      ]
     },
     {
       "slug": "green-stompy",
@@ -979,6 +1304,133 @@
       "engineOnly": []
     },
     {
+      "slug": "kinnan-mana",
+      "archetype": "Simic mana engines (Kinnan, Bonder Prodigy)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 0.829,
+      "isolated": [
+        "Fierce Guardianship",
+        "Finale of Devastation",
+        "Rhystic Study",
+        "Training Grounds",
+        "Utopia Sprawl",
+        "Wild Growth"
+      ],
+      "spellbookCombos": 19,
+      "engineCombos": 18,
+      "matched": 16,
+      "recall": 0.842,
+      "matchedCombos": [
+        "Basalt Monolith + Kinnan, Bonder Prodigy",
+        "Basalt Monolith + Power Artifact",
+        "Basalt Monolith + Rings of Brighthearth",
+        "Bloom Tender + Freed from the Real",
+        "Bloom Tender + Pemmin's Aura",
+        "Devoted Druid + Vizier of Remedies",
+        "Dramatic Reversal + Isochron Scepter",
+        "Faeburrow Elder + Freed from the Real",
+        "Faeburrow Elder + Pemmin's Aura",
+        "Freed from the Real + Gilded Lotus + Kiora's Follower",
+        "Freed from the Real + Incubation Druid",
+        "Freed from the Real + Kinnan, Bonder Prodigy",
+        "Gilded Lotus + Kiora's Follower + Pemmin's Aura",
+        "Grim Monolith + Power Artifact",
+        "Incubation Druid + Pemmin's Aura",
+        "Kinnan, Bonder Prodigy + Pemmin's Aura"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Hullbreaker Horror"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite storm count"
+          ],
+          "diagnosis": [
+            "Hullbreaker Horror: no loop abilities parsed",
+            "needs generic pieces: Requires Permanent castable for {0} that survives ×2"
+          ]
+        },
+        {
+          "cards": [
+            "Hullbreaker Horror",
+            "Mana Vault"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite storm count"
+          ],
+          "diagnosis": [
+            "Hullbreaker Horror: no loop abilities parsed",
+            "needs generic pieces: Requires Permanent Castable for {C}{C}"
+          ]
+        },
+        {
+          "cards": [
+            "Hullbreaker Horror",
+            "Sol Ring"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite storm count"
+          ],
+          "diagnosis": [
+            "Hullbreaker Horror: no loop abilities parsed",
+            "needs generic pieces: Requires Permanent Castable for {C}"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Arcane Signet",
+            "Freed from the Real",
+            "Kiora's Follower",
+            "Kinnan, Bonder Prodigy"
+          ],
+          "produces": [
+            "Infinite mana of any color"
+          ]
+        },
+        {
+          "cards": [
+            "Arcane Signet",
+            "Pemmin's Aura",
+            "Kiora's Follower",
+            "Kinnan, Bonder Prodigy"
+          ],
+          "produces": [
+            "Infinite mana of any color"
+          ]
+        },
+        {
+          "cards": [
+            "Freed from the Real",
+            "Kiora's Follower",
+            "Mox Diamond",
+            "Kinnan, Bonder Prodigy"
+          ],
+          "produces": [
+            "Infinite mana of any color"
+          ]
+        },
+        {
+          "cards": [
+            "Kiora's Follower",
+            "Mox Diamond",
+            "Pemmin's Aura",
+            "Kinnan, Bonder Prodigy"
+          ],
+          "produces": [
+            "Infinite mana of any color"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "korvold-aristocrats",
       "archetype": "Aristocrats (Korvold, Fae-Cursed King)",
       "uniqueCards": 46,
@@ -1244,6 +1696,26 @@
       "engineOnly": []
     },
     {
+      "slug": "meren-recursion",
+      "archetype": "Golgari creature recursion and sacrifice (Meren of Clan Nel Toth)",
+      "uniqueCards": 38,
+      "notFound": [],
+      "connectivity": 0.946,
+      "isolated": [
+        "Demonic Tutor",
+        "Living Death"
+      ],
+      "spellbookCombos": 1,
+      "engineCombos": 1,
+      "matched": 1,
+      "recall": 1,
+      "matchedCombos": [
+        "Mikaeus, the Unhallowed + Triskelion"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
       "slug": "muldrotha",
       "archetype": "Sultai graveyard value (Muldrotha, the Gravetide)",
       "uniqueCards": 34,
@@ -1299,6 +1771,80 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "niv-mizzet-wheels",
+      "archetype": "Izzet card draw and wheels (Niv-Mizzet, Parun)",
+      "uniqueCards": 37,
+      "notFound": [],
+      "connectivity": 0.973,
+      "isolated": [
+        "Dualcaster Mage"
+      ],
+      "spellbookCombos": 6,
+      "engineCombos": 6,
+      "matched": 6,
+      "recall": 1,
+      "matchedCombos": [
+        "Curiosity + Niv-Mizzet, Parun",
+        "Curiosity + Niv-Mizzet, the Firemind",
+        "Niv-Mizzet, Parun + Ophidian Eye",
+        "Niv-Mizzet, Parun + Tandem Lookout",
+        "Niv-Mizzet, the Firemind + Ophidian Eye",
+        "Niv-Mizzet, the Firemind + Tandem Lookout"
+      ],
+      "missed": [],
+      "engineOnly": []
+    },
+    {
+      "slug": "phenax-mill",
+      "archetype": "Dimir mill (Phenax, God of Deception)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 0.861,
+      "isolated": [
+        "Counterspell",
+        "Demonic Tutor",
+        "Glimpse the Unthinkable",
+        "Mind Grind",
+        "Vampiric Tutor"
+      ],
+      "spellbookCombos": 14,
+      "engineCombos": 13,
+      "matched": 13,
+      "recall": 0.929,
+      "matchedCombos": [
+        "Bloodchief Ascension + Mindcrank",
+        "Bruvac the Grandiloquent + Fleet Swallower",
+        "Bruvac the Grandiloquent + Maddening Cacophony",
+        "Bruvac the Grandiloquent + Traumatize",
+        "Consuming Aberration + Fleet Swallower + Phenax, God of Deception",
+        "Consuming Aberration + Maddening Cacophony + Phenax, God of Deception",
+        "Consuming Aberration + Phenax, God of Deception + Traumatize",
+        "Duskmantle Guildmage + Mindcrank",
+        "Exquisite Blood + Sanguine Bond",
+        "Fleet Swallower + Phenax, God of Deception + Sewer Nemesis",
+        "Grindstone + Painter's Servant",
+        "Maddening Cacophony + Phenax, God of Deception + Sewer Nemesis",
+        "Phenax, God of Deception + Sewer Nemesis + Traumatize"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Duskmantle Guildmage",
+            "Maddening Cacophony"
+          ],
+          "produces": [
+            "Each opponent loses the game",
+            "Near-infinite lifeloss",
+            "Near-infinite mill"
+          ],
+          "diagnosis": [
+            "Maddening Cacophony: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
     },
     {
       "slug": "prossh-food-chain",
@@ -1724,6 +2270,43 @@
       ]
     },
     {
+      "slug": "sliver-overlord",
+      "archetype": "Five-color sliver tribal (Sliver Overlord)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 0.912,
+      "isolated": [
+        "Distant Melody",
+        "Door of Destinies",
+        "Kindred Discovery"
+      ],
+      "spellbookCombos": 3,
+      "engineCombos": 2,
+      "matched": 2,
+      "recall": 0.667,
+      "matchedCombos": [
+        "Ashnod's Altar + Sliver Queen",
+        "Mana Echoes + Sliver Queen"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Sliver Queen",
+            "Basal Sliver"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite creature ETB",
+            "Infinite creature LTB"
+          ],
+          "diagnosis": [
+            "Basal Sliver: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
       "slug": "spells-dualcaster",
       "archetype": "Izzet spells (Kess, Dissident Mage)",
       "uniqueCards": 33,
@@ -2021,6 +2604,109 @@
       ]
     },
     {
+      "slug": "titania-lands",
+      "archetype": "Golgari land sacrifice and recursion (Titania, Protector of Argoth)",
+      "uniqueCards": 38,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 9,
+      "engineCombos": 16,
+      "matched": 9,
+      "recall": 1,
+      "matchedCombos": [
+        "Azusa, Lost but Seeking + Crucible of Worlds + Glacial Chasm",
+        "Azusa, Lost but Seeking + Glacial Chasm + Life from the Loam",
+        "Azusa, Lost but Seeking + Glacial Chasm + Ramunap Excavator",
+        "Crucible of Worlds + Exploration + Glacial Chasm",
+        "Crucible of Worlds + Glacial Chasm + Oracle of Mul Daya",
+        "Crucible of Worlds + Glacial Chasm + Zuran Orb",
+        "Exploration + Glacial Chasm + Ramunap Excavator",
+        "Glacial Chasm + Oracle of Mul Daya + Ramunap Excavator",
+        "Glacial Chasm + Ramunap Excavator + Zuran Orb"
+      ],
+      "missed": [],
+      "engineOnly": [
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Azusa, Lost but Seeking",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Exploration",
+            "Glacial Chasm"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Oracle of Mul Daya"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Ancient Greenwarden",
+            "Glacial Chasm",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Exploration",
+            "Glacial Chasm",
+            "Life from the Loam"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "Oracle of Mul Daya"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        },
+        {
+          "cards": [
+            "Glacial Chasm",
+            "Life from the Loam",
+            "Zuran Orb"
+          ],
+          "produces": [
+            "Prevent all damage that would be dealt to you",
+            "Lock"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "tokens",
       "archetype": "Go-wide tokens (Rhys the Redeemed)",
       "uniqueCards": 33,
@@ -2140,6 +2826,65 @@
       "engineOnly": []
     },
     {
+      "slug": "wilhelt-zombies",
+      "archetype": "Dimir zombie aristocrats (Wilhelt, the Rotcleaver)",
+      "uniqueCards": 38,
+      "notFound": [],
+      "connectivity": 0.947,
+      "isolated": [
+        "Demonic Tutor",
+        "Necrotic Ooze"
+      ],
+      "spellbookCombos": 7,
+      "engineCombos": 5,
+      "matched": 5,
+      "recall": 0.714,
+      "matchedCombos": [
+        "Altar of Dementia + Gravecrawler + Rooftop Storm",
+        "Ashnod's Altar + Gravecrawler + Rooftop Storm",
+        "Carrion Feeder + Gravecrawler + Rooftop Storm",
+        "Gravecrawler + Phyrexian Altar",
+        "Gravecrawler + Rooftop Storm + Viscera Seer"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Havengul Lich",
+            "Rooftop Storm",
+            "Ashnod's Altar"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Havengul Lich: no loop abilities parsed",
+            "Rooftop Storm: no loop abilities parsed",
+            "needs generic pieces: Requires Zombie Creature"
+          ]
+        },
+        {
+          "cards": [
+            "Havengul Lich",
+            "Rooftop Storm",
+            "Phyrexian Altar"
+          ],
+          "produces": [
+            "Infinite creature LTB",
+            "Infinite creature ETB",
+            "Infinite creature sacrifice triggers"
+          ],
+          "diagnosis": [
+            "Havengul Lich: no loop abilities parsed",
+            "Rooftop Storm: no loop abilities parsed",
+            "needs generic pieces: Requires Zombie Creature"
+          ]
+        }
+      ],
+      "engineOnly": []
+    },
+    {
       "slug": "yawgmoth",
       "archetype": "Undying/persist (Yawgmoth, Thran Physician)",
       "uniqueCards": 33,
@@ -2179,19 +2924,89 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "zirda-activations",
+      "archetype": "Boros activated abilities (Zirda, the Dawnwaker)",
+      "uniqueCards": 36,
+      "notFound": [],
+      "connectivity": 1,
+      "isolated": [],
+      "spellbookCombos": 7,
+      "engineCombos": 7,
+      "matched": 6,
+      "recall": 0.857,
+      "matchedCombos": [
+        "Basalt Monolith + Rings of Brighthearth",
+        "Basalt Monolith + Zirda, the Dawnwaker",
+        "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
+        "Grim Monolith + Zirda, the Dawnwaker",
+        "Helm of the Host + Kiki-Jiki, Mirror Breaker",
+        "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+      ],
+      "missed": [
+        {
+          "cards": [
+            "Retrofitter Foundry",
+            "Clock of Omens",
+            "Mana Vault",
+            "Zirda, the Dawnwaker"
+          ],
+          "produces": [
+            "Infinite colorless mana",
+            "Infinite creature tokens",
+            "Infinite death triggers"
+          ],
+          "diagnosis": [
+            "Retrofitter Foundry: cost not modeled",
+            "Clock of Omens: cost not modeled",
+            "Zirda, the Dawnwaker: no loop abilities parsed"
+          ]
+        }
+      ],
+      "engineOnly": [
+        {
+          "cards": [
+            "Ashnod's Altar",
+            "Retrofitter Foundry",
+            "Zirda, the Dawnwaker"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Krark-Clan Ironworks",
+            "Retrofitter Foundry",
+            "Zirda, the Dawnwaker"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature tokens"
+          ]
+        }
+      ]
     }
   ],
   "totals": {
-    "decks": 38,
-    "connectivity": 0.983,
-    "spellbookCombos": 290,
-    "matched": 255,
-    "recall": 0.879,
-    "engineOnly": 59
+    "decks": 50,
+    "connectivity": 0.972,
+    "spellbookCombos": 399,
+    "matched": 349,
+    "recall": 0.875,
+    "engineOnly": 82
   },
   "topUnparsed": [
     {
       "card": "Food Chain",
+      "misses": 3
+    },
+    {
+      "card": "Hullbreaker Horror",
       "misses": 3
     },
     {
@@ -2215,6 +3030,10 @@
       "misses": 2
     },
     {
+      "card": "Havengul Lich",
+      "misses": 2
+    },
+    {
       "card": "Jhoira's Familiar",
       "misses": 2
     },
@@ -2224,6 +3043,10 @@
     },
     {
       "card": "Nuka-Cola Vending Machine",
+      "misses": 2
+    },
+    {
+      "card": "Rooftop Storm",
       "misses": 2
     },
     {
@@ -2247,6 +3070,10 @@
       "misses": 1
     },
     {
+      "card": "Basal Sliver",
+      "misses": 1
+    },
+    {
       "card": "Brain Freeze",
       "misses": 1
     },
@@ -2256,6 +3083,10 @@
     },
     {
       "card": "Eternal Scourge",
+      "misses": 1
+    },
+    {
+      "card": "Maddening Cacophony",
       "misses": 1
     },
     {
@@ -2275,11 +3106,23 @@
       "misses": 1
     },
     {
+      "card": "Teferi, Temporal Archmage",
+      "misses": 1
+    },
+    {
+      "card": "The Chain Veil",
+      "misses": 1
+    },
+    {
       "card": "Thopter Assembly",
       "misses": 1
     },
     {
       "card": "Underworld Breach",
+      "misses": 1
+    },
+    {
+      "card": "Zirda, the Dawnwaker",
       "misses": 1
     }
   ]
