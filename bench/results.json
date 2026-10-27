@@ -1005,19 +1005,6 @@
       "engineOnly": [
         {
           "cards": [
-            "Gravecrawler",
-            "Yawgmoth, Thran Physician",
-            "Pitiless Plunderer",
-            "Bastion of Remembrance"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite sacrifice triggers",
-            "Infinite creature ETBs"
-          ]
-        },
-        {
-          "cards": [
             "Carrion Feeder",
             "Pawn of Ulamog",
             "Reassembling Skeleton",
@@ -1080,6 +1067,19 @@
             "Infinite mana of any color",
             "Infinite death triggers",
             "Infinite sacrifice triggers"
+          ]
+        },
+        {
+          "cards": [
+            "Gravecrawler",
+            "Yawgmoth, Thran Physician",
+            "Pitiless Plunderer",
+            "Bastion of Remembrance"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
           ]
         }
       ]
@@ -1398,18 +1398,6 @@
       "engineOnly": [
         {
           "cards": [
-            "Gravecrawler",
-            "Prossh, Skyraider of Kher",
-            "Pitiless Plunderer"
-          ],
-          "produces": [
-            "Infinite death triggers",
-            "Infinite sacrifice triggers",
-            "Infinite creature ETBs"
-          ]
-        },
-        {
-          "cards": [
             "Ashnod's Altar",
             "Ogre Slumlord",
             "Squee, the Immortal",
@@ -1523,6 +1511,18 @@
             "Infinite death triggers",
             "Infinite sacrifice triggers",
             "Infinite creature tokens"
+          ]
+        },
+        {
+          "cards": [
+            "Gravecrawler",
+            "Prossh, Skyraider of Kher",
+            "Pitiless Plunderer"
+          ],
+          "produces": [
+            "Infinite death triggers",
+            "Infinite sacrifice triggers",
+            "Infinite creature ETBs"
           ]
         }
       ]

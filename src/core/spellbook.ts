@@ -14,6 +14,8 @@ export interface SpellbookCombo {
   produces: string[];
   steps: string[];
   prerequisites: string[];
+  /** Spellbook's "notable prerequisites": conditions beyond setup. Missing in data cached before it was recorded. */
+  conditions?: string[];
   manaNeeded: string;
   url: string;
   popularity: number;
@@ -55,6 +57,7 @@ function toCombo(v: RawVariant): SpellbookCombo {
     produces: (v.produces ?? []).flatMap((p) => (p.feature?.name ? [p.feature.name] : [])),
     steps: lines(v.description),
     prerequisites: [...new Set([...requires, ...lines(v.easyPrerequisites), ...lines(v.notablePrerequisites)])],
+    conditions: lines(v.notablePrerequisites),
     manaNeeded: v.manaNeeded ?? '',
     url: `https://commanderspellbook.com/combo/${v.id}/`,
     popularity: v.popularity ?? 0,

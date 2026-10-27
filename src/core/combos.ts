@@ -10,6 +10,8 @@ export interface DetectedCombo {
   produces: string[];
   steps: string[];
   prerequisites: string[];
+  /** Conditions beyond setup (a subset of prerequisites). A combo with any is listed as conditional. */
+  conditions: string[];
   /** Where the combo was found. Both = Spellbook-documented and verified by our engine. */
   sources: ComboSourceName[];
   spellbookUrl?: string;
@@ -27,7 +29,10 @@ export interface SpellbookStatus {
 }
 
 export interface ComboReport {
+  /** Combos that work whenever their cards are assembled and set up. */
   combos: DetectedCombo[];
+  /** Combos that also need a condition on the game (enough lands, a creature connecting in combat...). */
+  conditional: DetectedCombo[];
   nearMisses: SpellbookNearMiss[];
   spellbook: SpellbookStatus;
   engine: { found: number; exhaustive: boolean };
@@ -76,6 +81,7 @@ export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean
       produces: e.produces,
       steps: engineSteps(e),
       prerequisites: e.prerequisites,
+      conditions: e.conditions,
       sources: ['engine'],
       engine: e,
     });
@@ -85,7 +91,8 @@ export function mergeCombos(engine: { combos: EngineCombo[]; exhaustive: boolean
     (a, b) => b.sources.length - a.sources.length || a.cards.length - b.cards.length || setKey(a.cards).localeCompare(setKey(b.cards)),
   );
   return {
-    combos,
+    combos: combos.filter((c) => c.conditions.length === 0),
+    conditional: combos.filter((c) => c.conditions.length > 0),
     nearMisses: spellbook?.almostIncluded ?? [],
     spellbook: status,
     engine: { found: engine.combos.length, exhaustive: engine.exhaustive },
@@ -100,6 +107,8 @@ function fromSpellbook(sb: SpellbookCombo, engine: EngineCombo | undefined): Det
     produces: sb.produces,
     steps: sb.steps,
     prerequisites: sb.prerequisites,
+    // Spellbook's own notable prerequisites when recorded; for older cached data, the engine's.
+    conditions: sb.conditions ?? engine?.conditions ?? [],
     sources: engine ? ['spellbook', 'engine'] : ['spellbook'],
     spellbookUrl: sb.url,
     engine,

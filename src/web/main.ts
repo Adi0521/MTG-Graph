@@ -201,9 +201,10 @@ function loadResult(r: AnalysisResult) {
 
   const { deck, structures } = r;
   const comboCount = r.combos.combos.length;
+  const conditionalCount = r.combos.conditional.length;
   const missing = deck.notFound.length ? ` Not found: ${deck.notFound.join(', ')}.` : '';
   setStatus(
-    `${deck.totalCards} cards · ${plural(comboCount, 'combo')} · ${r.edges.length} links · ${structures.loopSystems.length} loop systems · ${structures.loopSearch.found}${structures.loopSearch.exhaustive ? '' : '+'} loops.${missing}`,
+    `${deck.totalCards} cards · ${plural(comboCount, 'combo')}${conditionalCount ? ` (+${conditionalCount} conditional)` : ''} · ${r.edges.length} links · ${structures.loopSystems.length} loop systems · ${structures.loopSearch.found}${structures.loopSearch.exhaustive ? '' : '+'} loops.${missing}`,
     deck.notFound.length > 0,
   );
   renderFilters();
@@ -457,7 +458,7 @@ function renderTabs() {
   const s = result.structures;
   const tabs: [Tab, string, number | null][] = [
     ['overview', 'Overview', null],
-    ['combos', 'Combos', result.combos.combos.length],
+    ['combos', 'Combos', result.combos.combos.length + result.combos.conditional.length],
     ['loops', 'Loops', s.loops.length],
     ['systems', 'Systems', s.loopSystems.length],
     ['chains', 'Chains', s.chains.length],
@@ -525,6 +526,7 @@ function renderOverview(): Child[] {
       { class: 'stat-row' },
       stat(`${Math.round(ins.connectivity * 100)}%`, 'spells connected'),
       stat(String(r.combos.combos.length), 'combos'),
+      r.combos.conditional.length > 0 && stat(String(r.combos.conditional.length), 'conditional'),
       stat(String(r.edges.length), 'links'),
       stat(String(s.loopSystems.length), 'loop systems'),
     ),
@@ -605,9 +607,10 @@ function comboItem(c: DetectedCombo): HTMLElement {
   const highlightKey = `combo:${c.id}`;
   const active = highlight?.key === highlightKey;
   const e = c.engine;
+  const setup = c.prerequisites.filter((p) => !c.conditions.includes(p));
   const details: Child[] = active
     ? [
-        c.prerequisites.length > 0 && h('div', { class: 'combo-section' }, h('strong', {}, 'Needs: '), c.prerequisites.join(' · ')),
+        setup.length > 0 && h('div', { class: 'combo-section' }, h('strong', {}, 'Needs: '), setup.join(' · ')),
         h('ol', { class: 'steps' }, ...c.steps.map((st) => h('li', {}, st))),
         e && e.helpers.length > 0 &&
           h(
@@ -628,6 +631,8 @@ function comboItem(c: DetectedCombo): HTMLElement {
     frag(
       h('div', { class: 'item-title' }, c.cards.join(' + ')),
       sourceBadges(c.sources),
+      // Conditions are shown even when collapsed: they decide whether the combo works in a given game.
+      c.conditions.length > 0 && h('div', { class: 'combo-section warn' }, h('strong', {}, 'Only if: '), c.conditions.join(' · ')),
       h('div', { class: 'chips' }, ...c.produces.slice(0, active ? 20 : 3).map((p) => h('span', { class: 'chip' }, p))),
       ...details,
     ),
@@ -655,7 +660,7 @@ function nearMissItem(n: SpellbookNearMiss): HTMLElement {
 }
 
 function renderCombos(): Child[] {
-  const { combos, nearMisses, spellbook, engine } = result!.combos;
+  const { combos, conditional, nearMisses, spellbook, engine } = result!.combos;
   const both = combos.filter((c) => c.sources.length === 2).length;
   const sbOnly = combos.filter((c) => c.sources.length === 1 && c.sources[0] === 'spellbook').length;
   const engineOnly = combos.filter((c) => c.sources.length === 1 && c.sources[0] === 'engine').length;
@@ -675,9 +680,17 @@ function renderCombos(): Child[] {
     h('div', { class: spellbook.status === 'ok' ? 'meta' : 'notice' }, sbStatus),
     combos.length > 0 &&
       h('p', {}, `${plural(combos.length, 'combo')}: ${both} confirmed by both, ${sbOnly} from Spellbook only, ${engineOnly} found only by the engine.`),
-    combos.length === 0 && h('p', {}, 'No complete combos in this deck.'),
+    combos.length === 0 && h('p', {}, conditional.length ? 'No combos that work unconditionally in this deck.' : 'No complete combos in this deck.'),
     !engine.exhaustive && h('div', { class: 'notice' }, 'The engine hit its search budget; some combos may be missing.'),
     ...combos.map(comboItem),
+    conditional.length > 0 && h('h3', {}, `Conditional combos (${conditional.length})`),
+    conditional.length > 0 &&
+      h(
+        'p',
+        { class: 'meta' },
+        'These also need something beyond assembling the cards: enough lands or other permanents, a creature connecting in combat, or a choice an opponent makes. Each lists its conditions.',
+      ),
+    ...conditional.map(comboItem),
     nearMisses.length > 0 && h('h3', {}, `One card away (${nearMisses.length})`),
     nearMisses.length > 0 && h('p', { class: 'meta' }, 'Combos from Commander Spellbook that need cards not in the deck, most popular first.'),
     ...nearMisses.map(nearMissItem),
@@ -904,7 +917,7 @@ function renderCard(): Child[] {
   const outgoing = connections('out');
   const incoming = connections('in');
   const loops = r.structures.loops.map((l, i) => [l, i] as const).filter(([l]) => l.cards.includes(name));
-  const cardCombos = r.combos.combos.filter((c) => c.cards.includes(name));
+  const cardCombos = [...r.combos.combos, ...r.combos.conditional].filter((c) => c.cards.includes(name));
   const system = r.structures.loopSystems.find((s) => s.cards.includes(name));
   const lb = r.structures.loadBearing.find((l) => l.card === name);
 

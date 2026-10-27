@@ -165,6 +165,8 @@ export function findMillFinishers(cards: Card[]): EngineCombo[] {
       ],
       produces: ['Opponents mill their whole library'],
       prerequisites,
+      // An odd library keeping one card depends on the opponent; the rest (kicker, attacking) is setup.
+      conditions: prerequisites.filter((p) => p.startsWith('an opponent with an odd number')),
       payoffs: [],
       warnings: [],
       netMana: 'none',

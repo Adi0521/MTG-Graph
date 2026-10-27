@@ -135,7 +135,7 @@ export async function runBenchmark({
     if (result.combos.spellbook.status !== 'ok') throw new Error(`Spellbook data unavailable for ${deck.slug}: ${result.combos.spellbook.error}`);
 
     const cardByName = new Map(result.cards.map((c) => [c.name, c]));
-    const sb = result.combos.combos.filter((c) => c.sources.includes('spellbook'));
+    const sb = [...result.combos.combos, ...result.combos.conditional].filter((c) => c.sources.includes('spellbook'));
     const matched = sb.filter((c) => c.sources.includes('engine'));
     const missed = sb.filter((c) => !c.sources.includes('engine'));
     reports.push({
@@ -164,7 +164,7 @@ export async function runBenchmark({
           ),
         }))
         .sort((a, b) => comboKey(a.cards).localeCompare(comboKey(b.cards))),
-      engineOnly: result.combos.combos
+      engineOnly: [...result.combos.combos, ...result.combos.conditional]
         .filter((c) => c.sources.length === 1 && c.sources[0] === 'engine')
         .map((c) => ({ cards: c.cards, produces: c.produces.slice(0, 3) })),
     });

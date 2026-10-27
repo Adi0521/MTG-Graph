@@ -69,18 +69,24 @@ describe('mergeCombos', () => {
   const report = mergeCombos(engine, spellbook, { status: 'ok', fetchedAt: '2026-10-25T00:00:00.000Z' });
 
   it('marks combos found by both sources and keeps engine-only ones', () => {
-    expect(report.combos.map((c) => [c.cards.slice().sort().join(' + '), c.sources])).toEqual([
-      ['Gravecrawler + Phyrexian Altar', ['spellbook', 'engine']],
-      ['Exquisite Blood + Sanguine Bond', ['engine']],
-    ]);
-    const both = report.combos[0]!;
+    expect(report.combos.map((c) => [c.cards.slice().sort().join(' + '), c.sources])).toEqual([['Exquisite Blood + Sanguine Bond', ['engine']]]);
+    expect(report.combos[0]!.steps.at(-1)).toBe('Repeat.');
+    // Spellbook's notable prerequisite ("an additional Zombie") makes Gravecrawler + Phyrexian Altar conditional.
+    expect(report.conditional.map((c) => [c.cards.slice().sort().join(' + '), c.sources])).toEqual([['Gravecrawler + Phyrexian Altar', ['spellbook', 'engine']]]);
+    const both = report.conditional[0]!;
+    expect(both.conditions).toEqual(['You control an additional Zombie.']);
     expect(both.steps).toEqual(['Step one.', 'Step two.', 'Repeat.']);
     expect(both.engine?.netMana).toBe('none');
-    expect(report.combos[1]!.steps.at(-1)).toBe('Repeat.');
+  });
+
+  it('uses the engine\'s conditions when Spellbook data has none recorded', () => {
+    const old = { ...spellbook, included: spellbook.included.map(({ conditions: _, ...c }) => c) };
+    const merged = mergeCombos(engine, old, { status: 'ok' });
+    expect(merged.conditional[0]!.conditions).toEqual(['Gravecrawler: as long as you control a zombie']);
   });
 
   it('turns combos into graph loops', () => {
-    const reasons = comboReasons(report.combos);
+    const reasons = comboReasons([...report.combos, ...report.conditional]);
     expect(reasons.filter((r) => r.from === 'Gravecrawler' || r.to === 'Gravecrawler')).toHaveLength(2);
     expect(reasons.every((r) => r.kind === 'combo')).toBe(true);
   });

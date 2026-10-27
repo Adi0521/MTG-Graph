@@ -88,7 +88,7 @@ export async function analyzeDeck(entries: DeckEntry[], sources: Sources, option
   const combos = await detectCombos(deckCards, byName, sources, options);
 
   const enabledKinds = options.enabledKinds ? new Set(options.enabledKinds) : undefined;
-  const graph = buildGraph(deckCards, { enabledKinds, extraReasons: comboReasons(combos.combos) });
+  const graph = buildGraph(deckCards, { enabledKinds, extraReasons: comboReasons([...combos.combos, ...combos.conditional]) });
   const structures = analyzeStructures(
     graph.nodes.map((n) => n.card.name),
     graph.edges,

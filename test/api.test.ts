@@ -116,7 +116,7 @@ describe('combos in the analysis', () => {
     expect(res.status).toBe(200);
     const body = (await res.json()) as AnalysisResult;
     expect(body.combos.spellbook).toEqual({ status: 'unavailable', error: 'timeout' });
-    expect(body.combos.combos.map((c) => c.sources)).toEqual([['engine']]);
+    expect(body.combos.conditional.map((c) => c.sources)).toEqual([['engine']]);
   });
 
   it('can skip Spellbook per request', async () => {

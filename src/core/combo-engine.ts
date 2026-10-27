@@ -68,7 +68,13 @@ export interface EngineCombo {
   helperAlternatives: Record<string, string[]>;
   steps: ComboStep[];
   produces: string[];
+  /** Everything the combo needs besides its cards: setup (attachments, what to cast first) and conditions. */
   prerequisites: string[];
+  /**
+   * The prerequisites that are conditions on the game rather than setup: board size ("makes at least 5 mana, one
+   * per land"), a creature connecting in combat, an opponent's choices. A combo with any is conditional.
+   */
+  conditions: string[];
   payoffs: { card: string; effect: string }[];
   warnings: string[];
   /** Mana left over per loop, e.g. "{C}{C}", or "none". */
@@ -716,6 +722,15 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   /** Tokens the loop creates but does not consume: fodder for a sacrifice outlet. */
   const spare: string[][] = [];
   const prerequisites = new Set<string>();
+  const conditions = new Set<string>();
+  /** A prerequisite that is a condition on the game, not setup. */
+  const condition = (text: string) => {
+    prerequisites.add(text);
+    conditions.add(text);
+  };
+  /** Rules-text conditions ("as long as you control a zombie", "has three quest counters") are conditions; the
+   * engine's own instructions ("Cast Twinflame, then copy it", "Activate ... first", what to imprint) are setup. */
+  const fromText = (text: string) => (/^(Cast|Activate) |\bimprinted on\b/.test(text) ? prerequisites.add(text) : condition(text));
   let hostOk = true;
 
   cycle.forEach((a, i) => {
@@ -774,7 +789,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       if (b.lifelinkFrom !== a.card) prerequisites.add(`${b.lifelinkFrom} gives ${a.card} lifelink`);
     }
     // Rules-text conditions ("as long as you control a zombie") are prefixed with their card; synthesized ones are full sentences.
-    for (const c of a.conditions) prerequisites.add(/^(as long as|if you control)/.test(c) ? `${a.card}: ${c}` : c);
+    for (const c of a.conditions) fromText(/^(as long as|if you control)/.test(c) ? `${a.card}: ${c}` : c);
     if (a.host) {
       const host = hostOf(cycle, i, ctx);
       if (!isCreature(ctx, host) && host !== ANY_CREATURE) hostOk = false;
@@ -1024,13 +1039,13 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     if (alts.length) helperAlternatives[h.card] = [...new Set(alts)].sort();
   }
   for (const h of helpers) {
-    if (h.kind === 'rider') for (const c of h.ability.conditions) prerequisites.add(`${h.card}: ${c}`);
+    if (h.kind === 'rider') for (const c of h.ability.conditions) fromText(/^(Cast|Activate) |\bimprinted on\b/.test(c) ? c : `${h.card}: ${c}`);
     if (h.kind === 'rider' && h.ability.host) {
       // An aura or equipment falls off a creature the loop flickers, so it goes on one the loop does not.
       const flickered = new Set(cycle.flatMap((a, i) => (has(a, 'blink') ? [cycle[(i + 1) % k]!.card] : [])));
       const attacker = [...events.attacks, ...events.combatDamage].find((c) => !flickered.has(c));
       prerequisites.add(`${h.card} is attached to ${attacker && attacker !== ANY_CREATURE ? attacker : 'a creature that attacks each combat'}`);
-      if (h.ability.trigger?.type === 'combatDamage') prerequisites.add(`${attacker && attacker !== ANY_CREATURE ? attacker : 'the equipped creature'} deals combat damage to a player each combat`);
+      if (h.ability.trigger?.type === 'combatDamage') condition(`${attacker && attacker !== ANY_CREATURE ? attacker : 'the equipped creature'} deals combat damage to a player each combat`);
     }
     if (h.kind === 'activationReducer' && manaActivated[0]) prerequisites.add(`${h.card} is attached to ${manaActivated[0].card}`);
     if (h.kind === 'blinkTarget') {
@@ -1056,20 +1071,20 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const chosen = params(helpers) ?? { extra: 0, x: 0 };
   extraCreatures = chosen.extra;
   variableX = chosen.x;
-  if (extraCreatures) prerequisites.add(`You have at least ${extraCreatures} other creature cards in your graveyard or on the battlefield`);
-  for (const v of variableMana) prerequisites.add(`${v.card} makes at least ${variableX} mana (${v.variable})`);
+  if (extraCreatures) condition(`You have at least ${extraCreatures} other creature cards in your graveyard or on the battlefield`);
+  for (const v of variableMana) condition(`${v.card} makes at least ${variableX} mana (${v.variable})`);
   for (const h of helpers) {
     const v = h.kind === 'rider' ? h.ability.outputs.find((o) => o.type === 'mana' && o.variable && o.fromLands) : undefined;
-    if (v && v.type === 'mana') prerequisites.add(`${h.card} makes at least ${variableX} mana (${v.variable})`);
+    if (v && v.type === 'mana') condition(`${h.card} makes at least ${variableX} mana (${v.variable})`);
   }
   for (const [i, a] of cycle.entries()) {
     const t = a.trigger;
     if ((t?.type === 'combatDamage' || (t?.type === 'attack' && a.host)) && hostOf(cycle, i, ctx) === ANY_CREATURE) prerequisites.add(`${a.card} is attached to a creature you control that can attack`);
-    if (t?.type === 'combatDamage') prerequisites.add(`${t.source === 'self' ? a.card : hostOf(cycle, i, ctx) === ANY_CREATURE ? 'the equipped creature' : hostOf(cycle, i, ctx)} deals combat damage to a player each combat`);
+    if (t?.type === 'combatDamage') condition(`${t.source === 'self' ? a.card : hostOf(cycle, i, ctx) === ANY_CREATURE ? 'the equipped creature' : hostOf(cycle, i, ctx)} deals combat damage to a player each combat`);
   }
   for (const h of helpers) {
-    if (h.kind === 'landAmplifier') prerequisites.add(`${h.card} was cast this turn and the lands untapped are Islands`);
-    if (h.kind === 'reducer' && h.variable) prerequisites.add(h.variable.replace('X', String(variableX)));
+    if (h.kind === 'landAmplifier') condition(`${h.card} was cast this turn and the lands untapped are Islands`);
+    if (h.kind === 'reducer' && h.variable) condition(h.variable.replace('X', String(variableX)));
     if (h.kind === 'reducer' && h.what === 'chosen') {
       const types = [...new Set(castAbilities.flatMap((a) => (a.casts ?? []).filter((t) => t !== 'creature' || !(a.casts ?? []).includes('artifact'))))];
       prerequisites.add(`${h.card} names ${types.join(' or ') || 'the type of spell the loop casts'}`);
@@ -1164,6 +1179,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     steps: cycle.map((a, i) => ({ card: a.card, ability: a.text, then: THEN[bound[i]!.res](bound[i]!, cycle[(i + 1) % k]!.card) })),
     produces: [...new Set(produces)],
     prerequisites: [...prerequisites],
+    conditions: [...prerequisites].filter((p) => conditions.has(p)),
     payoffs,
     warnings,
     netMana: describeMana(exact),
