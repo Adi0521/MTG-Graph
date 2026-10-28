@@ -1,0 +1,39 @@
+// Archetype: Abzan creature recursion (Karador, Ghost Chieftain)
+Commander
+1 Karador, Ghost Chieftain
+Deck
+1 Saffi Eriksdotter
+1 Karmic Guide
+1 Reveillark
+1 Sun Titan
+1 Fiend Hunter
+1 Viscera Seer
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Blood Artist
+1 Zulaport Cutthroat
+1 Kitchen Finks
+1 Melira, Sylvok Outcast
+1 Mikaeus, the Unhallowed
+1 Triskelion
+1 Woodfall Primus
+1 Eternal Witness
+1 Sakura-Tribe Elder
+1 Sol Ring
+1 Arcane Signet
+1 Fellwar Stone
+1 Swords to Plowshares
+1 Path to Exile
+1 Demonic Tutor
+1 Living Death
+1 Animate Dead
+1 Necromancy
+1 Ravenous Chupacabra
+1 Fleshbag Marauder
+1 Grave Pact
+1 Altar of Dementia
+1 Body Snatcher
+1 Resurrection Orb
+1 Felidar Guardian
+1 Emeria Shepherd
+1 Archangel of Thune

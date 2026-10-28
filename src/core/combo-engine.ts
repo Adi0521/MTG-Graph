@@ -7,6 +7,8 @@ import {
   blocksCounters,
   blocksMinusCounters,
   nonlegendaryCopier,
+  animator,
+  parseManaCost,
   tokenModifier,
   applyTokenMods,
   type TokenMod,
@@ -123,6 +125,10 @@ export interface HelperIndex {
   nonlegendaryCopiers: string[];
   /** Peregrin Took, Academy Manufactor, Chatterfang, Doubling Season: what token creation also makes. */
   tokenModifiers: { card: string; mod: TokenMod }[];
+  /** Opalescence, Starfield of Nyx: enchantments (or artifacts) are creatures. */
+  animators: { card: string; what: 'enchantment' | 'artifact'; condition?: string }[];
+  /** Cards that can make the first copy of a spell (Kalamax, Dualcaster Mage, Reverberate, Thousand-Year Storm). */
+  copyStarters: string[];
   etbDoublers: string[];
   artifactTappers: { card: string; mana: ManaProduction }[];
   counterBlockers: string[];
@@ -139,6 +145,8 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
     reducers: cards.flatMap((c) => costReducers(c)),
     activationReducers: cards.flatMap((c) => activationReducer(c) ?? []),
     nonlegendaryCopiers: cards.filter(nonlegendaryCopier).map((c) => c.name),
+    animators: cards.flatMap((c) => animator(c) ?? []),
+    copyStarters: cards.filter((c) => SPELL_COPIER.test(c.text)).map((c) => c.name),
     tokenModifiers: cards.flatMap((c) => {
       const mod = tokenModifier(c);
       return mod ? [{ card: c.name, mod }] : [];
@@ -157,7 +165,7 @@ export function buildHelperIndex(cards: Card[]): HelperIndex {
 
 export const DEFAULT_ENGINE_OPTIONS: EngineOptions = { maxLoopAbilities: 6, searchBudget: 8_000_000 };
 
-export type Resource = 'food' | 'toGraveyard' | 'mill' | 'combat' | 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
+export type Resource = 'exiled' | 'landfall' | 'food' | 'toGraveyard' | 'mill' | 'combat' | 'free' | 'library' | 'minus' | 'spellCopy' | 'mana' | 'body' | 'death' | 'leave' | 'selfEtb' | 'etb' | 'untap' | 'reset' | 'lifegain' | 'drain' | 'counter' | 'draw' | 'damage' | 'hand' | 'cast';
 
 export interface Binding {
   res: Resource;
@@ -179,6 +187,8 @@ export interface Binding {
   viaSquirrels?: boolean;
   /** The body is tapped (Earthcraft), not sacrificed. */
   tapped?: boolean;
+  /** The creature was sacrificed in response to its own enter trigger, which still resolves. */
+  responded?: boolean;
 }
 
 export interface Context {
@@ -189,6 +199,8 @@ export interface Context {
   copiers: { card: string; cost: number }[];
   nonlegendaryCopiers: string[];
   tokenModifiers: { card: string; mod: TokenMod }[];
+  animators: { card: string; what: 'enchantment' | 'artifact'; condition?: string }[];
+  copyStarters: string[];
   /** Cards that stop a single -1/-1 counter (Vizier of Remedies). */
   counterPreventers: string[];
   /** Panharmonicon-style cards that double enter-the-battlefield triggers. */
@@ -207,6 +219,9 @@ export interface Context {
   manaAmplifiers: string[];
   /** Every parsed ability in the deck, for helpers and payoffs. */
   deckAbilities: Ability[];
+  /** Creatures something can return from the graveyard: the only ones worth sacrificing in response to their own
+   * enter trigger (Felidar Guardian, returned by Karmic Guide). Limits the search graph. */
+  returnable?: Set<string>;
   /** Loops the simulator rejected (for diagnostics). */
   rejected: RejectedLoop[];
   /** Cards actually in the deck (helpers may also come from a discovery pool). */
@@ -263,6 +278,14 @@ export const ANY_CREATURE = 'a creature you control';
 /** Stand-in host for an aura on a land (Squirrel Nest). */
 export const ANY_LAND = 'a basic land you control';
 
+/** Copies an instant or sorcery: Fork, Reverberate, Dualcaster Mage, Kalamax ("copy that spell"), Thousand-Year Storm. */
+const SPELL_COPIER = /\bcopy (?:target instant or sorcery spell|target instant spell|that spell|it for each)\b/;
+
+/** Grim Hireling, Nature's Will: "whenever one or more creatures you control deal combat damage to a player". */
+const perPlayer = (a: Ability) => a.trigger?.type === 'combatDamage' && Boolean(a.trigger.perPlayer);
+
+const parseManaCostOf = (c: Card) => parseManaCost(c.manaCost);
+
 /** Tokens one ability creates (before replacement effects). */
 function tokensOf(a: Ability): TokenCounts {
   const c: TokenCounts = { creatures: 0, treasures: 0, foods: 0, clues: 0 };
@@ -287,7 +310,7 @@ function freshAttacker(abilities: Ability[], i: number, name: string, ctx: Conte
   const card = ctx.cardByName.get(name);
   if (!card || !isCreature(ctx, name)) return false;
   const copy = has(a, 'copy');
-  if (copy?.haste && (copy.target === 'host' ? hostOf(abilities, i, ctx) === name : matchesTarget(copy.target, card, a.card))) return true;
+  if (copy?.haste && copy.target !== 'entering' && (copy.target === 'host' ? hostOf(abilities, i, ctx) === name : matchesTarget(copy.target, card, a.card))) return true;
   return blinkHits(abilities, i, name, ctx) && hasHaste(ctx, name);
 }
 
@@ -351,7 +374,10 @@ function enteringObject(abilities: Ability[], i: number, ctx: Context, input?: B
   if (a.kind === 'recast' || has(a, 'recur') || castsPermanent(a)) return card(a.card);
   const tokens = has(a, 'creature');
   if (tokens) return { object: null, token: true, types: tokens.artifact ? ['artifact', 'creature'] : ['creature'], pt: tokens.pt };
-  if (has(a, 'copy')) return { object: null, token: true, types: ['creature'], pt: null };
+  const copy = has(a, 'copy');
+  // A token copy of a card is that card (its abilities), as a token: Mirrorworks' copy of Myr Retriever.
+  if (copy?.target === 'entering') return input?.object ? { object: input.object, token: true, types: typesOf(ctx, input.object), pt: null } : null;
+  if (copy) return { object: null, token: true, types: ['creature'], pt: null };
   if (blinkHits(abilities, i, next.card, ctx)) return card(next.card);
   const reanimated = reanimatedObject(abilities, i, ctx);
   if (reanimated) return card(reanimated);
@@ -410,11 +436,19 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         return { res: 'death', object, token, types };
       }
       case 'selfEtb': {
+        // Holding priority: sacrifice a creature in response to its own enter trigger, which still resolves (Felidar
+        // Guardian's flicker, after Felidar is sacrificed to Ashnod's Altar).
+        if (a.kind === 'activated' && a.cost.sacrifice && input?.res === 'body' && input.object === next.card) return { res: 'selfEtb', object: next.card, responded: true };
         if ((a.kind === 'recast' || has(a, 'recur') || castsPermanent(a)) && a.card === next.card) return { res: 'selfEtb', object: next.card };
         const copy = has(a, 'copy');
         if (copy) {
           // "a copy of this creature" (Pack Rat) is itself; on a granted ability (Splinter Twin) it is the host.
-          const ok = copy.target === 'host' ? hostOf(abilities, i, ctx) === next.card && isCreature(ctx, next.card) : matchesTarget(copy.target, nextCard, a.card);
+          const ok =
+            copy.target === 'entering'
+              ? input?.object === next.card
+              : copy.target === 'host'
+                ? hostOf(abilities, i, ctx) === next.card && isCreature(ctx, next.card)
+                : matchesTarget(copy.target, nextCard, a.card);
           if (ok) return { res: 'selfEtb', object: next.card };
         }
         if (blinkHits(abilities, i, next.card, ctx)) return { res: 'selfEtb', object: next.card };
@@ -428,8 +462,14 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         return sacrificed || blinkHits(abilities, i, next.card, ctx) ? { res: 'leave', object: next.card } : null;
       }
       case 'etb': {
+        // Holding priority: sacrifice the permanent in response to the trigger its entering caused (Mirrorworks copies
+        // Myr Retriever from what it last was).
+        if (a.kind === 'activated' && a.cost.sacrifice && input?.res === 'body' && input.object && input.object !== next.card && !input.token) {
+          const types = input.types ?? typesOf(ctx, input.object);
+          if (types.includes(t.what ?? 'creature') && !(t.another && input.object === next.card)) return { res: 'etb', object: input.object, token: false, types, pt: null, responded: true };
+        }
         const entering = enteringObject(abilities, i, ctx, input);
-        if (!entering || !entering.types.includes('creature')) return null;
+        if (!entering || !entering.types.includes(t.what ?? 'creature')) return null;
         if (t.nontoken && entering.token) return null;
         if (t.another && entering.object === next.card) return null;
         if (t.pt && entering.pt !== t.pt) return null;
@@ -469,6 +509,12 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         return has(a, 'minusCounter') ? { res: 'minus' } : null;
       case 'mill':
         return has(a, 'mill') ? { res: 'mill' } : null;
+      case 'landfall': {
+        // Felidar Guardian flickering a land you control (a Plains, for Emeria Shepherd).
+        const blink = has(a, 'blink');
+        const lands = blink && typeof blink.target !== 'string' && !blink.target.nonland && (blink.target.types.includes('permanent') || blink.target.types.includes('land'));
+        return lands ? { res: 'landfall', object: ANY_LAND } : null;
+      }
       case 'foodSacrificed':
         return a.cost.food ? { res: 'food' } : null;
       case 'landToGraveyard': {
@@ -480,7 +526,14 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
         return has(a, 'spellCopy') ? { res: 'spellCopy' } : null;
       case 'cast': {
         const casts = a.casts ?? [];
-        const ok = t.what === 'any' ? casts.length > 0 : t.what === 'artifact' ? casts.includes('artifact') : casts.includes('instant') || casts.includes('sorcery');
+        const ok =
+          t.what === 'any'
+            ? casts.length > 0
+            : t.what === 'artifact'
+              ? casts.includes('artifact')
+              : t.what === 'historic'
+                ? casts.includes('artifact') || casts.includes('legendary')
+                : casts.includes('instant') || casts.includes('sorcery');
         return ok ? { res: 'cast' } : null;
       }
     }
@@ -495,7 +548,9 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
     const bounces = bounce && (bounce.target === 'self' ? a.card === next.card : matchesTarget(bounce.target, nextCard, a.card));
     if (bounces) return { res: 'hand', object: next.card };
     const toHand = has(a, 'toHand');
-    if (toHand && matchesTarget(toHand.target, nextCard, a.card)) {
+    // A dying token copy returning "another" card with its own name (the nontoken Myr Retriever) is a different object.
+    const source = input?.token && input.object === a.card ? '' : a.card;
+    if (toHand && matchesTarget(toHand.target, nextCard, source)) {
       // Scrap Trawler: the returned card must have lesser mana value than the artifact that died.
       const lesserOk = !toHand.lesserMv || (input?.res === 'death' && input.object != null && mv(ctx, next.card) < mv(ctx, input.object));
       if (lesserOk) return { res: 'hand', object: next.card };
@@ -511,7 +566,7 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
   }
   // A body to sacrifice or (Earthcraft) tap: a permanent this step puts onto the battlefield, or a Squirrel that
   // Chatterfang adds to any token this step makes.
-  const sac = next.cost.sacrifice ?? (next.cost.tapCreature ? { what: 'creature' as const, another: false, nontoken: false } : null);
+  const sac = next.cost.sacrifice ?? (next.cost.tapCreature || next.cost.exile ? { what: 'creature' as const, another: false, nontoken: false } : null);
   if (sac) {
     const entering = putsBodyOnBattlefield(a) ? enteringObject(abilities, i, ctx, input) : null;
     const subtype = 'subtype' in sac ? sac.subtype : undefined;
@@ -522,7 +577,7 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
       !(sac.another && entering.object === next.card) &&
       (!subtype || (entering.token ? has(a, 'creature')?.subtype === subtype : new RegExp(`\\b${subtype}\\b`, 'i').test(ctx.cardByName.get(entering.object ?? '')?.typeLine ?? '')))
     ) {
-      return { res: 'body', ...entering, ...(next.cost.sacrifice ? {} : { tapped: true }) };
+      return { res: 'body', ...entering, ...(next.cost.sacrifice || next.cost.exile ? {} : { tapped: true }) };
     }
     if (makesTokens(a) && ctx.tokenModifiers.some((m) => m.mod === 'squirrels') && (!subtype || subtype === 'squirrel') && !sac.nontoken) {
       return { res: 'body', object: null, token: true, types: ['creature'], pt: '1/1', viaSquirrels: true, ...(next.cost.sacrifice ? {} : { tapped: true }) };
@@ -545,7 +600,9 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
     }
   }
   // A blinked planeswalker returns as a new object, so its loyalty ability can be used again.
-  if (next.cost.loyalty && blinkHits(abilities, i, next.card, ctx)) return { res: 'reset', object: next.card };
+  if ((next.cost.loyalty || next.cost.ownCounter) && blinkHits(abilities, i, next.card, ctx)) return { res: 'reset', object: next.card };
+  // Aggravated Assault, Najeela: another extra combat right after one (what combat makes pays for it, checked by the ledger).
+  if (next.kind === 'activated' && has(next, 'extraCombat') && has(a, 'extraCombat')) return { res: 'combat' };
   if (totalMana(next.cost.mana) > 0 && (has(a, 'mana') || has(a, 'tokenMana'))) return { res: 'mana' };
   // Academy Manufactor turns the Food that Peregrin Took adds to any token into a Treasure too.
   if (totalMana(next.cost.mana) > 0 && makesTokens(a) && ctx.tokenModifiers.some((m) => m.mod === 'oneOfEach')) return { res: 'mana' };
@@ -553,7 +610,9 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
   if (next.cost.life > 0 && has(a, 'lifegain')) return { res: 'lifegain' };
   if (isFreeActivation(next)) return { res: 'free' };
   // Recasting a card that was just sacrificed (Gravecrawler, free with Rooftop Storm): the death is what matters.
-  if (next.kind === 'recast' && a.cost.sacrifice && input?.res === 'body' && input.object === next.card) return { res: 'death', object: next.card };
+  if (next.kind === 'recast' && !next.fromExile && a.cost.sacrifice && input?.res === 'body' && input.object === next.card) return { res: 'death', object: next.card };
+  // Casting from exile a card just exiled (Food Chain exiling Eternal Scourge).
+  if (next.kind === 'recast' && next.fromExile && a.cost.exile && input?.res === 'body' && input.object === next.card) return { res: 'exiled', object: next.card };
   if (next.cost.removeCounter) {
     const counter = has(a, 'counter');
     const reaches =
@@ -573,8 +632,18 @@ function feed(abilities: Ability[], i: number, input: Binding | undefined, ctx: 
 export { payMana };
 
 function describeMana(m: ManaProduction): string {
-  const parts = COLORS.flatMap((c) => Array<string>(m[c]).fill(`{${c}}`));
-  if (m.any) parts.push(...Array<string>(m.any).fill('{any}'));
+  // A loop can net colored mana while spending more any-color mana than it makes (Radha's red paying for what
+  // Treasures paid before): the shortfall comes out of the colored mana.
+  const net = { ...m };
+  let deficit = Math.max(0, -net.any);
+  net.any = Math.max(0, net.any);
+  for (const c of COLORS) {
+    const used = Math.min(deficit, Math.max(0, net[c]));
+    net[c] = Math.max(0, net[c]) - used;
+    deficit -= used;
+  }
+  const parts = COLORS.flatMap((c) => Array<string>(net[c]).fill(`{${c}}`));
+  if (net.any) parts.push(...Array<string>(net.any).fill('{any}'));
   return parts.join('') || 'none';
 }
 
@@ -593,6 +662,8 @@ interface Events {
   mills: number;
   /** Food sacrifices (Camellia). */
   foodSacrifices: number;
+  /** Spells copied (Kalamax's counters, magecraft). */
+  copies: number;
   deaths: { object: string | null; token: boolean; types: string[] }[];
   etbs: { object: string | null; token: boolean; types: string[] }[];
   casts: string[][];
@@ -612,13 +683,17 @@ function riderFires(r: Ability, ev: Events): number {
     case 'etb':
       return ev.etbs.filter((e) => e.types.includes('creature') && !(t.nontoken && e.token) && !(t.another && e.object === r.card)).length;
     case 'cast':
-      return ev.casts.filter((c) => (t.what === 'any' ? true : t.what === 'artifact' ? c.includes('artifact') : c.includes('instant') || c.includes('sorcery'))).length;
+      return ev.casts.filter((c) =>
+        t.what === 'any' ? true : t.what === 'artifact' ? c.includes('artifact') : t.what === 'historic' ? c.includes('artifact') || c.includes('legendary') : c.includes('instant') || c.includes('sorcery'),
+      ).length;
     case 'minus':
       return ev.minus;
     case 'mill':
       return ev.mills;
     case 'foodSacrificed':
       return ev.foodSacrifices;
+    case 'spellCopied':
+      return ev.copies;
     // An aura or equipment's trigger is on one attacking creature, assumed to attack in every combat.
     case 'attack':
       return t.source === 'self' ? ev.attacks.filter((c) => c === r.card).length : ev.combats;
@@ -651,6 +726,10 @@ export type Helper =
   | { kind: 'nonlegendary'; card: string }
   /** A replacement effect on token creation (Academy Manufactor, Peregrin Took, Chatterfang, Doubling Season). */
   | { kind: 'tokenModifier'; card: string; mod: TokenMod }
+  /** Opalescence: makes an enchantment a creature (so Parallax Wave can exile itself). */
+  | { kind: 'animator'; card: string; what: 'enchantment' | 'artifact'; condition?: string }
+  /** Kalamax, Dualcaster Mage: makes the first copy of a copy spell, which then copies the original over and over. */
+  | { kind: 'copyStarter'; card: string }
   | { kind: 'copier'; card: string; cost: number }
   /** The second target of a two-target flicker (Ghostly Flicker + Peregrine Drake). */
   | { kind: 'blinkTarget'; card: string; ability: Ability }
@@ -681,6 +760,8 @@ const HELPER_ORDER: Helper['kind'][] = [
   'minusBlocker',
   'nonlegendary',
   'tokenModifier',
+  'animator',
+  'copyStarter',
 ];
 
 /** Does a cost reducer apply to this cast (from hand or, for recast, from the graveyard)? */
@@ -710,7 +791,7 @@ const THEN: Record<Resource, (b: Binding, next: string) => string> = {
   mana: (_, next) => `its mana pays for ${next}`,
   body: (b, next) => `${b.object ?? (b.viaSquirrels ? 'the extra Squirrel' : 'the token')} is ${b.tapped ? 'tapped for' : 'sacrificed to'} ${next}`,
   death: (b, next) => `${b.object ?? 'the token'} dying triggers ${next}`,
-  selfEtb: (_, next) => `${next} enters, triggering its ability`,
+  selfEtb: (b, next) => (b.responded ? `${next}'s enter trigger, already on the stack, still resolves` : `${next} enters, triggering its ability`),
   etb: (b, next) => `${b.object ?? 'the token'} entering triggers ${next}`,
   untap: (b) => (b.viaCopy ? `the new token copy of ${b.object} has haste, so it can use the ability again` : `this untaps ${b.object}`),
   lifegain: (b, next) => (b.lifelinkFrom ? `the damage, with lifelink, gains life and triggers ${next}` : `the lifegain triggers ${next}`),
@@ -727,6 +808,8 @@ const THEN: Record<Resource, (b: Binding, next: string) => string> = {
   cast: (_, next) => `casting the spell triggers ${next}`,
   mill: (_, next) => `the milled cards going to the graveyard trigger ${next}`,
   food: (_, next) => `sacrificing the Food triggers ${next}`,
+  landfall: (_, next) => `the land returns to the battlefield, triggering ${next}`,
+  exiled: (b, next) => `${b.object} is in exile, so ${next} can be cast from there`,
   toGraveyard: (b, next) => `${b.object} going to the graveyard triggers ${next}`,
   combat: (b, next) => (b.object ? `${b.object} attacks in the next combat, triggering ${next}` : `the combat continues, triggering ${next}`),
 };
@@ -767,22 +850,26 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   // Every loyalty ability needs its planeswalker blinked within the loop.
   for (let i = 0; i < k; i++) {
-    if (cycle[i]!.cost.loyalty && !bound.some((b) => b.res === 'reset' && b.object === cycle[i]!.card)) return null;
+    if ((cycle[i]!.cost.loyalty || cycle[i]!.cost.ownCounter) && !bound.some((b) => b.res === 'reset' && b.object === cycle[i]!.card)) return null;
   }
   // Every sacrifice cost must be paid by a permanent the loop provides, and every discard by a card it returns to hand.
   for (let i = 0; i < k; i++) if (cycle[i]!.cost.sacrifice && inputOf(i).res !== 'body') return null;
   for (let i = 0; i < k; i++) if (cycle[i]!.cost.discard && inputOf(i).res !== 'hand') return null;
   for (let i = 0; i < k; i++) if (cycle[i]!.cost.tapCreature && inputOf(i).res !== 'body') return null;
+  for (let i = 0; i < k; i++) if (cycle[i]!.cost.exile && inputOf(i).res !== 'body') return null;
+  const exiledInLoop = new Set(cycle.flatMap((a, i) => (a.cost.exile && inputOf(i).object ? [inputOf(i).object!] : [])));
   // Recursion only works for cards that died during the loop; casting from hand only for cards returned to hand.
   const died = new Set(
-    [...cycle.flatMap((a, i) => (a.cost.sacrifice ? [inputOf(i).object] : [])), ...bound.filter((b) => b.res === 'death').map((b) => b.object)].filter(
+    [...cycle.flatMap((a, i) => (a.cost.sacrifice && !inputOf(i).token ? [inputOf(i).object] : [])), ...bound.filter((b) => b.res === 'death' && !b.token).map((b) => b.object)].filter(
       (o): o is string => Boolean(o),
     ),
   );
   const freeSacrifice = cycle.some((a) => a.kind === 'activated' && a.cost.sacrifice && !a.cost.tap && totalMana(a.cost.mana) === 0 && a.cost.life === 0);
   const extraSacrifices: string[] = [];
   for (const [i, a] of cycle.entries()) {
-    if ((a.kind === 'recast' || has(a, 'recur')) && !died.has(a.card)) return null;
+    if (a.kind === 'recast' && a.fromExile) {
+      if (!exiledInLoop.has(a.card)) return null;
+    } else if ((a.kind === 'recast' || has(a, 'recur')) && !died.has(a.card)) return null;
     // Instants and sorceries go to the graveyard when cast; permanents must have died first.
     const spellOnly = a.kind === 'cast' && !castsPermanent(a);
     if (a.kind === 'cast' && a.from === 'library') {
@@ -804,6 +891,23 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   // Dredge returns the card from the graveyard, so the loop must have put it there (discarded it).
   for (const a of cycle) if (has(a, 'dredge') && !bound.some((b) => b.res === 'toGraveyard' && b.object === a.card)) return null;
+  // A spell whose cast trigger is the next step (Teshar) is still on the stack while that trigger's chain resolves, so
+  // a bounce in that chain (Kor Skyfisher) cannot return it: the loop alternates two such cards. Require a second one.
+  const alternates: string[] = [];
+  for (let i = 0; i < k; i++) {
+    const c = cycle[i]!;
+    if (c.kind !== 'cast' || cycle[(i + 1) % k]!.trigger?.type !== 'cast') continue;
+    const bounced = cycle.some((b, j) => has(b, 'bounce') && bound[j]!.res === 'hand' && bound[j]!.object === c.card);
+    if (!bounced) continue;
+    const self = ctx.cardByName.get(c.card)!;
+    const spec = cycle.map((b) => has(b, 'bounce')?.target).find((t) => t && t !== 'self');
+    const twin = [...ctx.deckCards]
+      .filter((n) => n !== c.card)
+      .map((n) => ctx.cardByName.get(n)!)
+      .find((o) => o && o.cmc <= self.cmc && totalMana(parseManaCostOf(o)) <= totalMana(parseManaCostOf(self)) && (c.casts ?? []).every((t) => t === 'legendary' || o.typeLine.toLowerCase().includes(t)) && (!spec || typeof spec === 'string' || matchesTarget(spec, o, '')));
+    if (!twin) return null;
+    alternates.push(`${c.card} is still on the stack when the trigger resolves, so alternate it with ${twin.name}`);
+  }
   // Counters removed must be put back.
   for (let i = 0; i < k; i++) if (cycle[i]!.cost.removeCounter && inputOf(i).res !== 'counter') return null;
 
@@ -816,7 +920,10 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   }
   const amountOf = (i: number, o: { amount: number }) => (o.amount === 0 ? (bound[i]!.amount ?? inputOf(i).amount ?? 1) : o.amount);
 
-  const events: Events = { combats: 0, attacks: [], combatDamage: [], minus: 0, mills: 0, foodSacrifices: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
+  const creatureSpendOnly = cycle
+    .filter((a) => totalMana(a.cost.mana) > 0)
+    .every((a) => (a.kind === 'cast' || (a.kind === 'recast' && a.isCast)) && typesOf(ctx, a.card).includes('creature'));
+  const events: Events = { combats: 0, attacks: [], combatDamage: [], minus: 0, mills: 0, foodSacrifices: 0, copies: 0, deaths: [], etbs: [], casts: [], lifegains: 0, drains: 0, draws: 0 };
   for (const name of extraSacrifices) events.deaths.push({ object: name, token: false, types: typesOf(ctx, name) });
   const baseMana = emptyProduction();
   let baseLife = 0;
@@ -853,7 +960,10 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     const consumedAsBody = bound[i]!.res === 'body';
     let tokenSelfSacrificed = false;
     for (const o of a.outputs) {
-      if (o.type === 'mana' && !o.variable) addMana(baseMana, o.mana);
+      if (o.type === 'mana' && o.plusMv !== undefined) {
+        // "Spend this mana only to cast creature spells": usable only if every cost the loop pays is a creature spell.
+        if (!o.creatureSpells || creatureSpendOnly) addMana(baseMana, { ...emptyProduction(), any: o.plusMv + (inputOf(i).object ? mv(ctx, inputOf(i).object!) : 0) });
+      } else if (o.type === 'mana' && !o.variable) addMana(baseMana, o.mana);
       // A token that sacrifices itself for mana cannot also be the fodder passed to the next step.
       if (o.type === 'tokenMana' && !consumedAsBody) {
         addMana(baseMana, o.mana);
@@ -881,6 +991,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       if (o.type === 'draw') events.draws += o.amount;
       if (o.type === 'minusCounter') events.minus++;
       if (o.type === 'mill') events.mills++;
+      if (o.type === 'spellCopy') events.copies++;
     }
     // Tokens not passed on as fodder and not sacrificed for their own mana are left over.
     const made = has(a, 'creature');
@@ -910,12 +1021,16 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     const returned = returnedExiled(a, cycle[(i + 1) % k]!, ctx);
     if (!has(a, 'returnExiled')) continue;
     if (!returned || !events.etbs.some((e) => e.object === a.card)) return null;
+    // Flickering Fiend Hunter puts the new one's enter trigger and the old one's leave trigger on the stack together:
+    // the new one picks its target while the returned card is still in exile, so it cannot exile it again.
+    if (cycle.some((_, j) => blinkHits(cycle, j, a.card, ctx))) return null;
     prerequisites.add(`${a.card}'s enter ability exiles ${returned} each time`);
   }
   for (const a of [...cycle]) {
     if (a.outputs.some((o) => o.type === 'mana' && o.fromLands)) prerequisites.add(`${a.card}: assumes the lands it untaps make the colors you need`);
   }
 
+  for (const text of alternates) prerequisites.add(text);
   const loopCardSet = new Set(cycle.flatMap((a) => (a.with ? [a.card, a.with] : [a.card])));
   if (seed) {
     if (!bound.some((b) => b.object === seed)) return null;
@@ -959,6 +1074,12 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   const loopMods = ctx.tokenModifiers.filter((m) => cycle.some((a) => a.card === m.card)).map((m) => m.mod);
   const needsSquirrels = bound.some((b) => b.viaSquirrels) && !loopMods.includes('squirrels');
   const makesAnyTokens = cycle.some(makesTokens) || cycle.some((a) => a.cost.food);
+  // A copy of Fork copying the original Fork, forever: something else has to make the first copy.
+  const copyChain = cycle.every((a) => a.id.endsWith('#copied') && has(a, 'spellCopy') && a.trigger?.type === 'spellCopy');
+  const copyPayoffs = new Set(ctx.deckAbilities.filter((a) => a.trigger?.type === 'spellCopied').map((a) => a.card));
+  // Parallax Wave exiling itself has to be a creature: an animator that covers its card type.
+  const animated = cycle.filter((a) => a.needsCreature).map((a) => typesOf(ctx, a.card));
+  const needsAnimator = animated.length ? (['enchantment', 'artifact'] as const).filter((t) => animated.every((ts) => ts.includes(t))) : null;
   const massReanimate = cycle.some((a) => has(a, 'massReanimate'));
   let extraCreatures = 0;
   // Mana that scales with the board (Priest of Titania): the loop picks how many units it needs.
@@ -972,7 +1093,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     return a.kind === 'activated' && a.cost.tap && m && !typesOf(ctx, a.card).includes('land') ? [m.mana] : [];
   });
 
-  const ledgerFor = (helpers: Helper[], extra = 0, x = 0): { mana: ManaProduction; cost: ManaCost; life: number } => {
+  const ledgerFor = (helpers: Helper[], extra = 0, x = 0, players = 1): { mana: ManaProduction; cost: ManaCost; life: number } => {
     const mana = { ...baseMana };
     for (const v of variableMana) addMana(mana, v.mana, x);
     const firstUnit = (m: ManaProduction): ManaProduction => {
@@ -1033,7 +1154,9 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
         for (const o of h.ability.outputs) {
           // Untapping all lands scales with the lands you control (a stated requirement); other board-dependent
           // rider mana (Mana Echoes) counts as one unit, as that is all it is sure to make.
-          if (o.type === 'mana') addMana(mana, o.mana, riderTimes(h) * (o.variable && o.fromLands ? x : 1));
+          // Board-dependent amounts the loop states as conditions: lands untapped, the size of the attack. A Treasure
+          // maker that triggers once per player dealt damage (Grim Hireling) makes them for `players` opponents.
+          if (o.type === 'mana') addMana(mana, o.mana, riderTimes(h) * (o.variable && (o.fromLands || o.combat) ? x : 1) * (o.treasure && perPlayer(h.ability) ? players : 1));
           if (o.type === 'lifegain') life += o.amount * h.fires;
           if (o.type === 'selfLifeLoss') life -= o.amount * h.fires;
           if (o.type === 'creature') for (let n = 0; n < o.count * h.fires; n++) spareBodies.push(o.artifact ? ['artifact', 'creature'] : ['creature']);
@@ -1072,31 +1195,38 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   };
 
   const hasEvents =
-    cycle.some((a) => a.cost.discard) ||
+    cycle.some((a) => a.cost.discard || a.id.endsWith('#selfExile')) ||
+    events.copies > 0 ||
     events.combats > 0 ||
     events.deaths.length > 0 || events.etbs.length > 0 || events.casts.length > 0 || events.draws > 0 || events.drains > 0 || events.lifegains > 0 || counters > 0 || tokens > 0;
   // -1/-1 counter costs need Vizier of Remedies, unless the creature is meant to die and come back (undying).
   // Each death by -1/-1 counter uses up a 1/1 token the loop has to make (Nest of Scarabs' Insects).
   const counterKills = bound.filter((b) => b.res === 'death' && b.hadMinus).length;
   const needsPreventer = cycle.some((a) => a.cost.minusCounter && !cycle.some((b) => b.card === a.card && /#(undying|persist)$/.test(b.id)));
-  const worksWith = (helpers: Helper[], extra: number, x: number) => {
-    const l = ledgerFor(helpers, extra, x);
+  const worksWith = (helpers: Helper[], extra: number, x: number, players: number) => {
+    const l = ledgerFor(helpers, extra, x, players);
     const left = payMana(l.mana, l.cost);
     return left !== null && l.life >= 0 && (hasEvents || totalProduction(left) > 0);
   };
   const MAX_EXTRA_CREATURES = 8;
   /** Smallest board requirements (other creatures for Living Death, units of variable mana) that make it work. */
-  const params = (helpers: Helper[]): { extra: number; x: number } | null => {
+  const params = (helpers: Helper[]): { extra: number; x: number; players: number } | null => {
     if (needsPreventer && !helpers.some((h) => h.kind === 'counterPreventer')) return null;
     if (needsDoubler && !helpers.some((h) => h.kind === 'etbDoubler')) return null;
     if (needsNonlegendary && !helpers.some((h) => h.kind === 'nonlegendary')) return null;
     if (needsSquirrels && !helpers.some((h) => h.kind === 'tokenModifier' && h.mod === 'squirrels')) return null;
-    const variableReducer = helpers.some((h) => (h.kind === 'reducer' && h.variable) || (h.kind === 'rider' && h.ability.outputs.some((o) => o.type === 'mana' && o.variable && o.fromLands)));
+    if (needsAnimator && !helpers.some((h) => h.kind === 'animator' && needsAnimator.includes(h.what))) return null;
+    // ...and the copies are only worth something with a payoff for copying (Kalamax's counters, magecraft).
+    if (copyChain && !helpers.some((h) => h.kind === 'copyStarter')) return null;
+    if (copyChain && !helpers.some((h) => (h.kind === 'rider' && h.ability.trigger?.type === 'spellCopied') || (h.kind === 'copyStarter' && copyPayoffs.has(h.card)))) return null;
+    const variableReducer = helpers.some((h) => (h.kind === 'reducer' && h.variable) || (h.kind === 'rider' && h.ability.outputs.some((o) => o.type === 'mana' && o.variable && (o.fromLands || o.combat))));
+    // Opponents dealt combat damage each combat (up to three in Commander), for once-per-player Treasure makers.
+    const playerCounts = helpers.some((h) => h.kind === 'rider' && perPlayer(h.ability) && h.ability.outputs.some((o) => o.type === 'mana' && o.treasure)) ? [1, 2, 3] : [1];
     // A party has at most four creatures (Burakos, Party Leader).
     const maxX = variableMana.some((v) => /\bparty\b/.test(v.variable)) ? 4 : MAX_VARIABLE;
     const xs = variableMana.length || variableReducer ? Array.from({ length: maxX }, (_, n) => n + 1) : [0];
     const extras = massReanimate ? Array.from({ length: MAX_EXTRA_CREATURES + 1 }, (_, n) => n) : [0];
-    for (const x of xs) for (const extra of extras) if (worksWith(helpers, extra, x)) return { extra, x };
+    for (const players of playerCounts) for (const x of xs) for (const extra of extras) if (worksWith(helpers, extra, x, players)) return { extra, x, players };
     return null;
   };
   const works = (helpers: Helper[]) => params(helpers) !== null;
@@ -1115,7 +1245,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       candidates.push(h);
     };
     for (const { ability, fires } of riders) {
-      const useful = ability.outputs.some(
+      const useful = (copyChain && ability.trigger?.type === 'spellCopied') || ability.outputs.some(
         (o) => o.type === 'mana' || o.type === 'lifegain' || o.type === 'food' || (o.type === 'creature' && (counterKills > 0 || cycleOutlets.length > 0 || ctx.deckAbilities.some(isFreeOutlet))),
       );
       if (useful) add({ kind: 'rider', card: ability.card, ability, fires });
@@ -1127,6 +1257,8 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     for (const r of ctx.activationReducers) if (r.global ? paidActivations : manaActivated.length) add({ kind: 'activationReducer', ...r });
     if (needsNonlegendary) for (const card of ctx.nonlegendaryCopiers) add({ kind: 'nonlegendary', card });
     if (makesAnyTokens || riders.some((r) => makesTokens(r.ability))) for (const m of ctx.tokenModifiers) add({ kind: 'tokenModifier', ...m });
+    if (needsAnimator) for (const m of ctx.animators) if (needsAnimator.includes(m.what)) add({ kind: 'animator', ...m });
+    if (copyChain) for (const card of ctx.copyStarters) add({ kind: 'copyStarter', card });
     if (copyable.length) for (const c of ctx.copiers) add({ kind: 'copier', ...c });
     if (needsPreventer) for (const card of ctx.counterPreventers) add({ kind: 'counterPreventer', card });
     if (needsDoubler || doublable.some((a) => has(a, 'mana'))) for (const card of ctx.etbDoublers) add({ kind: 'etbDoubler', card });
@@ -1183,6 +1315,11 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
       if (h.ability.trigger?.type === 'combatDamage') condition(`${attacker && attacker !== ANY_CREATURE ? attacker : 'the equipped creature'} deals combat damage to a player each combat`);
     }
     if (h.kind === 'activationReducer' && !h.global && manaActivated[0]) prerequisites.add(`${h.card} is attached to ${manaActivated[0].card}`);
+    if (h.kind === 'animator' && h.condition) condition(h.condition);
+    if (h.kind === 'copyStarter') {
+      const spell = cycle[0]!.card;
+      prerequisites.add(`${h.card} makes the first copy of ${spell}, targeting the original ${spell} (which targets another spell on the stack)`);
+    }
     if (h.kind === 'nonlegendary') {
       const legend = cycle.find((a) => /\bLegendary\b/.test(ctx.cardByName.get(a.card)?.typeLine ?? ''))!.card;
       prerequisites.add(`${h.card} makes a copy of ${legend} that isn't legendary; that copy copies itself`);
@@ -1207,13 +1344,13 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     else payoffs.push({ card: ability.card, effect: ability.text });
   }
 
-  const chosen = params(helpers) ?? { extra: 0, x: 0 };
+  const chosen = params(helpers) ?? { extra: 0, x: 0, players: 1 };
   extraCreatures = chosen.extra;
   variableX = chosen.x;
   if (extraCreatures) condition(`You have at least ${extraCreatures} other creature cards in your graveyard or on the battlefield`);
   for (const v of variableMana) condition(`${v.card} makes at least ${variableX} mana (${v.variable})`);
   for (const h of helpers) {
-    const v = h.kind === 'rider' ? h.ability.outputs.find((o) => o.type === 'mana' && o.variable && o.fromLands) : undefined;
+    const v = h.kind === 'rider' ? h.ability.outputs.find((o) => o.type === 'mana' && o.variable && (o.fromLands || o.combat)) : undefined;
     if (v && v.type === 'mana') condition(`${h.card} makes at least ${variableX} mana (${v.variable})`);
   }
   for (const [i, a] of cycle.entries()) {
@@ -1231,7 +1368,14 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     if (h.kind === 'reducer' && h.maxMv !== undefined)
       prerequisites.add(h.creatureType ? `${h.card} lets you cast ${h.creatureType[0]!.toUpperCase()}${h.creatureType.slice(1)} spells for free` : `${h.card} lets you cast creatures with mana value ${h.maxMv} or less for free`);
   }
-  const final = ledgerFor(helpers, extraCreatures, variableX);
+  // Riders that need your creatures attacking (and connecting) in every combat.
+  for (const t of [...cycle.map((a) => a.trigger), ...helpers.map((h) => (h.kind === 'rider' ? h.ability.trigger : undefined))]) {
+    if (t?.type === 'attack' && t.source === 'any') condition('Creatures you control attack in each combat');
+    if (t?.type === 'combatDamage' && t.source === 'any') {
+      condition(chosen.players > 1 ? `Your creatures deal combat damage to ${chosen.players} opponents in each combat` : 'Your creatures deal combat damage to a player in each combat');
+    }
+  }
+  const final = ledgerFor(helpers, extraCreatures, variableX, chosen.players);
   if (!payMana(final.mana, final.cost)) return null;
 
 
@@ -1253,6 +1397,7 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
     tokenMods: [...loopMods, ...helpers.flatMap((h) => (h.kind === 'tokenModifier' ? [h.mod] : []))],
     extraCreatures,
     variableX,
+    players: chosen.players,
     extraSacrifices,
   };
   let verification = verifyLoop(plan, ctx);
@@ -1305,6 +1450,12 @@ function evaluate(cycle: Ability[], ctx: Context, seed?: string): EngineCombo | 
   if (counters > 0 && !helpers.some((h) => h.kind === 'counterBlocker')) produces.push('Infinite +1/+1 counters');
   if (per.draws) produces.push('Infinite card draw');
   if (per.combats) produces.push('Infinite combat phases');
+  // Food Chain's mana can only cast creature spells.
+  if (cycle.some((a) => a.outputs.some((o) => o.type === 'mana' && o.creatureSpells))) {
+    for (let n = 0; n < produces.length; n++) if (/^Infinite .*mana/.test(produces[n]!)) produces[n] = `${produces[n]} (only for creature spells)`;
+  }
+  if (copyChain) produces.push('Infinite spell copies (copy triggers like magecraft)');
+  if (cycle.some((a) => a.id.endsWith('#selfExile'))) produces.push('Infinite blinking', "Exile all creatures opponents control (each other activation exiles one for good)");
   if (per.selfMilled) produces.push('Mills your whole library', 'Near-infinite discard triggers');
   // Dredge (and Mindcrank) loops stop when a library runs out, so their other results are near-infinite.
   if (per.selfMilled) for (let n = 0; n < produces.length; n++) produces[n] = produces[n]!.replace(/^Infinite /, 'Near-infinite ');
@@ -1350,19 +1501,24 @@ function selfDeathPossible(prev: Ability | null, v: Ability, w: Ability): boolea
  * whose target matters are checked; `feed` still does the full check. Without this, casting any card would
  * link to every "when this enters" ability in the deck, though only the card's own can fire.
  */
-function plausibleLink(a: Ability, b: Ability, r: Resource, ctx: Pick<Context, 'cardByName'>): boolean {
+function plausibleLink(a: Ability, b: Ability, r: Resource, ctx: Pick<Context, 'cardByName' | 'returnable'>): boolean {
   const target = ctx.cardByName.get(b.card);
   if (!target) return true;
   const reentersSelf = castsPermanent(a) || a.kind === 'recast' || Boolean(has(a, 'recur'));
   switch (r) {
     case 'selfEtb': {
       if (a.card === b.card) return true;
+      if (a.kind === 'activated' && a.cost.sacrifice && (ctx.returnable?.has(b.card) ?? true)) return true;
       const copy = has(a, 'copy');
-      if (copy && (copy.target === 'host' ? a.host || a.card === b.card : matchesTarget(copy.target, target, a.card))) return true;
+      if (copy && (copy.target === 'entering' || (copy.target === 'host' ? a.host || a.card === b.card : matchesTarget(copy.target, target, a.card)))) return true;
       const blink = has(a, 'blink');
       if (blink && (typeof blink.target === 'string' || matchesTarget(blink.target, target, a.card))) return true;
       return Boolean(has(a, 'reanimate') || has(a, 'returnExiled') || has(a, 'massReanimate') || has(a, 'recurDied'));
     }
+    case 'etb':
+      // A sacrifice outlet responding to an enter trigger only matters when the trigger copies what entered (Mirrorworks).
+      if (a.cost.sacrifice && !putsBodyOnBattlefield(a)) return has(b, 'copy')?.target === 'entering';
+      return true;
     case 'untap': {
       if (b.host) return true;
       const untap = has(a, 'untap');
@@ -1396,6 +1552,8 @@ export function inputs(a: Ability): Resource[] {
       mill: 'mill',
       landToGraveyard: 'toGraveyard',
       foodSacrificed: 'food',
+      landfall: 'landfall',
+      spellCopied: 'spellCopy',
       beginCombat: 'combat',
       attack: 'combat',
       combatDamage: 'combat',
@@ -1407,14 +1565,16 @@ export function inputs(a: Ability): Resource[] {
   if (isFreeActivation(a)) r.push('free');
   if (a.kind === 'cast') r.push(a.from === 'library' ? 'library' : 'hand');
   if (a.cost.life > 0) r.push('lifegain');
-  if (a.cost.loyalty) r.push('reset');
+  if (a.cost.loyalty || a.cost.ownCounter) r.push('reset');
   if (a.cost.sacrifice) r.push('body');
   if (a.cost.tap) r.push('untap');
   if (totalMana(a.cost.mana) > 0) r.push('mana');
   if (a.cost.removeCounter) r.push('counter');
+  if (a.kind === 'activated' && has(a, 'extraCombat')) r.push('combat');
   if (a.cost.discard) r.push('hand');
   if (a.cost.tapCreature) r.push('body');
-  if (a.kind === 'recast') r.push('death');
+  if (a.kind === 'recast') r.push(a.fromExile ? 'exiled' : 'death');
+  if (a.cost.exile) r.push('body');
   return r;
 }
 
@@ -1437,9 +1597,10 @@ export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByNam
   ) {
     r.add('selfEtb');
   }
-  if (has(a, 'blink')) r.add('etb').add('untap').add('reset').add('leave');
+  if (has(a, 'blink')) r.add('etb').add('untap').add('reset').add('leave').add('landfall');
   if (has(a, 'draw')) r.add('draw');
-  if (a.cost.sacrifice) r.add('death').add('leave');
+  // A sacrifice outlet can also respond to the sacrificed creature's own enter trigger (selfEtb).
+  if (a.cost.sacrifice) r.add('death').add('leave').add('selfEtb').add('etb');
   // Pinging itself or piling -1/-1 counters on itself can kill the creature (undying/persist loops).
   if (isCreature(ctx, a.card) && (a.cost.minusCounter || a.outputs.some((o) => o.type === 'drain' && o.damage))) r.add('death');
   if (has(a, 'untap')) r.add('untap');
@@ -1461,6 +1622,7 @@ export function outputsOf(a: Ability, ctx: Pick<Context, 'granters' | 'cardByNam
   if (has(a, 'dredge')) r.add('hand');
   if (a.cost.discard) r.add('toGraveyard');
   if (a.cost.food) r.add('food');
+  if (a.cost.exile) r.add('exiled');
   if (makesTokens(a)) r.add('body').add('mana');
   if (a.cost.tap && has(a, 'copy')?.haste) r.add('untap');
   if (has(a, 'extraCombat') || combatStep(a) !== undefined || has(a, 'copy')?.haste || has(a, 'blink')) r.add('combat');
@@ -1520,9 +1682,19 @@ export function findEngineCombos(
 
   // Synthetic abilities: Isochron Scepter casting each eligible instant, and casting cards that can be returned to hand.
   const imprints = sorted.flatMap((c) => imprintAbilities(c, sorted));
-  const handTargets = parsed.flatMap((a) => a.outputs.flatMap((o) => (o.type === 'toHand' || o.type === 'bounce' ? [{ spec: o.target, source: a.card }] : [])));
+  // Dualcaster Mage, Kalamax, Fork, Thousand-Year Storm: copies of each instant or sorcery in the deck resolving.
+  const copiesSpells = sorted.some((c) => SPELL_COPIER.test(c.text));
+  const copied = copiesSpells ? sorted.filter((c) => /\b(Instant|Sorcery)\b/.test(c.typeLine)).flatMap((c) => copiedSpellAbility(c) ?? []) : [];
+  // Cards something returns to hand can be cast again (a copy of Snap returning Dualcaster Mage, too).
+  const handTargets = [...parsed, ...copied].flatMap((a) => a.outputs.flatMap((o) => (o.type === 'toHand' || o.type === 'bounce' ? [{ spec: o.target, source: a.card }] : [])));
+  // With token copies around (Mirrorworks), a dying copy of Myr Retriever returns "another" card: the Retriever itself.
+  const copiesPermanents = parsed.some((a) => has(a, 'copy'));
   const casts = sorted
-    .filter((c) => !/\bLand\b/.test(c.typeLine) && handTargets.some((t) => (t.spec === 'self' ? t.source === c.name : matchesTarget(t.spec, c, t.source))))
+    .filter(
+      (c) =>
+        !/\bLand\b/.test(c.typeLine) &&
+        handTargets.some((t) => (t.spec === 'self' ? t.source === c.name : matchesTarget(t.spec, c, copiesPermanents && t.source === c.name ? '' : t.source))),
+    )
     .map((c) => castFromHand(c));
   // Cards that put themselves on top of the library (Sensei's Divining Top), recast with Mystic Forge.
   const enablers = sorted.flatMap((c) => castFromTopEnabler(c) ?? []);
@@ -1534,10 +1706,6 @@ export function findEngineCombos(
     if (enabler) casts.push(castFromHand(card, 'library', enabler.card));
   }
   const deathReturns = sorted.flatMap((c) => deathReturnAbilities(c, sorted));
-  // Dualcaster Mage: copies of each instant or sorcery in the deck resolving.
-  const copied = parsed.some((a) => has(a, 'spellCopy'))
-    ? sorted.filter((c) => /\b(Instant|Sorcery)\b/.test(c.typeLine)).flatMap((c) => copiedSpellAbility(c) ?? [])
-    : [];
   const deckAbilities = [...parsed, ...imprints, ...casts, ...deathReturns, ...copied];
   // Loop steps come only from the deck; the helper pool only adds triggered helpers and static effects.
   const loopAbilities = deckAbilities;
@@ -1550,6 +1718,8 @@ export function findEngineCombos(
     activationReducers: merged('activationReducers'),
     nonlegendaryCopiers: merged('nonlegendaryCopiers'),
     tokenModifiers: merged('tokenModifiers'),
+    animators: merged('animators'),
+    copyStarters: merged('copyStarters'),
     copiers: merged('copiers'),
     counterPreventers: merged('counterPreventers'),
     etbDoublers: merged('etbDoublers'),
@@ -1560,6 +1730,19 @@ export function findEngineCombos(
     landAmplifiers: merged('landAmplifiers'),
     manaAmplifiers: merged('manaAmplifiers'),
     deckAbilities: [...loopAbilities, ...helperAbilities],
+    returnable: new Set(
+      sorted
+        .filter((c) => /\bCreature\b/.test(c.typeLine))
+        .filter((c) =>
+          loopAbilities.some((a) => {
+            if (a.card === c.name && (a.kind === 'recast' || has(a, 'recur'))) return true;
+            if (has(a, 'massReanimate') || has(a, 'recurDied')) return true;
+            const r = has(a, 'reanimate');
+            return Boolean(r && a.card !== c.name && matchesTarget(r.target, c, a.card));
+          }),
+        )
+        .map((c) => c.name),
+    ),
     rejected: [],
     deckCards: deckNames,
     maxHelpers: opts.maxHelpers ?? 3,

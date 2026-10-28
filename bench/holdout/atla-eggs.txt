@@ -1,0 +1,39 @@
+// Archetype: Naya eggs and sacrifice (Atla Palani, Nest Tender)
+Commander
+1 Atla Palani, Nest Tender
+Deck
+1 Dragon Egg
+1 Roc Egg
+1 Ludevic's Test Subject
+1 Mysterious Egg
+1 Nesting Dragon
+1 Gilded Goose
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Goblin Bombardment
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Felidar Guardian
+1 Restoration Angel
+1 Birthing Pod
+1 Doubling Season
+1 Second Harvest
+1 Sol Ring
+1 Arcane Signet
+1 Cultivate
+1 Swords to Plowshares
+1 Path to Exile
+1 Lightning Greaves
+1 Eternal Witness
+1 Mirror Entity
+1 Splinter Twin
+1 Altar of Dementia
+1 Krark-Clan Ironworks
+1 Woodland Bellower
+1 Selvala, Explorer Returned
+1 Sylvan Messenger
+1 Chord of Calling
+1 Nesting Grounds
+1 Shell of the Last Kappa
+1 Prized Unicorn
+1 Pawn of Ulamog

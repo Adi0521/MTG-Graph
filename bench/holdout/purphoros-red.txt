@@ -1,0 +1,39 @@
+// Archetype: Mono-red ETB damage and goblins (Purphoros, God of the Forge)
+Commander
+1 Purphoros, God of the Forge
+Deck
+1 Kiki-Jiki, Mirror Breaker
+1 Zealous Conscripts
+1 Splinter Twin
+1 Combat Celebrant
+1 Krenko, Mob Boss
+1 Krenko, Tin Street Kingpin
+1 Impact Tremors
+1 Goblin Bombardment
+1 Beetleback Chief
+1 Goblin Instigator
+1 Siege-Gang Commander
+1 Mana Echoes
+1 Basalt Monolith
+1 Grim Monolith
+1 Rings of Brighthearth
+1 Sol Ring
+1 Mana Vault
+1 Thornbite Staff
+1 Skirk Prospector
+1 Goblin Recruiter
+1 Battle Hymn
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Pyrohemia
+1 Hellrider
+1 Ruby Medallion
+1 Ancient Tomb
+1 Fire Diamond
+1 Mind Stone
+1 Gamble
+1 Goblin Sharpshooter
+1 Sensation Gorger
+1 Conspicuous Snoop
+1 Goblin Matron
+1 Quest for the Goblin Lord

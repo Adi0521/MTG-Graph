@@ -19,6 +19,8 @@ type MillAmount =
   | { kind: 'toughness' }
   /** Grindstone: mills two, again as long as both share a color (forever, with Painter's Servant). */
   | { kind: 'repeatColor' }
+  /** Helm of Obedience: mills until X cards (or a creature card) reach the graveyard: all of it if none can. */
+  | { kind: 'untilGraveyard' }
   | { kind: 'fixed'; n: number };
 
 interface MillSource {
@@ -36,6 +38,8 @@ interface Pieces {
   colorizer: boolean;
   /** Consuming Aberration, Sewer Nemesis: toughness equal to the cards in an opponent's graveyard. */
   graveyardToughness: boolean;
+  /** Rest in Peace, Leyline of the Void: cards an opponent would put into a graveyard are exiled instead. */
+  exileInstead: boolean;
 }
 
 const MAX_LIBRARY = 120;
@@ -59,8 +63,11 @@ function piecesOf(card: Card): Pieces {
   if (/target player mills two cards\. (?:repeat this process as long as two cards milled this way share a color|if two cards that share a color were milled this way, repeat this process)/.test(t)) {
     sources.push({ card: card.name, text: line(/repeat this process/), amount: { kind: 'repeatColor' }, conditions: [] });
   }
+  if (/target opponent mills a card, then repeats this process until a creature card or x cards have been put into their graveyard this way/.test(t)) {
+    sources.push({ card: card.name, text: line(/repeats this process/), amount: { kind: 'untilGraveyard' }, conditions: [] });
+  }
   const fixed = /(?:target player|target opponent|each opponent) mills (a|one|two|three|four|five|six|seven|eight|nine|ten|\d+) cards?/.exec(t);
-  if (fixed && !half && !sources.some((s) => s.amount.kind === 'repeatColor')) {
+  if (fixed && !half && !sources.some((s) => s.amount.kind === 'repeatColor' || s.amount.kind === 'untilGraveyard')) {
     sources.push({ card: card.name, text: line(/mills/), amount: { kind: 'fixed', n: NUMBER[fixed[1]!] ?? Number(fixed[1]) }, conditions: [] });
   }
   return {
@@ -69,6 +76,7 @@ function piecesOf(card: Card): Pieces {
     colorizer: /all cards that aren't on the battlefield, spells, and permanents are the chosen color/.test(t),
     graveyardToughness:
       /\bCreature\b/.test(card.typeLine) && /power and toughness are each equal to the number of cards in (?:your opponents'|the chosen player's|target opponent's) graveyards?/.test(t),
+    exileInstead: /if a card (?:or token )?would be put into (?:a|an opponent's) graveyard from anywhere, exile it instead/.test(t),
   };
 }
 
@@ -83,6 +91,7 @@ function leftAfter(size: number, sources: MillSource[], set: Map<string, Pieces>
   const doubler = all.some((p) => p.doubler);
   const colorizer = all.some((p) => p.colorizer);
   const toughnessCreature = all.some((p) => p.graveyardToughness);
+  const exileInstead = all.some((p) => p.exileInstead);
   let best: number | null = null;
   for (const order of permutations(sources)) {
     let library = size;
@@ -95,6 +104,8 @@ function leftAfter(size: number, sources: MillSource[], set: Map<string, Pieces>
         if (!toughnessCreature) usable = false;
         n = graveyard;
       } else if (s.amount.kind === 'repeatColor') n = colorizer ? library : 2;
+      // Without the exile replacement it stops at the first creature card, which depends on the library: not counted.
+      else if (s.amount.kind === 'untilGraveyard') n = exileInstead ? library : 0;
       else n = s.amount.n;
       if (doubler) n *= 2;
       n = Math.min(n, library);
@@ -123,7 +134,7 @@ export function findMillFinishers(cards: Card[]): EngineCombo[] {
   const relevant = [...cards]
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((c) => [c, piecesOf(c)] as const)
-    .filter(([, p]) => p.sources.length || p.doubler || p.colorizer || p.graveyardToughness);
+    .filter(([, p]) => p.sources.length || p.doubler || p.colorizer || p.graveyardToughness || p.exileInstead);
   const found: Map<string, Pieces>[] = [];
   const n = relevant.length;
   const sets: (readonly [Card, Pieces])[][] = [];
@@ -145,7 +156,8 @@ export function findMillFinishers(cards: Card[]): EngineCombo[] {
     if ([...set.keys()].some((k) => finishes(new Map([...set].filter(([name]) => name !== k))) !== null)) continue;
     found.push(set);
     const sources = [...set.values()].flatMap((p) => p.sources);
-    const modifiers = [...set.entries()].filter(([, p]) => p.doubler || p.colorizer || p.graveyardToughness);
+    const modifiers = [...set.entries()].filter(([, p]) => p.doubler || p.colorizer || p.graveyardToughness || p.exileInstead);
+    const exiles = modifiers.some(([, p]) => p.exileInstead);
     const prerequisites = sources.flatMap((s) => s.conditions);
     if (sources.some((s) => s.amount.kind === 'toughness')) prerequisites.push('the creature with the granted ability is untapped and not summoning sick');
     for (const [name, p] of set) if (p.graveyardToughness && cards.find((c) => c.name === name)!.text.includes("the chosen player's graveyard")) prerequisites.push(`${name} chose that opponent`);
@@ -158,12 +170,18 @@ export function findMillFinishers(cards: Card[]): EngineCombo[] {
       steps: [
         ...modifiers.map(([name, p]) => ({
           card: name,
-          ability: p.doubler ? 'Opponents mill twice as many cards' : p.colorizer ? 'Every card is the chosen color' : "Toughness equals the cards in an opponent's graveyard",
+          ability: p.doubler
+            ? 'Opponents mill twice as many cards'
+            : p.colorizer
+              ? 'Every card is the chosen color'
+              : p.exileInstead
+                ? "Cards that would go to an opponent's graveyard are exiled instead"
+                : "Toughness equals the cards in an opponent's graveyard",
           then: 'this changes how much the next effects mill',
         })),
         ...sources.map((s) => ({ card: s.card, ability: s.text, then: 'the opponent mills' })),
       ],
-      produces: ['Opponents mill their whole library'],
+      produces: [exiles ? "Exiles an opponent's whole library" : 'Opponents mill their whole library'],
       prerequisites,
       // An odd library keeping one card depends on the opponent; the rest (kicker, attacking) is setup.
       conditions: prerequisites.filter((p) => p.startsWith('an opponent with an odd number')),

@@ -1,0 +1,39 @@
+// Archetype: Sultai X spells and mana (Zaxara, the Exemplary)
+Commander
+1 Zaxara, the Exemplary
+Deck
+1 Freed from the Real
+1 Pemmin's Aura
+1 Kiora's Follower
+1 Seedborn Muse
+1 Hydroid Krasis
+1 Genesis Hydra
+1 Walking Ballista
+1 Mystic Snake
+1 Biomass Mutation
+1 Finale of Devastation
+1 Torment of Hailfire
+1 Exsanguinate
+1 Villainous Wealth
+1 Bloom Tender
+1 Devoted Druid
+1 Vizier of Remedies
+1 Training Grounds
+1 Thousand-Year Elixir
+1 Umbral Mantle
+1 Sol Ring
+1 Arcane Signet
+1 Fellwar Stone
+1 Talisman of Curiosity
+1 Cultivate
+1 Kodama's Reach
+1 Counterspell
+1 Demonic Tutor
+1 Rhystic Study
+1 Necropotence
+1 Ghostly Flicker
+1 Hullbreaker Horror
+1 Pongify
+1 Krosan Restorer
+1 Argothian Elder
+1 Earthcraft

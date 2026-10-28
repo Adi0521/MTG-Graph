@@ -1,0 +1,39 @@
+// Archetype: Naya dinosaurs and enrage (Gishath, Sun's Avatar)
+Commander
+1 Gishath, Sun's Avatar
+Deck
+1 Polyraptor
+1 Marauding Raptor
+1 Forerunner of the Empire
+1 Ripjaw Raptor
+1 Etali, Primal Storm
+1 Regisaur Alpha
+1 Wayward Swordtooth
+1 Ghalta, Primal Hunger
+1 Zacama, Primal Calamity
+1 Kinjalli's Sunwing
+1 Raging Swordtooth
+1 Trapjaw Tyrant
+1 Temple Altisaur
+1 Gigantosaurus
+1 Thrashing Brontodon
+1 Topiary Stomper
+1 Atzocan Seer
+1 Burning Sun's Avatar
+1 Rampaging Ferocidon
+1 Savage Stomp
+1 Commune with Dinosaurs
+1 Sol Ring
+1 Arcane Signet
+1 Cultivate
+1 Kodama's Reach
+1 Swords to Plowshares
+1 Path to Exile
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Cavern of Souls
+1 Fiery Confluence
+1 Wrathful Raptors
+1 Pantlaza, Sun-Favored
+1 Goblin Bombardment
+1 Ashnod's Altar

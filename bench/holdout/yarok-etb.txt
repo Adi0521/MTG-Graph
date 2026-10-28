@@ -1,0 +1,39 @@
+// Archetype: Sultai ETB doubling (Yarok, the Desecrated)
+Commander
+1 Yarok, the Desecrated
+Deck
+1 Peregrine Drake
+1 Deadeye Navigator
+1 Panharmonicon
+1 Archaeomancer
+1 Mnemonic Wall
+1 Ghostly Flicker
+1 Eternal Witness
+1 Mulldrifter
+1 Cloud of Faeries
+1 Great Whale
+1 Palinchron
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Animate Dead
+1 Necromancy
+1 Hostage Taker
+1 Plaguecrafter
+1 Woodfall Primus
+1 Sakura-Tribe Elder
+1 Sol Ring
+1 Arcane Signet
+1 Cultivate
+1 Counterspell
+1 Demonic Tutor
+1 Rhystic Study
+1 Spore Frog
+1 Phyrexian Metamorph
+1 Spark Double
+1 Dread Return
+1 Gravecrawler
+1 Viscera Seer
+1 Satyr Wayfinder
+1 Nest Invader
+1 Blood Artist
+1 Zulaport Cutthroat

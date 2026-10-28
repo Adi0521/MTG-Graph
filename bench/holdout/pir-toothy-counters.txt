@@ -1,0 +1,39 @@
+// Archetype: Simic +1/+1 counters (Pir, Imaginative Rascal and Toothy, Imaginary Friend)
+Commander
+1 Pir, Imaginative Rascal
+1 Toothy, Imaginary Friend
+Deck
+1 Hardened Scales
+1 Walking Ballista
+1 Doubling Season
+1 Vorinclex, Monstrous Raider
+1 Kalonian Hydra
+1 Simic Ascendancy
+1 Fathom Mage
+1 Rishkar, Peema Renegade
+1 Hangarback Walker
+1 Arcbound Ravager
+1 Devoted Druid
+1 Vizier of Remedies
+1 Corpsejack Menace
+1 Branching Evolution
+1 The Ozolith
+1 Bred for the Hunt
+1 Inspiring Call
+1 Pemmin's Aura
+1 Freed from the Real
+1 Sol Ring
+1 Arcane Signet
+1 Simic Signet
+1 Cultivate
+1 Counterspell
+1 Rhystic Study
+1 Cyclonic Rift
+1 Mystic Snake
+1 Experiment Kraj
+1 Spike Weaver
+1 Plaxcaster Frogling
+1 Forgotten Ancient
+1 Biomass Mutation
+1 Spike Feeder
+1 Gyre Sage

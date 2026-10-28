@@ -1,0 +1,39 @@
+// Archetype: Esper blink (Aminatou, the Fateshifter)
+Commander
+1 Aminatou, the Fateshifter
+Deck
+1 Felidar Guardian
+1 Restoration Angel
+1 Deadeye Navigator
+1 Ghostly Flicker
+1 Peregrine Drake
+1 Archaeomancer
+1 Mnemonic Wall
+1 Karmic Guide
+1 Reveillark
+1 Ephemerate
+1 Conjurer's Closet
+1 Sun Titan
+1 Soulherder
+1 Teferi, Time Raveler
+1 Sensei's Divining Top
+1 Scroll Rack
+1 Sol Ring
+1 Arcane Signet
+1 Swords to Plowshares
+1 Counterspell
+1 Demonic Tutor
+1 Whitemane Lion
+1 Kor Skyfisher
+1 Ashnod's Altar
+1 Phyrexian Altar
+1 Blood Artist
+1 Sanguine Bond
+1 Exquisite Blood
+1 Grim Monolith
+1 Talisman of Dominance
+1 Cloudshift
+1 Brago's Representative
+1 Charming Prince
+1 Thassa, Deep-Dwelling
+1 Panharmonicon

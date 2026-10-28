@@ -102,7 +102,7 @@ function links(a: Ability, b: Ability, r: Resource, cards: Map<string, Card>): b
       if (b.trigger?.type !== 'selfEtb') return false;
       if (a.card === b.card) return true;
       const copy = has(a, 'copy');
-      if (copy && (copy.target === 'host' || matchesTarget(copy.target, y, a.card))) return true;
+      if (copy && (copy.target === 'host' || copy.target === 'entering' || matchesTarget(copy.target, y, a.card))) return true;
       const blink = has(a, 'blink');
       if (blink && typeof blink.target !== 'string' && matchesTarget(blink.target, y, a.card)) return true;
       if (blink && blink.target === 'host') return true;

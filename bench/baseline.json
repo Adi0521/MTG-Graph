@@ -11,6 +11,20 @@
       "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
     ]
   },
+  "arcades-walls": {
+    "connectivity": 0.778,
+    "matchedCombos": [
+      "Axebane Guardian + Freed from the Real",
+      "Axebane Guardian + High Alert",
+      "Axebane Guardian + Pemmin's Aura",
+      "Axebane Guardian + Staff of Domination",
+      "Axebane Guardian + Sword of the Paruns",
+      "Axebane Guardian + Umbral Mantle",
+      "Overgrown Battlement + Staff of Domination",
+      "Overgrown Battlement + Sword of the Paruns",
+      "Overgrown Battlement + Umbral Mantle"
+    ]
+  },
   "atraxa-superfriends": {
     "connectivity": 1,
     "matchedCombos": []
@@ -66,6 +80,18 @@
       "Panharmonicon + Peregrine Drake + Venser, Shaper Savant"
     ]
   },
+  "brudiclad-tokens": {
+    "connectivity": 1,
+    "matchedCombos": [
+      "Dualcaster Mage + Ghostly Flicker",
+      "Dualcaster Mage + Twinflame",
+      "Efficient Construction + Krark-Clan Ironworks + Myr Retriever + Scrap Trawler",
+      "Kiki-Jiki, Mirror Breaker + Pestermite",
+      "Krark-Clan Ironworks + Mirrorworks + Myr Retriever",
+      "Krark-Clan Ironworks + Myr Retriever + Sai, Master Thopterist + Scrap Trawler",
+      "Pestermite + Splinter Twin"
+    ]
+  },
   "cedh-combo": {
     "connectivity": 0.914,
     "matchedCombos": [
@@ -78,6 +104,23 @@
       "Freed from the Real + Kinnan, Bonder Prodigy",
       "Grim Monolith + Power Artifact",
       "Kinnan, Bonder Prodigy + Pemmin's Aura"
+    ]
+  },
+  "chatterfang-squirrels": {
+    "connectivity": 0.971,
+    "matchedCombos": [
+      "Academy Manufactor + Ashnod's Altar + Cauldron Familiar + Pitiless Plunderer",
+      "Academy Manufactor + Camellia, the Seedmiser + Doubling Season + Peregrin Took",
+      "Academy Manufactor + Camellia, the Seedmiser + Parallel Lives + Peregrin Took",
+      "Academy Manufactor + Carrion Feeder + Cauldron Familiar + Pitiless Plunderer",
+      "Academy Manufactor + Cauldron Familiar + Pitiless Plunderer + Viscera Seer",
+      "Academy Manufactor + Cauldron Familiar + Pitiless Plunderer + Woe Strider",
+      "Ashnod's Altar + Camellia, the Seedmiser + Peregrin Took",
+      "Ashnod's Altar + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
+      "Carrion Feeder + Cauldron Familiar + Peregrin Took + Pitiless Plunderer",
+      "Cauldron Familiar + Peregrin Took + Pitiless Plunderer + Viscera Seer",
+      "Chatterfang, Squirrel General + Pitiless Plunderer",
+      "Earthcraft + Squirrel Nest"
     ]
   },
   "chulane": {
@@ -255,6 +298,46 @@
       "Mystic Forge + Semblance Anvil + Sensei's Divining Top"
     ]
   },
+  "kalamax-instants": {
+    "connectivity": 0.972,
+    "matchedCombos": [
+      "Birgi, God of Storytelling // Harnfel, Horn of Bounty + Dualcaster Mage + Snap",
+      "Deadeye Navigator + Peregrine Drake",
+      "Dramatic Reversal + Isochron Scepter",
+      "Dualcaster Mage + Ghostly Flicker",
+      "Dualcaster Mage + Molten Duplication",
+      "Dualcaster Mage + Twinflame",
+      "Fork + Kalamax, the Stormsire",
+      "Isochron Scepter + Paradox Engine",
+      "Kalamax, the Stormsire + Reverberate"
+    ]
+  },
+  "kenrith-combo": {
+    "connectivity": 0.917,
+    "matchedCombos": [
+      "Ashnod's Altar + Kenrith, the Returned King + Peregrine Drake",
+      "Ashnod's Altar + Nim Deathmantle + Peregrine Drake",
+      "Basalt Monolith + Power Artifact",
+      "Basalt Monolith + Rings of Brighthearth",
+      "Bloom Tender + Freed from the Real",
+      "Deadeye Navigator + Peregrine Drake",
+      "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+      "Deceiver Exarch + Splinter Twin",
+      "Devoted Druid + Vizier of Remedies",
+      "Dramatic Reversal + Isochron Scepter",
+      "Eternal Scourge + Food Chain",
+      "Exquisite Blood + Sanguine Bond",
+      "Felidar Guardian + Kiki-Jiki, Mirror Breaker",
+      "Felidar Guardian + Saheeli Rai",
+      "Freed from the Real + Kiki-Jiki, Mirror Breaker",
+      "Grim Monolith + Power Artifact",
+      "Heliod, Sun-Crowned + Walking Ballista",
+      "Kiki-Jiki, Mirror Breaker + Pestermite",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+      "Pestermite + Splinter Twin",
+      "Splinter Twin + Zealous Conscripts"
+    ]
+  },
   "kinnan-mana": {
     "connectivity": 0.829,
     "matchedCombos": [
@@ -290,6 +373,22 @@
       "Pawn of Ulamog + Phyrexian Altar + Reassembling Skeleton",
       "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
     ]
+  },
+  "krark-sakashima": {
+    "connectivity": 0.892,
+    "matchedCombos": [
+      "Basalt Monolith + Rings of Brighthearth",
+      "Deceiver Exarch + Kiki-Jiki, Mirror Breaker",
+      "Deceiver Exarch + Splinter Twin",
+      "Dramatic Reversal + Isochron Scepter",
+      "Dualcaster Mage + Twinflame",
+      "Kiki-Jiki, Mirror Breaker + Pestermite",
+      "Pestermite + Splinter Twin"
+    ]
+  },
+  "kumena-merfolk": {
+    "connectivity": 0.889,
+    "matchedCombos": []
   },
   "kykar-spells": {
     "connectivity": 1,
@@ -398,6 +497,30 @@
       "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
     ]
   },
+  "najeela-warriors": {
+    "connectivity": 0.853,
+    "matchedCombos": [
+      "Aggravated Assault + Bear Umbra",
+      "Aggravated Assault + Druids' Repository",
+      "Aggravated Assault + Grand Warlord Radha",
+      "Aggravated Assault + Nature's Will",
+      "Aggravated Assault + Sword of Feast and Famine",
+      "Bear Umbra + Hellkite Charger",
+      "Bear Umbra + Najeela, the Blade-Blossom",
+      "Combat Celebrant + Helm of the Host",
+      "Combat Celebrant + Kiki-Jiki, Mirror Breaker",
+      "Derevi, Empyrial Tactician + Najeela, the Blade-Blossom",
+      "Druids' Repository + Hellkite Charger",
+      "Druids' Repository + Najeela, the Blade-Blossom",
+      "Grand Warlord Radha + Hellkite Charger",
+      "Grim Hireling + Najeela, the Blade-Blossom",
+      "Hellkite Charger + Nature's Will",
+      "Hellkite Charger + Sword of Feast and Famine",
+      "Helm of the Host + Kiki-Jiki, Mirror Breaker",
+      "Najeela, the Blade-Blossom + Nature's Will",
+      "Najeela, the Blade-Blossom + Sword of Feast and Famine"
+    ]
+  },
   "niv-mizzet-wheels": {
     "connectivity": 0.973,
     "matchedCombos": [
@@ -427,11 +550,27 @@
       "Phenax, God of Deception + Sewer Nemesis + Traumatize"
     ]
   },
+  "prosper-exile": {
+    "connectivity": 0.833,
+    "matchedCombos": [
+      "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
+      "Ashnod's Altar + Pitiless Plunderer + Reassembling Skeleton",
+      "Bloodthirsty Conqueror + Sanguine Bond",
+      "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Exquisite Blood + Sanguine Bond",
+      "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
+      "Gravecrawler + Phyrexian Altar",
+      "Gravecrawler + Pitiless Plunderer + Viscera Seer",
+      "Kiki-Jiki, Mirror Breaker + Zealous Conscripts",
+      "Phyrexian Altar + Pitiless Plunderer + Reassembling Skeleton"
+    ]
+  },
   "prossh-food-chain": {
     "connectivity": 0.968,
     "matchedCombos": [
       "Ashnod's Altar + Gravecrawler + Pitiless Plunderer",
       "Carrion Feeder + Gravecrawler + Pitiless Plunderer",
+      "Eternal Scourge + Food Chain",
       "Goblin Bombardment + Gravecrawler + Pitiless Plunderer",
       "Gravecrawler + Phyrexian Altar",
       "Gravecrawler + Pitiless Plunderer + Viscera Seer"
@@ -479,6 +618,22 @@
       "Pestermite + Splinter Twin"
     ]
   },
+  "teshar-historic": {
+    "connectivity": 0.944,
+    "matchedCombos": [
+      "Ashnod's Altar + Emeria Shepherd + Felidar Guardian",
+      "Ashnod's Altar + Felidar Guardian + Karmic Guide",
+      "Ashnod's Altar + Felidar Guardian + Reveillark",
+      "Ashnod's Altar + Karmic Guide + Reveillark",
+      "Ashnod's Altar + Kor Skyfisher + Teshar, Ancestor's Apostle",
+      "Emeria Shepherd + Felidar Guardian + Phyrexian Altar",
+      "Felidar Guardian + Karmic Guide + Phyrexian Altar",
+      "Felidar Guardian + Phyrexian Altar + Reveillark",
+      "Felidar Guardian + Restoration Angel",
+      "Karmic Guide + Phyrexian Altar + Reveillark",
+      "Kor Skyfisher + Phyrexian Altar + Teshar, Ancestor's Apostle"
+    ]
+  },
   "teysa-aristocrats": {
     "connectivity": 1,
     "matchedCombos": [
@@ -518,6 +673,19 @@
     "connectivity": 0.935,
     "matchedCombos": []
   },
+  "ur-dragon-dragons": {
+    "connectivity": 0.861,
+    "matchedCombos": [
+      "Aggravated Assault + Bear Umbra",
+      "Aggravated Assault + Old Gnawbone",
+      "Aggravated Assault + Savage Ventmaw",
+      "Aggravated Assault + Sword of Feast and Famine",
+      "Bear Umbra + Hellkite Charger",
+      "Hellkite Charger + Old Gnawbone",
+      "Hellkite Charger + Sword of Feast and Famine",
+      "Kiki-Jiki, Mirror Breaker + Spark Double"
+    ]
+  },
   "urza-artifacts": {
     "connectivity": 1,
     "matchedCombos": [
@@ -547,10 +715,12 @@
       "Aggravated Assault + Savage Ventmaw",
       "Aggravated Assault + Sword of Feast and Famine",
       "Aurelia, the Warleader + Helm of the Host",
+      "Bear Umbra + Najeela, the Blade-Blossom",
       "Combat Celebrant + Helm of the Host",
       "Godo, Bandit Warlord + Helm of the Host",
       "Helm of the Host + Port Razer",
-      "Helm of the Host + Scourge of the Throne"
+      "Helm of the Host + Scourge of the Throne",
+      "Najeela, the Blade-Blossom + Sword of Feast and Famine"
     ]
   },
   "voltron": {
@@ -592,6 +762,16 @@
       "Grim Monolith + Zirda, the Dawnwaker",
       "Helm of the Host + Kiki-Jiki, Mirror Breaker",
       "Kiki-Jiki, Mirror Breaker + Zealous Conscripts"
+    ]
+  },
+  "zur-enchantments": {
+    "connectivity": 0.806,
+    "matchedCombos": [
+      "Exquisite Blood + Sanguine Bond",
+      "Helm of Obedience + Leyline of the Void",
+      "Helm of Obedience + Rest in Peace",
+      "Opalescence + Parallax Wave",
+      "Parallax Wave + Starfield of Nyx"
     ]
   }
 }

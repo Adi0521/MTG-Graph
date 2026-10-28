@@ -43,6 +43,8 @@ export interface LoopPlan {
   extraSacrifices?: string[];
   /** Replacement effects on token creation (Academy Manufactor, Peregrin Took, Chatterfang, doublers). */
   tokenMods?: TokenMod[];
+  /** Opponents your creatures deal combat damage to in each combat (once-per-player triggers). */
+  players?: number;
 }
 
 export interface PerLoop {
@@ -87,12 +89,14 @@ interface Perm {
   baseToughness?: number;
   attacked: boolean;
   exerted: boolean;
+  /** Counters of other kinds (Parallax Wave's fade counters), set when it enters. */
+  own: Record<string, number>;
 }
 
 type Phase = 'main' | 'combat';
 
 interface Event {
-  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill' | 'discard' | 'foodSacrificed';
+  type: 'death' | 'etb' | 'cast' | 'lifegain' | 'drain' | 'draw' | 'minus' | 'attack' | 'combatDamage' | 'beginCombat' | 'mill' | 'discard' | 'foodSacrificed' | 'spellCopied';
   /** For attacks: the first attack event of its combat (an aura's trigger fires once per combat). */
   first?: boolean;
   card?: string | null;
@@ -145,6 +149,14 @@ class Simulation {
   combatsStarted = 0;
   /** Events up to here have had their riders fired. */
   firedUpTo = 0;
+  /** Whether combat damage has been dealt in the current combat. */
+  damaged = false;
+  /** The main phase (turn index) in which each extra-combat sorcery ability was last used. */
+  mainUses = new Map<string, number>();
+  /** The combat (turn index) in which each combat-only ability was last used. */
+  combatUses = new Map<string, number>();
+  /** Some creature you control attacks in every combat (for riders on any attacker, and Najeela's ability). */
+  generic = false;
   private nextId = 1;
   private readonly plan: LoopPlan;
   private readonly ctx: Context;
@@ -161,7 +173,10 @@ class Simulation {
   }
 
   private typesOf(name: string) {
-    return this.cardOf(name).typeLine.toLowerCase().split(/[\s—/]+/).filter((t) => PERMANENT_TYPES.includes(t));
+    const types = this.cardOf(name).typeLine.toLowerCase().split(/[\s—/]+/).filter((t) => PERMANENT_TYPES.includes(t));
+    // Opalescence: enchantments (other than itself) are creatures too.
+    const animated = this.plan.helpers.some((h) => h.kind === 'animator' && h.card !== name && types.includes(h.what));
+    return animated && !types.includes('creature') ? [...types, 'creature'] : types;
   }
 
   /** In the setup pass a problem is noted and patched over; afterwards it fails the loop. */
@@ -208,6 +223,7 @@ class Simulation {
       haste: haste || c.keywords.includes('haste'),
       attacked: false,
       exerted: false,
+      own: ownCounters(c),
       baseToughness: pt !== undefined ? Number(pt?.split('/')[1] ?? 1) || 1 : undefined,
     };
     // "~ enters with three +1/+1 counters on it" (X is 0).
@@ -287,7 +303,10 @@ class Simulation {
   private toughness(p: Perm): number {
     // "~ gets +1/+1 for each color among permanents you control" (Faeburrow Elder, a 0/0): at least one.
     const self = /~ gets \+(\d+)\/\+(\d+) for each\b/.exec(this.cardOf(p.card).text);
-    return (p.baseToughness ?? this.cardOf(p.card).toughness ?? 0) + p.plus - p.minus + this.anthem(p) + (self ? Number(self[2]) : 0);
+    // Opalescence: an animated enchantment's base toughness is its mana value.
+    const card = this.cardOf(p.card);
+    const animated = !/\bCreature\b/.test(card.typeLine) && p.types.includes('creature');
+    return (p.baseToughness ?? (animated ? card.cmc : card.toughness) ?? 0) + p.plus - p.minus + this.anthem(p) + (self ? Number(self[2]) : 0);
   }
 
   /** State-based actions: creatures with 0 toughness or lethal damage die. */
@@ -361,7 +380,7 @@ class Simulation {
     // Sword of Feast and Famine trigger before the next step pays its costs).
     if (this.turn[this.at] === 'combat' && this.combatStep >= 1 && this.combatStep < 2 && this.attackers.size) {
       const from = this.events.length;
-      for (const p of this.perms) if (this.attackers.has(p.id)) this.events.push({ type: 'combatDamage', card: p.card });
+      for (const p of this.perms) if (this.attackers.has(p.id)) this.events.push({ type: 'combatDamage', card: p.card, first: !this.damaged && this.events.length === from });
       this.fireRiders(from);
     }
     let j = this.turn.indexOf(kind, this.at + 1);
@@ -371,11 +390,21 @@ class Simulation {
       j = this.turn.length - 1;
     }
     // Combat phases passed on the way still happen (Neheb's creature attacks in them; nothing in the loop triggers).
-    for (let n = this.at + 1; n < j; n++) if (this.turn[n] === 'combat') this.combatsStarted++;
+    // With riders on any attacker (Nature's Will, Druids' Repository), your creatures attack and connect in them.
+    for (let n = this.at + 1; n < j; n++) {
+      if (this.turn[n] !== 'combat') continue;
+      this.combatsStarted++;
+      if (this.generic) {
+        const from = this.events.length;
+        this.events.push({ type: 'attack', card: ANY_CREATURE, first: true }, { type: 'combatDamage', card: ANY_CREATURE, first: true });
+        this.fireRiders(from);
+      }
+    }
     this.at = j;
     this.combatStep = -1;
     if (kind === 'combat') {
       this.attackers.clear();
+      this.damaged = false;
       this.combatsStarted++;
     }
   }
@@ -426,7 +455,32 @@ class Simulation {
       const sorcerySpeed =
         a.sorcery ||
         ((a.kind === 'cast' || (a.kind === 'recast' && a.isCast)) && !/\bInstant\b/.test(card.typeLine) && !card.keywords.includes('flash'));
-      if (sorcerySpeed) this.advanceTo('main', true);
+      if (sorcerySpeed) {
+        // Aggravated Assault again: its combat comes first, so the next activation is in the next main phase.
+        const again = has(a, 'extraCombat') && this.mainUses.get(a.id) === this.at;
+        this.advanceTo('main', !again);
+        this.mainUses.set(a.id, this.at);
+      }
+      // Najeela: "Activate only during combat". Once per combat, after your creatures attack and deal damage (what
+      // that makes, like Nature's Will's untapped lands, pays for it); the next activation is in the extra combat.
+      if (a.combatOnly) {
+        const inCombat = this.turn[this.at] === 'combat';
+        if (!inCombat || this.combatUses.get(a.id) === this.at) {
+          this.advanceTo('combat', false);
+        }
+        if (this.combatStep < 1) {
+          this.combatStep = 1;
+          this.declareAttacker(ANY_CREATURE, {});
+        }
+        if (this.combatStep < 2) {
+          const from = this.events.length;
+          for (const p of this.perms) if (this.attackers.has(p.id)) this.events.push({ type: 'combatDamage', card: p.card, first: !this.damaged && this.events.length === from });
+          this.damaged = true;
+          this.combatStep = 2;
+          this.fireRiders(from);
+        }
+        this.combatUses.set(a.id, this.at);
+      }
       return;
     }
     if (t!.type === 'beginCombat') {
@@ -439,7 +493,8 @@ class Simulation {
       this.advanceTo('main', false);
       return;
     }
-    const name = (t!.type === 'attack' || t!.type === 'combatDamage') && t!.source === 'host' ? (this.plan.hosts[i] ?? ANY_CREATURE) : a.card;
+    const source = t!.type === 'attack' || t!.type === 'combatDamage' ? t!.source : 'self';
+    const name = source === 'host' ? (this.plan.hosts[i] ?? ANY_CREATURE) : source === 'any' ? ANY_CREATURE : a.card;
     const inCombat = this.turn[this.at] === 'combat';
     if (t!.type === 'attack') {
       // Attackers are declared once per combat: after the beginning of combat, or else in the next combat.
@@ -455,7 +510,8 @@ class Simulation {
       this.declareAttacker(name, {});
     }
     this.combatStep = 2;
-    this.events.push({ type: 'combatDamage', card: name });
+    this.events.push({ type: 'combatDamage', card: name, first: !this.damaged });
+    this.damaged = true;
   }
 
   // --- running the loop -----------------------------------------------------
@@ -569,6 +625,17 @@ class Simulation {
       const prevented = this.plan.helpers.some((h) => h.kind === 'counterPreventer');
       if (!prevented) this.addCounters(p, 0, 1);
     }
+    if (a.cost.ownCounter) {
+      const p = this.require(a.card, `to remove a ${a.cost.ownCounter} counter`);
+      if ((p.own[a.cost.ownCounter] ?? 0) < 1 && this.problem(`${a.card} needs a ${a.cost.ownCounter} counter`)) p.own[a.cost.ownCounter] = 1;
+      p.own[a.cost.ownCounter]!--;
+    }
+    if (a.cost.exile) {
+      const victim = this.pickSacrifice(input, a);
+      this.leave(victim);
+      this.spareTokens.delete(victim.id);
+      if (!victim.token) this.exile.push({ card: victim.card, by: a.card });
+    }
     if (a.cost.food) {
       this.foods -= a.cost.food;
       if (this.foods < 0 && this.problem(`needs ${a.cost.food} Food to start`)) this.foods = 0;
@@ -588,7 +655,11 @@ class Simulation {
       if (card) this.graveyard.push(card);
       this.events.push({ type: 'discard', card });
     }
-    if (a.kind === 'recast') {
+    if (a.kind === 'recast' && a.fromExile) {
+      const at = this.exile.findIndex((e) => e.card === a.card);
+      if (at >= 0) this.exile.splice(at, 1);
+      else if (this.problem(`${a.card} starts in exile`)) this.leaveIfPresent(a.card);
+    } else if (a.kind === 'recast') {
       if (!this.takeFrom(this.graveyard, a.card) && this.problem(`${a.card} starts in your graveyard`)) this.leaveIfPresent(a.card);
     }
     if (a.kind === 'cast' && a.from === 'library') {
@@ -659,9 +730,14 @@ class Simulation {
   }
 
   private pickSacrifice(input: Binding, a: Ability): Perm {
+    if (input.object && input.token) {
+      const copy = [...this.perms].reverse().find((p) => p.token && p.card === input.object);
+      if (copy) return copy;
+    }
     if (input.object) return this.require(input.object, `to be sacrificed to ${a.card}`);
     // A token: the one just made, or any spare token of the right type.
-    const what = a.cost.sacrifice!.what;
+    // (An exile cost, Food Chain, takes a creature the same way.)
+    const what = a.cost.sacrifice?.what ?? 'creature';
     const fits = (p: Perm) => p.token && (what === 'permanent' || p.types.includes(what));
     const recent = this.lastTokens.map((id) => this.perms.find((p) => p.id === id)).find((p): p is Perm => Boolean(p && fits(p)));
     const any = recent ?? this.perms.find(fits);
@@ -677,6 +753,10 @@ class Simulation {
     const host = this.plan.hosts[i];
     switch (o.type) {
       case 'mana': {
+        if (o.plusMv !== undefined) {
+          this.pool.any += o.plusMv + (input.object ? this.cardOf(input.object).cmc : 0);
+          return;
+        }
         const times = o.variable ? (this.plan.variableX ?? 1) : 1;
         // High Tide: each Island untapped for mana makes an extra {U}.
         if (o.fromLands && this.plan.helpers.some((h) => h.kind === 'landAmplifier')) this.pool.U += o.mana.any * times;
@@ -716,12 +796,18 @@ class Simulation {
         this.created({ creatures: o.count, treasures: 0, foods: 0, clues: 0 }, a.card);
         return;
       case 'copy': {
-        const target = o.target === 'host' ? (host ?? output.object ?? a.card) : (output.object ?? a.card);
+        const target = o.target === 'entering' ? (input.object ?? a.card) : o.target === 'host' ? (host ?? output.object ?? a.card) : (output.object ?? a.card);
         // Only a legal target: Mishra copying "target noncreature artifact" cannot copy the creature that attacks next.
         // (With Helm of the Host the copies are not legendary, so Kiki-Jiki's token can target itself.)
         const nonlegendary = this.plan.helpers.some((h) => h.kind === 'nonlegendary');
-        const spec = o.target !== 'host' && nonlegendary ? { ...o.target, nonlegendary: false } : o.target;
-        if (spec !== 'host' && !matchesTarget(spec, this.cardOf(target), a.card)) throw new LoopFails(`${a.card} cannot copy ${target}`);
+        const spec = o.target !== 'host' && o.target !== 'entering' && nonlegendary ? { ...o.target, nonlegendary: false } : o.target;
+        if (spec !== 'host' && spec !== 'entering' && !matchesTarget(spec, this.cardOf(target), a.card)) throw new LoopFails(`${a.card} cannot copy ${target}`);
+        // Mirrorworks copies the permanent as it last existed, even if it is gone (sacrificed in response).
+        if (o.target === 'entering' && !this.find(target)) {
+          const t = this.enter(target, true, { types: this.typesOf(target) });
+          this.lastTokens.push(t.id);
+          return;
+        }
         if (!this.find(target) && this.problem(`${target} must be on the battlefield to be copied`)) this.enter(target, false, { sick: false });
         const t = this.enter(target, true, { sick: !o.haste, haste: o.haste, types: this.typesOf(target) });
         this.lastTokens.push(t.id);
@@ -860,6 +946,7 @@ class Simulation {
         return;
       }
       case 'spellCopy':
+        this.events.push({ type: 'spellCopied' });
         return;
       case 'mill': {
         // "that player mills that many cards" (Mindcrank): as many as the life just lost.
@@ -934,7 +1021,8 @@ class Simulation {
         const times = e.type === 'death' && deathDoubled ? 2 : 1;
         for (let n = 0; n < times; n++)
         for (const o of ability.outputs) {
-          if (o.type === 'mana') for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k] * (o.variable && o.fromLands ? (this.plan.variableX ?? 1) : 1);
+          const perPlayer = ability.trigger?.type === 'combatDamage' && ability.trigger.perPlayer && o.type === 'mana' && o.treasure ? (this.plan.players ?? 1) : 1;
+          if (o.type === 'mana') for (const k of [...COLORS, 'any'] as const) this.pool[k] += o.mana[k] * (o.variable && (o.fromLands || o.combat) ? (this.plan.variableX ?? 1) : 1) * perPlayer;
           if (o.type === 'mana' && o.treasure) this.created({ creatures: 0, treasures: o.mana.any, foods: 0, clues: 0 }, ability.card);
           if (o.type === 'food') this.created({ creatures: 0, treasures: 0, foods: o.count, clues: 0 }, ability.card);
           if (o.type === 'lifegain') this.life += o.amount;
@@ -1017,6 +1105,16 @@ class Simulation {
   }
 }
 
+/** "Fading 5", "~ enters with three charge counters on it": counters other than +1/+1 it enters with. */
+function ownCounters(card: Card): Record<string, number> {
+  const out: Record<string, number> = {};
+  const fading = /^fading (\d+)/m.exec(card.text);
+  if (fading) out.fade = Number(fading[1]);
+  const enters = /~ enters with (\w+) ([a-z]+) counters? on it/.exec(card.text);
+  if (enters && enters[2] !== '+1/+1') out[enters[2]!] = NUMBER[enters[1]!] ?? (Number(enters[1]) || 0);
+  return out;
+}
+
 /** Stand-in for the generic "other creatures" a mass reanimation needs. */
 function fillerCard(name: string): Card {
   return {
@@ -1054,7 +1152,15 @@ function riderMatches(r: Ability, e: Event): boolean {
     case 'etb':
       return e.type === 'etb' && (e.types ?? []).includes('creature') && !(t.nontoken && e.token) && !(t.another && e.card === r.card);
     case 'cast':
-      return e.type === 'cast' && (t.what === 'any' || (t.what === 'artifact' ? (e.casts ?? []).includes('artifact') : (e.casts ?? []).some((c) => c === 'instant' || c === 'sorcery')));
+      return (
+        e.type === 'cast' &&
+        (t.what === 'any' ||
+          (t.what === 'artifact'
+            ? (e.casts ?? []).includes('artifact')
+            : t.what === 'historic'
+              ? (e.casts ?? []).some((c) => c === 'artifact' || c === 'legendary')
+              : (e.casts ?? []).some((c) => c === 'instant' || c === 'sorcery')))
+      );
     case 'lifegain':
       return e.type === 'lifegain';
     case 'drain':
@@ -1068,13 +1174,15 @@ function riderMatches(r: Ability, e: Event): boolean {
     case 'attack':
       return e.type === 'attack' && (t.source === 'self' ? e.card === r.card : Boolean(e.first));
     case 'combatDamage':
-      return e.type === 'combatDamage' && (t.source === 'self' ? e.card === r.card : true);
+      return e.type === 'combatDamage' && (t.source === 'self' ? e.card === r.card : Boolean(e.first));
     case 'beginCombat':
       return e.type === 'beginCombat';
     case 'mill':
       return e.type === 'mill';
     case 'foodSacrificed':
       return e.type === 'foodSacrificed';
+    case 'spellCopied':
+      return e.type === 'spellCopied';
     default:
       return false;
   }
@@ -1124,6 +1232,7 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
     ...plan.cycle.flatMap((a) => (a.with ? [a.card, a.with] : [a.card])),
     ...plan.helpers.map((h) => h.card),
     ...Object.values(plan.hosts).filter((h) => h === ANY_CREATURE || h === ANY_LAND),
+    ...plan.bindings.flatMap((b) => (b.object === ANY_LAND ? [ANY_LAND] : [])),
   ]);
   // Everything starts where it usually is: permanents on the battlefield (not summoning sick), spells in hand.
   for (const name of [...cards].sort()) {
@@ -1140,6 +1249,10 @@ function runFrom(plan: LoopPlan, ctx: Context): Verification {
     }
   }
   for (let n = 1; n <= (plan.extraCreatures ?? 0); n++) sim.enter(`Other creature ${n}`, false, { sick: false });
+  const anyAttacker = (a: Ability) => (a.trigger?.type === 'attack' || a.trigger?.type === 'combatDamage') && a.trigger.source === 'any';
+  sim.generic =
+    plan.cycle.some((a) => a.combatOnly || anyAttacker(a)) || plan.helpers.some((h) => h.kind === 'rider' && anyAttacker(h.ability));
+  if (sim.generic && !sim.perms.some((p) => p.card === ANY_CREATURE)) sim.enter(ANY_CREATURE, false, { sick: false });
   for (const [by, target] of Object.entries(plan.exiles)) {
     const p = sim.perms.find((x) => x.card === target);
     if (p) {

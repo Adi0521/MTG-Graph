@@ -1,0 +1,39 @@
+// Archetype: Four-color artifacts and thopters (Breya, Etherium Shaper)
+Commander
+1 Breya, Etherium Shaper
+Deck
+1 Sai, Master Thopterist
+1 Time Sieve
+1 Thopter Foundry
+1 Sword of the Meek
+1 Nim Deathmantle
+1 Wurmcoil Engine
+1 Ashnod's Altar
+1 Krark-Clan Ironworks
+1 Myr Retriever
+1 Scrap Trawler
+1 Pentad Prism
+1 Grinding Station
+1 Saheeli Rai
+1 Felidar Guardian
+1 Pia Nalaar
+1 Whirler Rogue
+1 Sol Ring
+1 Arcane Signet
+1 Mana Vault
+1 Basalt Monolith
+1 Rings of Brighthearth
+1 Power Artifact
+1 Unwinding Clock
+1 Paradox Engine
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Swords to Plowshares
+1 Counterspell
+1 Demonic Tutor
+1 Thopter Spy Network
+1 Retrofitter Foundry
+1 Marionette Master
+1 Clock of Omens
+1 Sculpting Steel
+1 Mirrorworks

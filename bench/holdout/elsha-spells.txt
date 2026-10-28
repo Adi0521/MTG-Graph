@@ -1,0 +1,39 @@
+// Archetype: Jeskai noncreature spells (Elsha of the Infinite)
+Commander
+1 Elsha of the Infinite
+Deck
+1 Jeskai Ascendancy
+1 Retraction Helix
+1 Sensei's Divining Top
+1 Mystic Forge
+1 Paradise Mantle
+1 Sol Ring
+1 Arcane Signet
+1 Talisman of Conviction
+1 Isochron Scepter
+1 Dramatic Reversal
+1 Paradox Engine
+1 Grim Monolith
+1 Basalt Monolith
+1 Thousand-Year Storm
+1 Ghostly Flicker
+1 Dualcaster Mage
+1 Twinflame
+1 Splinter Twin
+1 Pestermite
+1 Deceiver Exarch
+1 Felidar Guardian
+1 Restoration Angel
+1 Saheeli Rai
+1 Midnight Clock
+1 Swords to Plowshares
+1 Counterspell
+1 Narset, Parter of Veils
+1 Lightning Bolt
+1 Sai, Master Thopterist
+1 Young Pyromancer
+1 Monastery Mentor
+1 Third Path Iconoclast
+1 Helm of Awakening
+1 Cloud Key
+1 Ornithopter

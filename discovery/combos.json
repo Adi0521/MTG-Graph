@@ -1,17 +1,17 @@
 {
  "stats": {
   "poolCards": 30897,
-  "loopCards": 3788,
-  "helperCards": 2597,
+  "loopCards": 3952,
+  "helperCards": 2678,
   "candidates": {
-   "single": 676,
-   "pairs": 545805,
+   "single": 725,
+   "pairs": 599690,
    "imprint": 609
   },
-  "combos": 6033,
-  "novel": 4167,
-  "rejectedBySimulator": 11355,
-  "ms": 115512
+  "combos": 6078,
+  "novel": 4173,
+  "rejectedBySimulator": 13844,
+  "ms": 295862
  },
  "spellbook": "2026-10-26T19:12:34.650124+00:00",
  "combos": [
@@ -304,6 +304,68 @@
      "opponentLife": 0,
      "deaths": 1,
      "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Companion of the Trials",
+    "Somberwald Sage"
+   ],
+   "loop": [
+    "Companion of the Trials",
+    "Somberwald Sage"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Companion of the Trials",
+     "ability": "{1}{W}: Untap target creature. Activate only if you control a Gideon planeswalker.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Companion of the Trials"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Companion of the Trials: if you control a gideon planeswalker"
+   ],
+   "conditions": [
+    "Companion of the Trials: if you control a gideon planeswalker"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
      "draws": 0,
      "tokens": 0,
      "casts": 0,
@@ -2363,6 +2425,11 @@
    ],
    "helperAlternatives": {
     "Bear Umbra": [
+     "Derevi, Empyrial Tactician",
+     "Druids' Repository",
+     "Grim Hireling",
+     "Nature's Will",
+     "Old Gnawbone",
      "Sword of Feast and Famine"
     ]
    },
@@ -2435,6 +2502,11 @@
    ],
    "helperAlternatives": {
     "Bear Umbra": [
+     "Derevi, Empyrial Tactician",
+     "Druids' Repository",
+     "Grim Hireling",
+     "Nature's Will",
+     "Old Gnawbone",
      "Sword of Feast and Famine"
     ]
    },
@@ -15903,6 +15975,75 @@
       "G": 0,
       "C": 0,
       "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Companion of the Trials",
+    "Jasmine Boreal of the Seven",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Companion of the Trials",
+    "Jasmine Boreal of the Seven"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Companion of the Trials",
+     "ability": "{1}{W}: Untap target creature. Activate only if you control a Gideon planeswalker.",
+     "then": "this untaps Jasmine Boreal of the Seven"
+    },
+    {
+     "card": "Jasmine Boreal of the Seven",
+     "ability": "{T}: Add {G}{W}. Spend this mana only to cast creature spells with no abilities.",
+     "then": "its mana pays for Companion of the Trials"
+    }
+   ],
+   "produces": [
+    "Infinite green mana"
+   ],
+   "prerequisites": [
+    "Companion of the Trials: if you control a gideon planeswalker"
+   ],
+   "conditions": [
+    "Companion of the Trials: if you control a gideon planeswalker"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{G}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 1,
+      "C": 0,
+      "any": 0
      },
      "life": 0,
      "opponentLife": 0,
@@ -42962,6 +43103,71 @@
       "G": 0,
       "C": 0,
       "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Hapatra, the Desert Frost",
+    "Somberwald Sage",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Hapatra, the Desert Frost",
+    "Somberwald Sage"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Hapatra, the Desert Frost",
+     "ability": "{2}{U}: Untap target creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Hapatra, the Desert Frost"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
      },
      "life": 0,
      "opponentLife": 0,
@@ -76982,6 +77188,67 @@
   },
   {
    "cards": [
+    "Seedcradle Witch",
+    "Somberwald Sage",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Seedcradle Witch",
+    "Somberwald Sage"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Seedcradle Witch",
+     "ability": "{2}{G}{W}: Target creature gets +3/+3 until end of turn. Untap that creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Seedcradle Witch"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
     "Slobad, Goblin Tinkerer",
     "Lesser Masticore",
     "Solemnity"
@@ -77166,6 +77433,133 @@
      "opponentLife": 0,
      "deaths": 1,
      "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Somberwald Sage",
+    "Staff of Domination",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Staff of Domination"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Staff of Domination"
+    },
+    {
+     "card": "Staff of Domination",
+     "ability": "{1}: Untap this artifact.",
+     "then": "this untaps Staff of Domination"
+    },
+    {
+     "card": "Staff of Domination",
+     "ability": "{3}, {T}: Untap target creature.",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Somberwald Sage",
+    "Thassa's Ire",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Thassa's Ire"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Thassa's Ire"
+    },
+    {
+     "card": "Thassa's Ire",
+     "ability": "{3}{U}: You may tap or untap target creature.",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
      "draws": 0,
      "tokens": 0,
      "casts": 0,
@@ -283799,10 +284193,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -283918,10 +284314,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284034,10 +284432,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284150,10 +284550,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284266,10 +284668,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284382,10 +284786,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284501,10 +284907,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284618,10 +285026,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284734,10 +285144,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284850,10 +285262,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -284969,10 +285383,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285088,10 +285504,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285207,10 +285625,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285323,10 +285743,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285442,10 +285864,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285558,10 +285982,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285674,10 +286100,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285794,10 +286222,12 @@
      "Popular Egotist",
      "Prosperous Innkeeper",
      "Psychomancer",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -285913,10 +286343,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286033,10 +286465,12 @@
      "Popular Egotist",
      "Prosperous Innkeeper",
      "Psychomancer",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286149,10 +286583,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286266,10 +286702,12 @@
      "Popular Egotist",
      "Prosperous Innkeeper",
      "Psychomancer",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286385,10 +286823,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286504,10 +286944,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286623,10 +287065,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286742,10 +287186,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286858,10 +287304,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -286974,10 +287422,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287093,10 +287543,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287212,10 +287664,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287331,10 +287785,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287450,10 +287906,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287569,10 +288027,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287685,10 +288145,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287801,10 +288263,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -287917,10 +288381,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288036,10 +288502,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288155,10 +288623,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288271,10 +288741,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288390,10 +288862,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288506,10 +288980,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288622,10 +289098,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288738,10 +289216,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288857,10 +289337,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -288978,10 +289460,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289102,10 +289586,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289223,10 +289709,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289344,10 +289832,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289465,10 +289955,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289586,10 +290078,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289710,10 +290204,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289832,10 +290328,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -289953,10 +290451,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290074,10 +290574,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290198,10 +290700,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290322,10 +290826,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290446,10 +290952,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290567,10 +291075,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290691,10 +291201,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290812,10 +291324,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -290933,10 +291447,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291058,10 +291574,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291182,10 +291700,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291307,10 +291827,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291428,10 +291950,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291550,10 +292074,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291674,10 +292200,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291798,10 +292326,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -291922,10 +292452,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292046,10 +292578,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292167,10 +292701,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292288,10 +292824,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292412,10 +292950,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292536,10 +293076,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292660,10 +293202,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292784,10 +293328,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -292908,10 +293454,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293029,10 +293577,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293150,10 +293700,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293271,10 +293823,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293395,10 +293949,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293519,10 +294075,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293640,10 +294198,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293764,10 +294324,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -293885,10 +294447,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -294006,10 +294570,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -294127,10 +294693,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -294251,10 +294819,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -294312,6 +294882,320 @@
    },
    "known": null,
    "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Ant-Man, Elusive Avenger"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Ant-Man, Elusive Avenger"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "Ant-Man, Elusive Avenger attacks in the next combat, triggering Ant-Man, Elusive Avenger"
+    },
+    {
+     "card": "Ant-Man, Elusive Avenger",
+     "ability": "Whenever Ant-Man deals combat damage to a player, create that many Treasure tokens.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Ant-Man, Elusive Avenger makes at least 5 mana (one per point of combat damage)",
+    "Ant-Man, Elusive Avenger deals combat damage to a player each combat"
+   ],
+   "conditions": [
+    "Ant-Man, Elusive Avenger makes at least 5 mana (one per point of combat damage)",
+    "Ant-Man, Elusive Avenger deals combat damage to a player each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "3750-8190",
+     "cards": [
+      "Aggravated Assault",
+      "Loot, the Nexus"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Ant-Man, Elusive Avenger"
+    ],
+    "theirs": [
+     "Loot, the Nexus"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Bloom Tender"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Bloom Tender"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Bloom Tender"
+    },
+    {
+     "card": "Bloom Tender",
+     "ability": "Vivid — {T}: For each color among permanents you control, add one mana of that color.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Bloom Tender makes at least 5 mana (one per color among your permanents)"
+   ],
+   "conditions": [
+    "Bloom Tender makes at least 5 mana (one per color among your permanents)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "3750-8190",
+     "cards": [
+      "Aggravated Assault",
+      "Loot, the Nexus"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Bloom Tender"
+    ],
+    "theirs": [
+     "Loot, the Nexus"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Derevi, Empyrial Tactician"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Derevi, Empyrial Tactician"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "the combat continues, triggering Derevi, Empyrial Tactician"
+    },
+    {
+     "card": "Derevi, Empyrial Tactician",
+     "ability": "When Derevi enters and whenever a creature you control deals combat damage to a player, you may tap or untap target permanent.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Derevi, Empyrial Tactician: assumes the lands it untaps make the colors you need",
+    "Derevi, Empyrial Tactician makes at least 5 mana (one land untapped per creature dealing combat damage)",
+    "Derevi, Empyrial Tactician deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "conditions": [
+    "Derevi, Empyrial Tactician makes at least 5 mana (one land untapped per creature dealing combat damage)",
+    "Derevi, Empyrial Tactician deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "3750-8190",
+     "cards": [
+      "Aggravated Assault",
+      "Loot, the Nexus"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Derevi, Empyrial Tactician"
+    ],
+    "theirs": [
+     "Loot, the Nexus"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Faeburrow Elder"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Faeburrow Elder"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Faeburrow Elder"
+    },
+    {
+     "card": "Faeburrow Elder",
+     "ability": "{T}: For each color among permanents you control, add one mana of that color.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Faeburrow Elder makes at least 5 mana (one per color among your permanents)"
+   ],
+   "conditions": [
+    "Faeburrow Elder makes at least 5 mana (one per color among your permanents)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "570-618-3750",
+     "cards": [
+      "Kiki-Jiki, Mirror Breaker",
+      "Faeburrow Elder",
+      "Aggravated Assault"
+     ],
+     "requires": 0
+    },
+    "ours": [],
+    "theirs": [
+     "Kiki-Jiki, Mirror Breaker"
+    ]
+   }
   },
   {
    "cards": [
@@ -294619,6 +295503,85 @@
     ],
     "theirs": [
      "Darksteel Angel"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Ant-Man, Elusive Avenger",
+    "Najeela, the Blade-Blossom"
+   ],
+   "loop": [
+    "Ant-Man, Elusive Avenger",
+    "Najeela, the Blade-Blossom"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Ant-Man, Elusive Avenger",
+     "ability": "Whenever Ant-Man deals combat damage to a player, create that many Treasure tokens.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    },
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "Ant-Man, Elusive Avenger attacks in the next combat, triggering Ant-Man, Elusive Avenger"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Ant-Man, Elusive Avenger makes at least 5 mana (one per point of combat damage)",
+    "Ant-Man, Elusive Avenger deals combat damage to a player each combat"
+   ],
+   "conditions": [
+    "Ant-Man, Elusive Avenger makes at least 5 mana (one per point of combat damage)",
+    "Ant-Man, Elusive Avenger deals combat damage to a player each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2047-7748",
+     "cards": [
+      "Ant-Man, Elusive Avenger",
+      "Mechanized Production"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Najeela, the Blade-Blossom"
+    ],
+    "theirs": [
+     "Mechanized Production"
     ]
    }
   },
@@ -297307,6 +298270,85 @@
     ],
     "theirs": [
      "Darksteel Angel"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Cavern-Hoard Dragon",
+    "Najeela, the Blade-Blossom"
+   ],
+   "loop": [
+    "Cavern-Hoard Dragon",
+    "Najeela, the Blade-Blossom"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Cavern-Hoard Dragon",
+     "ability": "Whenever this creature deals combat damage to a player, you create a Treasure token for each artifact that player controls.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    },
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "Cavern-Hoard Dragon attacks in the next combat, triggering Cavern-Hoard Dragon"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Cavern-Hoard Dragon makes at least 5 mana (a Treasure for each artifact that player controls)",
+    "Cavern-Hoard Dragon deals combat damage to a player each combat"
+   ],
+   "conditions": [
+    "Cavern-Hoard Dragon makes at least 5 mana (a Treasure for each artifact that player controls)",
+    "Cavern-Hoard Dragon deals combat damage to a player each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "3750-5988",
+     "cards": [
+      "Cavern-Hoard Dragon",
+      "Aggravated Assault"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Najeela, the Blade-Blossom"
+    ],
+    "theirs": [
+     "Aggravated Assault"
     ]
    }
   },
@@ -300641,6 +301683,81 @@
     },
     "ours": [
      "Loot, the Pathfinder"
+    ],
+    "theirs": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Freed from the Real",
+    "Somberwald Sage"
+   ],
+   "loop": [
+    "Freed from the Real",
+    "Somberwald Sage"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Freed from the Real",
+     "ability": "{U}: Untap enchanted creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Freed from the Real"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Freed from the Real is attached to Somberwald Sage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "129-4222--140",
+     "cards": [
+      "Kinnan, Bonder Prodigy",
+      "Freed from the Real"
+     ],
+     "requires": 1
+    },
+    "ours": [
+     "Somberwald Sage"
     ],
     "theirs": [
      "Kinnan, Bonder Prodigy"
@@ -304046,6 +305163,86 @@
   },
   {
    "cards": [
+    "Najeela, the Blade-Blossom",
+    "Orcrist, Goblin-cleaver"
+   ],
+   "loop": [
+    "Najeela, the Blade-Blossom",
+    "Orcrist, Goblin-cleaver"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Orcrist, Goblin-cleaver"
+    },
+    {
+     "card": "Orcrist, Goblin-cleaver",
+     "ability": "Whenever equipped creature deals combat damage to a player, choose a creature type. Create a Treasure token for each creature you control of that type.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Orcrist, Goblin-cleaver is attached to Najeela, the Blade-Blossom",
+    "Orcrist, Goblin-cleaver makes at least 5 mana (a Treasure for each creature you control of that type)",
+    "Najeela, the Blade-Blossom deals combat damage to a player each combat"
+   ],
+   "conditions": [
+    "Orcrist, Goblin-cleaver makes at least 5 mana (a Treasure for each creature you control of that type)",
+    "Najeela, the Blade-Blossom deals combat damage to a player each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2011-7903",
+     "cards": [
+      "Thorin, Company's Leader",
+      "Najeela, the Blade-Blossom"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Orcrist, Goblin-cleaver"
+    ],
+    "theirs": [
+     "Thorin, Company's Leader"
+    ]
+   }
+  },
+  {
+   "cards": [
     "Narfi, Betrayer King",
     "Phyrexian Altar"
    ],
@@ -305020,6 +306217,81 @@
     "ours": [],
     "theirs": [
      "Ygra, Eater of All"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Pemmin's Aura",
+    "Somberwald Sage"
+   ],
+   "loop": [
+    "Pemmin's Aura",
+    "Somberwald Sage"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Pemmin's Aura",
+     "ability": "{U}: Untap enchanted creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Pemmin's Aura"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Pemmin's Aura is attached to Somberwald Sage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "129-3525--140",
+     "cards": [
+      "Kinnan, Bonder Prodigy",
+      "Pemmin's Aura"
+     ],
+     "requires": 1
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Kinnan, Bonder Prodigy"
     ]
    }
   },
@@ -306869,6 +308141,152 @@
     ],
     "theirs": [
      "Dominion Saboteur"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Somberwald Sage",
+    "Vigean Graftmage"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Vigean Graftmage"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Vigean Graftmage"
+    },
+    {
+     "card": "Vigean Graftmage",
+     "ability": "{1}{U}: Untap target creature with a +1/+1 counter on it.",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "81-4019",
+     "cards": [
+      "Kami of Whispered Hopes",
+      "Vigean Graftmage"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Kami of Whispered Hopes"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Somberwald Sage",
+    "Voltaic Construct"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Voltaic Construct"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Voltaic Construct"
+    },
+    {
+     "card": "Voltaic Construct",
+     "ability": "{2}: Untap target artifact creature.",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1978-4734",
+     "cards": [
+      "Cradle Clearcutter",
+      "Voltaic Construct"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Cradle Clearcutter"
     ]
    }
   },
@@ -312785,6 +314203,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -318799,6 +320218,171 @@
   },
   {
    "cards": [
+    "Captain Storm, Cosmium Raider",
+    "Pentavus",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Captain Storm, Cosmium Raider",
+    "Pentavus"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Captain Storm, Cosmium Raider",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target Pirate you control.",
+     "then": "the counter pays Pentavus's cost"
+    },
+    {
+     "card": "Pentavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Pentavite artifact creature token with flying.",
+     "then": "the token entering triggers Captain Storm, Cosmium Raider"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Pentavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1183-2440",
+     "cards": [
+      "Pentavus",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Captain Storm, Cosmium Raider"
+    ],
+    "theirs": []
+   }
+  },
+  {
+   "cards": [
+    "Captain Storm, Cosmium Raider",
+    "Triskelavus",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Captain Storm, Cosmium Raider",
+    "Triskelavus"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Captain Storm, Cosmium Raider",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target Pirate you control.",
+     "then": "the counter pays Triskelavus's cost"
+    },
+    {
+     "card": "Triskelavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Triskelavite artifact creature token with flying. It has \"Sacrifice this token: This token deals 1 damage to any target.\"",
+     "then": "the token entering triggers Captain Storm, Cosmium Raider"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Triskelavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2440-4120-5086",
+     "cards": [
+      "Triskelavus",
+      "Vigor",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Captain Storm, Cosmium Raider"
+    ],
+    "theirs": [
+     "Vigor"
+    ]
+   }
+  },
+  {
+   "cards": [
     "Carnival of Souls",
     "Words of Wilding",
     "Ajani's Welcome"
@@ -318833,8 +320417,10 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Warden",
+     "Underhanded Designs",
      "Virulent Emissary"
     ]
    },
@@ -320981,6 +322567,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -323021,6 +324608,89 @@
   {
    "cards": [
     "Crab Umbra",
+    "Somberwald Sage",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Crab Umbra",
+    "Somberwald Sage"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Crab Umbra",
+     "ability": "{2}{U}: Untap enchanted creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Crab Umbra"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Crab Umbra is attached to Somberwald Sage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1268-2713-3772",
+     "cards": [
+      "Zirda, the Dawnwaker",
+      "Omen Hawker",
+      "Crab Umbra"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Omen Hawker"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Crab Umbra",
     "Transdimensional Bovine",
     "Zirda, the Dawnwaker"
    ],
@@ -323287,6 +324957,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -337905,6 +339576,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -341559,10 +343231,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -344743,6 +346417,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -348917,10 +350592,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -349152,6 +350829,83 @@
     },
     "ours": [
      "Incubation Druid"
+    ],
+    "theirs": [
+     "Jegantha, the Wellspring"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "High Alert",
+    "Somberwald Sage",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "High Alert",
+    "Somberwald Sage"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "High Alert",
+     "ability": "{2}{W}{U}: Untap target creature.",
+     "then": "this untaps Somberwald Sage"
+    },
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for High Alert"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "339-2713-4896",
+     "cards": [
+      "Jegantha, the Wellspring",
+      "High Alert",
+      "Zirda, the Dawnwaker"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
     ],
     "theirs": [
      "Jegantha, the Wellspring"
@@ -350059,6 +351813,245 @@
     ],
     "theirs": [
      "Agatha of the Vile Cauldron"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Jasmine Boreal of the Seven",
+    "Sword of the Paruns",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Jasmine Boreal of the Seven",
+    "Sword of the Paruns"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Jasmine Boreal of the Seven",
+     "ability": "{T}: Add {G}{W}. Spend this mana only to cast creature spells with no abilities.",
+     "then": "its mana pays for Sword of the Paruns"
+    },
+    {
+     "card": "Sword of the Paruns",
+     "ability": "{3}: You may tap or untap equipped creature.",
+     "then": "this untaps Jasmine Boreal of the Seven"
+    }
+   ],
+   "produces": [
+    "Infinite green mana"
+   ],
+   "prerequisites": [
+    "Sword of the Paruns is attached to Jasmine Boreal of the Seven"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{G}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 1,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2713-4315-5200",
+     "cards": [
+      "Careful Cultivation",
+      "Sword of the Paruns",
+      "Zirda, the Dawnwaker"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Jasmine Boreal of the Seven"
+    ],
+    "theirs": [
+     "Careful Cultivation"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Jasmine Boreal of the Seven",
+    "Umbral Mantle",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Jasmine Boreal of the Seven",
+    "Umbral Mantle"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Jasmine Boreal of the Seven",
+     "ability": "{T}: Add {G}{W}. Spend this mana only to cast creature spells with no abilities.",
+     "then": "its mana pays for Umbral Mantle"
+    },
+    {
+     "card": "Umbral Mantle",
+     "ability": "Equipped creature has \"{3}, {Q}: This creature gets +2/+2 until end of turn.\"",
+     "then": "this untaps Jasmine Boreal of the Seven"
+    }
+   ],
+   "produces": [
+    "Infinite green mana"
+   ],
+   "prerequisites": [
+    "Umbral Mantle is attached to Jasmine Boreal of the Seven"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{G}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 1,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2713-2816-4028",
+     "cards": [
+      "Umbral Mantle",
+      "Zhur-Taa Druid",
+      "Zirda, the Dawnwaker"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Jasmine Boreal of the Seven"
+    ],
+    "theirs": [
+     "Zhur-Taa Druid"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Jasmine Boreal of the Seven",
+    "Voltaic Construct",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Jasmine Boreal of the Seven",
+    "Voltaic Construct"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Jasmine Boreal of the Seven",
+     "ability": "{T}: Add {G}{W}. Spend this mana only to cast creature spells with no abilities.",
+     "then": "its mana pays for Voltaic Construct"
+    },
+    {
+     "card": "Voltaic Construct",
+     "ability": "{2}: Untap target artifact creature.",
+     "then": "this untaps Jasmine Boreal of the Seven"
+    }
+   ],
+   "produces": [
+    "Infinite green mana"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{G}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 1,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1978-2713-3660",
+     "cards": [
+      "Zirda, the Dawnwaker",
+      "Voltaic Construct",
+      "Millikin"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Jasmine Boreal of the Seven"
+    ],
+    "theirs": [
+     "Millikin"
     ]
    }
   },
@@ -355679,6 +357672,171 @@
   },
   {
    "cards": [
+    "Mm'menon, Uthros Exile",
+    "Pentavus",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Mm'menon, Uthros Exile",
+    "Pentavus"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Mm'menon, Uthros Exile",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target creature.",
+     "then": "the counter pays Pentavus's cost"
+    },
+    {
+     "card": "Pentavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Pentavite artifact creature token with flying.",
+     "then": "the token entering triggers Mm'menon, Uthros Exile"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Pentavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1183-2440",
+     "cards": [
+      "Pentavus",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Mm'menon, Uthros Exile"
+    ],
+    "theirs": []
+   }
+  },
+  {
+   "cards": [
+    "Mm'menon, Uthros Exile",
+    "Triskelavus",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Mm'menon, Uthros Exile",
+    "Triskelavus"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Mm'menon, Uthros Exile",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target creature.",
+     "then": "the counter pays Triskelavus's cost"
+    },
+    {
+     "card": "Triskelavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Triskelavite artifact creature token with flying. It has \"Sacrifice this token: This token deals 1 damage to any target.\"",
+     "then": "the token entering triggers Mm'menon, Uthros Exile"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Triskelavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2440-4120-5086",
+     "cards": [
+      "Triskelavus",
+      "Vigor",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Mm'menon, Uthros Exile"
+    ],
+    "theirs": [
+     "Vigor"
+    ]
+   }
+  },
+  {
+   "cards": [
     "Mobilization",
     "Phyrexian Altar",
     "Zirda, the Dawnwaker"
@@ -356783,10 +358941,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -356918,10 +359078,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -357134,10 +359296,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -357953,6 +360117,87 @@
   },
   {
    "cards": [
+    "Pentavus",
+    "Yotian Dissident",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Pentavus",
+    "Yotian Dissident"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Pentavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Pentavite artifact creature token with flying.",
+     "then": "the token entering triggers Yotian Dissident"
+    },
+    {
+     "card": "Yotian Dissident",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target creature you control.",
+     "then": "the counter pays Pentavus's cost"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Pentavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "1183-2440",
+     "cards": [
+      "Pentavus",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Yotian Dissident"
+    ],
+    "theirs": []
+   }
+  },
+  {
+   "cards": [
     "Phyrexian Altar",
     "Proctor of Potential",
     "Abzan Ascendancy"
@@ -357982,6 +360227,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -358086,6 +360332,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -358355,6 +360602,7 @@
      "Sek'Kuar, Deathkeeper",
      "Sifter of Skulls",
      "Spirit Bonds",
+     "The Prydwen, Steel Flagship",
      "The Skullspore Nexus",
      "Totentanz, Swarm Piper",
      "Zahur, Glory's Past"
@@ -363530,6 +365778,172 @@
   },
   {
    "cards": [
+    "Somberwald Sage",
+    "Sword of the Paruns",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Sword of the Paruns"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Sword of the Paruns"
+    },
+    {
+     "card": "Sword of the Paruns",
+     "ability": "{3}: You may tap or untap equipped creature.",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Sword of the Paruns is attached to Somberwald Sage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2713-4315-5200",
+     "cards": [
+      "Careful Cultivation",
+      "Sword of the Paruns",
+      "Zirda, the Dawnwaker"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Careful Cultivation"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Somberwald Sage",
+    "Umbral Mantle",
+    "Zirda, the Dawnwaker"
+   ],
+   "loop": [
+    "Somberwald Sage",
+    "Umbral Mantle"
+   ],
+   "helpers": [
+    "Zirda, the Dawnwaker"
+   ],
+   "helperAlternatives": {
+    "Zirda, the Dawnwaker": [
+     "Kinnan, Bonder Prodigy"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Somberwald Sage",
+     "ability": "{T}: Add three mana of any one color. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Umbral Mantle"
+    },
+    {
+     "card": "Umbral Mantle",
+     "ability": "Equipped creature has \"{3}, {Q}: This creature gets +2/+2 until end of turn.\"",
+     "then": "this untaps Somberwald Sage"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color"
+   ],
+   "prerequisites": [
+    "Umbral Mantle is attached to Somberwald Sage"
+   ],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 2
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2713-2816-4028",
+     "cards": [
+      "Umbral Mantle",
+      "Zhur-Taa Druid",
+      "Zirda, the Dawnwaker"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Somberwald Sage"
+    ],
+    "theirs": [
+     "Zhur-Taa Druid"
+    ]
+   }
+  },
+  {
+   "cards": [
     "Spawnsire of Ulamog",
     "Thermopod",
     "Zirda, the Dawnwaker"
@@ -364381,10 +366795,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -364780,6 +367196,90 @@
     ],
     "theirs": [
      "Millikin"
+    ]
+   }
+  },
+  {
+   "cards": [
+    "Triskelavus",
+    "Yotian Dissident",
+    "Mana Echoes"
+   ],
+   "loop": [
+    "Triskelavus",
+    "Yotian Dissident"
+   ],
+   "helpers": [
+    "Mana Echoes"
+   ],
+   "helperAlternatives": {
+    "Mana Echoes": [
+     "Urza, Lord High Artificer"
+    ]
+   },
+   "steps": [
+    {
+     "card": "Triskelavus",
+     "ability": "{1}, Remove a +1/+1 counter from this creature: Create a 1/1 colorless Triskelavite artifact creature token with flying. It has \"Sacrifice this token: This token deals 1 damage to any target.\"",
+     "then": "the token entering triggers Yotian Dissident"
+    },
+    {
+     "card": "Yotian Dissident",
+     "ability": "Whenever an artifact you control enters, put a +1/+1 counter on target creature you control.",
+     "then": "the counter pays Triskelavus's cost"
+    }
+   ],
+   "produces": [
+    "Infinite creature tokens",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {1} available to start (for Triskelavus)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 1,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": null,
+   "variantOf": {
+    "combo": {
+     "id": "2440-4120-5086",
+     "cards": [
+      "Triskelavus",
+      "Vigor",
+      "Mana Echoes"
+     ],
+     "requires": 0
+    },
+    "ours": [
+     "Yotian Dissident"
+    ],
+    "theirs": [
+     "Vigor"
     ]
    }
   },
@@ -368405,10 +370905,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -368623,6 +371125,144 @@
   {
    "cards": [
     "Aggravated Assault",
+    "Alena, Kessig Trapper"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Alena, Kessig Trapper"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Alena, Kessig Trapper"
+    },
+    {
+     "card": "Alena, Kessig Trapper",
+     "ability": "{T}: Add an amount of {R} equal to the greatest power among creatures you control that entered this turn.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Alena, Kessig Trapper makes at least 5 mana (equal to the greatest power among creatures you control that entered this turn)"
+   ],
+   "conditions": [
+    "Alena, Kessig Trapper makes at least 5 mana (equal to the greatest power among creatures you control that entered this turn)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3750-4747",
+    "cards": [
+     "Alena, Kessig Trapper",
+     "Aggravated Assault"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Axebane Guardian"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Axebane Guardian"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Axebane Guardian"
+    },
+    {
+     "card": "Axebane Guardian",
+     "ability": "{T}: Add X mana in any combination of colors, where X is the number of creatures you control with defender.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Axebane Guardian makes at least 5 mana (the number of creatures you control with defender)"
+   ],
+   "conditions": [
+    "Axebane Guardian makes at least 5 mana (the number of creatures you control with defender)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3043-3750",
+    "cards": [
+     "Aggravated Assault",
+     "Axebane Guardian"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
     "Bear Umbra"
    ],
    "loop": [
@@ -368766,6 +371406,291 @@
   {
    "cards": [
     "Aggravated Assault",
+    "Druids' Repository"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Druids' Repository"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "the combat continues, triggering Druids' Repository"
+    },
+    {
+     "card": "Druids' Repository",
+     "ability": "Whenever a creature you control attacks, put a charge counter on this enchantment.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Druids' Repository makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "conditions": [
+    "Druids' Repository makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "767-3750",
+    "cards": [
+     "Druids' Repository",
+     "Aggravated Assault"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Grand Warlord Radha"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Grand Warlord Radha"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "the combat continues, triggering Grand Warlord Radha"
+    },
+    {
+     "card": "Grand Warlord Radha",
+     "ability": "Whenever one or more creatures you control attack, add that much mana in any combination of {R} and/or {G}. Until end of turn, you don't lose this mana as steps and phases end.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Grand Warlord Radha makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "conditions": [
+    "Grand Warlord Radha makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "1059-3750",
+    "cards": [
+     "Grand Warlord Radha",
+     "Aggravated Assault"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Howlsquad Heavy"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Howlsquad Heavy"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Howlsquad Heavy"
+    },
+    {
+     "card": "Howlsquad Heavy",
+     "ability": "Max speed — {T}: Add {R} for each Goblin you control.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Howlsquad Heavy makes at least 5 mana (for each goblin you control)"
+   ],
+   "conditions": [
+    "Howlsquad Heavy makes at least 5 mana (for each goblin you control)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3750-6410",
+    "cards": [
+     "Howlsquad Heavy",
+     "Aggravated Assault"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Nature's Will"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Nature's Will"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "the combat continues, triggering Nature's Will"
+    },
+    {
+     "card": "Nature's Will",
+     "ability": "Whenever one or more creatures you control deal combat damage to a player, tap all lands that player controls and untap all lands you control.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Nature's Will: assumes the lands it untaps make the colors you need",
+    "Nature's Will makes at least 5 mana (one per land you control)",
+    "Nature's Will deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "conditions": [
+    "Nature's Will makes at least 5 mana (one per land you control)",
+    "Nature's Will deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3732-3750",
+    "cards": [
+     "Aggravated Assault",
+     "Nature's Will"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
     "Neheb, the Eternal"
    ],
    "loop": [
@@ -368835,6 +371760,79 @@
   {
    "cards": [
     "Aggravated Assault",
+    "Old Gnawbone"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Old Gnawbone"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "the combat continues, triggering Old Gnawbone"
+    },
+    {
+     "card": "Old Gnawbone",
+     "ability": "Whenever a creature you control deals combat damage to a player, create that many Treasure tokens.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Old Gnawbone makes at least 5 mana (one per point of combat damage)",
+    "Old Gnawbone deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "conditions": [
+    "Old Gnawbone makes at least 5 mana (one per point of combat damage)",
+    "Old Gnawbone deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "1800-3750",
+    "cards": [
+     "Aggravated Assault",
+     "Old Gnawbone"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
     "Savage Ventmaw"
    ],
    "loop": [
@@ -368893,6 +371891,77 @@
     "cards": [
      "Savage Ventmaw",
      "Aggravated Assault"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Aggravated Assault",
+    "Selvala, Heart of the Wilds"
+   ],
+   "loop": [
+    "Aggravated Assault",
+    "Selvala, Heart of the Wilds"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Aggravated Assault",
+     "ability": "{3}{R}{R}: Untap all creatures you control. After this main phase, there is an additional combat phase followed by an additional main phase. Activate only as a sorcery.",
+     "then": "this untaps Selvala, Heart of the Wilds"
+    },
+    {
+     "card": "Selvala, Heart of the Wilds",
+     "ability": "{G}, {T}: Add X mana in any combination of colors, where X is the greatest power among creatures you control.",
+     "then": "its mana pays for Aggravated Assault"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Selvala, Heart of the Wilds makes at least 6 mana (the greatest power among creatures you control)"
+   ],
+   "conditions": [
+    "Selvala, Heart of the Wilds makes at least 6 mana (the greatest power among creatures you control)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [
+     "needs {G} available to start (for Selvala, Heart of the Wilds)"
+    ],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "527-3750",
+    "cards": [
+     "Aggravated Assault",
+     "Selvala, Heart of the Wilds"
     ],
     "requires": 0
    },
@@ -370298,6 +373367,77 @@
     "cards": [
      "Zirda, the Dawnwaker",
      "Basalt Monolith"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Bear Umbra",
+    "Najeela, the Blade-Blossom"
+   ],
+   "loop": [
+    "Bear Umbra",
+    "Najeela, the Blade-Blossom"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Bear Umbra",
+     "ability": "Enchanted creature gets +2/+2 and has \"Whenever this creature attacks, untap all lands you control.\"",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    },
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Bear Umbra"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Bear Umbra is attached to Najeela, the Blade-Blossom",
+    "Bear Umbra: assumes the lands it untaps make the colors you need",
+    "Bear Umbra makes at least 5 mana (one per land you control)"
+   ],
+   "conditions": [
+    "Bear Umbra makes at least 5 mana (one per land you control)"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "2011-4228",
+    "cards": [
+     "Najeela, the Blade-Blossom",
+     "Bear Umbra"
     ],
     "requires": 0
    },
@@ -373722,11 +376862,11 @@
   {
    "cards": [
     "Derevi, Empyrial Tactician",
-    "Splinter Twin"
+    "Najeela, the Blade-Blossom"
    ],
    "loop": [
     "Derevi, Empyrial Tactician",
-    "Splinter Twin"
+    "Najeela, the Blade-Blossom"
    ],
    "helpers": [],
    "helperAlternatives": {},
@@ -373734,22 +376874,28 @@
     {
      "card": "Derevi, Empyrial Tactician",
      "ability": "When Derevi enters and whenever a creature you control deals combat damage to a player, you may tap or untap target permanent.",
-     "then": "this untaps Derevi, Empyrial Tactician"
+     "then": "its mana pays for Najeela, the Blade-Blossom"
     },
     {
-     "card": "Splinter Twin",
-     "ability": "Enchanted creature has \"{T}: Create a token that's a copy of this creature, except it has haste. Exile that token at the beginning of the next end step.\"",
-     "then": "Derevi, Empyrial Tactician enters, triggering its ability"
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Derevi, Empyrial Tactician"
     }
    ],
    "produces": [
-    "Infinite hasty creature tokens",
-    "Infinite creature ETBs"
+    "Infinite combat phases"
    ],
    "prerequisites": [
-    "Splinter Twin is attached to Derevi, Empyrial Tactician"
+    "Derevi, Empyrial Tactician: assumes the lands it untaps make the colors you need",
+    "Derevi, Empyrial Tactician makes at least 5 mana (one land untapped per creature dealing combat damage)",
+    "Derevi, Empyrial Tactician deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
    ],
-   "conditions": [],
+   "conditions": [
+    "Derevi, Empyrial Tactician makes at least 5 mana (one land untapped per creature dealing combat damage)",
+    "Derevi, Empyrial Tactician deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
    "payoffs": [],
    "warnings": [],
    "netMana": "none",
@@ -373768,19 +376914,19 @@
      "life": 0,
      "opponentLife": 0,
      "deaths": 0,
-     "etbs": 1,
+     "etbs": 0,
      "draws": 0,
-     "tokens": 1,
+     "tokens": 0,
      "casts": 0,
-     "combats": 0,
+     "combats": 1,
      "milled": 0,
      "selfMilled": 0
     }
    },
    "known": {
-    "id": "2608-4702",
+    "id": "2011-2608",
     "cards": [
-     "Splinter Twin",
+     "Najeela, the Blade-Blossom",
      "Derevi, Empyrial Tactician"
     ],
     "requires": 0
@@ -374246,6 +377392,77 @@
     "cards": [
      "Drogskol Reaver",
      "Sheoldred, the Apocalypse"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Druids' Repository",
+    "Najeela, the Blade-Blossom"
+   ],
+   "loop": [
+    "Druids' Repository",
+    "Najeela, the Blade-Blossom"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Druids' Repository",
+     "ability": "Whenever a creature you control attacks, put a charge counter on this enchantment.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    },
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Druids' Repository"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Druids' Repository makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "conditions": [
+    "Druids' Repository makes at least 5 mana (one per attacking creature)",
+    "Creatures you control attack in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "767-2011",
+    "cards": [
+     "Najeela, the Blade-Blossom",
+     "Druids' Repository"
     ],
     "requires": 0
    },
@@ -375130,6 +378347,72 @@
     "cards": [
      "Exquisite Blood",
      "Epicure of Blood"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Eternal Scourge",
+    "Food Chain"
+   ],
+   "loop": [
+    "Eternal Scourge",
+    "Food Chain"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Eternal Scourge",
+     "ability": "You may cast this card from exile.",
+     "then": "Eternal Scourge is sacrificed to Food Chain"
+    },
+    {
+     "card": "Food Chain",
+     "ability": "Exile a creature you control: Add X mana of any one color, where X is 1 plus the exiled creature's mana value. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Eternal Scourge"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color (only for creature spells)",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "1806-3519",
+    "cards": [
+     "Food Chain",
+     "Eternal Scourge"
     ],
     "requires": 0
    },
@@ -376628,6 +379911,72 @@
   },
   {
    "cards": [
+    "Food Chain",
+    "Misthollow Griffin"
+   ],
+   "loop": [
+    "Food Chain",
+    "Misthollow Griffin"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Food Chain",
+     "ability": "Exile a creature you control: Add X mana of any one color, where X is 1 plus the exiled creature's mana value. Spend this mana only to cast creature spells.",
+     "then": "its mana pays for Misthollow Griffin"
+    },
+    {
+     "card": "Misthollow Griffin",
+     "ability": "You may cast this card from exile.",
+     "then": "Misthollow Griffin is sacrificed to Food Chain"
+    }
+   ],
+   "produces": [
+    "Infinite mana of any color (only for creature spells)",
+    "Infinite creature ETBs"
+   ],
+   "prerequisites": [],
+   "conditions": [],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "{any}",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 1
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 1,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 0,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "3519-4347",
+    "cards": [
+     "Food Chain",
+     "Misthollow Griffin"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
     "Freed from the Real",
     "Gyre Engineer"
    ],
@@ -378078,6 +381427,11 @@
    ],
    "helperAlternatives": {
     "Bear Umbra": [
+     "Derevi, Empyrial Tactician",
+     "Druids' Repository",
+     "Grand Warlord Radha",
+     "Nature's Will",
+     "Old Gnawbone",
      "Sword of Feast and Famine"
     ]
    },
@@ -381668,6 +385022,226 @@
     "cards": [
      "Murderous Redcap",
      "Solemnity"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Najeela, the Blade-Blossom",
+    "Nature's Will"
+   ],
+   "loop": [
+    "Najeela, the Blade-Blossom",
+    "Nature's Will"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Nature's Will"
+    },
+    {
+     "card": "Nature's Will",
+     "ability": "Whenever one or more creatures you control deal combat damage to a player, tap all lands that player controls and untap all lands you control.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Nature's Will: assumes the lands it untaps make the colors you need",
+    "Nature's Will makes at least 5 mana (one per land you control)",
+    "Nature's Will deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "conditions": [
+    "Nature's Will makes at least 5 mana (one per land you control)",
+    "Nature's Will deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "2011-3732",
+    "cards": [
+     "Najeela, the Blade-Blossom",
+     "Nature's Will"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Najeela, the Blade-Blossom",
+    "Old Gnawbone"
+   ],
+   "loop": [
+    "Najeela, the Blade-Blossom",
+    "Old Gnawbone"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Old Gnawbone"
+    },
+    {
+     "card": "Old Gnawbone",
+     "ability": "Whenever a creature you control deals combat damage to a player, create that many Treasure tokens.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Old Gnawbone makes at least 5 mana (one per point of combat damage)",
+    "Old Gnawbone deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "conditions": [
+    "Old Gnawbone makes at least 5 mana (one per point of combat damage)",
+    "Old Gnawbone deals combat damage to a player each combat",
+    "Your creatures deal combat damage to a player in each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "1800-2011",
+    "cards": [
+     "Najeela, the Blade-Blossom",
+     "Old Gnawbone"
+    ],
+    "requires": 0
+   },
+   "variantOf": null
+  },
+  {
+   "cards": [
+    "Najeela, the Blade-Blossom",
+    "Sword of Feast and Famine"
+   ],
+   "loop": [
+    "Najeela, the Blade-Blossom",
+    "Sword of Feast and Famine"
+   ],
+   "helpers": [],
+   "helperAlternatives": {},
+   "steps": [
+    {
+     "card": "Najeela, the Blade-Blossom",
+     "ability": "{W}{U}{B}{R}{G}: Untap all attacking creatures. They gain trample, lifelink, and haste until end of turn. After this phase, there is an additional combat phase. Activate only during combat.",
+     "then": "the combat continues, triggering Sword of Feast and Famine"
+    },
+    {
+     "card": "Sword of Feast and Famine",
+     "ability": "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",
+     "then": "its mana pays for Najeela, the Blade-Blossom"
+    }
+   ],
+   "produces": [
+    "Infinite combat phases"
+   ],
+   "prerequisites": [
+    "Sword of Feast and Famine is attached to Najeela, the Blade-Blossom",
+    "Sword of Feast and Famine: assumes the lands it untaps make the colors you need",
+    "Sword of Feast and Famine makes at least 5 mana (one per land you control)",
+    "Najeela, the Blade-Blossom deals combat damage to a player each combat"
+   ],
+   "conditions": [
+    "Sword of Feast and Famine makes at least 5 mana (one per land you control)",
+    "Najeela, the Blade-Blossom deals combat damage to a player each combat"
+   ],
+   "payoffs": [],
+   "warnings": [],
+   "netMana": "none",
+   "verification": {
+    "startup": [],
+    "perLoop": {
+     "mana": {
+      "W": 0,
+      "U": 0,
+      "B": 0,
+      "R": 0,
+      "G": 0,
+      "C": 0,
+      "any": 0
+     },
+     "life": 0,
+     "opponentLife": 0,
+     "deaths": 0,
+     "etbs": 0,
+     "draws": 0,
+     "tokens": 0,
+     "casts": 0,
+     "combats": 1,
+     "milled": 0,
+     "selfMilled": 0
+    }
+   },
+   "known": {
+    "id": "900-2011",
+    "cards": [
+     "Najeela, the Blade-Blossom",
+     "Sword of Feast and Famine"
     ],
     "requires": 0
    },
@@ -411599,10 +415173,12 @@
      "Pious Evangel // Wayward Disciple",
      "Popular Egotist",
      "Prosperous Innkeeper",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",
@@ -423234,10 +426810,12 @@
      "Queza, Augur of Agonies",
      "Shabraz, the Skyshark",
      "Sheoldred, the Apocalypse",
+     "Sludge Strider",
      "Social Climber",
      "Soul Net",
      "Soul Warden",
      "Syr Vondam, Sunstar Exemplar",
+     "Underhanded Designs",
      "Vein Ripper",
      "Venerated Stormsinger",
      "Vengeful Bloodwitch",

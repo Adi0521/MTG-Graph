@@ -1,0 +1,39 @@
+// Archetype: Temur copies (Riku of Two Reflections)
+Commander
+1 Riku of Two Reflections
+Deck
+1 Peregrine Drake
+1 Palinchron
+1 Great Whale
+1 Deadeye Navigator
+1 Ghostly Flicker
+1 Dualcaster Mage
+1 Kiki-Jiki, Mirror Breaker
+1 Splinter Twin
+1 Pestermite
+1 Deceiver Exarch
+1 Zealous Conscripts
+1 Twinflame
+1 Snap
+1 Frantic Search
+1 High Tide
+1 Cloud of Faeries
+1 Mnemonic Wall
+1 Archaeomancer
+1 Eternal Witness
+1 Sol Ring
+1 Arcane Signet
+1 Rhystic Study
+1 Counterspell
+1 Cultivate
+1 Kodama's Reach
+1 Birds of Paradise
+1 Thousand-Year Storm
+1 Panharmonicon
+1 Mystic Snake
+1 Reverberate
+1 Fork
+1 Biomass Mutation
+1 Brainstorm
+1 Mystical Tutor
+1 Worldly Tutor

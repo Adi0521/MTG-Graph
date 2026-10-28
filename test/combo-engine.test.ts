@@ -313,6 +313,72 @@ describe('findEngineCombos', () => {
     expect(combosOf('Squirrel Nest')).toEqual([]);
   });
 
+  it('pays for extra combats with mana from attacking and combat damage (Najeela, Aggravated Assault)', () => {
+    const [will] = combosOf('Najeela, the Blade-Blossom', "Nature's Will");
+    expect(will!.conditions).toEqual(expect.arrayContaining(['Your creatures deal combat damage to a player in each combat']));
+    expect(combosOf('Najeela, the Blade-Blossom', 'Grim Hireling')[0]!.conditions).toContain('Your creatures deal combat damage to 3 opponents in each combat');
+    expect(combosOf('Najeela, the Blade-Blossom', "Druids' Repository")[0]!.conditions).toContain('Creatures you control attack in each combat');
+    expect(combosOf('Aggravated Assault', 'Grand Warlord Radha')[0]!.helpers).toEqual(['Grand Warlord Radha']);
+    expect(combosOf('Hellkite Charger', 'Old Gnawbone')[0]!.helpers).toEqual(['Old Gnawbone']);
+    expect(combosOf('Najeela, the Blade-Blossom')).toEqual([]);
+    expect(combosOf('Aggravated Assault')).toEqual([]);
+    // A d20 roll is random, so Ancient Copper Dragon's Treasures are not counted.
+    expect(combosOf('Aggravated Assault', 'Ancient Copper Dragon')).toEqual([]);
+  });
+
+  it('sacrifices a creature in response to its own enter trigger (Felidar Guardian)', () => {
+    expect(sets('Felidar Guardian', 'Karmic Guide', "Ashnod's Altar")).toEqual([["Ashnod's Altar", 'Felidar Guardian', 'Karmic Guide']]);
+    expect(combosOf('Felidar Guardian', 'Reveillark', 'Phyrexian Altar')).toHaveLength(1);
+    expect(combosOf('Felidar Guardian', 'Emeria Shepherd', "Ashnod's Altar")[0]!.conditions).toContain('the land that enters is a Plains');
+    expect(combosOf('Felidar Guardian', "Ashnod's Altar")).toEqual([]);
+    expect(combosOf('Karmic Guide', "Ashnod's Altar")).toEqual([]);
+  });
+
+  it('needs two free artifacts for Teshar + Kor Skyfisher (the cast one is still on the stack)', () => {
+    expect(combosOf("Teshar, Ancestor's Apostle", "Ashnod's Altar", 'Kor Skyfisher', 'Ornithopter')).toEqual([]);
+    const [two] = combosOf("Teshar, Ancestor's Apostle", "Ashnod's Altar", 'Kor Skyfisher', 'Ornithopter', 'Memnite');
+    expect(two!.prerequisites.some((p) => /alternate it with/.test(p))).toBe(true);
+  });
+
+  it('exiles a library with Helm of Obedience when nothing reaches the graveyard', () => {
+    expect(combosOf('Helm of Obedience', 'Rest in Peace')[0]!.produces).toEqual(["Exiles an opponent's whole library"]);
+    expect(combosOf('Helm of Obedience', 'Leyline of the Void')).toHaveLength(1);
+    // Alone it stops at the first creature card, which depends on the library.
+    expect(combosOf('Helm of Obedience')).toEqual([]);
+  });
+
+  it('loops Parallax Wave exiling itself once something makes it a creature', () => {
+    expect(combosOf('Parallax Wave', 'Opalescence')[0]!.helpers).toEqual(['Opalescence']);
+    expect(combosOf('Parallax Wave', 'Starfield of Nyx')[0]!.conditions).toContain('Starfield of Nyx: you control five or more enchantments');
+    expect(combosOf('Parallax Wave')).toEqual([]);
+  });
+
+  it('chains spell copies once something makes the first copy (Kalamax + Fork)', () => {
+    expect(combosOf('Kalamax, the Stormsire', 'Fork')[0]!.produces).toContain('Infinite spell copies (copy triggers like magecraft)');
+    expect(combosOf('Kalamax, the Stormsire', 'Reverberate')).toHaveLength(1);
+    expect(combosOf('Fork')).toEqual([]);
+    expect(combosOf('Fork', 'Archmage Emeritus')).toEqual([]);
+  });
+
+  it('casts Dualcaster Mage again after a copy of Snap returns it (with Birgi)', () => {
+    expect(combosOf('Birgi, God of Storytelling', 'Dualcaster Mage', 'Snap')).toHaveLength(1);
+    expect(combosOf('Dualcaster Mage', 'Snap')).toEqual([]);
+  });
+
+  it('reads Kenrith reanimation, Derevi untaps, Food Chain and Mirrorworks', () => {
+    expect(combosOf('Kenrith, the Returned King', "Ashnod's Altar", 'Peregrine Drake')).toHaveLength(1);
+    expect(combosOf('Najeela, the Blade-Blossom', 'Derevi, Empyrial Tactician')[0]!.helpers).toEqual(['Derevi, Empyrial Tactician']);
+    const [chain] = combosOf('Food Chain', 'Eternal Scourge');
+    expect(chain!.produces[0]).toBe('Infinite mana of any color (only for creature spells)');
+    expect(combosOf('Food Chain')).toEqual([]);
+    expect(combosOf('Myr Retriever', 'Krark-Clan Ironworks', 'Mirrorworks')).toHaveLength(1);
+    expect(combosOf('Myr Retriever', 'Krark-Clan Ironworks')).toEqual([]);
+  });
+
+  it('does not loop Fiend Hunter with a flicker (its new trigger cannot target what the old one returns)', () => {
+    expect(combosOf('Felidar Guardian', 'Fiend Hunter')).toEqual([]);
+  });
+
   it('is deterministic', () => {
     const deck = parseDecklist(SAMPLE_COMMANDER_DECK).map((e) => card(e.name, e.quantity));
     expect(findEngineCombos([...deck].reverse())).toEqual(findEngineCombos(deck));
